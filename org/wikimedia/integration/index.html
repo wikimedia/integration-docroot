@@ -2,89 +2,101 @@
 <html dir="ltr" lang="en-US">
 <head>
 	<meta charset="utf-8">
-	<title>Continuous Integration - Wikimedia</title>
+	<title>Continuous integration - Wikimedia</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="//bits.wikimedia.org/favicon/wmf.ico">
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.min.css">
 	<style>
+	.footer {
+        background-color: #f5f5f5;
+	}
+
+	.footer p {
+		margin: 20px 0;
+	}
+
+	@media (max-width: 767px) {
+		.footer {
+			margin-left: -20px;
+			margin-right: -20px;
+			padding-left: 20px;
+			padding-right: 20px;
+        }
+	}
+
+	/**
+	 * Sticky footer
+	 */
+
+	html,
 	body {
-		margin: 0;
-		font-size: 14px;
-		line-height: 1.231;
-		font-family: sans-serif;
-		color: #333;
-		background: rgb(233, 233, 233);
+		height: 100%;
 	}
 
-	h1 {
-		overflow: hidden;
-		vertical-align:middle;
+	.page-wrap {
+		min-height: 100%;
+		height: auto !important;
+		height: 100%;
+		/* Bump footer up by its height */
+		margin: 0 auto -80px auto;
 	}
 
-	div {
-		width: 700px;
-		margin: 25px auto 40px;
-		padding: 5px 20px;
-		background: white;
-	}
-
-	p {
-		color: #666;
-	}
-	img.logo {
-		float: right;
-		margin: 5px;
-		width:66px;
-		height:50px;
-	}
-	ul {
-		line-height: 1.5em;
-	}
-
-	/** Mobile overrides */
-	@media only screen and (max-width:480px) {
-		div {
-			width: auto;
-			margin: 0px 10px;
-			padding:0;
-		}
-		h1 { margin:0; }
-		ul {
-			line-height: 2em;
-		}
+	/* Fixed height of footer */
+	.push,
+	.footer {
+		height: 80px;
 	}
 	</style>
 </head>
 <body>
-	<div>
-		<img src="//upload.wikimedia.org/wikipedia/commons/3/3d/Mediawiki-logo.png" class="logo">
-		<h1>Welcome!</h1>
-		<p>This the continous integration server for Wikimedia Foundation projects.</p>
-		<ul>
-		<li><a href="/ci/">Jenkins</a></li>
-		<li><a href="/zuul/status">Zuul status</a></li>
-		<li>Nightly builds:<br/>
-			<ul>
-			<li>
-			<a href="/nightly/mediawiki/core/">MediaWiki core</a> (<a href="/nightly/mediawiki/core/mediawiki-latest.zip">latest</a>)
-			</li>
-			<li>
-			<a href="/nightly/mobile/android-commons/">Commons</a> Android application
+<div class="page-wrap">
+	<div class="container">
+		<div class="page-header">
+			<img src="//upload.wikimedia.org/wikipedia/commons/3/3d/Mediawiki-logo.png"
+				width="101" height="76" alt="MediaWiki logo" class="logo pull-right">
+			<h2>Welcome!</h2>
+		</div>
+		<p>This is the <a href="//www.mediawiki.org/wiki/Continuous_integration">continous integration</a> server for <a href="//www.wikimedia.org/">Wikimedia Foundation</a> projects.</p>
+		<h4>Applications</h4>
+		<table class="table table-bordered table-hover">
+			<tr><td><a href="https://gerrit.wikimedia.org/r/">Gerrit</a> (code review)</td></tr>
+			<tr><td><a href="/ci/">Jenkins</a></td></tr>
+			<tr><td class="muted"><s>TestSwarm (QUnit/Javascript)</s>, disabled</td></tr>
+			<tr><td><a href="/zuul/status">Zuul status</a> (Gerrit/Jenkins gateway)</td></tr>
+		</table>
+
+		<h4>Nightly builds</h4>
+		<table class="table table-bordered table-hover">
+			<tr><td><a href="/nightly/mediawiki/core/">MediaWiki core</a> (<a href="/nightly/mediawiki/core/mediawiki-latest.zip">latest</a>)</td></tr>
+			<tr><td><a href="/nightly/mobile/android-commons/">Commons</a> Android application
 			(github: <a href="https://github.com/wikimedia/android-commons">android-commons</a>)
-			</li>
-			<li>
+			</td></tr>
+			<tr><td>
 			<a href="/WikipediaMobile/nightly/">Wikipedia</a> Android application
 			(github: <a href="https://github.com/wikimedia/WikipediaMobile">WikipediaMobile</a>)
-			</li>
-			<li>
+			</td></tr>
+			<tr><td>
 			<a href="/WiktionaryMobile/nightly/">Wiktionary</a> Android application
 			(github: <a href="https://github.com/wikimedia/WiktionaryMobile">WiktionaryMobile</a>)
-			</li>
-			<li>
+			</td></tr>
+			<tr><td>
 			<a href="/WLMMobile/nightly/">Wikimedia Loves Monument</a> Android application
 			(github: <a href="https://github.com/wikimedia/WLMMobile">WLMMobile</a>)
-			</li>
-			</ul>
-		</li>
-		</ul>
-		<p>Questions? Comments? Concerns? Contact <em>^demon</em>, <em>Krinkle</em> or <em>hashar</em> on <a href="irc://irc.freenode.net/#wikimedia-dev">#wikimedia-dev</a>.</p>
+			</td></tr>
+		</table>
+	</div><!-- /.container -->
+	<div class="push"></div>
+</div><!-- /.page-wrap -->
+<div class="footer">
+	<div class="container">
+		<p class="muted credit">
+			Questions? Comments? Concerns?<br>
+			Contact <em>^demon</em>, <em>Krinkle</em> or <em>hashar</em> on <a href="irc://irc.freenode.net/#wikimedia-dev">#wikimedia-dev</a>.
+		</p>
 	</div>
+</div>
+<script src="//bits.wikimedia.org/www.mediawiki.org/load.php?debug=false&amp;modules=jquery&amp;only=scripts&amp;raw=1"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
