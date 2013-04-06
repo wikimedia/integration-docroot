@@ -129,6 +129,7 @@ function update_timeout() {
 function update() {
 
     $.getJSON('/zuul/status.json', function(data) {
+        data = data || {};
         var html = '';
         if ('message' in data) {
             $('#message')
@@ -150,10 +151,10 @@ function update() {
         $('#pipeline-container').html(html);
 
         $('#trigger_event_queue_length').text(
-            data.trigger_event_queue.length
+             ( data.trigger_event_queue || [] ).length
         );
         $('#result_event_queue_length').text(
-            data.result_event_queue.length
+             ( data.result_event_queue || [] ).length
         );
 
     });
