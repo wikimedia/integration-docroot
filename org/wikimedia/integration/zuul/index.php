@@ -1,7 +1,7 @@
 <?php
 require_once( __DIR__ . '/../../../../shared/IntegrationPage.php' );
 
-$p = IntegrationPage::newFromPageName( 'Zuul status page' );
+$p = IntegrationPage::newFromPageName( 'Zuul Status' );
 $p->setDir( __DIR__ );
 $p->setRootDir( dirname( __DIR__ ) );
 
@@ -9,93 +9,103 @@ $p->embedCSS('
 /**
  * Zuul status
  */
-.change {
-	border: 1px solid #95c7db;
-	margin-top: 10px;
-	padding: 2px;
+.zuul-container {
+	transition-property: opacity, background-color;
+	transition-duration: 1s;
+	transition-timing-function: ease-in-out;
+	clear: both;
+	opacity: 0;
+	cursor: progress;
+	min-height: 200px;
+	background-color: #f8ffaa;
 }
 
-.change > .header {
-	background: #E2ECEF;
-	color: black;
-	margin: -2px -2px 2px -2px;
-	padding: 4px;
+.zuul-container-ready {
+	opacity: 1;
+	cursor: auto;
+	background-color: #fff;
 }
 
-.change > .header > .changeid {
-	float: right;
+.zuul-spinner {
+	opacity: 0;
+	transition: opacity 6s ease-in-out;
+	cursor: default;
+}
+.zuul-spinner-on {
+	opacity: 1;
+	transition-duration: 0.5s;
+	cursor: progress;
 }
 
-.job {
-	display: block;
-}
-
-.pipeline {
-	float: left;
-	width: 25em;
-	padding: 4px;
-}
-
-.pipeline > .header {
-	background: #0000cc;
-	color: white;
-}
-
-.arrow {
+.zuul-change-arrow {
 	text-align: center;
 	font-size: 16pt;
 	line-height: 1.0;
 }
 
-.result_success {
-	color: #007f00;
+.zuul-change-id {
+	text-transform: none;
+	float: right;
 }
 
-.result_failure {
-	color: #cf2f19;
+.zuul-change-job a {
+	overflow: auto;
 }
 
-.result_unstable {
-	color: #e39f00;
+.zuul-result {
+	text-shadow: none;
+	font-weight: normal;
+	float: right;
+	background-color: #E9E9E9;
+	color: #555;
 }
 
-a:link {
-	color: #204A87;
+.zuul-result.label-success {
+	background-color: #CDF0CD;
+	color: #468847;
 }
 
-#message p {
+.zuul-result.label-important {
+	background-color: #F1DBDA;
+	color: #B94A48;
+}
+
+.zuul-result.label-warning {
+	background-color: #F3E6D4;
+	color: #F89406;
+}
+
+.zuul-msg-wrap {
+	max-height: 150px;
+	overflow: hidden;
+}
+
+.zuul-container-ready .zuul-msg-wrap {
+	transition: max-height 1s ease-in;
+}
+
+.zuul-msg-wrap-off {
+	max-height: 0;
+}
+
+.zuul-msg p {
 	margin: 0;
-}
-
-.alertbox {
-	border: 1px solid #e5574d;
-	background: #ffaba5;
-	color: black;
-	padding: 1em;
-	font-size: 12pt;
-	margin: 0pt;
 }
 ');
 
 $p->addHtmlContent('
-<p>This is the status page for the Zuul daemon on Wikimedia infrastructure.</p>
+<p>Real-time status monitor of Zuul, the pipeline manager between Gerrit and Jenkins. <a href="https://www.mediawiki.org/wiki/Continuous_integration/Zuul">more info &raquo;</a></p>
 
-<p>Queue lengths: <span id="trigger_event_queue_length"></span> events,
-<span id="result_event_queue_length"></span> results.</p>
-
-<div class="container">
-	<div id="message"></div>
-</div>
-
-<div id="pipeline-container"></div>
-
-<!-- TODO: add graphite
-<div class="container" id="graph-container">
+<div class="zuul-container" id="zuul-container">
+	<p>Queue lengths: <span id="zuul-eventqueue-length">..</span> events, <span id="zuul-resulteventqueue-length">..</span> results.</p>
+	<div id="zuul-pipelines" class="row"></div>
+	<!-- TODO: add graphite
 	<h2>Job statistics</h2>
+	-->
 </div>
--->
 ');
 
+$p->enableFooter();
 $p->addScript( 'status.js' );
 
 $p->flush();

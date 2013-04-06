@@ -96,8 +96,12 @@ class IntegrationPage {
  * Logo
  */
 .logo {
-	float: right;
-	background: #fff; /* Fix header line through logo */
+	vertical-align: middle;
+	margin-right: 1em;
+}
+
+.page-header {
+	overflow: hidden;
 }
 ');
 
@@ -166,11 +170,11 @@ body {
 <div class="page-wrap">
 	<div class="container">
 		<div class="page-header">
-			<a href="//www.wikimedia.org/">
-				<img src="//upload.wikimedia.org/wikipedia/foundation/9/9a/Wikimediafoundation-logo.png"
-					width="135" height="135" title="Visit Wikimedia.org" alt="Wikimedia Foundation logo" class="logo">
-			</a>
-			<h2><?php echo htmlentities( $this->pageName ); ?></h2>
+			<h2>
+				<a href="//www.wikimedia.org/"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/1/12/Wikimedia_logo_text_RGB.svg/120px-Wikimedia_logo_text_RGB.svg.png"
+					width="120" height="120" title="Visit Wikimedia.org" alt="Wikimedia Foundation logo" class="logo"></a>
+				<?php echo htmlentities( $this->pageName ); ?>
+			</h2>
 		</div>
 <?php echo "\t\t" . implode( "\n\t\t", explode( "\n", $this->content ) ) . "\n"; ?>
 	</div><!-- /.container -->
