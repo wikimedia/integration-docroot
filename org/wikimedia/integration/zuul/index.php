@@ -26,12 +26,16 @@ $p->embedCSS('
 	background-color: #fff;
 }
 
-.zuul-spinner {
+.zuul-spinner,
+.zuul-spinner:hover /* override bootstrap .btn:hover */ {
 	opacity: 0;
 	transition: opacity 6s ease-in-out;
 	cursor: default;
+	pointer-events: none;
 }
-.zuul-spinner-on {
+
+.zuul-spinner-on,
+.zuul-spinner-on:hover {
 	opacity: 1;
 	transition-duration: 0.5s;
 	cursor: progress;
