@@ -171,7 +171,7 @@ body {
 	<div class="container">
 		<div class="page-header">
 			<h2>
-				<a href="//www.wikimedia.org/"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/1/12/Wikimedia_logo_text_RGB.svg/120px-Wikimedia_logo_text_RGB.svg.png"
+				<a href="//www.wikimedia.org/"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/1/12/Wikimedia_logo_text_RGB.svg/240px-Wikimedia_logo_text_RGB.svg.png"
 					width="120" height="120" title="Visit Wikimedia.org" alt="Wikimedia Foundation logo" class="logo"></a>
 				<?php echo htmlentities( $this->pageName ); ?>
 			</h2>
