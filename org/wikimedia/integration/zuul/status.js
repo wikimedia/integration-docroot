@@ -1,4 +1,4 @@
-// Client script for Zuul status page.
+// Client script for Zuul status page (wmf version)
 //
 // Copyright 2012 OpenStack Foundation
 // Copyright 2013 Timo Tijhof
@@ -100,7 +100,7 @@
 				if (id.length === 40) {
 					id = id.substr(0, 7);
 				}
-				html += '<span class="zuul-change-id">';
+				html += ' <span class="zuul-change-id">';
 				if (url !== null) {
 					html += '<a href="' + url + '">';
 				}
