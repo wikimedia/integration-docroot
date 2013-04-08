@@ -49,17 +49,11 @@ $p->embedCSS('
 
 .zuul-change-id {
 	text-transform: none;
-	float: right;
-}
-
-.zuul-change-job a {
-	overflow: auto;
 }
 
 .zuul-result {
 	text-shadow: none;
 	font-weight: normal;
-	float: right;
 	background-color: #E9E9E9;
 	color: #555;
 }
@@ -94,6 +88,23 @@ $p->embedCSS('
 
 .zuul-msg p {
 	margin: 0;
+}
+
+/**
+ * Zuul status (bootstrap layout)
+ */
+
+.zuul-change-id {
+	float: right;
+}
+
+.zuul-change-job-link {
+	overflow: auto;
+	display: block;
+}
+
+.zuul-result {
+	float: right;
 }
 ');
 

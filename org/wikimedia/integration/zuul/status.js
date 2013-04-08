@@ -20,7 +20,9 @@
 (function ($) {
 	var $container, $msg, $msgWrap, $indicator, prevHtml, xhr, zuul, $jq,
 		demo = location.search.match(/[?&]demo=([^?&]*)/),
-		source = demo ? './sample-status-' + (demo[1] || 'basic') + '.json' : '/zuul/status.json';
+		source = demo ?
+			'./sample-status-' + (demo[1] || 'basic') + '.json' :
+			'/zuul/status.json';
 
 	zuul = {
 		enabled: true,
@@ -129,17 +131,15 @@
 						break;
 					}
 					html += '<li class="zuul-change-job">';
-					if (job.url !== null) {
-						html += '<a href="' + job.url + '">';
-					}
+					html += job.url !== null ?
+						'<a href="' + job.url + '" class="zuul-change-job-link">' :
+						'<span class="zuul-change-job-link">';
 					html += job.name;
 					html += ' <span class="' + resultClass + '">' + result + '</span>';
 					if (job.voting === false) {
 						html += ' <span class="muted">(non-voting)</span>';
 					}
-					if (job.url !== null) {
-						html += '</a>';
-					}
+					html += job.url !== null ? '</a>' : '</span>';
 					html += '</li>';
 				});
 

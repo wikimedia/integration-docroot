@@ -126,20 +126,32 @@
                                     {
                                         "name": "zuul-test",
                                         "url": "#!/jenkins.example.org/job/zuul-test/200",
-                                        "result": "SUCCESS",
-                                        "voting": true
-                                    },
-                                    {
-                                        "name": "zuul-regression",
-                                        "url": "#!/jenkins.example.org/job/zuul-regression/200",
                                         "result": "FAILURE",
                                         "voting": true
                                     },
                                     {
-                                        "name": "zuul-performance",
-                                        "url": "#!/jenkins.example.org/job/zuul-performance/200",
+                                        "name": "zuul-regression-python2",
+                                        "url": "#!/jenkins.example.org/job/zuul-regression-python2/200",
+                                        "result": "SUCCESS",
+                                        "voting": true
+                                    },
+                                    {
+                                        "name": "zuul-regression-python3",
+                                        "url": "#!/jenkins.example.org/job/zuul-regression-python3/200",
+                                        "result": "FAILURE",
+                                        "voting": true
+                                    },
+                                    {
+                                        "name": "zuul-performance-python2",
+                                        "url": null,
                                         "result": null,
-                                        "voting": false
+                                        "voting": true
+                                    },
+                                    {
+                                        "name": "zuul-performance-python3",
+                                        "url": null,
+                                        "result": null,
+                                        "voting": true
                                     },
                                     {
                                         "name": "zuul-docs-publish",
