@@ -72,10 +72,10 @@
 				}
 
 				$('#zuul-eventqueue-length').text(
-					data.trigger_event_queue ? data.trigger_event_queue.length : '?'
+					data.trigger_event_queue ? data.trigger_event_queue.length : '0'
 				);
 				$('#zuul-resulteventqueue-length').text(
-					data.result_event_queue ? data.result_event_queue.length : '?'
+					data.result_event_queue ? data.result_event_queue.length : '0'
 				);
 			})
 			.fail(function (err, jqXHR, errMsg) {
