@@ -1,10 +1,11 @@
-jenkins-autodeploy
 /localhost/qunit/
-/org/wikimedia/integration/WLMMobile/nightly/
-/org/wikimedia/integration/WikipediaMobile/nightly/
-/org/wikimedia/integration/WiktionaryMobile/nightly/
-/org/wikimedia/integration/coverage/
-/org/wikimedia/integration/nightly/
+/org/wikimedia/doc/VisualEditor/
 /org/wikimedia/doc/mediawiki-core/
 /org/wikimedia/doc/puppet/
 /org/wikimedia/doc/puppetsource/
+/org/wikimedia/integration/WLMMobile/nightly/
+/org/wikimedia/integration/WikipediaMobile/nightly/
+/org/wikimedia/integration/WiktionaryMobile/nightly/
+/org/wikimedia/integration/cover/
+/org/wikimedia/integration/nightly/
+jenkins-autodeploy
