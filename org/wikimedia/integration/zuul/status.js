@@ -52,7 +52,7 @@
 				cache: false
 			})
 			.done(function (data) {
-				var html = '';
+				var pipelines, html = '';
 				data = data || {};
 
 				if ('message' in data) {
@@ -63,7 +63,11 @@
 					$msgWrap.addClass('zuul-msg-wrap-off');
 				}
 
-				$.each(data.pipelines, function (i, pipeline) {
+				// Sort by name
+				pipelines = data.pipelines.sort(function (a, b) {
+					return a.name > b.name;
+				});
+				$.each(pipelines, function (i, pipeline) {
 					html += zuul.format.pipeline(pipeline);
 				});
 
