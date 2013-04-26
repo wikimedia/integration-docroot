@@ -1,0 +1,5 @@
+# Jenkins installation. You are definitely not interested
+# in browsing that.
+# To bypass this rule simply enter: ↑↑↓↓←→←→BA
+User-agent: *
+Disallow: /ci
