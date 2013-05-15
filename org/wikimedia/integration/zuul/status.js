@@ -23,7 +23,7 @@
 		demo = location.search.match(/[?&]demo=([^?&]*)/),
 		source = demo ?
 			'./sample-status-' + (demo[1] || 'basic') + '.json' :
-			'/zuul/status.json',
+			'status.json',
 		nonce = $.now();
 
 	/**
