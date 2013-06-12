@@ -108,19 +108,7 @@ $p->embedCSS('
 }
 ');
 
-$p->addHtmlContent('
-<p>Real-time status monitor of Zuul, the pipeline manager between Gerrit and Jenkins. <a href="https://www.mediawiki.org/wiki/Continuous_integration/Zuul">more info &raquo;</a></p>
-
-<div class="zuul-container" id="zuul-container">
-	<p>Queue lengths: <span id="zuul-eventqueue-length">..</span> events, <span id="zuul-resulteventqueue-length">..</span> results.</p>
-	<div id="zuul-pipelines" class="row"></div>
-	<!-- TODO: add graphite
-	<h2>Job statistics</h2>
-	-->
-</div>
-');
-
+$p->addHtmlFile( 'default.html' );
 $p->enableFooter();
 $p->addScript( 'status.js' );
-
 $p->flush();

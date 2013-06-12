@@ -90,6 +90,31 @@ class IntegrationPage {
 		$this->content .= trim( $html );
 	}
 
+	/**
+	 * @param string $file
+	 */
+	public function addHtmlFile( $file ) {
+
+		$isRelativePath = ( substr( $file, 0 ) !== '/' );
+
+		if ( $isRelativePath && $this->dir ) {
+			# We explicitly set a base path, prepend it
+			# to relative paths.
+			$file = $this->dir . DIRECTORY_SEPARATOR . $file;
+		}
+
+		if( !file_exists( $file ) ) {
+			return false;
+		}
+
+		$content = file_get_contents( $file );
+		if( $content === false ) {
+			# TODO output an error page?
+			return false;
+		}
+		$this->content .= trim( $content );
+	}
+
 	public function flush() {
 		$this->embedCSS('
 /**
