@@ -166,6 +166,7 @@ class IntegrationPage {
 		<a class="brand" href="/"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Wikimedia-logo.svg/24px-Wikimedia-logo.svg.png" alt="WMF" /></a>
 		<ul class="nav">
 			<li class="divider-vertical"></li>
+			<li><a href="/dashboard/">Dashboard</a></li>
 			<li><a href="https://gerrit.wikimedia.org/r/">Gerrit</a></li>
 			<li><a href="https://integration.wikimedia.org/ci/">Jenkins</a></li>
 			<li><a href="/nightly/">Nightly</a></li>
