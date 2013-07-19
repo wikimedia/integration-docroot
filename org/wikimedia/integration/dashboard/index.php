@@ -29,9 +29,10 @@ foreach( $build_status as $section => $status) {
 	$content .= "\n<h3>$section</h3>\n<ul class=\"unstyled\">";
 	foreach( $status as $jobname => $title ) {
 		$content .= <<<HTML
-<li> <a href="$jenkins_url/ci/job/$jobname/">
-	<img width="108" src="$jenkins_url/buildStatus/icon?job=$jobname" />
-	$title
+<li><a href="$jenkins_url/job/$jobname/">
+	<img width="108" src="$jenkins_url/buildStatus/icon?job=$jobname" /></a>
+	&#160;
+	<a href="$jenkins_url/job/$jobname/">$title</a>
 </a></li>
 HTML;
 	}
