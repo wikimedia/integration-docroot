@@ -73,6 +73,13 @@ class IntegrationPage {
 	}
 
 	/**
+	 * @param string filename relative to /shared
+	 */
+	public function embedCSSFile( $cssFile ) {
+		$this->embeddedCSS[] = file_get_contents( __DIR__ . '/' . $cssFile );
+	}
+
+	/**
 	 * @param string $src Path to script (may be relative)
 	 */
 	public function addScript( $src ) {
@@ -131,47 +138,7 @@ class IntegrationPage {
 ');
 
 	if ( $this->hasFooter ) {
-		$this->embedCSS('
-/**
- * Footer
- */
-
-.footer {
-	background-color: #f5f5f5;
-}
-
-.footer p {
-	margin: 20px 0;
-}
-
-@media (max-width: 767px) {
-	.footer {
-		margin-left: -20px;
-		margin-right: -20px;
-		padding-left: 20px;
-		padding-right: 20px;
-	}
-}
-
-html,
-body {
-	height: 100%;
-}
-
-.page-wrap {
-	min-height: 100%;
-	height: auto !important;
-	height: 100%;
-	/* Bump footer up by its height */
-	margin: 0 auto -80px auto;
-}
-
-/* Fixed height of footer */
-.push,
-.footer {
-	height: 80px;
-}');
-
+		$this->embedCSSFile('footer.css');
 	}
 
 	$bootstrapPathHtml = htmlspecialchars( $this->getBootstrapPath() );
