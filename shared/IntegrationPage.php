@@ -150,6 +150,7 @@ class IntegrationPage {
 	<title><?php echo htmlentities( $this->pageName . ' - ' . $this->site ); ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="//bits.wikimedia.org/favicon/wmf.ico">
+	<style>body { padding-top: 40px } </style>
 	<link rel="stylesheet" href="<?php echo $bootstrapPathHtml; ?>/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php echo $bootstrapPathHtml; ?>/css/bootstrap-responsive.min.css">
 <?php
@@ -159,6 +160,20 @@ class IntegrationPage {
 ?>
 </head>
 <body>
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+		<a class="brand" href="/"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Wikimedia-logo.svg/24px-Wikimedia-logo.svg.png" alt="WMF" /></a>
+		<ul class="nav">
+			<li class="divider-vertical"></li>
+			<li><a href="https://gerrit.wikimedia.org/r/">Gerrit</a></li>
+			<li><a href="https://integration.wikimedia.org/ci/">Jenkins</a></li>
+			<li><a href="/nightly/">Nightly</a></li>
+			<li><a href="/zuul/">Zuul</a></li>
+		</ul>
+		</div>
+	</div>
+</div>
 <div class="page-wrap">
 	<div class="container">
 		<div class="page-header">
