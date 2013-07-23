@@ -1,5 +1,6 @@
 <?php
 require_once( __DIR__ . '/../../../../shared/IntegrationPage.php' );
+
 $p = IntegrationPage::newFromPageName( 'CI Dashboard' );
 $p->setDir( __DIR__ );
 $p->setRootDir( dirname( __DIR__ ) );
@@ -30,7 +31,7 @@ foreach( $build_status as $section => $status) {
 	foreach( $status as $jobname => $title ) {
 		$content .= <<<HTML
 <li><a href="$jenkins_url/job/$jobname/">
-	<img width="108" src="$jenkins_url/buildStatus/icon?job=$jobname" /></a>
+	<img width="108" src="$jenkins_url/buildStatus/icon?job=$jobname"></a>
 	&#160;
 	<a href="$jenkins_url/job/$jobname/">$title</a>
 </a></li>

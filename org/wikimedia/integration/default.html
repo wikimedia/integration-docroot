@@ -6,9 +6,9 @@
 <h4>Applications</h4>
 		<table class="table table-bordered table-hover">
 			<tr><td><a href="https://gerrit.wikimedia.org/r/">Gerrit</a> (code review)</td></tr>
-			<tr><td><a href="ci/">Jenkins</a></td></tr>
+			<tr><td><a href="{{ROOT}}/ci/">Jenkins</a></td></tr>
 			<tr><td class="muted"><s>TestSwarm (QUnit/Javascript)</s>, disabled</td></tr>
-			<tr><td><a href="zuul/">Zuul status</a> (Gerrit/Jenkins gateway)</td></tr>
+			<tr><td><a href="{{ROOT}}/zuul/">Zuul status</a> (Gerrit/Jenkins gateway)</td></tr>
 		</table>
 
 		<h4>Nightly builds</h4>
@@ -38,8 +38,8 @@
 		http://sourceforge.net/apps/trac/ganglia/wiki/ganglia_modular_graph_documentation
 		-->
 		<a href="https://ganglia.wikimedia.org/latest/graph_all_periods.php?title=Jenkins+Queues&amp;vl=&amp;x=&amp;n=&amp;hreg%5B%5D=gallium&amp;mreg%5B%5D=jenkins_overallload&amp;gtype=line&amp;glegend=show&amp;aggregate=1">
-			<img alt="Jenkins queues last hour" src="https://ganglia.wikimedia.org/latest/graph.php?r=hour&amp;width=170&amp;height=50&amp;title=Jenkins+queues&amp;hreg%5B%5D=gallium&amp;mreg%5B%5D=jenkins_overallload.%2A&amp;gtype=line&amp;glegend=hide&amp;aggregate=1&amp;_=1372432670708" />
-			<img alt="Jenkins queues last day" src="https://ganglia.wikimedia.org/latest/graph.php?r=day&amp;width=170&amp;height=50&amp;title=Jenkins+queues&amp;hreg%5B%5D=gallium&amp;mreg%5B%5D=jenkins_overallload.%2A&amp;gtype=line&amp;glegend=hide&amp;aggregate=1&amp;_=1372432670708" />
+			<img alt="Jenkins queues last hour" src="https://ganglia.wikimedia.org/latest/graph.php?r=hour&amp;width=170&amp;height=50&amp;title=Jenkins+queues&amp;hreg%5B%5D=gallium&amp;mreg%5B%5D=jenkins_overallload.%2A&amp;gtype=line&amp;glegend=hide&amp;aggregate=1&amp;_=1372432670708">
+			<img alt="Jenkins queues last day" src="https://ganglia.wikimedia.org/latest/graph.php?r=day&amp;width=170&amp;height=50&amp;title=Jenkins+queues&amp;hreg%5B%5D=gallium&amp;mreg%5B%5D=jenkins_overallload.%2A&amp;gtype=line&amp;glegend=hide&amp;aggregate=1&amp;_=1372432670708">
 		</a>
 
 		<h4>Beta cluster</h4>
@@ -47,20 +47,20 @@
 		<a href='https://integration.wikimedia.org/ci/view/Beta/job/beta-mediawiki-config-update/'>
 			<img src='https://integration.wikimedia.org/ci/buildStatus/icon?job=beta-mediawiki-config-update'>
 		</a>
-		MW conf</br>
+		MW conf<br>
 
 		<a href='https://integration.wikimedia.org/ci/job/beta-update-databases/'>
 			<img src='https://integration.wikimedia.org/ci/buildStatus/icon?job=beta-update-databases'>
 		</a>
-		DB update<br/>
+		DB update<br>
 
 		<a href='https://integration.wikimedia.org/ci/view/Beta/job/beta-recompile-math-texvc/'>
 			<img src='https://integration.wikimedia.org/ci/buildStatus/icon?job=beta-recompile-math-texvc'>
 		</a>
-		texvc (math)<br/>
+		texvc (math)<br>
 
-		<a href='https://integration.wikimedia.org/ci/view/Beta/'>Jenkins view for Beta</a><br/>
-		More on <a href='/dashboard/'>/dashboard/</a> ...
+		<a href='https://integration.wikimedia.org/ci/view/Beta/'>Jenkins view for Beta</a><br>
+		More on <a href='{{ROOT}}/dashboard/'>Dashboard</a>.
 	</div>
 </div>
 </div><!-- /container-fluid-->

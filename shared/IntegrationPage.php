@@ -37,6 +37,28 @@ class IntegrationPage {
 	}
 
 	/**
+	 * @return string: URL path to integration portal root (with trailing slash).
+	 */
+	public function getRootPath() {
+		$subpath = '';
+		if ( $this->rootDir && $this->dir ) {
+			// __DIR__ = /docroot/shared/
+			$docrootRepoDir = dirname( __DIR__ );
+			if ( strpos( $this->rootDir, $docrootRepoDir ) === 0 && strpos( $this->dir, $this->rootDir ) === 0 ) {
+				$path = $this->dir;
+				while ( $path !== $this->rootDir && strpos( $path, $this->rootDir ) === 0 ) {
+					$path = dirname( $path );
+					if ( $subpath !== '' ) {
+						$subpath .= '/';
+					}
+					$subpath .= '..';
+				}
+			}
+		}
+		return $subpath === '' ? '.' : $subpath;
+	}
+
+	/**
 	 * @param string $path
 	 */
 	public function setBootstrapPath( $path ) {
@@ -44,25 +66,13 @@ class IntegrationPage {
 	}
 
 	/**
-	 * @return string: Path to boostrap (without trailing slash).
+	 * @return string: URL path to boostrap (without trailing slash).
 	 */
 	public function getBootstrapPath() {
 		if ( $this->bootstrapPath ) {
 			return $this->bootstrapPath;
 		}
-		$subpath = '';
-		if ( $this->rootDir && $this->dir ) {
-			// __DIR__ = /docroot/shared/
-			$docrootRepoDir = dirname( __DIR__ ) . '/';
-			if ( strpos( $this->rootDir, $docrootRepoDir ) === 0 && strpos( $this->dir, $this->rootDir ) === 0 ) {
-				$path = $this->dir;
-				while ( $path !== $this->rootDir && strpos( $path, $this->rootDir ) === 0 ) {
-					$path = dirname( $path );
-					$subpath .= '../';
-				}
-			}
-		}
-		return $subpath .'bootstrap';
+		return $this->getRootPath() . '/bootstrap';
 	}
 
 	/**
@@ -141,6 +151,7 @@ class IntegrationPage {
 		$this->embedCSSFile('footer.css');
 	}
 
+	$rootPathHtml = htmlspecialchars( $this->getRootPath() );
 	$bootstrapPathHtml = htmlspecialchars( $this->getBootstrapPath() );
 
 ?><!DOCTYPE html>
@@ -163,14 +174,14 @@ class IntegrationPage {
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
-		<a class="brand" href="/"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Wikimedia-logo.svg/24px-Wikimedia-logo.svg.png" alt="WMF" /></a>
+		<a class="brand" href="<?php echo $rootPathHtml; ?>"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/8/81/Wikimedia-logo.svg/48px-Wikimedia-logo.svg.png" width="24px" title="Navigate to Continuous integration home"></a>
 		<ul class="nav">
 			<li class="divider-vertical"></li>
-			<li><a href="/dashboard/">Dashboard</a></li>
+			<li><a href="<?php echo $rootPathHtml; ?>/dashboard/">Dashboard</a></li>
 			<li><a href="https://gerrit.wikimedia.org/r/">Gerrit</a></li>
 			<li><a href="https://integration.wikimedia.org/ci/">Jenkins</a></li>
-			<li><a href="/nightly/">Nightly</a></li>
-			<li><a href="/zuul/">Zuul</a></li>
+			<li><a href="<?php echo $rootPathHtml; ?>/nightly/">Nightly</a></li>
+			<li><a href="<?php echo $rootPathHtml; ?>/zuul/">Zuul</a></li>
 		</ul>
 		</div>
 	</div>
@@ -180,13 +191,17 @@ class IntegrationPage {
 		<div class="page-header">
 			<h2>
 				<a href="//www.wikimedia.org/">
-				<img src="//upload.wikimedia.org/wikipedia/commons/thumb/1/12/Wikimedia_logo_text_RGB.svg/100px-Wikimedia_logo_text_RGB.svg.png"
+				<img src="//upload.wikimedia.org/wikipedia/commons/thumb/1/12/Wikimedia_logo_text_RGB.svg/200px-Wikimedia_logo_text_RGB.svg.png"
 					width="100" height="92" title="Visit Wikimedia.org" alt="Wikimedia Foundation logo" class="logo">
 				</a>
 				<?php echo htmlentities( $this->pageName ); ?>
 			</h2>
 		</div>
-<?php echo "\t\t" . implode( "\n\t\t", explode( "\n", $this->content ) ) . "\n"; ?>
+<?php
+	echo "\t\t";
+	$content = str_replace( '{{ROOT}}', $rootPathHtml, $this->content );
+	echo implode( "\n\t\t", explode( "\n", $content ) ) . "\n";
+?>
 	</div><!-- /.container -->
 <?php if ( $this->hasFooter ) { echo "\t<div class=\"push\"></div>\n"; } ?>
 </div><!-- /.page-wrap -->
