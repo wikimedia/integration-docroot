@@ -147,10 +147,9 @@ class Page {
 		return <<<HTML
 <ul class="nav">
 	<li class="divider-vertical"></li>
+	<li><a href="https://gerrit.wikimedia.org/r/">Gerrit</a></li>
 	<li><a href="https://integration.wikimedia.org/">Integration</a></li>
 	<li><a href="https://doc.wikimedia.org/">Documentation</a></li>
-	<li><a href="https://gerrit.wikimedia.org/r/">Gerrit</a></li>
-	<li><a href="https://integration.wikimedia.org/ci/">Jenkins</a></li>
 </ul>
 HTML;
 	}
@@ -168,10 +167,14 @@ HTML;
 .page-header {
 	overflow: hidden;
 }
+
+.page-wrap {
+	padding-top: 55px;
+}
 ');
 
 	if ( $this->hasFooter ) {
-		$this->embedCSSFile('footer.css');
+		$this->embedCSSFile( 'footer.css' );
 	}
 
 	$rootPathHtml = htmlspecialchars( $this->getRootPath() );
@@ -190,7 +193,6 @@ HTML;
 	?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="//bits.wikimedia.org/favicon/wmf.ico">
-	<style>body { padding-top: 40px } </style>
 	<link rel="stylesheet" href="<?php echo $bootstrapPathHtml; ?>/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php echo $bootstrapPathHtml; ?>/css/bootstrap-responsive.min.css">
 <?php
@@ -212,11 +214,11 @@ HTML;
 </div>
 <div class="page-wrap">
 	<div class="container">
-		<div class="page-header">
-			<h2>
-				<?php echo htmlentities( $this->pageName ); ?>
-			</h2>
-		</div>
+<?php
+	if ( $this->pageName ) {
+		echo '<div class="page-header"><h2>' . htmlentities( $this->pageName ) . '</h2></div>';
+	}
+?>
 <?php
 	echo $this->processHtmlContent( $this->content, "\t\t" );
 ?>
