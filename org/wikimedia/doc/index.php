@@ -1,7 +1,7 @@
 <?php
-require_once( __DIR__ . '/../../../shared/IntegrationPage.php' );
+require_once __DIR__ . '/../../../shared/DocPage.php';
 
-$p = IntegrationPage::newFromPageName( 'Documentation' );
+$p = DocPage::newIndex();
 
 $p->addHtmlContent('
 <ul>
