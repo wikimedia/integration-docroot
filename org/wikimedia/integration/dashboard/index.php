@@ -10,6 +10,7 @@ $p->enableFooter();
 $build_status = array(
 	# section => Jenkins ob name => job title
 	'Beta cluster' => array(
+		'beta-code-update' => 'MW code',
 		'beta-mediawiki-config-update' => 'MW conf',
 		'beta-update-databases' => 'DB update',
 		'beta-recompile-math-texvc' => 'texvc (math)',
