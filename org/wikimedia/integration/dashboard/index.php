@@ -23,6 +23,9 @@ $build_status = array(
 		'mediawiki-core-doxygen-publish' => 'doxygen',
 		'mediawiki-core-jsduck-publish' => 'jsduck',
 	),
+	'Misc' => array(
+		'operations-puppet-doc' => 'puppet doc',
+	),
 );
 $jenkins_url = 'https://integration.wikimedia.org/ci';
 
