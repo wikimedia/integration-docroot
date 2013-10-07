@@ -3,6 +3,7 @@
 <div class="zuul-container" id="zuul-container">
 	<p>Queue lengths: <span id="zuul-eventqueue-length">..</span> events, <span id="zuul-resulteventqueue-length">..</span> results.</p>
 	<div id="zuul-pipelines" class="row"></div>
-	<!-- courtesy of OpenStack Foundation -->
-	<img src="http://graphite.wikimedia.org/render/?from=-24hours&height=180&until=now&width=334&bgcolor=ffffff&fgcolor=000000&target=alias(summarize(stats_counts.gerrit.event.comment-added,%20'1h'),%20'Comment%20added')&target=alias(summarize(stats_counts.gerrit.event.patchset-created,%20'1h'),%20'Patchset%20created')&target=alias(summarize(stats_counts.gerrit.event.change-merged,%20'1h'),%20'Change%20merged')&title=Gerrit%20Events%20(per%20Hour)" />
+	<!-- Courtesy of OpenStack Foundation -->
+	<h4>Job Stats</h4>
+	<img src="//graphite.wikimedia.org/render/?from=-24hours&amp;height=180&amp;until=now&amp;width=334&amp;bgcolor=ffffff&amp;fgcolor=000000&amp;target=alias(summarize(stats_counts.gerrit.event.comment-added,%20'1h'),%20'Comment%20added')&amp;target=alias(summarize(stats_counts.gerrit.event.patchset-created,%20'1h'),%20'Patchset%20created')&amp;target=alias(summarize(stats_counts.gerrit.event.change-merged,%20'1h'),%20'Change%20merged')&amp;title=Gerrit%20Events%20(per%20Hour)" title="Gerrit Events (per Hour)" />
 </div>
