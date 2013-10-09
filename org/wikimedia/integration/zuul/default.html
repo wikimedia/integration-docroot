@@ -5,7 +5,51 @@
 	<div id="zuul-pipelines" class="row"></div>
 	<!-- Courtesy of OpenStack Foundation -->
 	<h4>Job Stats</h4>
-	<img src="//graphite.wikimedia.org/render/?from=-24hours&amp;height=180&amp;until=now&amp;width=334&amp;bgcolor=ffffff&amp;fgcolor=000000&amp;target=alias(summarize(stats_counts.gerrit.event.comment-added,%20'1h'),%20'Comment%20added')&amp;target=alias(summarize(stats_counts.gerrit.event.patchset-created,%20'1h'),%20'Patchset%20created')&amp;target=alias(summarize(stats_counts.gerrit.event.change-merged,%20'1h'),%20'Change%20merged')&amp;title=Gerrit%20Events%20(per%20Hour)" title="Gerrit events (per Hour)" />
-
-	<img src="//graphite.wikimedia.org/render/?from=-24hours&amp;height=180&amp;until=now&amp;width=334&amp;bgcolor=ffffff&amp;fgcolor=000000&amp;target=alias(summarize(sumSeries(stats.gauges.zuul.pipeline.*.current_changes),'1h'),'Changes')&amp;title=Zuul%20processing%20(per%20hour)" title="Zuul (per hour)" />
+	<img title="Gerrit events per hour" src="//graphite.wikimedia.org/render/?from=-24hours
+&amp;height=180
+&amp;until=now
+&amp;width=400
+&amp;bgcolor=ffffff
+&amp;fgcolor=000000
+&amp;target=alias(summarize(stats_counts.gerrit.event.comment-added,%20'1h'),%20'Comment%20added')
+&amp;target=alias(summarize(stats_counts.gerrit.event.patchset-created,%20'1h'),%20'Patchset%20created')
+&amp;target=alias(summarize(stats_counts.gerrit.event.change-merged,%20'1h'),%20'Change%20merged')
+&amp;title=Gerrit%20Events%20(per%20Hour)" title="Gerrit events (per Hour)" />
+	<img title="Zuul processing" src="//graphite.wikimedia.org/render/?from=-24hours
+&amp;height=180
+&amp;until=now
+&amp;width=400
+&amp;bgcolor=ffffff
+&amp;fgcolor=000000
+&amp;areaMode=first
+&amp;lineMode=staircase
+&amp;target=alias(summarize(sumSeries(stats.gauges.zuul.pipeline.*.current_changes),'1h'),'Changes')
+&amp;title=Zuul%20processing%20(per%20hour)" title="Zuul (per hour)" />
+<br/>
+	<img title="Zuul test pipeline" src="//graphite.wikimedia.org/render/?from=-24hours
+&amp;height=180
+&amp;until=now
+&amp;width=400
+&amp;bgcolor=ffffff
+&amp;fgcolor=000000
+&amp;areaMode=first
+&amp;colorList=orange,blue,red
+&amp;target=alias(summarize(stats.gauges.zuul.pipeline.test.current_changes,'15min','min'),'15min minimum')
+&amp;target=alias(summarize(stats.gauges.zuul.pipeline.test.current_changes,'1min'),'1min avg')
+&amp;target=alias(summarize(stats.gauges.zuul.pipeline.test.current_changes,'1h','max'),'hourly max')
+&amp;title=Zuul%20test%20pipeline" />
+	<img title="Zuul gate pipeline" src="//graphite.wikimedia.org/render/?from=-24hours
+&amp;height=180
+&amp;until=now
+&amp;width=400
+&amp;bgcolor=ffffff
+&amp;fgcolor=000000
+&amp;areaMode=first
+&amp;colorList=orange,blue,red
+&amp;target=alias(summarize(stats.gauges.zuul.pipeline.gate-and-submit.current_changes,'15min','min'),'15min minimum')
+&amp;target=alias(summarize(stats.gauges.zuul.pipeline.gate-and-submit.current_changes,'1min'),'1min avg')
+&amp;target=alias(summarize(stats.gauges.zuul.pipeline.gate-and-submit.current_changes,'1h','max'),'hourly max')
+&amp;title=Zuul%20gate%20pipeline" />
+<!--
+-->
 </div>
