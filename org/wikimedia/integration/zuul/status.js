@@ -197,14 +197,20 @@
 
 	$jq.on('update-start', function () {
 		$container.addClass('zuul-container-loading');
-		$indicator.addClass('zuul-spinner-on');
+
+		$indicator
+			.addClass('zuul-spinner-on')
+			.html('updating <i class="icon-refresh"></i>');
 	});
 
 	$jq.on('update-end', function () {
 		$container.removeClass('zuul-container-loading');
 		setTimeout(function () {
-			$indicator.removeClass('zuul-spinner-on');
-		}, 550);
+			// Delay so that the updating state is visible for at least half a second
+			$indicator
+				.removeClass('zuul-spinner-on')
+				.html('idle <i class="icon-time"></i>');
+		}, 500);
 	});
 
 	$jq.one('update-end', function () {
@@ -216,7 +222,7 @@
 	});
 
 	$(function ($) {
-		$indicator = $('<span class="btn pull-right zuul-spinner">updating <i class="icon-refresh"></i></span>');
+		$indicator = $('<span class="btn pull-right zuul-spinner">idle <i class="icon-time"></i></span>');
 		$msg = $('<div class="zuul-msg alert alert-error"></div>');
 		$msgWrap = $msg.wrap('<div class="zuul-msg-wrap zuul-msg-wrap-off"></div>').parent();
 		$container = $('#zuul-container').prepend($msgWrap, $indicator);

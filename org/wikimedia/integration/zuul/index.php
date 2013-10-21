@@ -28,8 +28,9 @@ $p->embedCSS('
 
 .zuul-spinner,
 .zuul-spinner:hover /* override bootstrap .btn:hover */ {
-	opacity: 0;
-	transition: opacity 3s ease-out;
+	opacity: 0.4;
+	transition: opacity 1.4s ease-out;
+	min-width: 6em;
 	cursor: default;
 	pointer-events: none;
 }
