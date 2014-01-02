@@ -13,6 +13,7 @@ $build_status = array(
 		'beta-code-update' => 'MW code',
 		'beta-mediawiki-config-update' => 'MW conf',
 		'beta-update-databases' => 'DB update',
+		'beta-parsoid-update' => 'Parsoid update',
 		'beta-recompile-math-texvc' => 'texvc (math)',
 	),
 	'MediaWiki' => array(
