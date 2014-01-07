@@ -131,20 +131,78 @@
 						break;
 					}
 					html += '<li class="zuul-change-job">';
+
 					html += job.url !== null ?
 						'<a href="' + job.url + '" class="zuul-change-job-link">' :
 						'<span class="zuul-change-job-link">';
+
 					html += job.name;
-					html += ' <span class="' + resultClass + '">' + result + '</span>';
 					if (job.voting === false) {
 						html += ' <span class="muted">(non-voting)</span>';
 					}
+
+					if (job.result === null && job.url !== null) {
+						html += zuul.format.progress(job.elapsed_time, job.remaining_time);
+					} else {
+						// job completed
+						html += ' <span class="' + resultClass + '">' + result + '</span>';
+					}
+
 					html += job.url !== null ? '</a>' : '</span>';
-					html += '</li>';
+
+
+					html += '</li>'; // .zuul-change-job
 				});
 
 				html += '</ul></div>';
 				return html;
+			},
+
+			// From Openstack format_time()
+			// Passed via jshint
+			time: function (ms, words) {
+				if (ms === null) {
+					return 'unknown';
+				}
+				var r = '',
+					seconds = (+ms) / 1000,
+					minutes = Math.floor(seconds / 60),
+					hours = Math.floor(minutes / 60);
+				seconds = Math.floor(seconds % 60);
+				minutes = Math.floor(minutes % 60);
+				if (words) {
+					if (hours) {
+						r += hours;
+						r += ' hr ';
+					}
+					r += minutes + ' min';
+				} else {
+					if (hours < 10) { r += '0'; }
+					r += hours + ':';
+					if (minutes < 10) { r += '0'; }
+					r += minutes + ':';
+					if (seconds < 10) { r += '0'; }
+					r += seconds;
+				}
+				return r;
+			},
+
+			// From Openstack format_progress()
+			// Passed via jshint
+			progress: function (elapsed, remaining) {
+				var total,
+					r = '';
+
+				if (remaining !== null) {
+					total = elapsed + remaining;
+				} else {
+					total = null;
+				}
+				r = '<progress class="zuul-change-progress" title="' +
+					zuul.format.time(elapsed, false) + ' elapsed, ' +
+					zuul.format.time(remaining, false) + ' remaining" ' +
+					'value="' + elapsed + '" max="' + total + '">in progress</progress>';
+				return r;
 			},
 
 			pipeline: function (pipeline) {

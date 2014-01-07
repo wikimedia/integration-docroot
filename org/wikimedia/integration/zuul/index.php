@@ -52,6 +52,43 @@ $p->embedCSS('
 	text-transform: none;
 }
 
+.zuul-change-progress {
+	width: 4em;
+	float: right;
+	margin-top:0.30em;
+}
+
+progress,
+progress[role] {
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	border: none;
+	background-image: none;
+}
+
+/** IE10 */
+progress {
+	color: #069;
+}
+/** Firefox, maybe IE10 as well  */
+progress {
+	background: #C0C0C0;
+}
+
+/** Webkit */
+progress::-webkit-progress-value {
+	background: #069;
+}
+progress::-webkit-progress-bar {
+	background: #C0C0C0;
+}
+
+/** Firefox */
+progress::-moz-progress-bar {
+	background: #069;
+}
+
 .zuul-result {
 	text-shadow: none;
 	font-weight: normal;
