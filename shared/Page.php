@@ -230,7 +230,9 @@ HTML;
 	<div class="container">
 		<p class="muted credit">
 			Questions? Comments? Concerns?<br>
-			Contact <em>^demon</em>, <em>Krinkle</em> or <em>hashar</em> on <a href="irc://irc.freenode.net/#wikimedia-dev">#wikimedia-dev</a>.
+			Contact <em>^demon</em>, <em>Krinkle</em> or <em>hashar</em> on
+			either <a href="irc://irc.freenode.net/#wikimedia-dev">#wikimedia-dev</a>
+			or <a href="irc://irc.freenode.net/#wikimedia-qa">#wikimedia-qa</a>.
 		</p>
 	</div>
 </div><!-- /.footer -->
