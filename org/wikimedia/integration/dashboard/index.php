@@ -13,15 +13,14 @@ $build_status = array(
 		'beta-code-update-eqiad' => 'MW code',
 		'beta-mediawiki-config-update-eqiad' => 'MW conf',
 		'beta-update-databases-eqiad' => 'DB update',
-		#'beta-parsoid-update-eqiad' => 'Parsoid update',
+		'beta-parsoid-update-eqiad' => 'Parsoid update',
 		'beta-recompile-math-texvc' => 'texvc math',
 	),
 	'Beta cluster (pmtpa)' => array(
 		'beta-code-update-pmtpa' => 'MW code',
 		'beta-mediawiki-config-update-pmtpa' => 'MW conf',
 		'beta-update-databases-pmtpa' => 'DB update',
-		'beta-parsoid-update' => 'Parsoid update',
-		#'beta-parsoid-update-pmtpa' => 'Parsoid update',
+		'beta-parsoid-update-pmtpa' => 'Parsoid update',
 		'beta-recompile-math-texvc' => 'texvc math',
 	),
 	'MediaWiki' => array(
