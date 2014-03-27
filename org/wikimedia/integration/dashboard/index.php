@@ -9,12 +9,20 @@ $p->enableFooter();
 # Configuration
 $build_status = array(
 	# section => Jenkins ob name => job title
-	'Beta cluster' => array(
-		'beta-code-update' => 'MW code',
-		'beta-mediawiki-config-update' => 'MW conf',
-		'beta-update-databases' => 'DB update',
+	'Beta cluster (eqiad)' => array(
+		'beta-code-update-eqiad' => 'MW code',
+		'beta-mediawiki-config-update-eqiad' => 'MW conf',
+		'beta-update-databases-eqiad' => 'DB update',
+		#'beta-parsoid-update-eqiad' => 'Parsoid update',
+		'beta-recompile-math-texvc' => 'texvc math',
+	),
+	'Beta cluster (pmtpa)' => array(
+		'beta-code-update-pmtpa' => 'MW code',
+		'beta-mediawiki-config-update-pmtpa' => 'MW conf',
+		'beta-update-databases-pmtpa' => 'DB update',
 		'beta-parsoid-update' => 'Parsoid update',
-		'beta-recompile-math-texvc' => 'texvc (math)',
+		#'beta-parsoid-update-pmtpa' => 'Parsoid update',
+		'beta-recompile-math-texvc' => 'texvc math',
 	),
 	'MediaWiki' => array(
 		'mediawiki-core-regression-master' => 'master',
