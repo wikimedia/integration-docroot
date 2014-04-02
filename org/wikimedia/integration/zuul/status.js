@@ -24,6 +24,31 @@
 			'./sample-status-' + (demo[1] || 'basic') + '.json' :
 			'/zuul/status.json';
 
+	/**
+	 * Escape a string for HTML. Converts special characters to HTML entities.
+	 *
+	 * Based on mediawiki-core's mw.html.escape utility.
+	 *
+	 * @param {string} s The string to escape
+	 * @return {string}
+	 */
+	function htmlEscape(s) {
+		return s.replace(/['"<>&]/g, function (s) {
+			switch (s) {
+			case '\'':
+				return '&#039;';
+			case '"':
+				return '&quot;';
+			case '<':
+				return '&lt;';
+			case '>':
+				return '&gt;';
+			case '&':
+				return '&amp;';
+			}
+		});
+	}
+
 	zuul = {
 		enabled: true,
 
@@ -94,9 +119,15 @@
 
 		format: {
 			change: function (change) {
-				var html = '<div class="well well-small zuul-change"><ul class="nav nav-list">',
-					id = change.id,
-					url = change.url;
+				var id = change.id,
+					url = change.url,
+					// In CSS .zuul-change:target should be enough, but because
+					// browsers only evaluate that on load, we still need to manually
+					// check it for future refreshes. Use a class name instead.
+					html = '<div class="well well-small zuul-change' +
+						(location.hash === '#change-' + id ? ' zuul-change-target' : '') +
+						'" id="change-' + htmlEscape(id) + '">' +
+						'<ul class="nav nav-list">';
 
 				html += '<li class="nav-header">' + change.project;
 				if (id.length === 40) {

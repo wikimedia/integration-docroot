@@ -132,6 +132,13 @@ progress::-moz-progress-bar {
  * Zuul status (bootstrap layout)
  */
 
+.zuul-change:target,
+.zuul-change-target {
+	/* Based on Bootstrap .alert */
+	background-color: #fcf8e3;
+	border: 1px solid #fbeed5;
+}
+
 .zuul-change-id {
 	float: right;
 }
