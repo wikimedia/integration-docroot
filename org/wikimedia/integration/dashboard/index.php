@@ -16,13 +16,6 @@ $build_status = array(
 		'beta-parsoid-update-eqiad' => 'Parsoid update',
 		'beta-recompile-math-texvc' => 'texvc math',
 	),
-	'Beta cluster (pmtpa)' => array(
-		'beta-code-update-pmtpa' => 'MW code',
-		'beta-mediawiki-config-update-pmtpa' => 'MW conf',
-		'beta-update-databases-pmtpa' => 'DB update',
-		'beta-parsoid-update-pmtpa' => 'Parsoid update',
-		'beta-recompile-math-texvc' => 'texvc math',
-	),
 	'MediaWiki' => array(
 		'mediawiki-core-regression-master' => 'master',
 		'mediawiki-core-regression-REL1_22' => 'REL1_22',
