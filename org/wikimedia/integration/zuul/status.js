@@ -306,7 +306,8 @@
 		// Do this asynchronous so that if the first update adds a message, it will not animate
 		// while we fade in the content. Instead it simply appears with the rest of the content.
 		setTimeout(function () {
-			$container.addClass('zuul-container-ready'); // Fades in the content
+			// Fade in the content
+			$container.addClass('zuul-container-ready');
 		});
 	});
 
