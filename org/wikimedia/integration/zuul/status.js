@@ -77,7 +77,7 @@
 				cache: false
 			})
 			.done(function (data) {
-				var html = '';
+				var html = '', last_reconfigured;
 				data = data || {};
 
 				if ('message' in data) {
@@ -104,6 +104,18 @@
 				$('#zuul-resulteventqueue-length').text(
 					data.result_event_queue ? data.result_event_queue.length : '0'
 				);
+
+				// Borrowed from OpenStack
+				$('#zuul-version').text(
+					data.zuul_version ? data.zuul_version : 'unknown'
+				);
+				if ('last_reconfigured' in data) {
+					last_reconfigured = new Date(data.last_reconfigured);
+					$('#zuul-last-reconfigured').text(
+						last_reconfigured.toString()
+					);
+				}
+
 			})
 			.fail(function (err, jqXHR, errMsg) {
 				$msg.text(source + ': ' + errMsg).show();
