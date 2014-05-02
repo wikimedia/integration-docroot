@@ -18,10 +18,14 @@ $build_status = array(
 	),
 	'MediaWiki' => array(
 		'mediawiki-core-regression-master' => 'master',
+		'mediawiki-core-regression-hhvm-master' => 'master (hhvm)',
+		'mediawiki-core-regression-REL1_23' => 'REL1_23',
+		'mediawiki-core-regression-hhvm-REL1_23' => 'REL1_23 (hhvm)',
 		'mediawiki-core-regression-REL1_22' => 'REL1_22',
 		'mediawiki-core-regression-REL1_21' => 'REL1_21',
 		'mediawiki-core-regression-REL1_20' => 'REL1_20',
 		'mediawiki-core-regression-REL1_19' => 'REL1_19',
+
 		'mediawiki-core-doxygen-publish' => 'doxygen',
 		'mediawiki-core-jsduck-publish' => 'jsduck',
 	),
