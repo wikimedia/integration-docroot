@@ -12,6 +12,7 @@ $build_status = array(
 	'Beta cluster (eqiad)' => array(
 		'beta-code-update-eqiad' => 'MW code',
 		'beta-mediawiki-config-update-eqiad' => 'MW conf',
+		'beta-scap-eqiad' => 'MW sync (scap)',
 		'beta-update-databases-eqiad' => 'DB update',
 		'beta-parsoid-update-eqiad' => 'Parsoid update',
 		'beta-recompile-math-texvc' => 'texvc math',
