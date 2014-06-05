@@ -50,6 +50,16 @@
 &amp;target=alias(summarize(zuul.pipeline.gate-and-submit.current_changes.value,'1min'),'1min avg')
 &amp;target=alias(summarize(zuul.pipeline.gate-and-submit.current_changes.value,'1h','max'),'hourly max')
 &amp;title=Zuul%20gate%20pipeline" />
+	<img title="Zuul Geard Job Queue" src="//graphite.wikimedia.org/render/?from=-8hours
+&amp;height=180
+&amp;until=now
+&amp;width=400
+&amp;bgcolor=ffffff
+&amp;fgcolor=000000
+&amp;target=color(alias(zuul.geard.queue.running.value,%20'Running'),%20'blue')
+&amp;target=color(alias(zuul.geard.queue.waiting.value,%20'Waiting'),%20'red')
+&amp;target=color(alias(zuul.geard.queue.total.value,%20'Total%20Jobs'),%20'888888')
+&amp;title=Zuul%20Geard%20job%20queue (8 hours)" />
 
 	<h4>Zuul infos</h4>
 	Version: <span id="zuul-version"></span><br/>
