@@ -15,7 +15,6 @@
 &amp;lineMode=staircase
 &amp;target=alias(summarize(sumSeries(zuul.pipeline.*.current_changes.value),'1h'),'Changes')
 &amp;title=Zuul%20processing%20(per%20hour)" title="Zuul (per hour)" />
-<br/>
 	<img title="Zuul test pipeline" src="//graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
 &amp;until=now
@@ -28,6 +27,7 @@
 &amp;target=alias(summarize(zuul.pipeline.test.current_changes.value,'1min'),'1min avg')
 &amp;target=alias(summarize(zuul.pipeline.test.current_changes.value,'1h','max'),'hourly max')
 &amp;title=Zuul%20test%20pipeline" />
+<br/>
 	<img title="Zuul gate pipeline" src="//graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
 &amp;until=now
