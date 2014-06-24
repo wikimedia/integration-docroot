@@ -14,6 +14,7 @@ $build_status = array(
 		'beta-mediawiki-config-update-eqiad' => 'MW conf',
 		'beta-scap-eqiad' => 'MW sync (scap)',
 		'beta-update-databases-eqiad' => 'DB update',
+		'beta-cxserver-update-eqiad' => 'Cxserver update',
 		'beta-parsoid-update-eqiad' => 'Parsoid update',
 		'beta-recompile-math-texvc' => 'texvc math',
 	),
