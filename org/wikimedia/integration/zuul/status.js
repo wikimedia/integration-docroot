@@ -155,6 +155,8 @@
 				}
 				html += '</span></li>';
 
+				html += '<li>ETA: ' + zuul.format.time(change.remaining_time, true);
+				html += ', queued ' + zuul.format.time(Date.now() - change.enqueue_time, true) + ' ago</li>';
 				$.each(change.jobs, function (i, job) {
 					var result = job.result ? job.result.toLowerCase() : null,
 						resultClass = 'zuul-result label';
