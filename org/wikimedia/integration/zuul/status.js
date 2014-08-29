@@ -77,7 +77,8 @@
 				cache: false
 			})
 			.done(function (data) {
-				var html = '', last_reconfigured, total_queued = 0, total_running = 0;
+				var html = '', last_reconfigured,
+					total_queued = 0, total_completed = 0,  total_running = 0;
 				data = data || {};
 
 				if ('message' in data) {
@@ -105,8 +106,10 @@
 								$.each(change.jobs, function (jobNum, job) {
 									if (job.url === null) {
 										total_queued++;
-									} else {
+									} else if ( job.result === null) {
 										total_running++;
+									} else {
+										total_completed++;
 									}
 								});
 							});
@@ -122,6 +125,7 @@
 				);
 
 				$('#zuul-total-jobs-running').text(total_running);
+				$('#zuul-total-jobs-completed').text(total_completed);
 				$('#zuul-total-jobs-queued').text(total_queued);
 
 				// Borrowed from OpenStack
