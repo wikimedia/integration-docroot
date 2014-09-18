@@ -16,7 +16,7 @@ $build_status = array(
 		'beta-update-databases-eqiad' => 'DB update',
 		'beta-cxserver-update-eqiad' => 'Cxserver update',
 		'beta-parsoid-update-eqiad' => 'Parsoid update',
-		'beta-recompile-math-texvc' => 'texvc math',
+		'beta-recompile-math-texvc-eqiad' => 'texvc math',
 	),
 	'MediaWiki' => array(
 		'mediawiki-core-regression-master' => 'master',
