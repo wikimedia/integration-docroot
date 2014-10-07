@@ -6,8 +6,6 @@ $p->setDir( __DIR__ );
 $p->setRootDir( dirname( __DIR__ ) );
 $p->enableFooter();
 
-$recent = '24h';
-$longer = '1week';
 $hosts = array(
 	// Graphite supports wildcard target, but we want separate graphs in this case
 	'integration-slave1001',
@@ -69,21 +67,30 @@ foreach ( $sections as $sectionId => $section ) {
 	$content .= '<h4 id="h-' . $sectionId . '">' . htmlspecialchars( $section['title'] ) . '</h4>';
 	$menu[] = array( 'id' => $sectionId, 'label' => $section['title'] );
 	$graph = $section['graph'];
-	$content .= '<img width="600" height="250" src="//graphite.wmflabs.org/render/?'
+	$content .= '<img width="800" height="250" src="//graphite.wmflabs.org/render/?'
 		. htmlspecialchars(http_build_query(array(
-			'title' => $graph['title'] . ' (' . $recent . ')',
-			'width' => 600,
+			'title' => $graph['title'] . ' (24h)',
+			'width' => 800,
 			'height' => 250,
-			'from' => '-' . $recent,
+			'from' => '-24h',
+			'target' => $graph['target'],
+		)))
+		. '">';
+	$content .= '<br><img width="400" height="250" src="//graphite.wmflabs.org/render/?'
+		. htmlspecialchars(http_build_query(array(
+			'title' => $graph['title'] . ' (1week)',
+			'width' => 400,
+			'height' => 250,
+			'from' => '-1week',
 			'target' => $graph['target'],
 		)))
 		. '">';
 	$content .= '<img width="400" height="250" src="//graphite.wmflabs.org/render/?'
 		. htmlspecialchars(http_build_query(array(
-			'title' => $graph['title'] . ' (' . $longer . ')',
+			'title' => $graph['title'] . ' (1month)',
 			'width' => 400,
 			'height' => 250,
-			'from' => '-' . $longer,
+			'from' => '-1month',
 			'target' => $graph['target'],
 		)))
 		. '">';
