@@ -6,7 +6,7 @@ $p->setDir( __DIR__ );
 $p->setRootDir( dirname( __DIR__ ) );
 $p->enableFooter();
 
-$recent = '6h';
+$recent = '24h';
 $longer = '1week';
 $hosts = array(
 	// Graphite supports wildcard target, but we want separate graphs in this case
@@ -46,20 +46,10 @@ foreach ( $targets as $targetId => $props ) {
 		$title = "$host: {$props['title']}";
 		$sections[ $id ] = array(
 			'title' => $title,
-			'graphs' => array(
-				array(
-					'id' => "g-recent-$id",
-					'title' => $title . ' (' . $recent . ')',
-					'target' => 'integration.' . $host . $props['query'],
-					'from' => '-' . $recent
-				),
-				array(
-					'id' => "g-longer-$id",
-					'title' => $title . ' (' . $longer . ')',
-					'target' => 'integration.' . $host . $props['query'],
-					'from' => '-' . $longer,
-				)
-			)
+			'graph' => array(
+				'title' => $title,
+				'target' => 'integration.' . $host . $props['query'],
+			),
 		);
 	}
 
@@ -67,20 +57,10 @@ foreach ( $targets as $targetId => $props ) {
 	$title = "overview: {$props['title']}";
 	$sections[ $id ] = array(
 		'title' => $title,
-		'graphs' => array(
-			array(
-				'id' => "g-recent-$id",
-				'title' => $title . ' (' . $recent . ')',
-				'target' => 'sum(' . join( ',', $hostTargets ) . ')',
-				'from' => '-' . $recent
-			),
-			array(
-				'id' => "g-longer-$id",
-				'title' => $title . ' (' . $longer . ')',
-				'target' => 'sum(' . join( ',', $hostTargets ) . ')',
-				'from' => '-' . $longer,
-			)
-		)
+		'graph' => array(
+			'title' => $title,
+			'target' => 'alias(sum(' . join( ',', $hostTargets ) . '),"' . $props['query'] . '")',
+		),
 	);
 }
 
@@ -88,17 +68,25 @@ ksort( $sections );
 foreach ( $sections as $sectionId => $section ) {
 	$content .= '<h4 id="h-' . $sectionId . '">' . htmlspecialchars( $section['title'] ) . '</h4>';
 	$menu[] = array( 'id' => $sectionId, 'label' => $section['title'] );
-	foreach ( $section['graphs'] as $graph ) {
-		$content .= '<img id="' . $graph['id'] . '" width="500" height="250" src="//graphite.wmflabs.org/render/?'
-			. htmlspecialchars(http_build_query(array(
-				'title' => $graph['title'],
-				'width' => 500,
-				'height' => 250,
-				'target' => $graph['target'],
-				'from' => $graph['from']
-			)))
-			. '">';
-	}
+	$graph = $section['graph'];
+	$content .= '<img width="600" height="250" src="//graphite.wmflabs.org/render/?'
+		. htmlspecialchars(http_build_query(array(
+			'title' => $graph['title'] . ' (' . $recent . ')',
+			'width' => 600,
+			'height' => 250,
+			'from' => '-' . $recent,
+			'target' => $graph['target'],
+		)))
+		. '">';
+	$content .= '<img width="400" height="250" src="//graphite.wmflabs.org/render/?'
+		. htmlspecialchars(http_build_query(array(
+			'title' => $graph['title'] . ' (' . $longer . ')',
+			'width' => 400,
+			'height' => 250,
+			'from' => '-' . $longer,
+			'target' => $graph['target'],
+		)))
+		. '">';
 }
 
 $menuExport = json_encode( $menu );
