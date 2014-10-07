@@ -9,7 +9,6 @@ class IntegrationPage extends Page {
 <ul class="nav">
 	<li class="divider-vertical"></li>
 	<li><a href="{{ROOT}}/cover/">Coverage</a></li>
-	<li><a href="{{ROOT}}/dashboard/">Dashboard</a></li>
 	<li><a href="{{ROOT}}/nightly/">Nightly</a></li>
 	<li><a href="{{ROOT}}/zuul/">Zuul</a></li>
 	<li class="divider-vertical"></li>
