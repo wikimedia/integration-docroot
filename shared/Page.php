@@ -8,16 +8,15 @@ class Page {
 	protected $hasFooter = false;
 
 	/**
-	 * Absolute directory on file system
-	 * to where the page is instantiated. Will be used to guess url path
-	 * to bootstrap.
+	 * Absolute directory on file system to where the page is instantiated.
+	 * Will be used to guess url path to shared libs.
 	 *
 	 * @var string
 	 */
 	protected $rootDir = false;
 	protected $dir = false;
 
-	protected $bootstrapPath = false;
+	protected $libPath = false;
 
 	/**
 	 * @param string $pageName
@@ -67,18 +66,18 @@ class Page {
 	/**
 	 * @param string $path
 	 */
-	public function setBootstrapPath( $path ) {
-		$this->bootstrapPath = $path;
+	public function setLibPath( $path ) {
+		$this->libPath = $path;
 	}
 
 	/**
-	 * @return string: URL path to boostrap (without trailing slash).
+	 * @return string: URL path to shared/lib (without trailing slash).
 	 */
-	public function getBootstrapPath() {
-		if ( $this->bootstrapPath ) {
-			return $this->bootstrapPath;
+	public function getLibPath() {
+		if ( $this->libPath ) {
+			return $this->libPath;
 		}
-		return $this->getRootPath() . '/bootstrap';
+		return $this->getRootPath() . '/lib';
 	}
 
 	/**
@@ -178,7 +177,7 @@ HTML;
 	}
 
 	$rootPathHtml = htmlspecialchars( $this->getRootPath() );
-	$bootstrapPathHtml = htmlspecialchars( $this->getBootstrapPath() );
+	$libPathHtml = htmlspecialchars( $this->getLibPath() );
 
 ?><!DOCTYPE html>
 <html dir="ltr" lang="en-US">
@@ -193,8 +192,8 @@ HTML;
 	?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="//bits.wikimedia.org/favicon/wmf.ico">
-	<link rel="stylesheet" href="<?php echo $bootstrapPathHtml; ?>/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<?php echo $bootstrapPathHtml; ?>/css/bootstrap-responsive.min.css">
+	<link rel="stylesheet" href="<?php echo $libPathHtml; ?>/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<?php echo $libPathHtml; ?>/bootstrap/css/bootstrap-responsive.min.css">
 <?php
 	if ( count( $this->embeddedCSS ) ) {
 		echo "\t<style>\n\t" . implode( "\n\t", explode( "\n", implode( "\n\n\n", $this->embeddedCSS ) ) ) . "\n\t</style>\n";
@@ -238,7 +237,7 @@ HTML;
 </div><!-- /.footer -->
 <?php } ?>
 <script src="//bits.wikimedia.org/www.mediawiki.org/load.php?debug=false&amp;modules=jquery&amp;only=scripts&amp;raw=1"></script>
-<script src="<?php echo $bootstrapPathHtml; ?>/js/bootstrap.min.js"></script>
+<script src="<?php echo $libPathHtml; ?>/bootstrap/js/bootstrap.min.js"></script>
 <?php
 	foreach ( $this->scripts as $script ) {
 		echo '<script src="' . htmlspecialchars( $script ) . '"></script>' . "\n";

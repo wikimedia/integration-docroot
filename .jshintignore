@@ -1,4 +1,3 @@
-shared/bootstrap
-org/mediawiki/integration/bootstrap
-org/wikimedia/integration/bootstrap
-org/wikimedia/doc/bootstrap
+shared/lib
+org/wikimedia/integration/lib
+org/wikimedia/doc/lib
