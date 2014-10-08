@@ -43,7 +43,7 @@ $graphConfigs = array(
 			'alias(color(stacked(sum(HOST.memory.Inactive.value)),"#5555cc"),"Inactive")',
 			'alias(color(stacked(sum(HOST.memory.Cached.value)),"#33cc33"),"Cached")',
 			'alias(color(stacked(sum(HOST.memory.Buffers.value)),"#99ff33"),"Buffers")',
-			'alias(color(stacked(sum(HOST.memory.MemFree.value)),"#f0ffc0"),"Free")',
+			'alias(alpha(color(stacked(sum(HOST.memory.MemFree.value)),"#f0ffc0"),0.4),"Free")',
 			'alias(color(stacked(sum(HOST.memory.SwapCached.value)),"#9900CC"),"Swap")',
 			'alias(color(sum(HOST.memory.MemTotal.value),"red"),"Total")',
 		),
@@ -51,10 +51,10 @@ $graphConfigs = array(
 	'disk' => array(
 		'title' => 'Disk space',
 		'targets' => array(
-			'aliasByNode(HOST.diskspace.*.byte_avail.value, -3, -2)',
+			'aliasByNode(HOST.diskspace.*.byte_avail.value,-3,-2)',
 		),
 		'overview' => array(
-			'alias(stacked(sum(HOST.diskspace.*.byte_avail.value)), "byte_avail")',
+			'alias(stacked(sum(HOST.diskspace.*.byte_avail.value)),"byte_avail")',
 		),
 	),
 );
