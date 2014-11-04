@@ -10,7 +10,6 @@ class IntegrationPage extends Page {
 	<li class="divider-vertical"></li>
 	<li><a href="{{ROOT}}/cover/">Coverage</a></li>
 	<li><a href="https://tools.wmflabs.org/nagf/?project=integration">Monitor</a></li>
-	<li><a href="{{ROOT}}/nightly/">Nightly</a></li>
 	<li><a href="{{ROOT}}/zuul/">Zuul</a></li>
 	<li class="divider-vertical"></li>
 	<li><a href="https://gerrit.wikimedia.org/r/">Gerrit</a></li>
