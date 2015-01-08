@@ -18,11 +18,13 @@
 
 /*jshint camelcase:false */
 (function ($) {
-	var $container, $msg, $msgWrap, $indicator, prevHtml, xhr, zuul, $jq,
+	var $container, $msg, $msgWrap, $indicator, $jq, $graphs,
+		prevHtml, xhr, zuul,
 		demo = location.search.match(/[?&]demo=([^?&]*)/),
 		source = demo ?
 			'./sample-status-' + (demo[1] || 'basic') + '.json' :
-			'/zuul/status.json';
+			'/zuul/status.json',
+		nonce = $.now();
 
 	/**
 	 * Escape a string for HTML. Converts special characters to HTML entities.
@@ -321,6 +323,13 @@
 
 	$jq = $(zuul);
 
+	$jq.one('update-start', function () {
+		// Store original image urls of graphs
+		$graphs = $('.graphite-graph').each(function (i, node) {
+			$.data(node, 'src', node.src);
+		});
+	});
+
 	$jq.on('update-start', function () {
 		$container.addClass('zuul-container-loading');
 
@@ -330,6 +339,11 @@
 	});
 
 	$jq.on('update-end', function () {
+		// Refresh graphs
+		$graphs.attr('src', function () {
+			return $.data(this, 'src') + '&_=' + ( nonce++ );
+		} );
+
 		$container.removeClass('zuul-container-loading');
 		setTimeout(function () {
 			// Delay so that the updating state is visible for at least half a second

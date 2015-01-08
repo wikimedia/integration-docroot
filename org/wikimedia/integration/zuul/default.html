@@ -6,14 +6,14 @@
 	<div id="zuul-pipelines" class="row"></div>
 	<!-- Courtesy of OpenStack Foundation -->
 	<h4>Job Stats</h4>
-	<img title="Zuul processing" src="//graphite.wikimedia.org/render/?from=-24hours
+	<img class="graphite-graph" title="Zuul processing" src="//graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
 &amp;width=400
 &amp;areaMode=first
 &amp;lineMode=staircase
 &amp;target=alias(summarize(sumSeries(zuul.pipeline.*.current_changes.value),'1h'),'Changes')
 &amp;title=Zuul%20processing%20(per%20hour)" title="Zuul (per hour)" />
-	<img title="Zuul test pipeline" src="//graphite.wikimedia.org/render/?from=-24hours
+	<img class="graphite-graph" title="Zuul test pipeline" src="//graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
 &amp;width=400
 &amp;areaMode=first
@@ -23,7 +23,7 @@
 &amp;target=alias(summarize(zuul.pipeline.test.current_changes.value,'1h','max'),'hourly max')
 &amp;title=Zuul%20test%20pipeline" />
 <br/>
-	<img title="Zuul gate pipeline" src="//graphite.wikimedia.org/render/?from=-24hours
+	<img class="graphite-graph" title="Zuul gate pipeline" src="//graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
 &amp;width=400
 &amp;areaMode=first
@@ -32,7 +32,7 @@
 &amp;target=alias(summarize(zuul.pipeline.gate-and-submit.current_changes.value,'1min'),'1min avg')
 &amp;target=alias(summarize(zuul.pipeline.gate-and-submit.current_changes.value,'1h','max'),'hourly max')
 &amp;title=Zuul%20gate%20pipeline" />
-	<img title="Zuul Geard Job Queue" src="//graphite.wikimedia.org/render/?from=-8hours
+	<img class="graphite-graph" title="Zuul Geard Job Queue" src="//graphite.wikimedia.org/render/?from=-8hours
 &amp;height=180
 &amp;width=400
 &amp;target=alias(color(zuul.geard.queue.running.value,'blue'),'Running')
