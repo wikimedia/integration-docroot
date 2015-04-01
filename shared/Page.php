@@ -144,8 +144,7 @@ class Page {
 
 	protected function getNavHtml() {
 		return <<<HTML
-<ul class="nav">
-	<li class="divider-vertical"></li>
+<ul class="navbar-nav nav">
 	<li><a href="https://gerrit.wikimedia.org/r/">Gerrit</a></li>
 	<li><a href="https://integration.wikimedia.org/">Integration</a></li>
 	<li><a href="https://doc.wikimedia.org/">Documentation</a></li>
@@ -161,14 +160,6 @@ HTML;
 .logo {
 	vertical-align: middle;
 	margin-right: 1em;
-}
-
-.page-header {
-	overflow: hidden;
-}
-
-.page-wrap {
-	padding-top: 55px;
 }
 ');
 
@@ -193,7 +184,6 @@ HTML;
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="//bits.wikimedia.org/favicon/wmf.ico">
 	<link rel="stylesheet" href="<?php echo $libPathHtml; ?>/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<?php echo $libPathHtml; ?>/bootstrap/css/bootstrap-responsive.min.css">
 <?php
 	if ( count( $this->embeddedCSS ) ) {
 		echo "\t<style>\n\t" . implode( "\n\t", explode( "\n", implode( "\n\n\n", $this->embeddedCSS ) ) ) . "\n\t</style>\n";
@@ -201,28 +191,30 @@ HTML;
 ?>
 </head>
 <body>
-<div class="navbar navbar-fixed-top">
-	<div class="navbar-inner">
-		<div class="container">
-		<a class="brand" href="<?php echo $rootPathHtml; ?>" title="Navigate to home of <?php echo htmlentities( $this->site ); ?>"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/8/81/Wikimedia-logo.svg/48px-Wikimedia-logo.svg.png" width="24px">&nbsp;<?php echo htmlentities( $this->site ); ?></a>
+<header class="navbar navbar-default navbar-static-top base-nav" id="top" role="banner">
+	<div class="container">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="<?php echo $rootPathHtml; ?>" title="Navigate to home of <?php echo htmlentities( $this->site ); ?>"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/8/81/Wikimedia-logo.svg/48px-Wikimedia-logo.svg.png" width="24px">&nbsp;<?php echo htmlentities( $this->site ); ?></a>
+		</div>
+		<nav class="navbar-collapse collapse">
 <?php
 	echo $this->processHtmlContent( $this->getNavHtml() );
 ?>
-		</div>
+		</nav>
 	</div>
-</div>
+</header>
 <div class="page-wrap">
 	<div class="container">
 <?php
 	if ( $this->pageName ) {
-		echo '<div class="page-header"><h2>' . htmlentities( $this->pageName ) . '</h2></div>';
+		echo '<h1 class="page-header">' . htmlentities( $this->pageName ) . '</h1>';
 	}
 ?>
 <?php
 	echo $this->processHtmlContent( $this->content, "\t\t" );
 ?>
 	</div><!-- /.container -->
-<?php if ( $this->hasFooter ) { echo "\t<div class=\"push\"></div>\n"; } ?>
+<?php if ( $this->hasFooter ) { echo '<div class="push"></div>'; } ?>
 </div><!-- /.page-wrap -->
 <?php if ( $this->hasFooter ) { ?>
 <div class="footer">

@@ -16,21 +16,21 @@
     }
 }
 
-html,
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
 body {
-    height: 100%;
+  /* Margin bottom by footer height */
+  margin-bottom: 80px;
 }
-
-.page-wrap {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    /* Bump footer up by its height */
-    margin: 0 auto -80px auto;
-}
-
-/* Fixed height of footer */
-.push,
 .footer {
-    height: 80px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 80px;
+  background-color: #f5f5f5;
 }

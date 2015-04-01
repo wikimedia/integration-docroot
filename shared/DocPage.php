@@ -6,7 +6,7 @@ class DocPage extends Page {
 
 	protected function getNavHtml() {
 		return <<<HTML
-<ul class="nav">
+<ul class="navbar-nav nav">
 	<li class="divider-vertical"></li>
 	<li><a href="https://gerrit.wikimedia.org/r/">Gerrit</a></li>
 	<li><a href="https://integration.wikimedia.org/">Integration</a></li>
