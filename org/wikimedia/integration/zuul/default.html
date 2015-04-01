@@ -1,11 +1,10 @@
-<p>Real-time status monitor of Zuul, the pipeline manager between Gerrit and Jenkins. <a href="https://www.mediawiki.org/wiki/Continuous_integration/Zuul">more info &raquo;</a></p>
+<p>Real-time status monitor of Zuul, the pipeline manager between Gerrit and Workers. <a href="https://www.mediawiki.org/wiki/Continuous_integration/Zuul">more info &raquo;</a></p>
 
 <div class="zuul-container" id="zuul-container">
-	<p>Queue lengths: <span id="zuul-eventqueue-length">..</span> events, <span id="zuul-resulteventqueue-length">..</span> results.</p>
-	<p>Jobs totals: <span id="zuul-total-jobs-running">..</span> running, <span id="zuul-total-jobs-completed">..</span> completed, <span id="zuul-total-jobs-queued">..</span> queued.</p>
-	<div id="zuul-pipelines" class="row"></div>
+</div>
+
 	<!-- Courtesy of OpenStack Foundation -->
-	<h4>Job Stats</h4>
+	<h3>Job Stats</h3>
 	<img class="graphite-graph" title="Zuul processing" src="//graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
 &amp;width=400
@@ -39,8 +38,3 @@
 &amp;target=alias(color(zuul.geard.queue.waiting.value,'red'),'Waiting')
 &amp;target=alias(color(zuul.geard.queue.total.value,'888888'),'Total')
 &amp;title=Zuul%20Geard%20job%20queue (8 hours)" />
-
-	<h4>Zuul infos</h4>
-	<p>Zuul version: <span id="zuul-version-span"></span></p>
-	<p>Last reconfigured: <span id="last-reconfigured-span"></span></p>
-</div>

@@ -1,8 +1,9 @@
-// Client script for Zuul status page (wmf version)
+// Client script for Zuul status page
 //
 // Copyright 2012 OpenStack Foundation
 // Copyright 2013 Timo Tijhof
 // Copyright 2013 Wikimedia Foundation
+// Copyright 2014 Rackspace Australia
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may
 // not use this file except in compliance with the License. You may obtain
@@ -15,370 +16,652 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 // License for the specific language governing permissions and limitations
 // under the License.
+'use strict';
 
-/*jshint camelcase:false */
 (function ($) {
-	var $container, $msg, $msgWrap, $indicator, $jq, $graphs,
-		prevHtml, xhr, zuul,
-		demo = location.search.match(/[?&]demo=([^?&]*)/),
-		source = demo ?
-			'./sample-status-' + (demo[1] || 'basic') + '.json' :
-			'status.json',
-		nonce = $.now();
+    var $container, $msg, $indicator, $queueInfo, $queueEventsNum,
+        $queueResultsNum, $pipelines, $jq;
+    var xhr, zuul,
+        current_filter = '',
+        demo = location.search.match(/[?&]demo=([^?&]*)/),
+        source_url = location.search.match(/[?&]source_url=([^?&]*)/),
+        source = demo ?
+            './status-' + (demo[1] || 'basic') + '.json-sample' :
+            'status.json';
+    source = source_url ? source_url[1] : source;
 
-	/**
-	 * Escape a string for HTML. Converts special characters to HTML entities.
-	 *
-	 * Based on mediawiki-core's mw.html.escape utility.
-	 *
-	 * @param {string} s The string to escape
-	 * @return {string}
-	 */
-	function htmlEscape(s) {
-		return s.replace(/['"<>&]/g, function (s) {
-			switch (s) {
-			case '\'':
-				return '&#039;';
-			case '"':
-				return '&quot;';
-			case '<':
-				return '&lt;';
-			case '>':
-				return '&gt;';
-			case '&':
-				return '&amp;';
-			}
-		});
-	}
+    function set_cookie(name, value) {
+        document.cookie = name + '=' + value + '; path=/';
+    }
 
-	zuul = {
-		enabled: true,
-
-		schedule: function () {
-			if (!zuul.enabled) {
-				setTimeout(zuul.schedule, 5000);
-				return;
-			}
-			zuul.update().complete(function () {
-				setTimeout(zuul.schedule, 5000);
-			});
-		},
-
-		/** @return {jQuery.Promise} */
-		update: function () {
-			// Cancel the previous update if it hasn't completed yet.
-			if (xhr) {
-				xhr.abort();
-			}
-
-			zuul.emit('update-start');
-
-			xhr = $.ajax({
-				url: source,
-				dataType: 'json',
-				cache: false
-			})
-			.done(function (data) {
-				var last_reconfigured,
-					html = '',
-					total_queued = 0,
-					total_completed = 0,
-					total_running = 0;
-
-				data = data || {};
-
-				if ('message' in data) {
-					$msg.html(data.message);
-					$msgWrap.removeClass('zuul-msg-wrap-off');
-				} else {
-					$msg.empty();
-					$msgWrap.addClass('zuul-msg-wrap-off');
-				}
-
-				$.each(data.pipelines, function (i, pipeline) {
-					html += zuul.format.pipeline(pipeline);
-				});
-
-				// Only re-parse the DOM if we have to
-				if (html !== prevHtml) {
-					prevHtml = html;
-					$('#zuul-pipelines').html(html);
-				}
-
-				$.each(data.pipelines, function (i, pipeline) {
-					$.each(pipeline.change_queues, function (queueNum, changeQueue) {
-						$.each(changeQueue.heads, function (headNum, changes) {
-							$.each(changes, function (changeNum, change) {
-								$.each(change.jobs, function (jobNum, job) {
-									if (job.url === null) {
-										total_queued++;
-									} else if ( job.result === null) {
-										total_running++;
-									} else {
-										total_completed++;
-									}
-								});
-							});
-						});
-					});
-				});
-
-				$('#zuul-eventqueue-length').text(
-					data.trigger_event_queue ? data.trigger_event_queue.length : '0'
-				);
-				$('#zuul-resulteventqueue-length').text(
-					data.result_event_queue ? data.result_event_queue.length : '0'
-				);
-
-				$('#zuul-total-jobs-running').text(total_running);
-				$('#zuul-total-jobs-completed').text(total_completed);
-				$('#zuul-total-jobs-queued').text(total_queued);
-
-				if ('zuul_version' in data) {
-					$('#zuul-version-span').text(data.zuul_version);
-				}
-				if ('last_reconfigured' in data) {
-					last_reconfigured = new Date(data.last_reconfigured);
-					$('#last-reconfigured-span').text(last_reconfigured.toString());
-				}
-
-			})
-			.fail(function (err, jqXHR, errMsg) {
-				$msg.text(source + ': ' + errMsg).show();
-				$msgWrap.removeClass('zuul-msg-wrap-off');
-			})
-			.complete(function () {
-				xhr = undefined;
-				zuul.emit('update-end');
-			});
-
-			return xhr;
-		},
-
-		format: {
-			change: function (change) {
-				var id = change.id,
-					url = change.url,
-					// In CSS .zuul-change:target should be enough, but because
-					// browsers only evaluate that on load, we still need to manually
-					// check it for future refreshes. Use a class name instead.
-					html = '<div class="well well-small zuul-change' +
-						(location.hash === '#change-' + id ? ' zuul-change-target' : '') +
-						'" id="change-' + htmlEscape(id) + '">' +
-						'<ul class="nav nav-list">';
-
-				html += '<li class="nav-header">' + change.project;
-				if (id.length === 40) {
-					id = id.substr(0, 7);
-				}
-				html += ' <span class="zuul-change-id">';
-				if (url !== null) {
-					html += '<a href="' + url + '">';
-				}
-				html += id;
-				if (url !== null) {
-					html += '</a>';
-				}
-				html += '</span></li>';
-
-				html += '<li>ETA: ' + zuul.format.time(change.remaining_time, true);
-				html += ', queued ' + zuul.format.time(Date.now() - change.enqueue_time, true) + ' ago</li>';
-				$.each(change.jobs, function (i, job) {
-					var result = job.result ? job.result.toLowerCase() : null,
-						resultClass = 'zuul-result label';
-					if (result === null) {
-						result = job.url ? 'in progress' : 'queued';
-					}
-					switch (result) {
-					case 'success':
-						resultClass += ' label-success';
-						break;
-					case 'failure':
-						resultClass += ' label-important';
-						break;
-					case 'lost':
-					case 'unstable':
-						resultClass += ' label-warning';
-						break;
-					}
-					html += '<li class="zuul-change-job">';
-
-					html += job.url !== null ?
-						'<a href="' + job.url + '" class="zuul-change-job-link">' :
-						'<span class="zuul-change-job-link">';
-
-					html += job.name;
-					if (job.voting === false) {
-						html += ' <span class="muted">(non-voting)</span>';
-					}
-
-					if (job.result === null && job.url !== null) {
-						html += zuul.format.progress(job.elapsed_time, job.remaining_time);
-					} else {
-						// job completed
-						html += ' <span class="' + resultClass + '">' + result + '</span>';
-					}
-
-					html += job.url !== null ? '</a>' : '</span>';
+    function read_cookie(name, default_value) {
+        var nameEQ = name + '=';
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1, c.length);
+            }
+            if (c.indexOf(nameEQ) === 0) {
+                return c.substring(nameEQ.length, c.length);
+            }
+        }
+        return default_value;
+    }
 
 
-					html += '</li>'; // .zuul-change-job
-				});
+    zuul = {
+        enabled: true,
+        collapsed_exceptions: [],
 
-				html += '</ul></div>';
-				return html;
-			},
+        schedule: function () {
+            if (!zuul.enabled) {
+                setTimeout(zuul.schedule, 5000);
+                return;
+            }
+            zuul.update().complete(function () {
+                setTimeout(zuul.schedule, 5000);
+            });
+        },
 
-			// From Openstack format_time()
-			// Passed via jshint
-			time: function (ms, words) {
-				if (ms === null) {
-					return 'unknown';
-				}
-				var r = '',
-					seconds = (+ms) / 1000,
-					minutes = Math.floor(seconds / 60),
-					hours = Math.floor(minutes / 60);
-				seconds = Math.floor(seconds % 60);
-				minutes = Math.floor(minutes % 60);
-				if (words) {
-					if (hours) {
-						r += hours;
-						r += ' hr ';
-					}
-					r += minutes + ' min';
-				} else {
-					if (hours < 10) { r += '0'; }
-					r += hours + ':';
-					if (minutes < 10) { r += '0'; }
-					r += minutes + ':';
-					if (seconds < 10) { r += '0'; }
-					r += seconds;
-				}
-				return r;
-			},
+        /** @return {jQuery.Promise} */
+        update: function () {
+            // Cancel the previous update if it hasn't completed yet.
+            if (xhr) {
+                xhr.abort();
+            }
 
-			// From Openstack format_progress()
-			// Passed via jshint
-			progress: function (elapsed, remaining) {
-				var total,
-					r = '';
+            zuul.emit('update-start');
 
-				if (remaining !== null) {
-					total = elapsed + remaining;
-				} else {
-					total = null;
-				}
-				r = '<progress class="zuul-change-progress" title="' +
-					zuul.format.time(elapsed, false) + ' elapsed, ' +
-					zuul.format.time(remaining, false) + ' remaining" ' +
-					'value="' + elapsed + '" max="' + total + '">in progress</progress>';
-				return r;
-			},
+            xhr = $.getJSON(source)
+                .done(function (data) {
+                    if ('message' in data) {
+                        $msg.removeClass('alert-danger').addClass('alert-info');
+                        $msg.text(data.message);
+                        $msg.show();
+                    } else {
+                        $msg.empty();
+                        $msg.hide();
+                    }
 
-			pipeline: function (pipeline) {
-				var html = '<div class="zuul-pipeline span4"><h3>' +
-					pipeline.name + '</h3>';
-				if (typeof pipeline.description === 'string') {
-					html += '<p><small>' + pipeline.description + '</small></p>';
-				}
+                    if ('zuul_version' in data) {
+                        $('#zuul-version-span').text(data.zuul_version);
+                    }
+                    if ('last_reconfigured' in data) {
+                        var last_reconfigured =
+                            new Date(data.last_reconfigured);
+                        $('#last-reconfigured-span').text(
+                            last_reconfigured.toString());
+                    }
 
-				$.each(pipeline.change_queues, function (queueNum, changeQueue) {
-					$.each(changeQueue.heads, function (headNum, changes) {
-						if (pipeline.change_queues.length > 1 && headNum === 0) {
-							var name = changeQueue.name;
-							html += '<p>Queue: <abbr title="' + name + '">';
-							if (name.length > 32) {
-								name = name.substr(0, 32) + '...';
-							}
-							html += name + '</abbr></p>';
-						}
-						$.each(changes, function (changeNum, change) {
-							// If there are multiple changes in the same head it means they're connected
-							if (changeNum > 0) {
-								html += '<div class="zuul-change-arrow">&uarr;</div>';
-							}
-							html += zuul.format.change(change);
-						});
-					});
-				});
+                    $pipelines.html('');
+                    $.each(data.pipelines, function (i, pipeline) {
+                        $pipelines.append(zuul.format.pipeline(pipeline));
+                    });
 
-				html += '</div>';
-				return html;
-			}
-		},
+                    $queueEventsNum.text(
+                        data.trigger_event_queue ?
+                            data.trigger_event_queue.length : '0'
+                    );
+                    $queueResultsNum.text(
+                        data.result_event_queue ?
+                            data.result_event_queue.length : '0'
+                    );
+                })
+                .fail(function (err, jqXHR, errMsg) {
+                    $msg.text(source + ': ' + errMsg).show();
+                    $msg.removeClass('zuul-msg-wrap-off');
+                })
+                .complete(function () {
+                    xhr = undefined;
+                    zuul.emit('update-end');
+                });
 
-		emit: function () {
-			$jq.trigger.apply($jq, arguments);
-			return this;
-		},
-		on: function () {
-			$jq.on.apply($jq, arguments);
-			return this;
-		},
-		one: function () {
-			$jq.one.apply($jq, arguments);
-			return this;
-		}
-	};
+            return xhr;
+        },
 
-	$jq = $(zuul);
+        format: {
+            job: function(job) {
+                var $job_line;
+                if (job.url !== null) {
+                    $job_line = $('<a href="' + job.url + '" />');
+                }
+                else{
+                    $job_line = $('<span />');
+                }
+                $job_line.text(job.name)
+                    .append(zuul.format.job_status(job));
 
-	$jq.one('update-start', function () {
-		// Store original image urls of graphs
-		$graphs = $('.graphite-graph').each(function (i, node) {
-			$.data(node, 'src', node.src);
-		});
-	});
+                if (job.voting === false) {
+                    $job_line.append(
+                        $(' <small />').text(' (non-voting)')
+                    );
+                }
+                return $job_line;
+            },
 
-	$jq.on('update-start', function () {
-		$container.addClass('zuul-container-loading');
+            job_status: function(job) {
+                var result = job.result ? job.result.toLowerCase() : null;
+                if (result === null) {
+                    result = job.url ? 'in progress' : 'queued';
+                }
 
-		$indicator
-			.addClass('zuul-spinner-on')
-			.html('updating <i class="icon-refresh"></i>');
-	});
+                if (result === 'in progress') {
+                    return zuul.format.job_progress_bar(job.elapsed_time,
+                                                        job.remaining_time);
+                }
+                else {
+                    return zuul.format.status_label(result);
+                }
+            },
 
-	$jq.on('update-end', function () {
-		// Refresh graphs
-		$graphs.attr('src', function () {
-			return $.data(this, 'src') + '&_=' + ( nonce++ );
-		} );
+            status_label: function(result) {
+                var $status = $('<span />');
+                $status.addClass('zuul-job-result label');
 
-		$container.removeClass('zuul-container-loading');
-		setTimeout(function () {
-			// Delay so that the updating state is visible for at least half a second
-			$indicator
-				.removeClass('zuul-spinner-on')
-				.html('idle <i class="icon-time"></i>');
-		}, 500);
-	});
+                switch (result) {
+                    case 'success':
+                        $status.addClass('label-success');
+                        break;
+                    case 'failure':
+                        $status.addClass('label-danger');
+                        break;
+                    case 'unstable':
+                        $status.addClass('label-warning');
+                        break;
+                    case 'in progress':
+                    case 'queued':
+                    case 'lost':
+                        $status.addClass('label-default');
+                        break;
+                }
+                $status.text(result);
+                return $status;
+            },
 
-	$jq.one('update-end', function () {
-		// Do this asynchronous so that if the first update adds a message, it will not animate
-		// while we fade in the content. Instead it simply appears with the rest of the content.
-		setTimeout(function () {
-			// Fade in the content
-			$container.addClass('zuul-container-ready');
-		});
-	});
+            job_progress_bar: function(elapsed_time, remaining_time) {
+                var progress_percent = 100 * (elapsed_time / (elapsed_time +
+                                                              remaining_time));
+                var $bar_inner = $('<div />')
+                    .addClass('progress-bar')
+                    .attr('role', 'progressbar')
+                    .attr('aria-valuenow', 'progressbar')
+                    .attr('aria-valuemin', progress_percent)
+                    .attr('aria-valuemin', '0')
+                    .attr('aria-valuemax', '100')
+                    .css('width', progress_percent + '%');
 
-	$(function ($) {
-		$indicator = $('<span class="btn pull-right zuul-spinner">idle <i class="icon-time"></i></span>');
-		$msg = $('<div class="zuul-msg alert alert-error"></div>');
-		$msgWrap = $msg.wrap('<div class="zuul-msg-wrap zuul-msg-wrap-off"></div>').parent();
-		$container = $('#zuul-container').prepend($msgWrap, $indicator);
+                var $bar_outter = $('<div />')
+                    .addClass('progress zuul-job-result')
+                    .append($bar_inner);
 
-		zuul.schedule();
+                return $bar_outter;
+            },
 
-		$(document).on({
-			'show.visibility': function () {
-				zuul.enabled = true;
-				zuul.update();
-			},
-			'hide.visibility': function () {
-				zuul.enabled = false;
-			}
-		});
-	});
+            enqueue_time: function(ms) {
+                // Special format case for enqueue time to add style
+                var hours = 60 * 60 * 1000;
+                var now = Date.now();
+                var delta = now - ms;
+                var status = 'text-success';
+                var text = zuul.format.time(delta, true);
+                if (delta > (4 * hours)) {
+                    status = 'text-danger';
+                } else if (delta > (2 * hours)) {
+                    status = 'text-warning';
+                }
+                return '<span class="' + status + '">' + text + '</span>';
+            },
+
+            time: function(ms, words) {
+                if (typeof(words) === 'undefined') {
+                    words = false;
+                }
+                var seconds = (+ms)/1000;
+                var minutes = Math.floor(seconds/60);
+                var hours = Math.floor(minutes/60);
+                seconds = Math.floor(seconds % 60);
+                minutes = Math.floor(minutes % 60);
+                var r = '';
+                if (words) {
+                    if (hours) {
+                        r += hours;
+                        r += ' hr ';
+                    }
+                    r += minutes + ' min';
+                } else {
+                    if (hours < 10) {
+                        r += '0';
+                    }
+                    r += hours + ':';
+                    if (minutes < 10) {
+                        r += '0';
+                    }
+                    r += minutes + ':';
+                    if (seconds < 10) {
+                        r += '0';
+                    }
+                    r += seconds;
+                }
+                return r;
+            },
+
+            change_total_progress_bar: function(change) {
+                var job_percent = Math.floor(100 / change.jobs.length);
+                var $bar_outter = $('<div />')
+                    .addClass('progress zuul-change-total-result');
+
+                $.each(change.jobs, function (i, job) {
+                    var result = job.result ? job.result.toLowerCase() : null;
+                    if (result === null) {
+                        result = job.url ? 'in progress' : 'queued';
+                    }
+
+                    if (result !== 'queued') {
+                        var $bar_inner = $('<div />')
+                            .addClass('progress-bar');
+
+                        switch (result) {
+                            case 'success':
+                                $bar_inner.addClass('progress-bar-success');
+                                break;
+                            case 'lost':
+                            case 'failure':
+                                $bar_inner.addClass('progress-bar-danger');
+                                break;
+                            case 'unstable':
+                                $bar_inner.addClass('progress-bar-warning');
+                                break;
+                            case 'in progress':
+                            case 'queued':
+                                break;
+                        }
+                        $bar_inner.attr('title', job.name)
+                            .css('width', job_percent + '%');
+                        $bar_outter.append($bar_inner);
+                    }
+                });
+                return $bar_outter;
+            },
+
+            change_header: function(change) {
+                var change_id = change.id || 'NA';
+                if (change_id.length === 40) {
+                    change_id = change_id.substr(0, 7);
+                }
+
+                var $change_link = $('<small />');
+                if (change.url !== null) {
+                    $change_link.append(
+                        $('<a />').attr('href', change.url).text(change.id)
+                    );
+                }
+                else {
+                    $change_link.text(change_id);
+                }
+
+                var $change_progress_row_left = $('<div />')
+                    .addClass('col-xs-3')
+                    .append($change_link);
+                var $change_progress_row_right = $('<div />')
+                    .addClass('col-xs-9')
+                    .append(zuul.format.change_total_progress_bar(change));
+
+                var $change_progress_row = $('<div />')
+                    .addClass('row')
+                    .append($change_progress_row_left)
+                    .append($change_progress_row_right);
+
+                var $project_span = $('<span />')
+                    .addClass('change_project')
+                    .text(change.project);
+
+                var $left = $('<div />')
+                    .addClass('col-xs-8')
+                    .append($project_span, $('<br />'), $change_progress_row);
+
+                var remaining_time = zuul.format.time(
+                        change.remaining_time, true);
+                var enqueue_time = zuul.format.enqueue_time(
+                        change.enqueue_time);
+                var $remaining_time = $('<small />').addClass('time')
+                    .attr('title', 'Remaining Time').html(remaining_time);
+                var $enqueue_time = $('<small />').addClass('time')
+                    .attr('title', 'Elapsed Time').html(enqueue_time);
+
+                var $right = $('<div />')
+                    .addClass('col-xs-4 text-right')
+                    .append($remaining_time, $('<br />'), $enqueue_time);
+
+                var $header = $('<div />')
+                    .addClass('row')
+                    .append($left, $right);
+                return $header;
+            },
+
+            change_list: function(jobs) {
+                var $list = $('<ul />')
+                    .addClass('list-group');
+
+                $.each(jobs, function (i, job) {
+                    var $item = $('<li />')
+                        .addClass('list-group-item')
+                        .addClass('zuul-change-job')
+                        .append(zuul.format.job(job));
+                    $list.append($item);
+                });
+
+                return $list;
+            },
+
+            change_panel: function (change) {
+                var $header = $('<div />')
+                    .addClass('panel-heading patchset-header')
+                    .append(zuul.format.change_header(change));
+
+                var panel_id = change.id ? change.id.replace(',', '_')
+                                         : change.project.replace('/', '_') +
+                                           '-' + change.enqueue_time;
+                var $panel = $('<div />')
+                    .attr('id', panel_id)
+                    .addClass('panel panel-default zuul-change')
+                    .append($header)
+                    .append(zuul.format.change_list(change.jobs));
+
+                $header.click(zuul.toggle_patchset);
+                return $panel;
+            },
+
+            pipeline: function (pipeline) {
+                var $html = $('<div />')
+                    .addClass('zuul-pipeline col-md-4')
+                    .append($('<h3 />').text(pipeline.name));
+
+                if (typeof pipeline.description === 'string') {
+                    $html.append(
+                        $('<p />').append(
+                            $('<small />').text(pipeline.description)
+                        )
+                    );
+                }
+
+                $.each(pipeline.change_queues,
+                       function (queueNum, changeQueue) {
+                    $.each(changeQueue.heads, function (headNum, changes) {
+                        if (pipeline.change_queues.length > 1 &&
+                            headNum === 0) {
+                            var name = changeQueue.name;
+                            var short_name = name;
+                            if (short_name.length > 32) {
+                                short_name = short_name.substr(0, 32) + '...';
+                            }
+                            $html.append(
+                                $('<p />')
+                                    .text('Queue: ')
+                                    .append(
+                                        $('<abbr />')
+                                            .attr('title', name)
+                                            .text(short_name)
+                                    )
+                            );
+                        }
+                        $.each(changes, function (changeNum, change) {
+                            var $panel = zuul.format.change_panel(change);
+                            $html.append($panel);
+                            zuul.display_patchset($panel);
+                        });
+                    });
+                });
+                return $html;
+            },
+
+            filter_form_group: function() {
+                // Update the filter form with a clear button if required
+
+                var $label = $('<label />')
+                    .addClass('control-label')
+                    .attr('for', 'filter_string')
+                    .text('Filters')
+                    .css('padding-right', '0.5em');
+
+                var $input = $('<input />')
+                    .attr('type', 'text')
+                    .attr('id', 'filter_string')
+                    .addClass('form-control')
+                    .attr('title',
+                          'project(s), pipeline(s) or review(s) comma ' +
+                          'separated')
+                    .attr('value', current_filter);
+
+                $input.change(zuul.handle_filter_change);
+
+                var $clear_icon = $('<span />')
+                    .addClass('form-control-feedback')
+                    .addClass('glyphicon glyphicon-remove-circle')
+                    .attr('id', 'filter_form_clear_box')
+                    .attr('title', 'clear filter')
+                    .css('cursor', 'pointer');
+
+                $clear_icon.click(function() {
+                    $('#filter_string').val('').change();
+                });
+
+                if (current_filter === '') {
+                    $clear_icon.hide();
+                }
+
+                var $form_group = $('<div />')
+                    .addClass('form-group has-feedback')
+                    .append($label, $input, $clear_icon);
+                return $form_group;
+            },
+
+            expand_form_group: function() {
+                var expand_by_default = (
+                    read_cookie('zuul_expand_by_default', false) === 'true');
+
+                var $checkbox = $('<input />')
+                    .attr('type', 'checkbox')
+                    .attr('id', 'expand_by_default')
+                    .prop('checked', expand_by_default)
+                    .change(zuul.handle_expand_by_default);
+
+                var $label = $('<label />')
+                    .css('padding-left', '1em')
+                    .html('Expand by default: ')
+                    .append($checkbox);
+
+                var $form_group = $('<div />')
+                    .addClass('checkbox')
+                    .append($label);
+                return $form_group;
+            },
+
+            control_form: function() {
+                // Build the filter form filling anything from cookies
+
+                var $control_form = $('<form />')
+                    .attr('role', 'form')
+                    .addClass('form-inline')
+                    .submit(zuul.handle_filter_change);
+
+                $control_form
+                    .append(zuul.format.filter_form_group())
+                    .append(zuul.format.expand_form_group());
+
+                return $control_form;
+            },
+        },
+
+        emit: function () {
+            $jq.trigger.apply($jq, arguments);
+            return this;
+        },
+        on: function () {
+            $jq.on.apply($jq, arguments);
+            return this;
+        },
+        one: function () {
+            $jq.one.apply($jq, arguments);
+            return this;
+        },
+
+        toggle_patchset: function(e) {
+            // Toggle showing/hiding the patchset when the header is clicked
+            // Grab the patchset panel
+            var $panel = $(e.target).parents('.zuul-change');
+            var $body = $panel.children(':not(.patchset-header)');
+            $body.toggle(200);
+            var collapsed_index = zuul.collapsed_exceptions.indexOf(
+                $panel.attr('id'));
+            if (collapsed_index === -1 ) {
+                // Currently not an exception, add it to list
+                zuul.collapsed_exceptions.push($panel.attr('id'));
+            }
+            else {
+                // Currently an except, remove from exceptions
+                zuul.collapsed_exceptions.splice(collapsed_index, 1);
+            }
+        },
+
+        display_patchset: function($panel, animate) {
+            // Determine if to show or hide the patchset and/or the results
+            // when loaded
+
+            // See if we should hide the body/results
+            var $body = $panel.children(':not(.patchset-header)');
+            var expand_by_default = $('#expand_by_default').prop('checked');
+            var collapsed_index = zuul.collapsed_exceptions.indexOf(
+                $panel.attr('id'));
+            if (expand_by_default && collapsed_index === -1 ||
+                !expand_by_default && collapsed_index !== -1) {
+                // Expand by default, or is an exception
+                $body.show(animate);
+            }
+            else {
+                $body.hide(animate);
+            }
+
+            // Check if we should hide the whole panel
+            var panel_project = $panel.find('.change_project').text()
+                .toLowerCase();
+            var panel_pipeline = $panel.parents('.zuul-pipeline')
+                .children('h3').text().toLowerCase();
+            var panel_change = $panel.attr('id');
+            if (current_filter !== '') {
+                var show_panel = false;
+                var filter = current_filter.trim().split(/[\s,]+/);
+                $.each(filter, function(index, f_val) {
+                    if (f_val !== '') {
+                        f_val = f_val.toLowerCase();
+                        if (panel_project.indexOf(f_val) !== -1 ||
+                            panel_pipeline.indexOf(f_val) !== -1 ||
+                            panel_change.indexOf(f_val) !== -1) {
+                            show_panel = true;
+                        }
+                    }
+                });
+                if (show_panel === true) {
+                    $panel.show(animate);
+                }
+                else {
+                    $panel.hide(animate);
+                }
+            }
+            else {
+                $panel.show(animate);
+            }
+        },
+
+        handle_filter_change: function() {
+            // Update the filter and save it to a cookie
+            current_filter = $('#filter_string').val();
+            set_cookie('zuul_filter_string', current_filter);
+            if (current_filter === '') {
+                $('#filter_form_clear_box').hide();
+            }
+            else {
+                $('#filter_form_clear_box').show();
+            }
+
+            $('.zuul-change').each(function(index, obj) {
+                var $panel = $(obj);
+                zuul.display_patchset($panel, 200);
+            });
+            return false;
+        },
+
+        handle_expand_by_default: function(e) {
+            // Handle toggling expand by default
+            set_cookie('zuul_expand_by_default', e.target.checked);
+            zuul.collapsed_exceptions = [];
+            $('.zuul-change').each(function(index, obj) {
+                var $panel = $(obj);
+                zuul.display_patchset($panel, 200);
+            });
+        },
+    };
+
+    current_filter = read_cookie('zuul_filter_string', current_filter);
+
+    $jq = $(zuul);
+
+    $jq.on('update-start', function () {
+        $container.addClass('zuul-container-loading');
+        $indicator.addClass('zuul-spinner-on');
+    });
+
+    $jq.on('update-end', function () {
+        $container.removeClass('zuul-container-loading');
+        setTimeout(function () {
+            $indicator.removeClass('zuul-spinner-on');
+        }, 500);
+    });
+
+    $jq.one('update-end', function () {
+        // Do this asynchronous so that if the first update adds a message, it
+        // will not animate while we fade in the content. Instead it simply
+        // appears with the rest of the content.
+        setTimeout(function () {
+            // Fade in the content
+            $container.addClass('zuul-container-ready');
+        });
+    });
+
+    $(function ($) {
+        $msg = $('<div />').addClass('alert').hide();
+        $indicator = $('<button class="btn pull-right zuul-spinner">' +
+                       'updating ' +
+                       '<span class="glyphicon glyphicon-refresh"></span>' +
+                       '</button>');
+        $queueInfo = $('<p>Queue lengths: <span>0</span> events, ' +
+                       '<span>0</span> results.</p>');
+        $queueEventsNum = $queueInfo.find('span').eq(0);
+        $queueResultsNum = $queueEventsNum.next();
+
+        var $control_form = zuul.format.control_form();
+
+        $pipelines = $('<div class="row"></div>');
+        var $zuulVersion = $('<p>Zuul version: <span id="zuul-version-span">' +
+                         '</span></p>');
+        var $lastReconf = $('<p>Last reconfigured: ' +
+                        '<span id="last-reconfigured-span"></span></p>');
+
+        $container = $('#zuul-container').append($msg, $indicator,
+                                                 $queueInfo, $control_form,
+                                                 $pipelines, $zuulVersion,
+                                                 $lastReconf);
+
+        zuul.schedule();
+
+        $(document).on({
+            'show.visibility': function () {
+                zuul.enabled = true;
+                zuul.update();
+            },
+            'hide.visibility': function () {
+                zuul.enabled = false;
+            }
+        });
+    });
 }(jQuery));
