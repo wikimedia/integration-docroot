@@ -4,6 +4,7 @@ class Page {
 	protected $pageName = false;
 	protected $embeddedCSS = array();
 	protected $scripts = array();
+	protected $stylesheets = array();
 	protected $content = '';
 	protected $hasFooter = false;
 
@@ -101,6 +102,13 @@ class Page {
 		$this->scripts[] = $src;
 	}
 
+	/**
+	 * @param string $src Path to script (may be relative)
+	 */
+	public function addStylesheet( $src ) {
+		$this->stylesheets[] = $src;
+	}
+
 	public function enableFooter() {
 		$this->hasFooter = true;
 	}
@@ -187,6 +195,11 @@ HTML;
 <?php
 	if ( count( $this->embeddedCSS ) ) {
 		echo "\t<style>\n\t" . implode( "\n\t", explode( "\n", implode( "\n\n\n", $this->embeddedCSS ) ) ) . "\n\t</style>\n";
+	}
+?>
+<?php
+	foreach ( $this->stylesheets as $stylesheet ) {
+		echo '<link rel="stylesheet" href="' . htmlspecialchars( $stylesheet ) . '">' . "\n";
 	}
 ?>
 </head>
