@@ -1,11 +1,13 @@
+# Puppet (ops, jenkins, ..)
+/deployment
 /ssd
 /localhost/qunit/
-/org/wikimedia/doc/VisualEditor/
-/org/wikimedia/doc/mediawiki-core/
-/org/wikimedia/doc/puppet/
-/org/wikimedia/doc/puppetsource/
-/org/wikimedia/integration/WLMMobile/nightly/
+
+# Automated publications
+/org/wikimedia/doc/*
+/org/wikimedia/integration/cover
+/org/wikimedia/integration/nightly
 /org/wikimedia/integration/WikipediaMobile/nightly/
 /org/wikimedia/integration/WiktionaryMobile/nightly/
-/org/wikimedia/integration/nightly/
+/org/wikimedia/integration/WLMMobile/nightly/
 jenkins-autodeploy
