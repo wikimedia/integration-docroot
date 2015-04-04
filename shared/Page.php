@@ -1,5 +1,9 @@
 <?php
+require_once __DIR__ . '/Functions.php';
 class Page {
+	const INDEX_ALLOW_SKIP = 1;
+	const INDEX_PREFIX = 2;
+
 	protected $site = 'Wikimedia';
 	protected $pageName = false;
 	protected $embeddedCSS = array();
@@ -251,6 +255,69 @@ HTML;
 </body>
 </html>
 <?php
+	}
+
+	public static function newDirIndex( $pageName, $flags = 0 ) {
+		$path = false;
+		if ( isset( $_SERVER['REDIRECT_URL'] ) ) {
+			// Rewritten by Apache to e.g. dir.php
+			$path = $_SERVER['REDIRECT_URL'];
+		} elseif ( isset( $_SERVER['SCRIPT_NAME'] ) ) {
+			// Direct inclusion from e.g. cover/index.php
+			$path = dirname( $_SERVER['SCRIPT_NAME'] );
+		}
+		if ( !$path || !isset( $_SERVER['DOCUMENT_ROOT'] ) ) {
+			Page::error( 'Invalid context.' );
+		}
+		$path = realpath( $_SERVER['DOCUMENT_ROOT'] . $path );
+		if ( !$path || strpos( $path, $_SERVER['DOCUMENT_ROOT'] ) !== 0 ) {
+			// Path escalation. Should be impossible as Apache normalises this.
+			Page::error( 'Invalid context.' );
+		}
+		$subDirPaths = glob( "$path/*", GLOB_ONLYDIR );
+
+		if ( $flags & self::INDEX_PREFIX ) {
+			$pageName = $pageName . basename( $path );
+		}
+
+		$p = self::newFromPageName( $pageName );
+		$p->setDir( $path );
+		$p->handleDirIndex( $subDirPaths, $flags );
+		return $p;
+	}
+
+	public function handleDirIndex( $subDirPaths, $flags = 0 ) {
+		if ( $flags & self::INDEX_ALLOW_SKIP ) {
+			if ( count( $subDirPaths ) === 1 ) {
+				header( 'Location: ./' . basename( $subDirPaths[0] ) . '/' );
+				exit;
+			}
+		}
+
+		if ( count( $subDirPaths ) === 0 ) {
+			$this->addHtmlContent( '<div class="alert alert-warning" role="alert"><strong>Empty directory!</strong></div>' );
+			return;
+		}
+
+		$this->addHtmlContent( '<ul class="nav nav-pills nav-stacked">' );
+		foreach ( $subDirPaths as $path ) {
+			$dirName = basename( $path );
+			$this->addHtmlContent( '<li><a href="./' . htmlspecialchars( $dirName ) . '">'
+				. htmlspecialchars( $dirName )
+				. '</a>'
+			);
+		}
+		$this->addHtmlContent( '</ul>' );
+	}
+
+
+	public static function error( $msg, $statusCode = 500 ) {
+		$statusCode = (int)$statusCode;
+		http_response_code( $statusCode );
+		echo "<!DOCTYPE html><title>Error $statusCode</title><p>"
+			. htmlspecialchars( $msg )
+			. '</p>';
+		exit;
 	}
 
 	private function __construct() {}
