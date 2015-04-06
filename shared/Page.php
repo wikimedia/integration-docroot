@@ -302,7 +302,7 @@ HTML;
 		$this->addHtmlContent( '<ul class="nav nav-pills nav-stacked">' );
 		foreach ( $subDirPaths as $path ) {
 			$dirName = basename( $path );
-			$this->addHtmlContent( '<li><a href="./' . htmlspecialchars( $dirName ) . '">'
+			$this->addHtmlContent( '<li><a href="./' . htmlspecialchars( $dirName ) . '/">'
 				. htmlspecialchars( $dirName )
 				. '</a>'
 			);
