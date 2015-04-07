@@ -1,0 +1,4 @@
+# Back-compat for T73060: Redirect mediawiki-core/master/php/html/ to mediawiki-core/master/php/
+RewriteEngine On
+RewriteBase /
+RewriteRule ^mediawiki-core/master/php/html/(.*)$ https://doc.wikimedia.org/mediawiki-core/master/php/$1 [L,QSA]
