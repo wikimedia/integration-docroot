@@ -675,11 +675,11 @@
                                 data.result_event_queue.length : '0'
                         );
                     })
-                    .fail(function (err, jqXHR, errMsg) {
-                        if (err.textStatus === 'abort') {
+                    .fail(function (jqXHR) {
+                        if (jqXHR.statusText === 'abort') {
                             return;
                         }
-                        $msg.text(options.source + ': ' + errMsg)
+                        $msg.text(options.source + ': ' + jqXHR.statusText)
                             .addClass('alert-danger')
                             .removeClass('zuul-msg-wrap-off')
                             .show();
