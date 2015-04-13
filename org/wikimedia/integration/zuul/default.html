@@ -5,12 +5,12 @@
 
 	<!-- Courtesy of OpenStack Foundation -->
 	<h3>Job Stats</h3>
-	<img class="graphite-graph" title="Zuul processing" src="//graphite.wikimedia.org/render/?from=-24hours
+	<img class="graphite-graph" title="Changes in Zuul" src="//graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
 &amp;width=400
 &amp;areaMode=first
 &amp;lineMode=staircase
-&amp;target=alias(summarize(sumSeries(zuul.pipeline.*.current_changes),'1h'),'Changes')
+&amp;target=alias(summarize(sumSeries(zuul.pipeline.*.current_changes),'1h'),'Changes in pipelines per hour')
 &amp;title=Zuul%20processing%20(per%20hour)" title="Zuul (per hour)" />
 	<img class="graphite-graph" title="Zuul test pipeline" src="//graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
