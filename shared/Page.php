@@ -1,8 +1,14 @@
 <?php
 require_once __DIR__ . '/Functions.php';
 class Page {
+	/** If the directory only has one subdirectory, redirect to it. */
 	const INDEX_ALLOW_SKIP = 1;
+
+	/** Append the directory name to the page name. */
 	const INDEX_PREFIX = 2;
+
+	/** Append the parent directory to the page name (if INDEX_PREFIX is on). */
+	const INDEX_PARENT_PREFIX = 4;
 
 	protected $site = 'Wikimedia';
 	protected $pageName = false;
@@ -20,15 +26,17 @@ class Page {
 	 */
 	protected $rootDir = false;
 	protected $dir = false;
-
+	protected $flags = 0;
 	protected $libPath = false;
 
 	/**
 	 * @param string $pageName
+	 * @param int $flags
 	 */
-	public static function newFromPageName( $pageName ) {
+	public static function newFromPageName( $pageName, $flags = 0 ) {
 		$p = new static();
 		$p->pageName = $pageName;
+		$p->flags = $flags;
 		return $p;
 	}
 
@@ -274,20 +282,22 @@ HTML;
 			// Path escalation. Should be impossible as Apache normalises this.
 			Page::error( 'Invalid context.' );
 		}
-		$subDirPaths = glob( "$path/*", GLOB_ONLYDIR );
 
-		if ( $flags & self::INDEX_PREFIX ) {
-			$pageName = $pageName . basename( $path );
-		}
-
-		$p = self::newFromPageName( $pageName );
+		$p = self::newFromPageName( $pageName, $flags );
 		$p->setDir( $path );
-		$p->handleDirIndex( $subDirPaths, $flags );
 		return $p;
 	}
 
-	public function handleDirIndex( $subDirPaths, $flags = 0 ) {
-		if ( $flags & self::INDEX_ALLOW_SKIP ) {
+	public function handleDirIndex() {
+		if ( $this->flags & self::INDEX_PREFIX ) {
+			if ( $this->flags & self::INDEX_PARENT_PREFIX && strpos( $this->getRootPath(), '/' ) !== false ) {
+				$this->pageName .= basename( dirname( $this->dir ) ) . ': ' . basename( $this->dir );
+			} else {
+				$this->pageName .= basename( $this->dir );
+			}
+		}
+		$subDirPaths = glob( "{$this->dir}/*", GLOB_ONLYDIR );
+		if ( $this->flags & self::INDEX_ALLOW_SKIP ) {
 			if ( count( $subDirPaths ) === 1 ) {
 				header( 'Location: ./' . basename( $subDirPaths[0] ) . '/' );
 				exit;
@@ -308,6 +318,7 @@ HTML;
 			);
 		}
 		$this->addHtmlContent( '</ul>' );
+		$this->flush();
 	}
 
 
