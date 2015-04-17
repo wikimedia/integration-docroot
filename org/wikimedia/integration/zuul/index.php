@@ -1,12 +1,11 @@
 <?php
-require_once( __DIR__ . '/../../../../shared/IntegrationPage.php' );
+require_once __DIR__ . '/../../../../shared/IntegrationPage.php';
 
 $p = IntegrationPage::newFromPageName( 'Zuul Status' );
 $p->setDir( __DIR__ );
 $p->setRootDir( dirname( __DIR__ ) );
 
 $p->addHtmlFile( 'default.html' );
-$p->enableFooter();
 
 $p->addStylesheet( 'styles/zuul.css' );
 $p->addScript( 'jquery-visibility.js' );
