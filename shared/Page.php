@@ -306,18 +306,18 @@ HTML;
 
 		if ( count( $subDirPaths ) === 0 ) {
 			$this->addHtmlContent( '<div class="alert alert-warning" role="alert"><strong>Empty directory!</strong></div>' );
-			return;
+		} else {
+			$this->addHtmlContent( '<ul class="nav nav-pills nav-stacked">' );
+			foreach ( $subDirPaths as $path ) {
+				$dirName = basename( $path );
+				$this->addHtmlContent( '<li><a href="./' . htmlspecialchars( $dirName ) . '/">'
+					. htmlspecialchars( $dirName )
+					. '</a>'
+				);
+			}
+			$this->addHtmlContent( '</ul>' );
 		}
 
-		$this->addHtmlContent( '<ul class="nav nav-pills nav-stacked">' );
-		foreach ( $subDirPaths as $path ) {
-			$dirName = basename( $path );
-			$this->addHtmlContent( '<li><a href="./' . htmlspecialchars( $dirName ) . '/">'
-				. htmlspecialchars( $dirName )
-				. '</a>'
-			);
-		}
-		$this->addHtmlContent( '</ul>' );
 		$this->flush();
 	}
 
