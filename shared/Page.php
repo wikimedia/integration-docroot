@@ -26,6 +26,7 @@ class Page {
 	 */
 	protected $rootDir = false;
 	protected $dir = false;
+	protected $originalPath;
 	protected $flags = 0;
 	protected $libPath = false;
 
@@ -277,14 +278,17 @@ HTML;
 		if ( !$path || !isset( $_SERVER['DOCUMENT_ROOT'] ) ) {
 			Page::error( 'Invalid context.' );
 		}
-		$path = realpath( $_SERVER['DOCUMENT_ROOT'] . $path );
-		if ( !$path || strpos( $path, $_SERVER['DOCUMENT_ROOT'] ) !== 0 ) {
+		// Use realpath() to prevent escalation through e.g. "../"
+		// Note: realpath() also normalses paths to have no trailing slash
+		$realPath = realpath( $_SERVER['DOCUMENT_ROOT'] . $path );
+		if ( !$realPath || strpos( $realPath, $_SERVER['DOCUMENT_ROOT'] ) !== 0 ) {
 			// Path escalation. Should be impossible as Apache normalises this.
 			Page::error( 'Invalid context.' );
 		}
 
 		$p = self::newFromPageName( $pageName, $flags );
-		$p->setDir( $path );
+		$p->originalPath = $path;
+		$p->setDir( $realPath );
 		return $p;
 	}
 
@@ -299,7 +303,15 @@ HTML;
 		$subDirPaths = glob( "{$this->dir}/*", GLOB_ONLYDIR );
 		if ( $this->flags & self::INDEX_ALLOW_SKIP ) {
 			if ( count( $subDirPaths ) === 1 ) {
-				header( 'Location: ./' . basename( $subDirPaths[0] ) . '/' );
+				// Check whether the request URI ends in a slash and redirect to /a/b/c/target
+				// as either ./target/ or ./c/target/. Redirects from requests no trailing slash
+				// would otherwise end up at /a/b/target/.
+				if ( substr( $this->originalPath, -1 ) === '/' ) {
+					$target = './' . basename( $subDirPaths[0] ) . '/';
+				} else {
+					$target = './' . basename( $this->originalPath ) . '/' . basename( $subDirPaths[0] ) . '/';
+				}
+				header( "Location: $target" );
 				exit;
 			}
 		}
