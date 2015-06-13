@@ -26,7 +26,6 @@ class Page {
 	 */
 	protected $rootDir = false;
 	protected $dir = false;
-	protected $originalPath;
 	protected $flags = 0;
 	protected $libPath = false;
 
@@ -113,26 +112,38 @@ class Page {
 		return $relativePath !== '' ? $relativePath : './';
 	}
 
+	protected static function getRequestPath() {
+		if ( isset( $_SERVER['REDIRECT_URL'] ) ) {
+			// Rewritten by Apache to e.g. dir.php
+			$path = $_SERVER['REDIRECT_URL'];
+		} elseif ( isset( $_SERVER['SCRIPT_NAME'] ) ) {
+			// Direct inclusion from e.g. cover/index.php
+			$path = dirname( $_SERVER['SCRIPT_NAME'] ) . '/';
+		}
+		if ( !$path || !isset( $_SERVER['DOCUMENT_ROOT'] ) ) {
+			Page::error( 'Invalid context.' );
+		}
+		// Use realpath() to prevent escalation through e.g. "../"
+		// Note: realpath() also normalises paths to have no trailing slash
+		$realPath = realpath( $_SERVER['DOCUMENT_ROOT'] . $path );
+		if ( !$realPath || strpos( $realPath, $_SERVER['DOCUMENT_ROOT'] ) !== 0 ) {
+			// Path escalation. Should be impossible as Apache normalises this.
+			Page::error( 'Invalid context.' );
+		}
+		if ( substr( $path, -1 ) === '/' ) {
+			$realPath .= '/';
+		}
+		return $realPath;
+	}
+
 	/**
 	 * @return string: URL path to integration portal root (with trailing slash).
 	 */
 	public function getRootPath() {
-		$subpath = '';
-		if ( $this->rootDir && $this->dir ) {
-			// __DIR__ = /docroot/shared/
-			$docrootRepoDir = dirname( __DIR__ );
-			if ( strpos( $this->rootDir, $docrootRepoDir ) === 0 && strpos( $this->dir, $this->rootDir ) === 0 ) {
-				$path = $this->dir;
-				while ( $path !== $this->rootDir && strpos( $path, $this->rootDir ) === 0 ) {
-					$path = dirname( $path );
-					if ( $subpath !== '' ) {
-						$subpath .= '/';
-					}
-					$subpath .= '..';
-				}
-			}
+		if ( !$this->rootDir ) {
+			return './';
 		}
-		return $subpath === '' ? '.' : $subpath;
+		return self::getPathTo( self::getRequestPath(), $this->rootDir . '/' );
 	}
 
 	/**
@@ -149,7 +160,7 @@ class Page {
 		if ( $this->libPath ) {
 			return $this->libPath;
 		}
-		return $this->getRootPath() . '/lib';
+		return $this->getRootPath() . 'lib';
 	}
 
 	/**
@@ -217,7 +228,7 @@ class Page {
 	}
 
 	protected function processHtmlContent( $content, $indent = '' ) {
-		$content = str_replace( '{{ROOT}}', htmlspecialchars( $this->getRootPath() ), $content );
+		$content = str_replace( '{{ROOT}}', htmlspecialchars( substr( $this->getRootPath(), 0, -1 ) ), $content );
 		return $indent . implode( "\n$indent", explode( "\n", $content ) );
 	}
 
@@ -325,28 +336,17 @@ HTML;
 	}
 
 	public static function newDirIndex( $pageName, $flags = 0 ) {
-		$path = false;
-		if ( isset( $_SERVER['REDIRECT_URL'] ) ) {
-			// Rewritten by Apache to e.g. dir.php
-			$path = $_SERVER['REDIRECT_URL'];
-		} elseif ( isset( $_SERVER['SCRIPT_NAME'] ) ) {
-			// Direct inclusion from e.g. cover/index.php
-			$path = dirname( $_SERVER['SCRIPT_NAME'] );
-		}
-		if ( !$path || !isset( $_SERVER['DOCUMENT_ROOT'] ) ) {
-			Page::error( 'Invalid context.' );
-		}
-		// Use realpath() to prevent escalation through e.g. "../"
-		// Note: realpath() also normalses paths to have no trailing slash
-		$realPath = realpath( $_SERVER['DOCUMENT_ROOT'] . $path );
-		if ( !$realPath || strpos( $realPath, $_SERVER['DOCUMENT_ROOT'] ) !== 0 ) {
-			// Path escalation. Should be impossible as Apache normalises this.
-			Page::error( 'Invalid context.' );
+		$path = self::getRequestPath();
+
+		if ( substr( $path, -1 ) !== '/' ) {
+			// Enforce trailing slash for directory index
+			http_response_code( 301 );
+			header( 'Location: ' . basename( $path ) . '/' );
+			exit;
 		}
 
 		$p = self::newFromPageName( $pageName, $flags );
-		$p->originalPath = $path;
-		$p->setDir( $realPath );
+		$p->setDir( $path );
 		return $p;
 	}
 
@@ -358,18 +358,11 @@ HTML;
 				$this->pageName .= basename( $this->dir );
 			}
 		}
+
 		$subDirPaths = glob( "{$this->dir}/*", GLOB_ONLYDIR );
 		if ( $this->flags & self::INDEX_ALLOW_SKIP ) {
 			if ( count( $subDirPaths ) === 1 ) {
-				// Check whether the request URI ends in a slash and redirect to /a/b/c/target
-				// as either ./target/ or ./c/target/. Redirects from requests no trailing slash
-				// would otherwise end up at /a/b/target/.
-				if ( substr( $this->originalPath, -1 ) === '/' ) {
-					$target = './' . basename( $subDirPaths[0] ) . '/';
-				} else {
-					$target = './' . basename( $this->originalPath ) . '/' . basename( $subDirPaths[0] ) . '/';
-				}
-				header( "Location: $target" );
+				header( 'Location: ./' . basename( $subDirPaths[0] ) . '/' );
 				exit;
 			}
 		}
