@@ -56,6 +56,64 @@ class Page {
 	}
 
 	/**
+	 * @author Timo Tijhof, 2015
+	 * @param string $fromPath
+	 * @param string $toPath
+	 * @return string Relative path
+	 */
+	public static function getPathTo( $fromPath, $toPath ) {
+		if ( $fromPath === '' || $toPath === '' || $fromPath[0] !== '/' || $toPath[0] !== '/' ) {
+			return '';
+		}
+
+		// Filter out double slashes, and empty matches from leading/trailing slash
+		$from = array_values( array_filter(
+			explode( '/', $fromPath ),
+			function ( $part ) { return $part !== ''; }
+		) );
+		$to = array_values( array_filter(
+			explode( '/', $toPath ),
+			function ( $part ) { return $part !== ''; }
+		) );
+
+		// Remove source directory if it has no slash
+		if ( substr( $fromPath, -1 ) !== '/' ) {
+			array_pop( $from );
+		}
+
+		$relativePath = '';
+		$i = 0;
+
+		// Ignore common parts
+		while ( isset( $from[$i] ) && isset( $to[$i] ) ) {
+			if ( $from[$i] !== $to[$i] ) {
+				break;
+			}
+			$i++;
+		}
+
+		// Move up from fromPath
+		$j = count( $from );
+		$relativePath .= str_repeat( '../', $j - $i );
+
+		// Move down to toPath
+		$down = array_slice( $to, $i );
+		if ($down) {
+			$relativePath .= implode( '/', $down );
+
+			// Match target with slash
+			if ( substr( $toPath, -1 ) === '/' ) {
+				$relativePath .= '/';
+			}
+		}
+
+		// Return at least "./" instead of "" so that it consistently ends in a slash.
+		// This allows callers to safely append "/sub" directories to this, even on page served
+		// from the root.
+		return $relativePath !== '' ? $relativePath : './';
+	}
+
+	/**
 	 * @return string: URL path to integration portal root (with trailing slash).
 	 */
 	public function getRootPath() {

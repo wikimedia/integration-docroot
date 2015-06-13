@@ -1,0 +1,12 @@
+{
+    "require-dev": {
+        "jakub-onderka/php-parallel-lint": "0.8.*",
+        "phpunit/phpunit": "4.6.*"
+    },
+    "scripts": {
+        "test": [
+	        "parallel-lint . --exclude vendor",
+	        "phpunit"
+        ]
+    }
+}

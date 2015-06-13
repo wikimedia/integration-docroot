@@ -11,3 +11,7 @@
 /org/wikimedia/integration/WiktionaryMobile/nightly/
 /org/wikimedia/integration/WLMMobile/nightly/
 jenkins-autodeploy
+
+# Development
+/vendor
+composer.lock
