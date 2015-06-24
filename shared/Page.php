@@ -112,7 +112,7 @@ class Page {
 		return $relativePath !== '' ? $relativePath : './';
 	}
 
-	protected static function getRequestPath() {
+	protected static function getRequestDir() {
 		if ( isset( $_SERVER['REDIRECT_URL'] ) ) {
 			// Rewritten by Apache to e.g. dir.php
 			$path = $_SERVER['REDIRECT_URL'];
@@ -137,13 +137,23 @@ class Page {
 	}
 
 	/**
-	 * @return string: URL path to integration portal root (with trailing slash).
+	 * @return string Relative URL path to site root (with trailing slash).
 	 */
 	public function getRootPath() {
 		if ( !$this->rootDir ) {
 			return './';
 		}
-		return self::getPathTo( self::getRequestPath(), $this->rootDir . '/' );
+		return self::getPathTo( self::getRequestDir(), $this->rootDir . '/' );
+	}
+
+	/**
+	 * @return string Relative URL from site root to current url
+	 */
+	protected function getRequestPath() {
+		if ( !$this->rootDir ) {
+			return '';
+		}
+		return self::getPathTo( $this->rootDir . '/', self::getRequestDir() );
 	}
 
 	/**
@@ -228,18 +238,30 @@ class Page {
 	}
 
 	protected function processHtmlContent( $content, $indent = '' ) {
-		$content = str_replace( '{{ROOT}}', htmlspecialchars( substr( $this->getRootPath(), 0, -1 ) ), $content );
 		return $indent . implode( "\n$indent", explode( "\n", $content ) );
 	}
 
+	protected function getNavItems() {
+		return array(
+			'https://gerrit.wikimedia.org/r/' => 'Gerrit',
+			'https://integration.wikimedia.org/' => 'Integration',
+			'https://doc.wikimedia.org/' => 'Documentation',
+		);
+	}
+
 	protected function getNavHtml() {
-		return <<<HTML
-<ul class="navbar-nav nav">
-	<li><a href="https://gerrit.wikimedia.org/r/">Gerrit</a></li>
-	<li><a href="https://integration.wikimedia.org/">Integration</a></li>
-	<li><a href="https://doc.wikimedia.org/">Documentation</a></li>
-</ul>
-HTML;
+		$html = '<ul class="navbar-nav nav">';
+		$cur = $this->getRequestPath();
+		foreach ( $this->getNavItems() as $href => $text ) {
+			$active = ( $href === "/$cur" ? ' class="active"' : '' );
+			if ( $href[0] === '/' ) {
+				// Expand relatively so that it works even if the site is mounted in a sub directory.
+				$href = substr( $this->getRootPath(), 0, -1 ) . $href;
+			}
+			$html .= '<li' . $active . '><a href="' . htmlspecialchars( $href ) . '">' . htmlspecialchars( $text ) . '</a></li>';
+		}
+		$html .= '</ul>';
+		return $html;
 	}
 
 	public function flush() {
@@ -336,7 +358,7 @@ HTML;
 	}
 
 	public static function newDirIndex( $pageName, $flags = 0 ) {
-		$path = self::getRequestPath();
+		$path = self::getRequestDir();
 
 		if ( substr( $path, -1 ) !== '/' ) {
 			// Enforce trailing slash for directory index

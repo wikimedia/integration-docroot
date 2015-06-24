@@ -4,13 +4,10 @@ require_once __DIR__ . '/Page.php';
 class DocPage extends Page {
 	protected $site = 'Documentation';
 
-	protected function getNavHtml() {
-		return <<<HTML
-<ul class="navbar-nav nav">
-	<li class="divider-vertical"></li>
-	<li><a href="https://gerrit.wikimedia.org/r/">Gerrit</a></li>
-	<li><a href="https://integration.wikimedia.org/">Integration</a></li>
-</ul>
-HTML;
+	protected function getNavItems() {
+		return array(
+			'https://gerrit.wikimedia.org/r/' => 'Gerrit',
+			'https://integration.wikimedia.org/' => 'Integration',
+		);
 	}
 }
