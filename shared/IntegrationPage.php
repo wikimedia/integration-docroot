@@ -3,7 +3,6 @@ require_once __DIR__ . '/Page.php';
 
 class IntegrationPage extends Page {
 	protected $site = 'Integration';
-	protected $hasFooter = true;
 
 	protected function getNavItems() {
 		return array(

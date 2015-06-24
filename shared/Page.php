@@ -16,7 +16,7 @@ class Page {
 	protected $scripts = array();
 	protected $stylesheets = array();
 	protected $content = '';
-	protected $hasFooter = false;
+	protected $hasFooter = true;
 
 	/**
 	 * Absolute directory on file system to where the page is instantiated.
@@ -294,7 +294,7 @@ class Page {
 		};
 	?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="//bits.wikimedia.org/favicon/wmf.ico">
+	<link rel="shortcut icon" href="https://www.wikimedia.org/static/favicon/wmf.ico">
 	<link rel="stylesheet" href="<?php echo $libPathHtml; ?>/bootstrap/css/bootstrap.min.css">
 <?php
 	if ( count( $this->embeddedCSS ) ) {
@@ -311,7 +311,7 @@ class Page {
 <header class="navbar navbar-default navbar-static-top base-nav" id="top" role="banner">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="<?php echo $rootPathHtml; ?>" title="Navigate to home of <?php echo htmlentities( $this->site ); ?>"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/8/81/Wikimedia-logo.svg/48px-Wikimedia-logo.svg.png" width="24px">&nbsp;<?php echo htmlentities( $this->site ); ?></a>
+			<a class="navbar-brand" href="<?php echo $rootPathHtml; ?>" title="Navigate to home of <?php echo htmlentities( $this->site ); ?>">&nbsp;<?php echo htmlentities( $this->site ); ?></a>
 		</div>
 		<nav class="navbar-collapse collapse">
 <?php
@@ -336,16 +336,14 @@ class Page {
 <?php if ( $this->hasFooter ) { ?>
 <div class="footer">
 	<div class="container">
-		<p class="muted credit">
-			Questions? Comments? Concerns?<br>
-			Contact <em>^demon</em>, <em>Krinkle</em> or <em>hashar</em> on
-			either <a href="irc://irc.freenode.net/#wikimedia-dev">#wikimedia-dev</a>
-			or <a href="irc://irc.freenode.net/#wikimedia-releng">#wikimedia-releng</a>.
+		<p class="pull-left">
+			More information on <a href="https://www.mediawiki.org/wiki/Continuous_integration">Continuous Integration</a> at www.mediawiki.org.
 		</p>
+		<p class="pull-right"><a href="https://www.wikimedia.org"><img src="https://www.wikimedia.org/static/images/wikimedia-button.png" srcset="https://www.wikimedia.org/static/images/wikimedia-button-2x.png 2x" width="88" height="31" alt="Wikimedia Foundation"></a></p>
 	</div>
 </div><!-- /.footer -->
 <?php } ?>
-<script src="//bits.wikimedia.org/www.mediawiki.org/load.php?debug=false&amp;modules=jquery&amp;only=scripts&amp;raw=1"></script>
+<script src="https://www.mediawiki.org/w/load.php?debug=false&amp;modules=jquery&amp;only=scripts&amp;raw=1"></script>
 <script src="<?php echo $libPathHtml; ?>/bootstrap/js/bootstrap.min.js"></script>
 <?php
 	foreach ( $this->scripts as $script ) {

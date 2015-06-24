@@ -34,4 +34,4 @@ function streamFavicon( $url ) {
 	exit;
 }
 
-streamFavicon( 'http://bits.wikimedia.org/favicon/wmf.ico' );
+streamFavicon( 'https://www.wikimedia.org/static/favicon/wmf.ico' );
