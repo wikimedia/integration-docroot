@@ -311,7 +311,7 @@ class Page {
 <header class="navbar navbar-default navbar-static-top base-nav" id="top" role="banner">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="<?php echo $rootPathHtml; ?>" title="Navigate to home of <?php echo htmlentities( $this->site ); ?>">&nbsp;<?php echo htmlentities( $this->site ); ?></a>
+			<a class="navbar-brand" href="<?php echo $rootPathHtml; ?>" title="Navigate to home of <?php echo htmlentities( $this->site ); ?>"><?php echo htmlentities( $this->site ); ?></a>
 		</div>
 		<nav class="navbar-collapse collapse">
 <?php
