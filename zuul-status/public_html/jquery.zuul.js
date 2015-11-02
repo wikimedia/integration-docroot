@@ -16,9 +16,10 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 // License for the specific language governing permissions and limitations
 // under the License.
-'use strict';
 
 (function ($) {
+    'use strict';
+
     function set_cookie(name, value) {
         document.cookie = name + '=' + value + '; path=/';
     }
@@ -39,7 +40,7 @@
     }
 
     $.zuul = function(options) {
-        var options = $.extend({
+        options = $.extend({
             'enabled': true,
             'graphite_url': '',
             'source': 'status.json',
@@ -72,7 +73,7 @@
                         hideGrid: true,
                         target: [
                             "color(stats.gauges.zuul.pipeline." + pipeline_name
-                            + ".current_changes, '6b8182')"
+                                + ".current_changes, '6b8182')"
                         ]
                     });
                 }
@@ -288,10 +289,10 @@
                 }
 
                 var $change_progress_row_left = $('<div />')
-                    .addClass('col-xs-3')
+                    .addClass('col-xs-4')
                     .append($change_link);
                 var $change_progress_row_right = $('<div />')
-                    .addClass('col-xs-9')
+                    .addClass('col-xs-8')
                     .append(this.change_total_progress_bar(change));
 
                 var $change_progress_row = $('<div />')
@@ -316,9 +317,11 @@
                 var $enqueue_time = $('<small />').addClass('time')
                     .attr('title', 'Elapsed Time').html(enqueue_time);
 
-                var $right = $('<div />')
-                    .addClass('col-xs-4 text-right')
-                    .append($remaining_time, $('<br />'), $enqueue_time);
+                var $right = $('<div />');
+                if (change.live === true) {
+                    $right.addClass('col-xs-4 text-right')
+                        .append($remaining_time, $('<br />'), $enqueue_time);
+                }
 
                 var $header = $('<div />')
                     .addClass('row')
@@ -369,6 +372,11 @@
                     icon_name = 'grey.png';
                     icon_title = 'Waiting until closer to head of queue to' +
                         ' start jobs';
+                }
+                else if (change.live !== true) {
+                    // Grey icon
+                    icon_name = 'grey.png';
+                    icon_title = 'Dependent change required for testing';
                 }
                 else if (change.failing_reasons &&
                          change.failing_reasons.length > 0) {
@@ -609,7 +617,7 @@
 
         var app = {
             schedule: function (app) {
-                var app = app || this;
+                app = app || this;
                 if (!options.enabled) {
                     setTimeout(function() {app.schedule(app);}, 5000);
                     return;
@@ -635,7 +643,7 @@
                 this.emit('update-start');
                 var app = this;
 
-                var $msg = $(options.msg_id)
+                var $msg = $(options.msg_id);
                 xhr = $.getJSON(options.source)
                     .done(function (data) {
                         if ('message' in data) {
@@ -675,11 +683,11 @@
                                 data.result_event_queue.length : '0'
                         );
                     })
-                    .fail(function (jqXHR) {
-                        if (jqXHR.statusText === 'abort') {
+                    .fail(function (jqXHR, statusText, errMsg) {
+                        if (statusText === 'abort') {
                             return;
                         }
-                        $msg.text(options.source + ': ' + jqXHR.statusText)
+                        $msg.text(options.source + ': ' + errMsg)
                             .addClass('alert-danger')
                             .removeClass('zuul-msg-wrap-off')
                             .show();
@@ -697,7 +705,7 @@
                     var newimg = new Image();
                     var parts = url.split('#');
                     newimg.src = parts[0] + '#' + new Date().getTime();
-                    $(newimg).load(function (x) {
+                    $(newimg).load(function () {
                         zuul_sparkline_urls[name] = newimg.src;
                     });
                 });
@@ -838,7 +846,9 @@
                     });
                     $.each(change_queue.heads, function(head_i, head) {
                         $.each(head, function(change_i, change) {
-                            count += 1;
+                            if (change.live === true) {
+                                count += 1;
+                            }
                             var idx = tree.indexOf(change.id);
                             if (idx > -1) {
                                 change._tree_index = idx;
@@ -891,5 +901,5 @@
             app: app,
             jq: $jq
         };
-    }
+    };
 }(jQuery));
