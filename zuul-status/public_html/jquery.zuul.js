@@ -145,6 +145,9 @@
                     case 'unstable':
                         $status.addClass('label-warning');
                         break;
+                    case 'skipped':
+                        $status.addClass('label-info');
+                        break;
                     case 'in progress':
                     case 'queued':
                     case 'lost':
@@ -487,10 +490,12 @@
                 $header_div.append($heading);
 
                 if (typeof pipeline.description === 'string') {
+                    var descr = $('<small />')
+                    $.each( pipeline.description.split(/\r?\n\r?\n/), function(index, descr_part){
+                        descr.append($('<p />').text(descr_part));
+                    });
                     $header_div.append(
-                        $('<p />').append(
-                            $('<small />').text(pipeline.description)
-                        )
+                        $('<p />').append(descr)
                     );
                 }
                 return $header_div;
