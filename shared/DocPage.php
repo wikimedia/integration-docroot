@@ -6,6 +6,7 @@ class DocPage extends Page {
 
 	protected function getNavItems() {
 		return array(
+			'/cover/' => 'Coverage',
 			'https://gerrit.wikimedia.org/r/' => 'Gerrit',
 			'https://integration.wikimedia.org/' => 'Integration',
 		);

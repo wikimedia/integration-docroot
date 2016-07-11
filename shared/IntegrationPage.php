@@ -6,7 +6,7 @@ class IntegrationPage extends Page {
 
 	protected function getNavItems() {
 		return array(
-			'/cover/' => 'Coverage',
+			'https://doc.wikimedia.org/cover/' => 'Coverage',
 			'https://tools.wmflabs.org/nagf/?project=integration' => 'Monitor',
 			'/zuul/' => 'Zuul',
 			'https://gerrit.wikimedia.org/r/' => 'Gerrit',
