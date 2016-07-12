@@ -1,1 +1,2 @@
 Redirect 301 /monitoring/ https://tools.wmflabs.org/nagf/?project=integration
+Redirect 301 /cover https://doc.wikimedia.org/cover
