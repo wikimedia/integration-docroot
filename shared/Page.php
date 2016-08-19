@@ -335,12 +335,12 @@ class Page {
 </div><!-- /.page-wrap -->
 <?php if ( $this->hasFooter ) { ?>
 <div class="footer">
-	<div class="container">
-		<p class="pull-left">
+	<div class="container"><div class="row">
+		<p class="col-sm-8">
 			More information on <a href="https://www.mediawiki.org/wiki/Continuous_integration">Continuous Integration</a> at www.mediawiki.org.
 		</p>
-		<p class="pull-right"><a href="https://www.wikimedia.org"><img src="https://www.wikimedia.org/static/images/wikimedia-button.png" srcset="https://www.wikimedia.org/static/images/wikimedia-button-2x.png 2x" width="88" height="31" alt="Wikimedia Foundation"></a></p>
-	</div>
+		<p class="col-sm-4 text-right"><a href="https://www.wikimedia.org"><img src="https://www.wikimedia.org/static/images/wikimedia-button.png" srcset="https://www.wikimedia.org/static/images/wikimedia-button-2x.png 2x" width="88" height="31" alt="Wikimedia Foundation"></a></p>
+	</div></div>
 </div><!-- /.footer -->
 <?php } ?>
 <script src="https://www.mediawiki.org/w/load.php?debug=false&amp;modules=jquery&amp;only=scripts&amp;raw=1"></script>
