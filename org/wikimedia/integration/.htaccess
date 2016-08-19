@@ -1,2 +1,5 @@
+RewriteEngine On
+RewriteRule ^/cover$ https://doc.wikimedia.org/cover/ [R=301,L]
+
 Redirect 301 /monitoring/ https://tools.wmflabs.org/nagf/?project=integration
-Redirect 301 /cover https://doc.wikimedia.org/cover
+Redirect 301 /cover/ https://doc.wikimedia.org/cover/
