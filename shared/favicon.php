@@ -23,10 +23,10 @@ function streamFavicon( $url ) {
 		faviconErrorText( "Failed to fetch url: $url" );
 	}
 	$resp = parseRespHeaders( $http_response_header );
-	if ( !isset( $resp['content-length'] ) || !isset( $resp['content-length'] ) ) {
-		faviconErrorText( "Missing content headers on url: $url" );
+	if ( !isset( $resp['content-type'] ) ) {
+		faviconErrorText( "Missing Content-Type header on url: $url" );
 	}
-	header( 'Content-Length: ' . $resp['content-length'] );
+	header( 'Content-Length: ' . strlen( $content ) );
 	header( 'Content-Type: ' . $resp['content-type'] );
 	header( 'Cache-Control: public' );
 	header( 'Expires: ' . gmdate( 'r', time() + 86400 ) );
