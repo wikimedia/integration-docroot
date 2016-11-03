@@ -5,10 +5,6 @@
 
 # Automated publications
 /org/wikimedia/doc/*
-/org/wikimedia/integration/nightly
-/org/wikimedia/integration/WikipediaMobile/nightly/
-/org/wikimedia/integration/WiktionaryMobile/nightly/
-/org/wikimedia/integration/WLMMobile/nightly/
 jenkins-autodeploy
 
 # Development
