@@ -1,5 +1,5 @@
 <?php
-function parseRespHeaders( $lines ) {
+function wfParseRespHeaders( $lines ) {
 	$headers = array();
 	foreach ( $lines as $line ) {
 		// Skip HTTP version and multi-line values
@@ -10,21 +10,21 @@ function parseRespHeaders( $lines ) {
 	return $headers;
 }
 
-function faviconErrorText( $text ) {
+function wfFaviconErrorText( $text ) {
 	header( 'HTTP/1.1 500 Internal Server Error' );
 	header( 'Content-Type: text/html; charset=utf-8' );
 	echo "<!DOCTYPE html>\n<html>\n<p>" . htmlspecialchars( $text ) . "</p>\n</html>\n";
 	exit;
 }
 
-function streamFavicon( $url ) {
+function wfStreamFavicon( $url ) {
 	$content = file_get_contents( $url );
 	if ( !$content ) {
-		faviconErrorText( "Failed to fetch url: $url" );
+		wfFaviconErrorText( "Failed to fetch url: $url" );
 	}
-	$resp = parseRespHeaders( $http_response_header );
+	$resp = wfParseRespHeaders( $http_response_header );
 	if ( !isset( $resp['content-type'] ) ) {
-		faviconErrorText( "Missing Content-Type header on url: $url" );
+		wfFaviconErrorText( "Missing Content-Type header on url: $url" );
 	}
 	header( 'Content-Length: ' . strlen( $content ) );
 	header( 'Content-Type: ' . $resp['content-type'] );
@@ -34,4 +34,4 @@ function streamFavicon( $url ) {
 	exit;
 }
 
-streamFavicon( 'https://www.wikimedia.org/static/favicon/wmf.ico' );
+wfStreamFavicon( 'https://www.wikimedia.org/static/favicon/wmf.ico' );

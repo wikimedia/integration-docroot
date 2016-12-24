@@ -97,7 +97,7 @@ class Page {
 
 		// Move down to toPath
 		$down = array_slice( $to, $i );
-		if ($down) {
+		if ( $down ) {
 			$relativePath .= implode( '/', $down );
 
 			// Match target with slash
@@ -225,12 +225,12 @@ class Page {
 			$file = $this->dir . DIRECTORY_SEPARATOR . $file;
 		}
 
-		if( !file_exists( $file ) ) {
+		if ( !file_exists( $file ) ) {
 			return false;
 		}
 
 		$content = file_get_contents( $file );
-		if( $content === false ) {
+		if ( $content === false ) {
 			# TODO output an error page?
 			return false;
 		}
@@ -265,7 +265,7 @@ class Page {
 	}
 
 	public function flush() {
-		$this->embedCSS('
+		$this->embedCSS( '
 /**
  * Logo
  */
@@ -273,7 +273,7 @@ class Page {
 	vertical-align: middle;
 	margin-right: 1em;
 }
-');
+' );
 
 	if ( $this->hasFooter ) {
 		$this->embedCSSFile( 'footer.css' );
@@ -404,7 +404,6 @@ class Page {
 		$this->flush();
 	}
 
-
 	public static function error( $msg, $statusCode = 500 ) {
 		$statusCode = (int)$statusCode;
 		http_response_code( $statusCode );
@@ -414,5 +413,6 @@ class Page {
 		exit;
 	}
 
-	private function __construct() {}
+	private function __construct() {
+	}
 }
