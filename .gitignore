@@ -8,5 +8,6 @@
 jenkins-autodeploy
 
 # Development
+/node_modules
 /vendor
 composer.lock
