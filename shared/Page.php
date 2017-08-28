@@ -343,7 +343,7 @@ class Page {
 	</div></div>
 </div><!-- /.footer -->
 <?php } ?>
-<script src="https://www.mediawiki.org/w/load.php?debug=false&amp;modules=jquery&amp;only=scripts&amp;raw=1"></script>
+<script src="<?php echo $libPathHtml; ?>/jquery.min.js"></script>
 <script src="<?php echo $libPathHtml; ?>/bootstrap/js/bootstrap.min.js"></script>
 <?php
 	foreach ( $this->scripts as $script ) {
