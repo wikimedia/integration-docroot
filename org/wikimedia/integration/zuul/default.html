@@ -10,22 +10,27 @@
 	<a class="btn btn-default btn-sm" href="https://grafana.wikimedia.org/dashboard/db/nodepool">Nodepool</a>
 	<a class="btn btn-default btn-sm" href="https://grafana.wikimedia.org/dashboard/db/zuul">Zuul</a>
 	<br/>
-	<img class="graphite-graph" title="Changes in Zuul" src="//graphite.wikimedia.org/render/?from=-24hours
+	<a href="https://grafana.wikimedia.org/dashboard/db/zuul?from=now-24h&to=now&panelId=26&fullscreen" target="_blank">
+		<img class="graphite-graph" title="Changes in Zuul" src="https://graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
 &amp;width=400
 &amp;areaMode=first
 &amp;lineMode=staircase
 &amp;target=alias(summarize(sumSeries(zuul.pipeline.*.current_changes),'1h'),'Changes in pipelines per hour')
-&amp;title=Changes%20in%20Zuul%20pipelines%20per%20hour" title="Changes in Zuul (per hour)" />
-	<img class="graphite-graph" title="Gearman job queue" src="//graphite.wikimedia.org/render/?from=-8hours
+&amp;title=Changes%20in%20Zuul%20pipelines%20(per%20hour)" title="Changes in Zuul (per hour)" />
+	</a>
+	<a href="https://grafana.wikimedia.org/dashboard/db/zuul-gearman?from=now-24h&to=now" target="_blank">
+		<img class="graphite-graph" title="Gearman job queue" src="https://graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
 &amp;width=400
 &amp;target=alias(color(zuul.geard.queue.running,'blue'),'Running')
 &amp;target=alias(color(zuul.geard.queue.waiting,'red'),'Waiting')
 &amp;target=alias(color(zuul.geard.queue.total,'888888'),'Total')
-&amp;title=Gearman%20job%20queue%20(8%20hours)" />
+&amp;title=Gearman%20job%20queue%20" />
+	</a>
 <br/>
-	<img class="graphite-graph" title="Zuul test pipeline" src="//graphite.wikimedia.org/render/?from=-24hours
+	<a href="https://grafana.wikimedia.org/dashboard/db/zuul?from=now-3d&to=now" target="_blank">
+		<img class="graphite-graph" title="Zuul test pipeline" src="https://graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
 &amp;width=400
 &amp;areaMode=first
@@ -35,7 +40,9 @@
 &amp;target=alias(summarize(zuul.pipeline.test.current_changes,'1min'),'1min avg')
 &amp;target=alias(summarize(zuul.pipeline.test.current_changes,'1h','max'),'hourly max')
 &amp;title=Zuul%20test%20pipeline" />
-	<img class="graphite-graph" title="Zuul gate pipeline" src="//graphite.wikimedia.org/render/?from=-24hours
+	</a>
+	<a href="https://grafana.wikimedia.org/dashboard/db/zuul?from=now-3d&to=now" target="_blank">
+		<img class="graphite-graph" title="Zuul gate pipeline" src="https://graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
 &amp;width=400
 &amp;areaMode=first
@@ -45,3 +52,4 @@
 &amp;target=alias(summarize(zuul.pipeline.gate-and-submit.current_changes,'1min'),'1min avg')
 &amp;target=alias(summarize(zuul.pipeline.gate-and-submit.current_changes,'1h','max'),'hourly max')
 &amp;title=Zuul%20gate%20pipeline" />
+	</a>
