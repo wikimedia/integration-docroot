@@ -370,6 +370,10 @@ class Page {
 		return $p;
 	}
 
+	protected function getDirIndexDirectories() {
+		return glob( "{$this->dir}/*", GLOB_ONLYDIR );
+	}
+
 	public function handleDirIndex() {
 		if ( $this->flags & self::INDEX_PREFIX ) {
 			if ( $this->flags & self::INDEX_PARENT_PREFIX && strpos( $this->getRootPath(), '/' ) !== false ) {
@@ -379,7 +383,7 @@ class Page {
 			}
 		}
 
-		$subDirPaths = glob( "{$this->dir}/*", GLOB_ONLYDIR );
+		$subDirPaths = $this->getDirIndexDirectories();
 		if ( $this->flags & self::INDEX_ALLOW_SKIP ) {
 			if ( count( $subDirPaths ) === 1 ) {
 				header( 'Location: ./' . basename( $subDirPaths[0] ) . '/' );
