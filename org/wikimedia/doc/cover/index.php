@@ -44,15 +44,16 @@ class CoveragePage extends DocPage {
 		foreach ( $results as $clover ) {
 			$info = $this->parseClover( $clover );
 			$dirName = htmlspecialchars( basename( dirname( $clover ) ) );
-			$percent = sprintf( '%.2f', $info['percent'] );
+			$percent = (string)round( $info['percent'] );
 			$color = $this->getLevelColor( $info['percent'] );
+			$minWidth = $percent >= 10 ? '3em' : '2em';
 			$html .= <<<HTML
 <li>
 	<a href="./$dirName/">
 		<div class="progress-name">$dirName</div>
 		<div class="progress">
 			<div class="progress-bar progress-bar-$color" role="progressbar" aria-valuenow="$percent" 
-				aria-valuemin="0" aria-valuemax="100" style="width: $percent%">
+				aria-valuemin="0" aria-valuemax="100" style="min-width: $minWidth; width: $percent%">
 				$percent%
 			</div>
 		</div>
