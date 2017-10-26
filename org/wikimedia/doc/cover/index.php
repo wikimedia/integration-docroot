@@ -79,17 +79,22 @@ HTML;
 
 		$xml = new SimpleXMLElement( $contents );
 		$metrics = $xml->project->metrics;
-		$percent = (
-			(int)$metrics['coveredmethods'] +
-			(int)$metrics['coveredconditionals'] +
-			(int)$metrics['coveredstatements'] +
-			(int)$metrics['coveredelements']
-		) / (
-			(int)$metrics['methods'] +
+		$total = (int)$metrics['methods'] +
 			(int)$metrics['conditionals'] +
 			(int)$metrics['statements'] +
-			(int)$metrics['elements']
-		);
+			(int)$metrics['elements'];
+		if ( $total === 0 ) {
+			// Avoid division by 0 warnings, and treat 0/0 as 100%
+			// to match the PHPUnit behavior
+			$percent = 1;
+		} else {
+			$percent = (
+					(int)$metrics['coveredmethods'] +
+					(int)$metrics['coveredconditionals'] +
+					(int)$metrics['coveredstatements'] +
+					(int)$metrics['coveredelements']
+				) / $total;
+		}
 		// TODO: Figure out how to get a more friendly name
 		return [
 			'percent' => $percent * 100,
