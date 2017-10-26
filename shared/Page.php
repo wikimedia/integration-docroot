@@ -400,8 +400,6 @@ class Page {
 			}
 			$this->addHtmlContent( '</ul>' );
 		}
-
-		$this->flush();
 	}
 
 	public static function error( $msg, $statusCode = 500 ) {
