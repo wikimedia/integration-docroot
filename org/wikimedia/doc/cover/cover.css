@@ -1,9 +1,14 @@
-.progress {
-	width: 100px;
-	margin: 0;
+/* Override Bootstrap ".nav>li>a" selector */
+.cover-list .cover-item {
+	display: flex;
 }
 
-.progress-name {
-	float: left;
+.cover-item .progress {
+	display: inline-block;
+	order: -1;
+	vertical-align: middle;
+	width: 100px;
 	margin-right: 1em;
+	/* Override Bootstrap ".progress" margin */
+	margin-bottom: 0;
 }

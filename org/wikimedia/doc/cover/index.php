@@ -39,7 +39,7 @@ class CoveragePage extends DocPage {
 		// Get list of directories with clover.xml
 		$results = glob( __DIR__ . '/*/clover.xml' );
 		$this->embedCSS( file_get_contents( __DIR__ . '/cover.css' ) );
-		$this->addHtmlContent( '<ul class="nav nav-pills nav-stacked">' );
+		$this->addHtmlContent( '<ul class="nav nav-pills nav-stacked cover-list">' );
 		$html = '';
 		foreach ( $results as $clover ) {
 			$info = $this->parseClover( $clover );
@@ -49,8 +49,8 @@ class CoveragePage extends DocPage {
 			$minWidth = $percent >= 10 ? '3em' : '2em';
 			$html .= <<<HTML
 <li>
-	<a href="./$dirName/">
-		<div class="progress-name">$dirName</div>
+	<a class="cover-item" href="./$dirName/">
+		<span>$dirName</span>
 		<div class="progress">
 			<div class="progress-bar progress-bar-$color" role="progressbar" aria-valuenow="$percent" 
 				aria-valuemin="0" aria-valuemax="100" style="min-width: $minWidth; width: $percent%">
