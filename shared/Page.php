@@ -121,14 +121,14 @@ class Page {
 			$path = dirname( $_SERVER['SCRIPT_NAME'] ) . '/';
 		}
 		if ( !$path || !isset( $_SERVER['DOCUMENT_ROOT'] ) ) {
-			Page::error( 'Invalid context.' );
+			self::error( 'Invalid context.' );
 		}
 		// Use realpath() to prevent escalation through e.g. "../"
 		// Note: realpath() also normalises paths to have no trailing slash
 		$realPath = realpath( $_SERVER['DOCUMENT_ROOT'] . $path );
 		if ( !$realPath || strpos( $realPath, $_SERVER['DOCUMENT_ROOT'] ) !== 0 ) {
 			// Path escalation. Should be impossible as Apache normalises this.
-			Page::error( 'Invalid context.' );
+			self::error( 'Invalid context.' );
 		}
 		if ( substr( $path, -1 ) === '/' ) {
 			$realPath .= '/';
@@ -164,7 +164,7 @@ class Page {
 	}
 
 	/**
-	 * @return string: URL path to shared/lib (without trailing slash).
+	 * @return string URL path to shared/lib (without trailing slash).
 	 */
 	public function getLibPath() {
 		if ( $this->libPath ) {
@@ -216,7 +216,6 @@ class Page {
 	 * @param string $file
 	 */
 	public function addHtmlFile( $file ) {
-
 		$isRelativePath = ( substr( $file, 0 ) !== '/' );
 
 		if ( $isRelativePath && $this->dir ) {
