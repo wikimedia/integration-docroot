@@ -135,7 +135,11 @@ HTML;
 		$dirs = parent::getDirIndexDirectories();
 		$noClover = [];
 		foreach ( $dirs as $dir ) {
-			if ( !file_exists( "$dir/clover.xml" ) ) {
+			// Ignore "extensions" subdirectory, it is linked to
+			// separately
+			if ( !file_exists( "$dir/clover.xml" )
+				&& basename( $dir ) !== 'extensions'
+			) {
 				$noClover[] = $dir;
 			}
 		}
