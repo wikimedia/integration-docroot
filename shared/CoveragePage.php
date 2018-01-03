@@ -46,6 +46,20 @@ class CoveragePage extends DocPage {
 		// Get list of directories with clover.xml
 		$results = glob( $this->coverageDir . '/*/clover.xml' );
 		$this->embedCSS( file_get_contents( __DIR__ . '/cover.css' ) );
+		$intro = <<<HTML
+<blockquote>
+<p>
+Test coverage refers to measuring how much a software program has been
+exercised by tests. Coverage is a means of determining the rigour with
+which the question underlying the test has been answered.
+</p>
+<footer>
+<a href="https://en.wikipedia.org/w/index.php?title=Fault_coverage&oldid=675795947">Wikipedia</a>
+</footer>
+</blockquote>
+HTML;
+		$this->addHtmlContent( $intro );
+
 		$this->addHtmlContent( '<ul class="nav nav-pills nav-stacked cover-list">' );
 		$html = '';
 		foreach ( $results as $clover ) {

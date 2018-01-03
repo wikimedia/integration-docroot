@@ -21,7 +21,7 @@
 require_once __DIR__ . '/../../../../shared/CoveragePage.php';
 
 /** @var CoveragePage $p */
-$p = CoveragePage::newDirIndex( 'Coverage' );
+$p = CoveragePage::newDirIndex( 'Test coverage' );
 $p->setCoverageDir( __DIR__ );
 $p->handleCoverageIndex();
 $p->handleDirIndex();
