@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2017-2018 Kunal Mehta <legoktm@member.fsf.org>
+ * Copyright (C) 2018 Kunal Mehta <legoktm@member.fsf.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,16 +15,14 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- *
  */
 
-require_once __DIR__ . '/../../../../../shared/CoveragePage.php';
+require_once __DIR__ . '/../../../../shared/DocPage.php';
 
-/** @var CoveragePage $p */
-$p = CoveragePage::newDirIndex( 'MediaWiki extension test coverage' );
-$p->setCoverageDir( __DIR__ );
-// XXX: Not sure if there's a better way to do this
-$p->setLibPath( '../../lib' );
-$p->handleCoverageIndex();
+$p = DocPage::newDirIndex(
+	'MediaWiki extension test coverage: ',
+	Page::INDEX_PREFIX | Page::INDEX_ALLOW_SKIP
+);
+$p->setRootDir( dirname( __DIR__ ) );
 $p->handleDirIndex();
 $p->flush();
