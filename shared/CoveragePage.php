@@ -98,23 +98,31 @@ HTML;
 			return false;
 		}
 
+		$types = [ 'methods', 'conditionals', 'statements', 'elements' ];
+		$total = 0;
 		$xml = new SimpleXMLElement( $contents );
 		$metrics = $xml->project->metrics;
-		$total = (int)$metrics['methods'] +
-			(int)$metrics['conditionals'] +
-			(int)$metrics['statements'] +
-			(int)$metrics['elements'];
+		// A proper clover.xml file will have all of the four types, but
+		// we're also converting other types into clover.xml, that don't
+		// have all the keys we expect. Using isset() should make this safe.
+		foreach ( $types as $type ) {
+			if ( isset( $metrics[$type] ) ) {
+				$total += (int)$metrics[$type];
+			}
+		}
 		if ( $total === 0 ) {
 			// Avoid division by 0 warnings, and treat 0/0 as 100%
 			// to match the PHPUnit behavior
 			$percent = 1;
 		} else {
-			$percent = (
-					(int)$metrics['coveredmethods'] +
-					(int)$metrics['coveredconditionals'] +
-					(int)$metrics['coveredstatements'] +
-					(int)$metrics['coveredelements']
-				) / $total;
+			$covered = 0;
+			foreach ( $types as $type ) {
+				if ( isset( $metrics["covered$type"] ) ) {
+					$covered += (int)$metrics["covered$type"];
+				}
+
+			}
+			$percent = $covered / $total;
 		}
 		// TODO: Figure out how to get a more friendly name
 		return [
