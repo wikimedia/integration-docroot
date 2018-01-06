@@ -46,6 +46,24 @@ class CoveragePage extends DocPage {
 		// Get list of directories with clover.xml
 		$results = glob( $this->coverageDir . '/*/clover.xml' );
 		$this->embedCSS( file_get_contents( __DIR__ . '/cover.css' ) );
+
+		if ( $this->pageName === 'Test coverage' ) {
+			$breadcrumbs = <<<HTML
+<ol class="breadcrumb">
+	<li class="active">Coverage home</li>
+	<li><a href="/cover-extensions/">MediaWiki extensions</a></li>
+</ol>
+HTML;
+		} else {
+			$breadcrumbs = <<<HTML
+<ol class="breadcrumb">
+	<li><a href="/cover/">Coverage home</a></li>
+	<li class="active">MediaWiki extensions</li>
+</ol>
+HTML;
+		}
+		$this->addHtmlContent( $breadcrumbs );
+
 		$intro = <<<HTML
 <blockquote>
 <p>
