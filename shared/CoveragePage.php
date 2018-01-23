@@ -48,16 +48,18 @@ class CoveragePage extends DocPage {
 		$this->embedCSS( file_get_contents( __DIR__ . '/cover.css' ) );
 
 		if ( $this->pageName === 'Test coverage' ) {
+			$href = $this->fixNavUrl( '/cover-extensions/' );
 			$breadcrumbs = <<<HTML
 <ol class="breadcrumb">
 	<li class="active">Coverage home</li>
-	<li><a href="/cover-extensions/">MediaWiki extensions</a></li>
+	<li><a href="$href">MediaWiki extensions</a></li>
 </ol>
 HTML;
 		} else {
+			$href = $this->fixNavUrl( '/cover/' );
 			$breadcrumbs = <<<HTML
 <ol class="breadcrumb">
-	<li><a href="/cover/">Coverage home</a></li>
+	<li><a href="$href">Coverage home</a></li>
 	<li class="active">MediaWiki extensions</li>
 </ol>
 HTML;

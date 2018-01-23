@@ -248,15 +248,20 @@ class Page {
 		);
 	}
 
+	protected function fixNavUrl( $href ) {
+		if ( $href[0] === '/' ) {
+			// Expand relatively so that it works even if the site is mounted in a sub directory.
+			$href = substr( $this->getRootPath(), 0, -1 ) . $href;
+		}
+		return $href;
+	}
+
 	protected function getNavHtml() {
 		$html = '<ul class="navbar-nav nav">';
 		$cur = $this->getRequestPath();
 		foreach ( $this->getNavItems() as $href => $text ) {
 			$active = ( $href === "/$cur" ? ' class="active"' : '' );
-			if ( $href[0] === '/' ) {
-				// Expand relatively so that it works even if the site is mounted in a sub directory.
-				$href = substr( $this->getRootPath(), 0, -1 ) . $href;
-			}
+			$href = $this->fixNavUrl( $href );
 			$html .= '<li' . $active . '><a href="' . htmlspecialchars( $href ) . '">' . htmlspecialchars( $text ) . '</a></li>';
 		}
 		$html .= '</ul>';
