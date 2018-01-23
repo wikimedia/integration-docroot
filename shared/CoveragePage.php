@@ -47,6 +47,8 @@ class CoveragePage extends DocPage {
 		$results = glob( $this->coverageDir . '/*/clover.xml' );
 		$this->embedCSS( file_get_contents( __DIR__ . '/cover.css' ) );
 
+		$sort = isset( $_GET['sort'] ) ? (string)$_GET['sort'] : null;
+
 		if ( $this->pageName === 'Test coverage' ) {
 			$href = $this->fixNavUrl( '/cover-extensions/' );
 			$breadcrumbs = <<<HTML
@@ -80,10 +82,39 @@ which the question underlying the test has been answered.
 HTML;
 		$this->addHtmlContent( $intro );
 
+		if ( $sort === 'cov' ) {
+			$sortNav = <<<HTML
+<div class="btn-group btn-group-sm">
+		<a class="btn btn-default" href="./">Sort by name</a>
+		<button type="button" class="btn btn-default active">Sort by coverage percentage</button>
+</div>
+HTML;
+		} else {
+			$sortNav = <<<HTML
+<div class="btn-group btn-group-sm">
+		<button type="button" class="btn btn-default active">Sort by name</button>
+		<a class="btn btn-default" href="./?sort=cov">Sort by coverage percentage</a>
+</div>
+HTML;
+		}
+
+		$this->addHtmlContent( $sortNav );
 		$this->addHtmlContent( '<ul class="nav nav-pills nav-stacked cover-list">' );
 		$html = '';
+		$clovers = [];
 		foreach ( $results as $clover ) {
-			$info = $this->parseClover( $clover );
+			$clovers[$clover] = $this->parseClover( $clover );
+		}
+		if ( isset( $_GET['sort'] ) && $_GET['sort'] === 'cov' ) {
+			// Order by coverage, ascending
+			uasort( $clovers, function ( $a, $b ) {
+				if ( $a['percent'] === $b['percent'] ) {
+					return 0;
+				}
+				return ( $a['percent'] < $b['percent'] ) ? -1 : 1;
+			} );
+		}
+		foreach ( $clovers as $clover => $info ) {
 			$dirName = htmlspecialchars( basename( dirname( $clover ) ) );
 			$percent = (string)round( $info['percent'] );
 			$color = $this->getLevelColor( $info['percent'] );
