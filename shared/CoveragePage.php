@@ -52,18 +52,18 @@ class CoveragePage extends DocPage {
 		if ( $this->pageName === 'Test coverage' ) {
 			$href = $this->fixNavUrl( '/cover-extensions/' );
 			$breadcrumbs = <<<HTML
-<ol class="breadcrumb">
-	<li class="active">Coverage home</li>
+<ul class="nav nav-tabs">
+	<li class="active"><a href="#">Coverage home</a></li>
 	<li><a href="$href">MediaWiki extensions</a></li>
-</ol>
+</ul>
 HTML;
 		} else {
 			$href = $this->fixNavUrl( '/cover/' );
 			$breadcrumbs = <<<HTML
-<ol class="breadcrumb">
+<ul class="nav nav-tabs">
 	<li><a href="$href">Coverage home</a></li>
-	<li class="active">MediaWiki extensions</li>
-</ol>
+	<li class="active"><a href="#">MediaWiki extensions</a></li>
+</ul>
 HTML;
 		}
 		$this->addHtmlContent( $breadcrumbs );
