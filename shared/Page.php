@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/Functions.php';
+
 class Page {
 	/** If the directory only has one subdirectory, redirect to it. */
 	const INDEX_ALLOW_SKIP = 1;
