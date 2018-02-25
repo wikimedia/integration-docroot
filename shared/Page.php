@@ -12,9 +12,9 @@ class Page {
 
 	protected $site = 'Wikimedia';
 	protected $pageName = false;
-	protected $embeddedCSS = array();
-	protected $scripts = array();
-	protected $stylesheets = array();
+	protected $embeddedCSS = [];
+	protected $scripts = [];
+	protected $stylesheets = [];
 	protected $content = '';
 	protected $hasFooter = true;
 
@@ -68,11 +68,15 @@ class Page {
 		// Filter out double slashes, and empty matches from leading/trailing slash
 		$from = array_values( array_filter(
 			explode( '/', $fromPath ),
-			function ( $part ) { return $part !== ''; }
+			function ( $part ) {
+				return $part !== '';
+			}
 		) );
 		$to = array_values( array_filter(
 			explode( '/', $toPath ),
-			function ( $part ) { return $part !== ''; }
+			function ( $part ) {
+				return $part !== '';
+			}
 		) );
 
 		// Remove source directory if it has no slash
@@ -241,11 +245,11 @@ class Page {
 	}
 
 	protected function getNavItems() {
-		return array(
+		return [
 			'https://gerrit.wikimedia.org/r/' => 'Gerrit',
 			'https://integration.wikimedia.org/' => 'Integration',
 			'https://doc.wikimedia.org/' => 'Documentation',
-		);
+		];
 	}
 
 	protected function fixNavUrl( $href ) {
@@ -335,7 +339,11 @@ class Page {
 	echo $this->processHtmlContent( $this->content, "\t\t" );
 ?>
 	</div><!-- /.container -->
-<?php if ( $this->hasFooter ) { echo '<div class="push"></div>'; } ?>
+<?php
+	if ( $this->hasFooter ) {
+		echo '<div class="push"></div>';
+	}
+?>
 </div><!-- /.page-wrap -->
 <?php if ( $this->hasFooter ) { ?>
 <div class="footer">

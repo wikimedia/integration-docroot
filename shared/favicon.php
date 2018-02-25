@@ -1,6 +1,6 @@
 <?php
 function wfParseRespHeaders( $lines ) {
-	$headers = array();
+	$headers = [];
 	foreach ( $lines as $line ) {
 		// Skip HTTP version and multi-line values
 		if ( preg_match( "#^([^:]*):[\t ]*(.*)#", $line, $match ) ) {

@@ -5,12 +5,12 @@ class IntegrationPage extends Page {
 	protected $site = 'Integration';
 
 	protected function getNavItems() {
-		return array(
+		return [
 			'https://doc.wikimedia.org/cover/' => 'Coverage',
 			'https://tools.wmflabs.org/nagf/?project=integration' => 'Monitor',
 			'/zuul/' => 'Zuul',
 			'https://gerrit.wikimedia.org/r/' => 'Gerrit',
 			'https://doc.wikimedia.org/' => 'Documentation',
-		);
+		];
 	}
 }
