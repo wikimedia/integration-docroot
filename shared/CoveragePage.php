@@ -44,7 +44,7 @@ class CoveragePage extends DocPage {
 	 */
 	public function handleCoverageIndex() {
 		// Get list of directories with clover.xml
-		$results = glob( $this->coverageDir . '/*/clover.xml' );
+		$cloverFiles = glob( $this->coverageDir . '/*/clover.xml' );
 		$this->embedCSS( file_get_contents( __DIR__ . '/cover.css' ) );
 
 		$sort = isset( $_GET['sort'] ) ? (string)$_GET['sort'] : null;
@@ -102,7 +102,12 @@ HTML;
 		$this->addHtmlContent( '<ul class="nav nav-pills nav-stacked cover-list">' );
 		$html = '';
 		$clovers = [];
-		foreach ( $results as $clover ) {
+		foreach ( $cloverFiles as $cloverFile ) {
+			$clover = file_get_contents( $cloverFile );
+			if ( !$clover ) {
+				// Race condition?
+				continue;
+			}
 			$clovers[$clover] = $this->parseClover( $clover );
 		}
 		if ( isset( $_GET['sort'] ) && $_GET['sort'] === 'cov' ) {
@@ -139,16 +144,10 @@ HTML;
 	/**
 	 * Get data out of the clover.xml file
 	 *
-	 * @param string $fname
+	 * @param string $contents Contents of a clover.xml file
 	 * @return array|bool false on failure
 	 */
-	protected function parseClover( $fname ) {
-		$contents = file_get_contents( $fname );
-		if ( !$contents ) {
-			// Race condition?
-			return false;
-		}
-
+	protected function parseClover( $contents ) {
 		$types = [ 'methods', 'conditionals', 'statements', 'elements' ];
 		$total = 0;
 		$xml = new SimpleXMLElement( $contents );
@@ -177,7 +176,7 @@ HTML;
 		}
 		// TODO: Figure out how to get a more friendly name
 		return [
-			'percent' => $percent * 100,
+			'percent' => round( $percent * 100, 2 )
 		];
 	}
 
