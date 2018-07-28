@@ -108,7 +108,7 @@ HTML;
 				// Race condition?
 				continue;
 			}
-			$clovers[$clover] = $this->parseClover( $clover );
+			$clovers[$cloverFile] = $this->parseClover( $clover );
 		}
 		if ( isset( $_GET['sort'] ) && $_GET['sort'] === 'cov' ) {
 			// Order by coverage, ascending
@@ -119,8 +119,8 @@ HTML;
 				return ( $a['percent'] < $b['percent'] ) ? -1 : 1;
 			} );
 		}
-		foreach ( $clovers as $clover => $info ) {
-			$dirName = htmlspecialchars( basename( dirname( $clover ) ) );
+		foreach ( $clovers as $cloverFile => $info ) {
+			$dirName = htmlspecialchars( basename( dirname( $cloverFile ) ) );
 			$percent = (string)round( $info['percent'] );
 			$color = $this->getLevelColor( $info['percent'] );
 			$minWidth = $percent >= 10 ? '3em' : '2em';
