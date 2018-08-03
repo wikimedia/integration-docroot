@@ -3,9 +3,13 @@
 /ssd
 /localhost/qunit/
 
-# Automated publications
+# Automated publications...
 /org/wikimedia/doc/*
+
+# ...Except for the project listing which is maintained by hand. Exclude it from
+# the ignores so that external tooling can recognize it.
 !/org/wikimedia/doc/default.html
+
 jenkins-autodeploy
 
 # Development
