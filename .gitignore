@@ -5,6 +5,7 @@
 
 # Automated publications
 /org/wikimedia/doc/*
+!/org/wikimedia/doc/default.html
 jenkins-autodeploy
 
 # Development
