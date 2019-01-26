@@ -1,8 +1,0 @@
-node_modules
-shared/lib
-org/wikimedia/integration/lib
-org/wikimedia/doc/lib
-zuul-status/public_html
-# symlinks
-org/wikimedia/integration/zuul/jquery.zuul.js
-org/wikimedia/integration/zuul/zuul.app.js
