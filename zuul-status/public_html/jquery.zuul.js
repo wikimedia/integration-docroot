@@ -756,14 +756,16 @@
                     .text('Filters')
                     .css('padding-right', '0.5em');
 
-                var $input = $('<input />')
-                    .attr('type', 'text')
-                    .attr('id', 'filter_string')
-                    .addClass('form-control')
-                    .attr('title',
-                          'project(s), pipeline(s) or review(s) comma ' +
-                          'separated')
-                    .attr('value', current_filter);
+                // WMF(April 2019): Add 'placeholder' to Filter input.
+                // WMF(April 2019): Improve 'title' text for Filter input.
+                var $input = $('<input>').prop({
+                    type: 'text',
+                    id: 'filter_string',
+                    className: 'form-control',
+                    title: 'Any partial match for a gerrit change number, repo name, or pipeline. Multiple terms may be comma-separated.',
+                    placeholder: 'e.g. 1234 or mediawiki',
+                    value: current_filter
+                });
 
                 $input.change(this.handle_filter_change);
 
