@@ -737,8 +737,7 @@
 
                 var $control_form = $('<form />')
                     .attr('role', 'form')
-                    .addClass('form-inline')
-                    .submit(this.handle_filter_change);
+                    .addClass('form-inline');
 
                 $control_form
                     .append(this.filter_form_group())
@@ -748,7 +747,7 @@
             },
 
             filter_form_group: function() {
-                // Update the filter form with a clear button if required
+                var app = this;
 
                 var $label = $('<label />')
                     .addClass('control-label')
@@ -767,8 +766,12 @@
                     value: current_filter
                 });
 
-                $input.change(this.handle_filter_change);
+                // WMF(April 2019): Listen on 'input' instead of 'change'.
+                // The input event will fire as-you-type. The 'change' event
+                // only fired when clicking or tabbing to elsewhere on the page.
+                $input.on('input', app.handle_filter_change);
 
+                // Update the filter form with a clear button if required
                 var $clear_icon = $('<span />')
                     .addClass('form-control-feedback')
                     .addClass('glyphicon glyphicon-remove-circle')
@@ -777,7 +780,8 @@
                     .css('cursor', 'pointer');
 
                 $clear_icon.click(function() {
-                    $('#filter_string').val('').change();
+                    $('#filter_string').val('');
+                    app.handle_filter_change();
                 });
 
                 if (current_filter === '') {
@@ -826,7 +830,6 @@
                     var $change_box = $(obj);
                     format.display_patchset($change_box, 200);
                 });
-                return false;
             },
 
             handle_expand_by_default: function(e) {
