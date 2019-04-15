@@ -47,7 +47,7 @@ function zuul_build_dom($, container) {
 function zuul_start($) {
     // Start the zuul app (expects default dom)
 
-    var $container, $indicator;
+    var $container;
     var demo = location.search.match(/[?&]demo=([^?&]*)/),
         source_url = location.search.match(/[?&]source_url=([^?&]*)/),
         source = demo ? './status-' + (demo[1] || 'basic') + '.json-sample' :
@@ -61,20 +61,16 @@ function zuul_start($) {
 
     zuul.jq.on('update-start', function () {
         $container.addClass('zuul-container-loading');
-        $indicator.addClass('zuul-spinner-on');
     });
 
     zuul.jq.on('update-end', function () {
         $container.removeClass('zuul-container-loading');
-        setTimeout(function () {
-            $indicator.removeClass('zuul-spinner-on');
-        }, 500);
     });
 
     zuul.jq.one('update-end', function () {
         // Do this asynchronous so that if the first update adds a
-        // message, it will not animate while we fade in the content.
-        // Instead it simply appears with the rest of the content.
+        // message, the message will not animate as the content fades in.
+        // Instead, it fades with the rest of the content.
         setTimeout(function () {
             // Fade in the content
             $container.addClass('zuul-container-ready');
@@ -84,7 +80,6 @@ function zuul_start($) {
     $(function ($) {
         // DOM ready
         $container = $('#zuul-container');
-        $indicator = $('#zuul-spinner');
         $('#zuul_controls').append(zuul.app.control_form());
 
         zuul.app.schedule();

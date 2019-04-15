@@ -20,19 +20,15 @@
     display: inline-block;
     vertical-align: middle;
 }
-
-.zuul-spinner,
-.zuul-spinner:hover {
+.zuul-spinner {
     opacity: 0;
-    transition: opacity 0.5s ease-out;
+    transition: opacity 0.1s ease-out;
     cursor: default;
     pointer-events: none;
 }
 
-.zuul-spinner-on,
-.zuul-spinner-on:hover {
+.zuul-container-loading .zuul-spinner {
     opacity: 1;
-    transition-duration: 0.2s;
     cursor: progress;
 }
 
