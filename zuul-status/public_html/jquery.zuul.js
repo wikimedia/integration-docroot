@@ -741,6 +741,7 @@
 
                 $control_form
                     .append(this.filter_form_group())
+                    .append(' ')
                     .append(this.expand_form_group());
 
                 return $control_form;
@@ -752,8 +753,7 @@
                 var $label = $('<label />')
                     .addClass('control-label')
                     .attr('for', 'filter_string')
-                    .text('Filters')
-                    .css('padding-right', '0.5em');
+                    .text('Filter');
 
                 // WMF(April 2019): Add 'placeholder' to Filter input.
                 // WMF(April 2019): Improve 'title' text for Filter input.
@@ -762,9 +762,9 @@
                     id: 'filter_string',
                     className: 'form-control',
                     title: 'Any partial match for a gerrit change number, repo name, or pipeline. Multiple terms may be comma-separated.',
-                    placeholder: 'e.g. 1234 or mediawiki',
+                    placeholder: 'e.g. 1234 or mediawiki…   [ / ]',
                     value: current_filter
-                });
+                }).css( 'min-width', '20em' );
 
                 // WMF(April 2019): Listen on 'input' instead of 'change'.
                 // The input event will fire as-you-type. The 'change' event
@@ -780,7 +780,7 @@
                     .css('cursor', 'pointer');
 
                 $clear_icon.click(function() {
-                    $('#filter_string').val('');
+                    $input.val('');
                     app.handle_filter_change();
                 });
 
@@ -790,7 +790,7 @@
 
                 var $form_group = $('<div />')
                     .addClass('form-group has-feedback')
-                    .append($label, $input, $clear_icon);
+                    .append($label, ' ', $input, ' ', $clear_icon);
                 return $form_group;
             },
 
@@ -805,14 +805,19 @@
                     .change(this.handle_expand_by_default);
 
                 var $label = $('<label />')
-                    .css('padding-left', '1em')
-                    .html('Expand by default: ')
-                    .append($checkbox);
+                    .text(' Expand by default')
+                    .prepend($checkbox);
 
                 var $form_group = $('<div />')
                     .addClass('checkbox')
                     .append($label);
                 return $form_group;
+            },
+
+            // WMF(April 2019): Expose this for zuul.app.js to focus
+            // input field when pressing "/" keyboard shortcut.
+            focus_filter_input: function () {
+                $('#filter_string').focus();
             },
 
             handle_filter_change: function() {

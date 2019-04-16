@@ -91,6 +91,15 @@ function zuul_start($) {
             },
             'hide.visibility': function () {
                 zuul.options.enabled = false;
+            },
+            // WMF(April 2019): Keyboard shortcut for focussing filter input.
+            keydown: function (e) {
+                if (e.key === '/' && e.target.nodeName !== 'INPUT') {
+                    // Keyboard shortcut
+                    zuul.app.focus_filter_input();
+                    // Don't actually render a slash now
+                    return false;
+                }
             }
         });
     });
