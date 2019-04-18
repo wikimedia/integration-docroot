@@ -20,23 +20,40 @@
 (function ($) {
     'use strict';
 
-    function set_cookie(name, value) {
-        document.cookie = name + '=' + value + '; path=/';
+    // store for the remainder of this tab's life.
+    function set_tab_store(name, value) {
+        try {
+            sessionStorage.setItem(name, value);
+        } catch (e) {
+            // Disabled, or out of quota.
+        }
     }
 
-    function read_cookie(name, default_value) {
-        var nameEQ = name + '=';
-        var ca = document.cookie.split(';');
-        for(var i=0;i < ca.length;i++) {
-            var c = ca[i];
-            while (c.charAt(0) === ' ') {
-                c = c.substring(1, c.length);
-            }
-            if (c.indexOf(nameEQ) === 0) {
-                return c.substring(nameEQ.length, c.length);
-            }
+    function read_tab_store(name) {
+        try {
+            return sessionStorage.getItem(name);
+        } catch (e) {
+            // Disallowed.
+            return null;
         }
-        return default_value;
+    }
+
+    // remember for this origin, across browser tabs and restarts.
+    function set_persistent_store(name, value) {
+        try {
+            localStorage.setItem(name, value);
+        } catch (e) {
+            // Disabled, or out of quota.
+        }
+    }
+
+    function read_persistent_store(name) {
+        try {
+            return localStorage.getItem(name);
+        } catch (e) {
+            // Disallowed.
+            return null;
+        }
     }
 
     $.zuul = function(options) {
@@ -51,7 +68,7 @@
         }, options);
 
         var collapsed_exceptions = [];
-        var current_filter = read_cookie('zuul_filter_string', '');
+        var current_filter = read_tab_store('zuul_filter_string') || '';
         var $jq;
 
         var xhr,
@@ -795,13 +812,14 @@
             },
 
             expand_form_group: function() {
-                var expand_by_default = (
-                    read_cookie('zuul_expand_by_default', false) === 'true');
+                var initial_value = (
+                    read_persistent_store('zuul_expand_by_default') === 'true'
+                );
 
                 var $checkbox = $('<input />')
                     .attr('type', 'checkbox')
                     .attr('id', 'expand_by_default')
-                    .prop('checked', expand_by_default)
+                    .prop('checked', initial_value)
                     .change(this.handle_expand_by_default);
 
                 var $label = $('<label />')
@@ -823,7 +841,7 @@
             handle_filter_change: function() {
                 // Update the filter and save it to a cookie
                 current_filter = $('#filter_string').val();
-                set_cookie('zuul_filter_string', current_filter);
+                set_tab_store('zuul_filter_string', current_filter);
                 if (current_filter === '') {
                     $('#filter_form_clear_box').hide();
                 }
@@ -839,7 +857,7 @@
 
             handle_expand_by_default: function(e) {
                 // Handle toggling expand by default
-                set_cookie('zuul_expand_by_default', e.target.checked);
+                set_persistent_store('zuul_expand_by_default', String(e.target.checked));
                 collapsed_exceptions = [];
                 $('.zuul-change-box').each(function(index, obj) {
                     var $change_box = $(obj);
