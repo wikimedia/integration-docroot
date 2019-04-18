@@ -273,16 +273,6 @@ class Page {
 	}
 
 	public function flush() {
-		$this->embedCSS( '
-/**
- * Logo
- */
-.logo {
-	vertical-align: middle;
-	margin-right: 1em;
-}
-' );
-
 	if ( $this->hasFooter ) {
 		$this->embedCSSFile( 'footer.css' );
 	}
