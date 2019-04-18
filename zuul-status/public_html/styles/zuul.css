@@ -1,3 +1,12 @@
+.zuul-pipeline abbr {
+    /* Bootstrap 3 adds a border bottom for this.
+       Between that being relesed (2014) and now (2019),
+       browsers have started to add `text-decoration:underline dotted`
+       by default to ABBR elements as well. Disable that to avoid
+       a double underline. */
+    text-decoration: none;
+}
+
 .zuul-change {
     margin-bottom: 10px;
 }
