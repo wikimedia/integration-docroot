@@ -1,0 +1,9 @@
+/** Header */
+.page-header {
+  /* There is already top margin from the navbar.
+     Seems upstream Bootstrap realised the same and cancel this
+     in their docs and demos.
+     https://github.com/twbs/bootstrap/blob/gh-pages/docs/3.3/assets/css/src/docs.css#L676-L678
+  */
+  margin-top: 0;
+}

@@ -273,6 +273,9 @@ class Page {
 	}
 
 	public function flush() {
+	if ( $this->pageName ) {
+		$this->embedCSSFile( 'header.css' );
+	}
 	if ( $this->hasFooter ) {
 		$this->embedCSSFile( 'footer.css' );
 	}
