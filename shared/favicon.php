@@ -1,4 +1,5 @@
 <?php
+
 function wfParseRespHeaders( $lines ) {
 	$headers = [];
 	foreach ( $lines as $line ) {
