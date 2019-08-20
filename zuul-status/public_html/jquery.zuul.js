@@ -519,6 +519,8 @@
             pipeline: function (pipeline, count) {
                 var format = this;
                 var $html = $('<div />')
+                    // WMF(Aug 2019): Hide pipelines without matches when filtering.
+                    .data('change_ids', new Set())
                     .addClass('zuul-pipeline col-md-4')
                     .append(this.pipeline_header(pipeline, count));
 
@@ -608,15 +610,18 @@
                     .toLowerCase();
 
 
-                var panel_pipeline = $change_box
-                    .parents('.zuul-pipeline')
+                var $pipeline = $change_box
+                    .parents('.zuul-pipeline');
+
+                var panel_pipeline = $pipeline
                     .find('.zuul-pipeline-header > h3')
                     .html()
                     .toLowerCase();
 
+                var show_panel = true;
                 if (current_filter !== '') {
-                    var show_panel = false;
                     var filter = current_filter.trim().split(/[\s,]+/);
+                    show_panel = false;
                     $.each(filter, function(index, f_val) {
                         if (f_val !== '') {
                             f_val = f_val.toLowerCase();
@@ -627,15 +632,15 @@
                             }
                         }
                     });
-                    if (show_panel === true) {
-                        $change_box.show(animate);
-                    }
-                    else {
-                        $change_box.hide(animate);
-                    }
+                }
+                if (show_panel === true) {
+                    $change_box.show(animate);
+                    $pipeline.data('change_ids').add(panel_change);
                 }
                 else {
-                    $change_box.show(animate);
+                    $change_box.hide(animate);
+                    // WMF(Aug 2019): Hide pipelines without matches when filtering.
+                    $pipeline.data('change_ids').delete(panel_change);
                 }
             },
         };
@@ -698,6 +703,7 @@
                             $pipelines.append(
                                 format.pipeline(pipeline, count));
                         });
+                        app.handle_pipeline_visibility();
 
                         $(options.queue_events_num).text(
                             data.trigger_event_queue ?
@@ -853,6 +859,22 @@
                     var $change_box = $(obj);
                     format.display_patchset($change_box, 200);
                 });
+                app.handle_pipeline_visibility();
+            },
+
+            handle_pipeline_visibility: function() {
+                if (current_filter !== '') {
+                    // WMF(Aug 2019): Hide pipelines without matches when filtering.
+                    $('.zuul-pipeline').each(function () {
+                        if ($(this).data('change_ids').size) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                } else {
+                    $('.zuul-pipeline').show();
+                }
             },
 
             handle_expand_by_default: function(e) {
