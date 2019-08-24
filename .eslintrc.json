@@ -1,6 +1,7 @@
 {
-    "extends": [
-    	"wikimedia/client",
-    	"wikimedia/jquery"
+	"root": true,
+	"extends": [
+		"wikimedia/client",
+		"wikimedia/jquery"
 	]
 }
