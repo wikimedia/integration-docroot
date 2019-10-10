@@ -4,6 +4,7 @@
 		<exclude name="Generic.Files.LineLength.TooLong" />
 		<exclude name="Generic.PHP.DisallowShortOpenTag.EchoFound" />
 		<exclude name="Generic.PHP.NoSilencedErrors.Discouraged" />
+		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPrivate" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationProtected" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingParamName" />
@@ -16,4 +17,3 @@
 	<arg name="encoding" value="utf8"/>
 	<arg name="extensions" value="php"/>
 </ruleset>
-

@@ -52,7 +52,7 @@ class DocHomePage extends WmuiPageBase {
 				echo '<li><a href="' . $homepageHtml . '">Project homepage</a></li>';
 			}
 			foreach ( @$data['links'] ?: [] as $text => $url ) {
-				echo '<li><a href="' . htmlspecialchars( $url ) .'">' . htmlspecialchars( $text ) . '</a></li>';
+				echo '<li><a href="' . htmlspecialchars( $url ) . '">' . htmlspecialchars( $text ) . '</a></li>';
 			}
 		?></ul>
 		</div>
