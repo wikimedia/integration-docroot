@@ -295,7 +295,7 @@ class Page {
 		};
 	?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="<?php echo $rootPathHtml; ?>/favicon.ico">
+	<link rel="shortcut icon" href="<?php echo $rootPathHtml; ?>favicon.ico">
 	<link rel="stylesheet" href="<?php echo $libPathHtml; ?>/bootstrap/css/bootstrap.min.css">
 <?php
 	if ( count( $this->embeddedCSS ) ) {
