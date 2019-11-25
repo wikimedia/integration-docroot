@@ -344,7 +344,7 @@ class Page {
 		<p class="col-sm-8">
 			More information on <a href="https://www.mediawiki.org/wiki/Continuous_integration">Continuous Integration</a> at www.mediawiki.org.
 		</p>
-		<p class="col-sm-4 text-right"><a href="https://www.wikimedia.org"><img src="https://www.wikimedia.org/static/images/wikimedia-button.png" srcset="https://www.wikimedia.org/static/images/wikimedia-button-2x.png 2x" width="88" height="31" alt="Wikimedia Foundation"></a></p>
+		<p class="col-sm-4 text-right"><a href="https://www.wikimedia.org"><img src="<?php echo $libPathHtml; ?>/wikimedia-button.png" srcset="<?php echo $libPathHtml; ?>/wikimedia-button-2x.png 2x" width="88" height="31" alt="Wikimedia Foundation"></a></p>
 	</div></div>
 </div><!-- /.footer -->
 <?php } ?>
