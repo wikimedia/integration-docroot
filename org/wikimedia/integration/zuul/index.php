@@ -2,10 +2,8 @@
 require_once __DIR__ . '/../../../../shared/autoload.php';
 
 $p = IntegrationPage::newFromPageName( 'Zuul Status' );
-$p->setRootDir( dirname( __DIR__ ) );
+$p->addHtmlFile( __DIR__ . '/default.html' );
 
-$p->setDir( __DIR__ );
-$p->addHtmlFile( 'default.html' );
 $p->addStylesheet( 'styles/zuul.css' );
 $p->addScript( 'jquery-visibility.js' );
 $p->addScript( 'jquery.zuul.js' );

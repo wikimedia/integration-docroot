@@ -2,9 +2,7 @@
 require_once __DIR__ . '/../../../shared/autoload.php';
 
 $p = DocPage::newIndex();
-$p->setRootDir( __DIR__ );
 
-$p->setDir( __DIR__ );
 $p->embedCSS( '
 	.wm-docindex-list {
 		column-width: 25em;
@@ -19,6 +17,6 @@ $p->embedCSS( '
 		display: inline-block;
 	}
 ' );
-$p->addHtmlFile( 'default.html' );
+$p->addHtmlFile( __DIR__ . '/default.html' );
 
 $p->flush();

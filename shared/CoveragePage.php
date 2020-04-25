@@ -33,7 +33,6 @@ class CoveragePage extends DocPage {
 
 	public function setCoverageDir( $path ) {
 		$this->coverageDir = $path;
-		$this->setRootDir( dirname( $path ) );
 	}
 
 	/**
@@ -48,7 +47,7 @@ class CoveragePage extends DocPage {
 		$sort = isset( $_GET['sort'] ) ? (string)$_GET['sort'] : null;
 
 		if ( $this->pageName === 'Test coverage' ) {
-			$href = $this->fixNavUrl( '/cover-extensions/' );
+			$href = '/cover-extensions/';
 			$breadcrumbs = <<<HTML
 <ul class="nav nav-tabs">
 	<li class="active"><a href="#">Coverage home</a></li>
@@ -56,7 +55,7 @@ class CoveragePage extends DocPage {
 </ul>
 HTML;
 		} else {
-			$href = $this->fixNavUrl( '/cover/' );
+			$href = '/cover/';
 			$breadcrumbs = <<<HTML
 <ul class="nav nav-tabs">
 	<li><a href="$href">Coverage home</a></li>

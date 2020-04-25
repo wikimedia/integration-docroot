@@ -16,27 +16,14 @@ class Page {
 	protected $scripts = [];
 	protected $stylesheets = [];
 	protected $content = '';
-	protected $hasFooter = true;
-
-	/**
-	 * Absolute directory on file system to where the page is instantiated.
-	 * Will be used to guess url path to shared libs.
-	 *
-	 * @var string
-	 */
-	protected $rootDir = false;
-	protected $dir = false;
 	protected $flags = 0;
-	protected $libPath = false;
 
 	/**
 	 * @param string $pageName
-	 * @param int $flags
 	 */
-	public static function newFromPageName( $pageName, $flags = 0 ) {
+	public static function newFromPageName( $pageName ) {
 		$p = new static();
 		$p->pageName = $pageName;
-		$p->flags = $flags;
 		return $p;
 	}
 
@@ -46,77 +33,19 @@ class Page {
 		return $p;
 	}
 
-	public function setDir( $dir ) {
-		$this->dir = $dir;
-	}
-
-	public function setRootDir( $dir ) {
-		$this->rootDir = $dir;
-	}
-
 	/**
-	 * @author Timo Tijhof, 2015
-	 * @param string $fromPath
-	 * @param string $toPath
-	 * @return string Relative path
+	 * @param string $pageName
+	 * @param int $flags
 	 */
-	public static function getPathTo( $fromPath, $toPath ) {
-		if ( $fromPath === '' || $toPath === '' || $fromPath[0] !== '/' || $toPath[0] !== '/' ) {
-			return '';
-		}
-
-		// Filter out double slashes, and empty matches from leading/trailing slash
-		$from = array_values( array_filter(
-			explode( '/', $fromPath ),
-			function ( $part ) {
-				return $part !== '';
-			}
-		) );
-		$to = array_values( array_filter(
-			explode( '/', $toPath ),
-			function ( $part ) {
-				return $part !== '';
-			}
-		) );
-
-		// Remove source directory if it has no slash
-		if ( substr( $fromPath, -1 ) !== '/' ) {
-			array_pop( $from );
-		}
-
-		$relativePath = '';
-		$i = 0;
-
-		// Ignore common parts
-		while ( isset( $from[$i] ) && isset( $to[$i] ) ) {
-			if ( $from[$i] !== $to[$i] ) {
-				break;
-			}
-			$i++;
-		}
-
-		// Move up from fromPath
-		$j = count( $from );
-		$relativePath .= str_repeat( '../', $j - $i );
-
-		// Move down to toPath
-		$down = array_slice( $to, $i );
-		if ( $down ) {
-			$relativePath .= implode( '/', $down );
-
-			// Match target with slash
-			if ( substr( $toPath, -1 ) === '/' ) {
-				$relativePath .= '/';
-			}
-		}
-
-		// Return at least "./" instead of "" so that it consistently ends in a slash.
-		// This allows callers to safely append "/sub" directories to this, even on page served
-		// from the root.
-		return $relativePath !== '' ? $relativePath : './';
+	public static function newDirIndex( $pageName, $flags = 0 ) {
+		$p = new static();
+		$p->pageName = $pageName;
+		$p->flags = $flags;
+		return $p;
 	}
 
-	protected static function getRequestDir() {
+	/** @return string[] */
+	protected static function getRequestPath() {
 		if ( isset( $_SERVER['REDIRECT_URL'] ) ) {
 			// Rewritten by Apache to e.g. dir.php
 			$path = $_SERVER['REDIRECT_URL'];
@@ -126,6 +55,7 @@ class Page {
 		}
 		if ( !$path || !isset( $_SERVER['DOCUMENT_ROOT'] ) ) {
 			self::error( 'Invalid context.' );
+			return;
 		}
 		// Use realpath() to prevent escalation through e.g. "../"
 		// Note: realpath() also normalises paths to have no trailing slash
@@ -133,48 +63,35 @@ class Page {
 		if ( !$realPath || strpos( $realPath, $_SERVER['DOCUMENT_ROOT'] ) !== 0 ) {
 			// Path escalation. Should be impossible as Apache normalises this.
 			self::error( 'Invalid context.' );
+			return;
 		}
 		if ( substr( $path, -1 ) === '/' ) {
 			$realPath .= '/';
 		}
-		return $realPath;
+		$urlPath = substr( $realPath, strlen( rtrim( $_SERVER['DOCUMENT_ROOT'], '/' ) ) );
+
+		return [
+			'urlPath' => $urlPath,
+			'fileDir' => $realPath,
+		];
 	}
 
 	/**
-	 * @return string Relative URL path to site root (with trailing slash).
+	 * @return string URL Path from document root to current url
 	 */
-	public function getRootPath() {
-		if ( !$this->rootDir ) {
-			return './';
-		}
-		return self::getPathTo( self::getRequestDir(), $this->rootDir . '/' );
+	public function getUrlPath() {
+		return self::getRequestPath()['urlPath'];
+	}
+
+	public function getDir() {
+		return self::getRequestPath()['fileDir'];
 	}
 
 	/**
-	 * @return string Relative URL from site root to current url
-	 */
-	protected function getRequestPath() {
-		if ( !$this->rootDir ) {
-			return '';
-		}
-		return self::getPathTo( $this->rootDir . '/', self::getRequestDir() );
-	}
-
-	/**
-	 * @param string $path
-	 */
-	public function setLibPath( $path ) {
-		$this->libPath = $path;
-	}
-
-	/**
-	 * @return string URL path to shared/lib (without trailing slash).
+	 * @return string URL to shared/lib directory (without trailing slash).
 	 */
 	public function getLibPath() {
-		if ( $this->libPath ) {
-			return $this->libPath;
-		}
-		return $this->getRootPath() . 'lib';
+		return '/lib';
 	}
 
 	/**
@@ -187,7 +104,7 @@ class Page {
 	/**
 	 * @param string filename relative to /shared
 	 */
-	public function embedCSSFile( $cssFile ) {
+	private function embedCSSFile( $cssFile ) {
 		$this->embeddedCSS[] = file_get_contents( __DIR__ . '/' . $cssFile );
 	}
 
@@ -205,10 +122,6 @@ class Page {
 		$this->stylesheets[] = $src;
 	}
 
-	public function enableFooter() {
-		$this->hasFooter = true;
-	}
-
 	/**
 	 * @param string $html
 	 */
@@ -217,26 +130,18 @@ class Page {
 	}
 
 	/**
-	 * @param string $file
+	 * @param string $file Absolute path
 	 */
 	public function addHtmlFile( $file ) {
-		$isRelativePath = ( substr( $file, 0 ) !== '/' );
-
-		if ( $isRelativePath && $this->dir ) {
-			# We explicitly set a base path, prepend it
-			# to relative paths.
-			$file = $this->dir . DIRECTORY_SEPARATOR . $file;
+		if ( substr( $file, 0, 1 ) !== '/' ) {
+			throw new InvalidArgumentException( 'Illegal path' );
 		}
 
-		if ( !file_exists( $file ) ) {
-			return false;
-		}
-
-		$content = file_get_contents( $file );
+		$content = @file_get_contents( $file );
 		if ( $content === false ) {
-			# TODO output an error page?
-			return false;
+			throw new RuntimeException( 'Unreadable file ' . basename( $file ) );
 		}
+
 		$this->content .= trim( $content );
 	}
 
@@ -252,20 +157,11 @@ class Page {
 		];
 	}
 
-	protected function fixNavUrl( $href ) {
-		if ( $href[0] === '/' ) {
-			// Expand relatively so that it works even if the site is mounted in a sub directory.
-			$href = substr( $this->getRootPath(), 0, -1 ) . $href;
-		}
-		return $href;
-	}
-
 	protected function getNavHtml() {
 		$html = '<ul class="navbar-nav nav">';
-		$cur = $this->getRequestPath();
+		$cur = $this->getUrlPath();
 		foreach ( $this->getNavItems() as $href => $text ) {
-			$active = ( $href === "/$cur" ? ' class="active"' : '' );
-			$href = $this->fixNavUrl( $href );
+			$active = ( $href === $cur ? ' class="active"' : '' );
 			$html .= '<li' . $active . '><a href="' . htmlspecialchars( $href ) . '">' . htmlspecialchars( $text ) . '</a></li>';
 		}
 		$html .= '</ul>';
@@ -273,15 +169,12 @@ class Page {
 	}
 
 	public function flush() {
-	if ( $this->pageName ) {
-		$this->embedCSSFile( 'header.css' );
-	}
-	if ( $this->hasFooter ) {
+		if ( $this->pageName ) {
+			$this->embedCSSFile( 'header.css' );
+		}
 		$this->embedCSSFile( 'footer.css' );
-	}
 
-	$rootPathHtml = htmlspecialchars( $this->getRootPath() );
-	$libPathHtml = htmlspecialchars( $this->getLibPath() );
+		$libPathHtml = htmlspecialchars( $this->getLibPath() );
 
 ?><!DOCTYPE html>
 <html dir="ltr" lang="en-US">
@@ -295,28 +188,26 @@ class Page {
 		};
 	?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="<?php echo $rootPathHtml; ?>favicon.ico">
+	<link rel="shortcut icon" href="/favicon.ico">
 	<link rel="stylesheet" href="<?php echo $libPathHtml; ?>/bootstrap/css/bootstrap.min.css">
 <?php
-	if ( count( $this->embeddedCSS ) ) {
-		echo "\t<style>\n\t" . implode( "\n\t", explode( "\n", implode( "\n\n\n", $this->embeddedCSS ) ) ) . "\n\t</style>\n";
-	}
-?>
-<?php
-	foreach ( $this->stylesheets as $stylesheet ) {
-		echo '<link rel="stylesheet" href="' . htmlspecialchars( $stylesheet ) . '">' . "\n";
-	}
+		if ( count( $this->embeddedCSS ) ) {
+			echo "\t<style>\n\t" . implode( "\n\t", explode( "\n", implode( "\n\n\n", $this->embeddedCSS ) ) ) . "\n\t</style>\n";
+		}
+		foreach ( $this->stylesheets as $stylesheet ) {
+			echo '<link rel="stylesheet" href="' . htmlspecialchars( $stylesheet ) . '">' . "\n";
+		}
 ?>
 </head>
 <body>
 <header class="navbar navbar-default navbar-static-top base-nav" id="top" role="banner">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="<?php echo $rootPathHtml; ?>" title="Navigate to home of <?php echo htmlentities( $this->site ); ?>"><?php echo htmlentities( $this->site ); ?></a>
+			<a class="navbar-brand" href="/" title="Navigate to home of <?php echo htmlentities( $this->site ); ?>"><?php echo htmlentities( $this->site ); ?></a>
 		</div>
 		<nav class="navbar-collapse collapse">
 <?php
-	echo $this->processHtmlContent( $this->getNavHtml() );
+		echo $this->processHtmlContent( $this->getNavHtml() );
 ?>
 		</nav>
 	</div>
@@ -324,21 +215,14 @@ class Page {
 <div class="page-wrap">
 	<div class="container">
 <?php
-	if ( $this->pageName ) {
-		echo '<h1 class="page-header">' . htmlentities( $this->pageName ) . '</h1>';
-	}
-?>
-<?php
-	echo $this->processHtmlContent( $this->content, "\t\t" );
+		if ( $this->pageName ) {
+			echo '<h1 class="page-header">' . htmlentities( $this->pageName ) . '</h1>';
+		}
+		echo $this->processHtmlContent( $this->content, "\t\t" );
 ?>
 	</div><!-- /.container -->
-<?php
-	if ( $this->hasFooter ) {
-		echo '<div class="push"></div>';
-	}
-?>
+	<div class="push"></div>'
 </div><!-- /.page-wrap -->
-<?php if ( $this->hasFooter ) { ?>
 <div class="footer">
 	<div class="container"><div class="row">
 		<p class="col-sm-8">
@@ -347,44 +231,28 @@ class Page {
 		<p class="col-sm-4 text-right"><a href="https://www.wikimedia.org"><img src="<?php echo $libPathHtml; ?>/wikimedia-button.png" srcset="<?php echo $libPathHtml; ?>/wikimedia-button-2x.png 2x" width="88" height="31" alt="Wikimedia Foundation"></a></p>
 	</div></div>
 </div><!-- /.footer -->
-<?php } ?>
 <script src="<?php echo $libPathHtml; ?>/jquery.min.js"></script>
 <script src="<?php echo $libPathHtml; ?>/bootstrap/js/bootstrap.min.js"></script>
 <?php
-	foreach ( $this->scripts as $script ) {
-		echo '<script src="' . htmlspecialchars( $script ) . '"></script>' . "\n";
-	}
+		foreach ( $this->scripts as $script ) {
+			echo '<script src="' . htmlspecialchars( $script ) . '"></script>' . "\n";
+		}
 ?>
 </body>
 </html>
 <?php
 	}
 
-	public static function newDirIndex( $pageName, $flags = 0 ) {
-		$path = self::getRequestDir();
-
-		if ( substr( $path, -1 ) !== '/' ) {
-			// Enforce trailing slash for directory index
-			http_response_code( 301 );
-			header( 'Location: ' . basename( $path ) . '/' );
-			exit;
-		}
-
-		$p = self::newFromPageName( $pageName, $flags );
-		$p->setDir( $path );
-		return $p;
-	}
-
 	protected function getDirIndexDirectories() {
-		return glob( "{$this->dir}/*", GLOB_ONLYDIR );
+		return glob( $this->getDir() . "/*", GLOB_ONLYDIR );
 	}
 
 	public function handleDirIndex() {
 		if ( $this->flags & self::INDEX_PREFIX ) {
-			if ( $this->flags & self::INDEX_PARENT_PREFIX && strpos( $this->getRootPath(), '/' ) !== false ) {
-				$this->pageName .= basename( dirname( $this->dir ) ) . ': ' . basename( $this->dir );
+			if ( $this->flags & self::INDEX_PARENT_PREFIX && $this->getUrlPath() !== '/' ) {
+				$this->pageName .= basename( dirname( $this->getDir() ) ) . ': ' . basename( $this->getDir() );
 			} else {
-				$this->pageName .= basename( $this->dir );
+				$this->pageName .= basename( $this->getDir() );
 			}
 		}
 

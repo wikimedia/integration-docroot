@@ -1,51 +1,59 @@
 <?php
 
 class PageTest extends PHPUnit\Framework\TestCase {
+	private $scriptName;
 
-	public static function provideGetPathTo() {
-		return [
-			// From directory to child
-			[ '/foo/bar/', '/foo/bar/baz/', 'baz/' ],
-			[ '/foo/bar/', '/foo/bar/baz.txt', 'baz.txt' ],
-
-			// No-op
-			[ '/foo/bar/', '/foo/bar/', './' ],
-			[ '/foo/bar/', '/foo/bar/', './' ],
-
-			// From root to child
-			[ '/', '/foo/', 'foo/' ],
-			[ '/', '/foo/bar.txt', 'foo/bar.txt' ],
-			[ '/', '/foo/bar/baz.txt', 'foo/bar/baz.txt' ],
-
-			// To sibling
-			[ '/foo/bar/', '/foo/baz/', '../baz/' ],
-			[ '/foo/bar/', '/foo/baz.txt', '../baz.txt' ],
-
-			// To parent
-			[ '/foo/bar/baz/', '/foo/bar/', '../' ],
-			[ '/foo/bar/baz', '/foo/bar', './' ],
-
-			// From file to sibling
-			[ '/foo/bar.txt', '/foo/baz/', 'baz/' ],
-			[ '/foo/bar.txt', '/foo/baz.txt', 'baz.txt' ],
-
-			// From slashless path to sibling
-			[ '/foo/bar', '/foo/baz/', 'baz/' ],
-			[ '/foo/bar', '/foo/baz.txt', 'baz.txt' ],
-
-			// From slashless path to child with the same name
-			[ '/foo/bar', '/foo/bar/baz/', 'bar/baz/' ],
-			[ '/foo/bar', '/foo/bar/baz.txt', 'bar/baz.txt' ],
-		];
+	public function setUp() {
+		unset( $_SERVER['REDIRECT_URL'] );
+		unset( $_SERVER['DOCUMENT_ROOT'] );
+		$this->scriptName = $_SERVER['SCRIPT_NAME'];
 	}
 
-	/**
-	 * @dataProvider provideGetPathTo
-	 */
-	public function testGetPathTo( $fromPath, $toPath, $relative ) {
+	public function tearDown() {
+		unset( $_SERVER['REDIRECT_URL'] );
+		unset( $_SERVER['DOCUMENT_ROOT'] );
+		$_SERVER['SCRIPT_NAME'] = $this->scriptName;
+	}
+
+	public function testRequestPathWithHomepage() {
+		$_SERVER['SCRIPT_NAME'] = '/index.php';
+		$_SERVER['DOCUMENT_ROOT'] = __DIR__ . '/fixture';
+		$page = Page::newIndex();
 		$this->assertEquals(
-			$relative,
-			Page::getPathTo( $fromPath, $toPath )
+			'/',
+			$page->getUrlPath()
+		);
+		$this->assertEquals(
+			__DIR__ . '/fixture/',
+			$page->getDir()
+		);
+	}
+
+	public function testRequestPathWithSubpage() {
+		$_SERVER['SCRIPT_NAME'] = '/foo/index.php';
+		$_SERVER['DOCUMENT_ROOT'] = __DIR__ . '/fixture';
+		$page = Page::newIndex();
+		$this->assertEquals(
+			'/foo/',
+			$page->getUrlPath()
+		);
+		$this->assertEquals(
+			__DIR__ . '/fixture/foo/',
+			$page->getDir()
+		);
+	}
+
+	public function testRequestPathWithDirIndex() {
+		$_SERVER['REDIRECT_URL'] = '/foo/';
+		$_SERVER['DOCUMENT_ROOT'] = __DIR__ . '/fixture';
+		$page = Page::newIndex();
+		$this->assertEquals(
+			'/foo/',
+			$page->getUrlPath()
+		);
+		$this->assertEquals(
+			__DIR__ . '/fixture/foo/',
+			$page->getDir()
 		);
 	}
 }
