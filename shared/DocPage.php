@@ -1,6 +1,6 @@
 <?php
 
-class DocPage extends Page {
+class DocPage extends TwbsPageBase {
 	protected $site = 'Documentation';
 
 	protected function getNavItems() {

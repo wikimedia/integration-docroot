@@ -1,4 +1,13 @@
-/** Footer */
+/*! twbs-page.css */
+
+.page-header {
+  /* Avoid duplicate margin-top, already set on navbar.
+     Seems upstream Bootstrap realised the same and also cancel this on their site.
+     https://github.com/twbs/bootstrap/blob/gh-pages/docs/3.3/assets/css/src/docs.css#L676-L678
+  */
+  margin-top: 0;
+}
+
 .footer {
     background-color: #f5f5f5;
 }
@@ -16,8 +25,7 @@
     }
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
+/* Sticky footer styles */
 html {
   position: relative;
   min-height: 100%;

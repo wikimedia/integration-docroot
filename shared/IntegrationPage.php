@@ -1,6 +1,6 @@
 <?php
 
-class IntegrationPage extends Page {
+class IntegrationPage extends TwbsPageBase {
 	protected $site = 'Integration';
 
 	protected function getNavItems() {

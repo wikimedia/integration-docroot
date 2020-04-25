@@ -12,11 +12,11 @@ class Page {
 
 	protected $site = 'Wikimedia';
 	protected $pageName = false;
-	protected $embeddedCSS = [];
-	protected $scripts = [];
-	protected $stylesheets = [];
-	protected $content = '';
 	protected $flags = 0;
+	protected $stylesheets = [];
+	protected $embeddedCSS = [];
+	protected $content = '';
+	protected $scripts = [];
 
 	/**
 	 * @param string $pageName
@@ -88,24 +88,10 @@ class Page {
 	}
 
 	/**
-	 * @return string URL to shared/lib directory (without trailing slash).
-	 */
-	public function getLibPath() {
-		return '/lib';
-	}
-
-	/**
 	 * @param string $cssText
 	 */
 	public function embedCSS( $cssText ) {
-		$this->embeddedCSS[] = trim( $cssText );
-	}
-
-	/**
-	 * @param string filename relative to /shared
-	 */
-	private function embedCSSFile( $cssFile ) {
-		$this->embeddedCSS[] = file_get_contents( __DIR__ . '/' . $cssFile );
+		$this->embeddedCSS[] = trim( $cssText, "\n" );
 	}
 
 	/**
@@ -145,10 +131,6 @@ class Page {
 		$this->content .= trim( $content );
 	}
 
-	protected function processHtmlContent( $content, $indent = '' ) {
-		return $indent . implode( "\n$indent", explode( "\n", $content ) );
-	}
-
 	protected function getNavItems() {
 		return [
 			'https://gerrit.wikimedia.org/r/' => 'Gerrit',
@@ -157,88 +139,19 @@ class Page {
 		];
 	}
 
-	protected function getNavHtml() {
-		$html = '<ul class="navbar-nav nav">';
-		$cur = $this->getUrlPath();
-		foreach ( $this->getNavItems() as $href => $text ) {
-			$active = ( $href === $cur ? ' class="active"' : '' );
-			$html .= '<li' . $active . '><a href="' . htmlspecialchars( $href ) . '">' . htmlspecialchars( $text ) . '</a></li>';
-		}
-		$html .= '</ul>';
-		return $html;
-	}
-
 	public function flush() {
-		if ( $this->pageName ) {
-			$this->embedCSSFile( 'header.css' );
-		}
-		$this->embedCSSFile( 'footer.css' );
-
-		$libPathHtml = htmlspecialchars( $this->getLibPath() );
-
 ?><!DOCTYPE html>
 <html dir="ltr" lang="en-US">
-<head>
-	<meta charset="utf-8">
-	<title><?php
-		if ( $this->pageName ) {
-			echo htmlentities( $this->pageName . ' - ' . $this->site );
-		} else {
-			echo htmlentities( $this->site );
-		};
-	?></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="/favicon.ico">
-	<link rel="stylesheet" href="<?php echo $libPathHtml; ?>/bootstrap/css/bootstrap.min.css">
+<meta charset="utf-8">
+<a role="banner" href="/" title="Navigate to home of <?php echo htmlentities( $this->site ); ?>"><?php echo htmlentities( $this->site ); ?></a>
+<main role="main">
 <?php
-		if ( count( $this->embeddedCSS ) ) {
-			echo "\t<style>\n\t" . implode( "\n\t", explode( "\n", implode( "\n\n\n", $this->embeddedCSS ) ) ) . "\n\t</style>\n";
-		}
-		foreach ( $this->stylesheets as $stylesheet ) {
-			echo '<link rel="stylesheet" href="' . htmlspecialchars( $stylesheet ) . '">' . "\n";
-		}
+	if ( $this->pageName ) {
+		echo '<h1>' . htmlentities( $this->pageName ) . '</h1>';
+	}
+	echo '<article>' . $this->content . '</article>';
 ?>
-</head>
-<body>
-<header class="navbar navbar-default navbar-static-top base-nav" id="top" role="banner">
-	<div class="container">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="/" title="Navigate to home of <?php echo htmlentities( $this->site ); ?>"><?php echo htmlentities( $this->site ); ?></a>
-		</div>
-		<nav class="navbar-collapse collapse">
-<?php
-		echo $this->processHtmlContent( $this->getNavHtml() );
-?>
-		</nav>
-	</div>
-</header>
-<div class="page-wrap">
-	<div class="container">
-<?php
-		if ( $this->pageName ) {
-			echo '<h1 class="page-header">' . htmlentities( $this->pageName ) . '</h1>';
-		}
-		echo $this->processHtmlContent( $this->content, "\t\t" );
-?>
-	</div><!-- /.container -->
-	<div class="push"></div>'
-</div><!-- /.page-wrap -->
-<div class="footer">
-	<div class="container"><div class="row">
-		<p class="col-sm-8">
-			More information on <a href="https://www.mediawiki.org/wiki/Continuous_integration">Continuous Integration</a> at www.mediawiki.org.
-		</p>
-		<p class="col-sm-4 text-right"><a href="https://www.wikimedia.org"><img src="<?php echo $libPathHtml; ?>/wikimedia-button.png" srcset="<?php echo $libPathHtml; ?>/wikimedia-button-2x.png 2x" width="88" height="31" alt="Wikimedia Foundation"></a></p>
-	</div></div>
-</div><!-- /.footer -->
-<script src="<?php echo $libPathHtml; ?>/jquery.min.js"></script>
-<script src="<?php echo $libPathHtml; ?>/bootstrap/js/bootstrap.min.js"></script>
-<?php
-		foreach ( $this->scripts as $script ) {
-			echo '<script src="' . htmlspecialchars( $script ) . '"></script>' . "\n";
-		}
-?>
-</body>
+</main>
 </html>
 <?php
 	}
