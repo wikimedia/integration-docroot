@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/Page.php';
 
 class IntegrationPage extends Page {
 	protected $site = 'Integration';

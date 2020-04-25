@@ -18,7 +18,7 @@
  *
  */
 
-require_once __DIR__ . '/../../../../shared/CoveragePage.php';
+require_once __DIR__ . '/../../../../shared/autoload.php';
 
 /** @var CoveragePage $p */
 $p = CoveragePage::newDirIndex( 'MediaWiki extension test coverage' );

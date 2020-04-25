@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/Page.php';
 
 class DocPage extends Page {
 	protected $site = 'Documentation';

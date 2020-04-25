@@ -18,8 +18,6 @@
  *
  */
 
-require_once __DIR__ . '/DocPage.php';
-
 /**
  * Show a dashboard of code coverage results on the main index page
  */

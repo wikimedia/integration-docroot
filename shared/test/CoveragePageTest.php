@@ -1,5 +1,4 @@
 <?php
-require_once dirname( __DIR__ ) . '/CoveragePage.php';
 
 /**
  * @covers CoveragePage

@@ -1,4 +1,8 @@
-<phpunit colors="true" beStrictAboutOutputDuringTests="true">
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+	bootstrap="./shared/autoload.php"
+	colors="true"
+	beStrictAboutOutputDuringTests="true">
 	<testsuites>
 		<testsuite>
 			<directory>./shared/test</directory>

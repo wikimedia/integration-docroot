@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../../shared/DocPage.php';
+require_once __DIR__ . '/../../../shared/autoload.php';
 
 $p = DocPage::newIndex();
 $p->setRootDir( __DIR__ );

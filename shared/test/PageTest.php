@@ -1,5 +1,4 @@
 <?php
-require_once dirname( __DIR__ ) . '/Page.php';
 
 class PageTest extends PHPUnit\Framework\TestCase {
 

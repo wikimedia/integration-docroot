@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../../../shared/IntegrationPage.php';
+require_once __DIR__ . '/../../../../shared/autoload.php';
 
 $p = IntegrationPage::newFromPageName( 'Zuul Status' );
 $p->setRootDir( dirname( __DIR__ ) );
