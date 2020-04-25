@@ -7,10 +7,10 @@ Preview locally:
 
 ```
 cd org/wikimedia/integration
-php -S localhost:9012
+php -S localhost:4000
 ```
 
-View <http://localhost:9012>.
+View <http://localhost:4000>.
 
 ## doc.wikimedia.org
 
@@ -18,7 +18,7 @@ Preview locally:
 
 ```
 cd org/wikimedia/doc
-php -S localhost:9012
+php -S localhost:4000
 ```
 
-View <http://localhost:9012>.
+View <http://localhost:4000>.
