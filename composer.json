@@ -1,13 +1,18 @@
 {
 	"require": {
-		"php": ">=5.5.9"
+		"php": ">=5.6.0"
 	},
 	"require-dev": {
 		"jakub-onderka/php-parallel-lint": "1.0.0",
 		"mediawiki/mediawiki-codesniffer": "19.2.0",
-		"phpunit/phpunit": "4.8.36 || ^6.5"
+		"phpunit/phpunit": "^5.7"
+	},
+	"config": {
+		"process-timeout": 0
 	},
 	"scripts": {
+		"start:doc": "php -S localhost:4000 -t org/wikimedia/doc",
+		"start:integration": "php -S localhost:4000 -t org/wikimedia/integration",
 		"test": [
 			"parallel-lint . --exclude vendor",
 			"phpunit",
