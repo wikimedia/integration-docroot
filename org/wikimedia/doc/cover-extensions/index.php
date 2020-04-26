@@ -24,5 +24,5 @@ require_once __DIR__ . '/../../../../shared/autoload.php';
 $p = CoveragePage::newDirIndex( 'MediaWiki extension test coverage' );
 $p->setCoverageDir( __DIR__ );
 $p->handleCoverageIndex();
-$p->handleDirIndex();
+$p->handleDirIndex( $p->getDir(), $p->getUrlPath() );
 $p->flush();

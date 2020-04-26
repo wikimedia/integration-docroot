@@ -5,6 +5,7 @@ class DocPage extends TwbsPageBase {
 
 	protected function getNavItems() {
 		return [
+			'/index/' => 'Documentation index',
 			'/cover/' => 'Code coverage',
 			'https://gerrit.wikimedia.org/r/' => 'Gerrit Code-Review',
 			'https://integration.wikimedia.org/' => 'Continuous integration',

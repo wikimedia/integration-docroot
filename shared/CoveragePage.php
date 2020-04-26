@@ -198,10 +198,11 @@ HTML;
 	/**
 	 * Exclude directories that already have been listed
 	 *
+	 * @param string|null $parent
 	 * @return string[]
 	 */
-	protected function getDirIndexDirectories() {
-		$dirs = parent::getDirIndexDirectories();
+	protected function getDirIndexDirectories( $parent = null ) {
+		$dirs = parent::getDirIndexDirectories( $parent );
 		$noClover = [];
 		foreach ( $dirs as $dir ) {
 			if ( !file_exists( "$dir/clover.xml" ) ) {
@@ -216,9 +217,9 @@ HTML;
 	 * Only show the directory index if there are actually
 	 * directories left over that didn't have clover.xml files.
 	 */
-	public function handleDirIndex() {
-		if ( $this->getDirIndexDirectories() ) {
-			parent::handleDirIndex();
+	public function handleDirIndex( $dir, $urlPath ) {
+		if ( $this->getDirIndexDirectories( $dir ) ) {
+			parent::handleDirIndex( $dir, $urlPath );
 		}
 	}
 }

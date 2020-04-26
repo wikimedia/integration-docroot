@@ -65,7 +65,7 @@ class Page {
 			self::error( 'Invalid context.' );
 			return;
 		}
-		if ( substr( $path, -1 ) === '/' ) {
+		if ( substr( $realPath, -1 ) !== '/' ) {
 			$realPath .= '/';
 		}
 		$urlPath = substr( $realPath, strlen( rtrim( $_SERVER['DOCUMENT_ROOT'], '/' ) ) );
@@ -156,23 +156,33 @@ class Page {
 <?php
 	}
 
-	protected function getDirIndexDirectories() {
-		return glob( $this->getDir() . "/*", GLOB_ONLYDIR );
+	protected function getDirIndexDirectories( $dir = null ) {
+		$dir = $dir !== null ? $dir : $this->getDir();
+		return glob( $dir . "/*", GLOB_ONLYDIR );
 	}
 
-	public function handleDirIndex() {
+	/**
+	 *
+	 * To simply list the directories for the current request url:
+	 *
+	 *     $p->handleDirIndex( $p->getDir(), $p->getUrlPath() );
+	 *
+	 * @param string $dir Full path to directory on disk
+	 * @param string $urlPath URL path prefix, to that same directory
+	 */
+	public function handleDirIndex( $dir, $urlPath ) {
 		if ( $this->flags & self::INDEX_PREFIX ) {
-			if ( $this->flags & self::INDEX_PARENT_PREFIX && $this->getUrlPath() !== '/' ) {
-				$this->pageName .= basename( dirname( $this->getDir() ) ) . ': ' . basename( $this->getDir() );
+			if ( $this->flags & self::INDEX_PARENT_PREFIX && $urlPath !== '/' ) {
+				$this->pageName .= basename( dirname( $dir ) ) . ': ' . basename( $dir );
 			} else {
-				$this->pageName .= basename( $this->getDir() );
+				$this->pageName .= basename( $dir );
 			}
 		}
 
-		$subDirPaths = $this->getDirIndexDirectories();
+		$subDirPaths = $this->getDirIndexDirectories( $dir );
 		if ( $this->flags & self::INDEX_ALLOW_SKIP ) {
 			if ( count( $subDirPaths ) === 1 ) {
-				header( 'Location: ./' . basename( $subDirPaths[0] ) . '/' );
+				header( "Location: {$urlPath}" . basename( $subDirPaths[0] ) . '/' );
 				exit;
 			}
 		}
@@ -183,7 +193,7 @@ class Page {
 			$this->addHtmlContent( '<ul class="nav nav-pills nav-stacked">' );
 			foreach ( $subDirPaths as $path ) {
 				$dirName = basename( $path );
-				$this->addHtmlContent( '<li><a href="./' . htmlspecialchars( $dirName ) . '/">'
+				$this->addHtmlContent( '<li><a href="' . htmlspecialchars( "{$urlPath}{$dirName}/" ) . '">'
 					. htmlspecialchars( $dirName )
 					. '</a>'
 				);
