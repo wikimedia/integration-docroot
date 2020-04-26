@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__ . '/Utils.php';
 require_once __DIR__ . '/Page.php';
 require_once __DIR__ . '/TwbsPageBase.php';
 require_once __DIR__ . '/WmuiPageBase.php';

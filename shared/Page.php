@@ -123,7 +123,7 @@ class Page {
 			throw new InvalidArgumentException( 'Illegal path' );
 		}
 
-		$content = @file_get_contents( $file );
+		$content = file_get_contents( $file );
 		if ( $content === false ) {
 			throw new RuntimeException( 'Unreadable file ' . basename( $file ) );
 		}

@@ -2,6 +2,8 @@
 
 class WmuiPageBase extends Page {
 	protected $org = 'Wikimedia';
+	protected $site = '';
+	protected $caption = '';
 	protected $stylesheets = [
 		'/lib/wmui-page.css',
 	];
@@ -32,6 +34,11 @@ class WmuiPageBase extends Page {
 <body>
 <header><div class="wm-container">
 	<a role="banner" href="/" title="Navigate to the home page of <?php echo htmlentities( $this->site ); ?>"><em><?php echo htmlentities( $this->org ); ?></em> <?php echo htmlentities( $this->site ); ?></a>
+	<?php
+	if ( $this->caption ) {
+		echo '<span class="wm-header-caption">' . htmlentities( $this->caption ) . '</span>';
+	}
+	?>
 </div></header>
 <main role="main"><div class="wm-container">
 <?php

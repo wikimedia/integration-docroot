@@ -11,6 +11,16 @@ body {
   font-size: 1.6rem;
 }
 
+h2 {
+  font-size: 2.4rem;
+  padding-bottom: 2px;
+  border-bottom: 3px solid #eaecf0;
+}
+
+p {
+  line-height: 1.5;
+}
+
 a {
   color: #36c;
   text-decoration: none;
@@ -39,10 +49,11 @@ a:hover {
 
 header .wm-container {
   display: flex;
-  flex-flow: column;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }
 header a[role="banner"] {
-  padding: 1.2rem 0;
+  line-height: 4.9rem;
   font-weight: bold;
   color: inherit;
 }
@@ -50,11 +61,19 @@ header a[role="banner"] em {
   font-weight: normal;
   font-style: normal;
 }
+.wm-header-caption {
+  line-height: 4.9rem;
+}
+@media ( max-width: 768px ) {
+  .wm-header-caption {
+    display: none;
+  }
+}
 
 main {
   background: #fff;
   box-shadow: 0 1px 4px 0 rgba(0, 0 ,0, 0.25);
-  padding: 6rem 0;
+  padding: 3.2rem 0 6rem 0;
 }
 
 ul {

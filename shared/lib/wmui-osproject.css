@@ -1,0 +1,126 @@
+/*! wmui-osproject.css */
+
+.wm-osproject-nav {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	margin: 0;
+}
+.wm-osproject-nav li {
+	display: block;
+	flex: 0 1 345px;
+	margin: 0 1rem 0.1rem 0;
+	box-sizing: border-box;
+}
+.wm-osproject-nav li a {
+	display: block;
+	padding: 1rem 2.4rem;
+	border-radius: 2px;
+}
+.wm-osproject-nav li a:hover {
+	background: #f8f9fa;
+}
+
+.wm-osproject-nav ~ h2 {
+	position: sticky;
+	top: 0;
+	background: #fff;
+}
+
+.wm-osproject-grid {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+}
+
+.wm-osproject-tile {
+	background: #f8f9fa;
+	border: 1px solid #eaecf0;
+	padding: 3.2rem 2.4rem;
+	border-radius: 2px;
+	margin: 0 1rem 1rem 0;
+	box-sizing: border-box;
+	flex: 0 1 345px;
+	/* Make each tile a flex container so that we can control where the growth goes
+	 * in this case, make the growth to the the tagline so that the links are always
+	 * aligned at the bottom of each row's tiles. */
+	display: flex;
+	flex-flow: column;
+	justify-content: flex-start;
+}
+.wm-osproject-tile:focus-within {
+	border-color: #36c;
+	outline: none;
+	box-shadow: 0 1px 4px 0 rgba( 0, 0, 0, 0.25 );
+}
+.wm-osproject-tile:not(:focus-within) {
+	cursor: pointer;
+}
+
+.wm-osproject-tile-title {
+	margin: 0;
+	line-height: 1;
+}
+.wm-osproject-tile-title small {
+	float: right;
+	color: #72777d;
+	font-weight: normal;
+	font-style: normal;
+	-webkit-user-select: none; /* Safari, https://bugs.webkit.org/show_bug.cgi?id=208677 */
+	user-select: none; /* FF 69+, Chrome 54+ */
+}
+.wm-osproject-tile-title small:before {
+	content: ' (';
+}
+.wm-osproject-tile-title small:after {
+	content: ')';
+}
+.wm-osproject-tile-title small:empty {
+	display: none;
+}
+.wm-osproject-tile:not(:focus-within) .wm-osproject-tile-title {
+	font-size: inherit;
+}
+
+.wm-osproject-tile-tagline {
+	margin: 0.8rem 0 1rem 0;
+	flex-grow: 2;
+}
+h2:not(#featured) + .wm-osproject-grid .wm-osproject-tile:not(:focus-within) .wm-osproject-tile-tagline {
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	flex-grow: 0;
+	overflow: hidden;
+}
+
+.wm-osproject-tile-links {
+	margin: 0;
+}
+.wm-osproject-tile-links li {
+	list-style-position: inside;
+	margin: 0 0 0.2rem 0;
+}
+
+/* We use :not(:focus-within) instead of making this appear always and then
+   hiding from a :focus-within rule so that in browsers without :focus-within
+   support the list is simply expanded by default without toggle button. */
+.wm-osproject-tile:not(:focus-within) .wm-osproject-tile-links:not(:empty):before {
+	display: block;
+	content: "More information…";
+	color: #72777d;
+	cursor: pointer;
+	list-style: none;
+	margin: 0 -4px 0.2rem -4px;
+	padding: 0 20px 0 4px;
+	background: url(./ooui-caret-down.svg) calc(100% - 4px) 50% / 12px no-repeat;
+}
+.wm-osproject-tile:not(:focus-within) .wm-osproject-tile-links:hover:before {
+	text-decoration: underline;
+	outline: 2px solid #eaecf0;
+	background-color: #eaecf0;
+	color: #54595d;
+}
+.wm-osproject-tile:not(:focus-within) .wm-osproject-tile-links li {
+	display: none;
+}
