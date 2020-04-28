@@ -434,6 +434,15 @@ Testing:
     homepage: https://github.com/wikimedia/eslint-plugin-mediawiki
     links:
       Source code: https://github.com/wikimedia/eslint-plugin-mediawiki
+  Fresnel:
+    tagline: Measure and compare performance of web pages.
+    lang: JS
+    homepage: https://wikitech.wikimedia.org/wiki/Performance/Fresnel
+    links:
+      Source code: https://gerrit.wikimedia.org/g/performance/fresnel
+      # FIXME: https://phabricator.wikimedia.org/T251214
+      Documentation: https://github.com/wikimedia/fresnel/blob/master/API.md
+      Package (npm): https://www.npmjs.com/package/fresnel
 
 MediaWiki components:
   CirrusSearch:
