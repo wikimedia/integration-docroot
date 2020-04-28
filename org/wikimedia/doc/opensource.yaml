@@ -43,7 +43,7 @@ Localisation:
       Source code: https://github.com/cssjanus/cssjanus-php
       Documentation: https://github.com/cssjanus/cssjanus-php#basic-usage
       Demo: https://cssjanus.github.io/
-      Package (composer): https://packagist.org/packages/cssjanus/cssjanus
+      Package (Composer): https://packagist.org/packages/cssjanus/cssjanus
   CLDRPluralRuleParser:
     tagline: Parse CLDR plural rules from Unicode.
     lang: PHP
@@ -96,7 +96,7 @@ User experience:
       Code documentation (JS): https://doc.wikimedia.org/oojs-ui/master/js/
       Code documentation (PHP): https://doc.wikimedia.org/oojs-ui/master/php/
       Package (npm): https://www.npmjs.com/package/oojs-ui
-      Package (composer): https://packagist.org/packages/oojs/oojs-ui
+      Package (Composer): https://packagist.org/packages/oojs/oojs-ui
 
 Apps:
 
@@ -167,7 +167,7 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/base-convert/
       Documentation: https://doc.wikimedia.org/base-convert/master/
-      Package (composer): https://packagist.org/packages/wikimedia/base-convert
+      Package (Composer): https://packagist.org/packages/wikimedia/base-convert
   CDB:
     tagline: Fast and highly reliable key-value database file format.
     lang: PHP
@@ -175,7 +175,7 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/cdb/
       Documentation: https://doc.wikimedia.org/cdb/master/
-      Package (composer): https://packagist.org/packages/wikimedia/cdb
+      Package (Composer): https://packagist.org/packages/wikimedia/cdb
   css-sanitizer:
     tagline: CSS parser in pure PHP to transform or filter stylesheets.
     lang: PHP
@@ -190,7 +190,7 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/Equivset
       Documentation: https://doc.wikimedia.org/mediawiki-libs-Equivset/master/
-      Package (composer): https://packagist.org/packages/wikimedia/equivset
+      Package (Composer): https://packagist.org/packages/wikimedia/equivset
   IPSet:
     tagline: Efficient matching of IP addresses against CIDR specifications.
     lang: PHP
@@ -198,7 +198,7 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/IPSet
       Documentation: https://doc.wikimedia.org/IPSet/master/
-      Package (composer): https://packagist.org/packages/wikimedia/ip-set
+      Package (Composer): https://packagist.org/packages/wikimedia/ip-set
   IPUtils:
     tagline: Parsing and formatting of IPv4/IPv6 addresses and CIDR ranges.
     lang: PHP
@@ -206,7 +206,7 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/IPUtils
       Documentation: https://doc.wikimedia.org/mediawiki-libs-IPUtils/master/
-      Package (composer): https://packagist.org/packages/wikimedia/ip-utils
+      Package (Composer): https://packagist.org/packages/wikimedia/ip-utils
   HtmlFormatter:
     tagline: Transformations for MediaWiki HTML output, based on libxml2.
     lang: PHP
@@ -221,14 +221,16 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/php/luasandbox
       Documentation: https://doc.wikimedia.org/mediawiki-php-luasandbox/master/
-      Package (debian): https://packages.debian.org/stable/php-luasandbox
+      Documentation (php.net): https://www.php.net/manual/en/intro.luasandbox.php
+      Package (Debian): https://packages.debian.org/stable/php-luasandbox
+      Package (PECL): https://pecl.php.net/package/luasandbox
   oauthclient-php:
     tagline: OAuth client for Wikipedia and other MediaWiki sites.
     homepage: https://www.mediawiki.org/wiki/Oauthclient-php
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/oauthclient-php
       Documentation: https://doc.wikimedia.org/mediawiki-oauthclient-php/master/
-      Package (composer): https://packagist.org/packages/mediawiki/oauthclient
+      Package (Composer): https://packagist.org/packages/mediawiki/oauthclient
   ObjectFactory:
     homepage: https://www.mediawiki.org/wiki/ObjectFactory
     tagline: Construct objects based on a static description.
@@ -263,7 +265,7 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/RelPath
       Documentation: https://doc.wikimedia.org/RelPath/master/
-      Package (composer): https://packagist.org/packages/wikimedia/relpath
+      Package (Composer): https://packagist.org/packages/wikimedia/relpath
   RemexHtml:
     tagline: Fast HTML5 parser in pure PHP.
     lang: PHP
@@ -271,7 +273,7 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/RemexHtml/
       Documentation: https://doc.wikimedia.org/mediawiki-libs-RemexHtml/master/
-      Package (composer): https://packagist.org/packages/wikimedia/remex-html
+      Package (Composer): https://packagist.org/packages/wikimedia/remex-html
   RunningStat:
     tagline: Compute statistics for a stream of numbers using only constant space.
     lang: PHP
@@ -305,7 +307,7 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/WaitConditionLoop
       Documentation: https://doc.wikimedia.org/mediawiki-libs-WaitConditionLoop/master/
-      Package (composer): https://packagist.org/packages/wikimedia/wait-condition-loop
+      Package (Composer): https://packagist.org/packages/wikimedia/wait-condition-loop
   WrappedString:
     tagline: Merge similarly formatted strings.
     lang: PHP
