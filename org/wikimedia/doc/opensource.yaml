@@ -118,6 +118,7 @@ Apps:
       Contributing or Beta testing: https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS
 
 Services:
+
   RESTBase:
     homepage: https://github.com/wikimedia/restbase/#readme
   Wikidata Query Service:
@@ -146,6 +147,13 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/AhoCorasick
       Documentation: https://doc.wikimedia.org/AhoCorasick/master/
+  Arc Lamp:
+    tagline: Gather stack traces from a PHP 7 app with Excimer and publish them as flame graphs and trace logs.
+    lang: Python
+    homepage: https://gerrit.wikimedia.org/g/performance/arc-lamp/#arc-lamp
+    links:
+      Source code: https://gerrit.wikimedia.org/g/performance/arc-lamp/+/master
+      Package (Composer): https://packagist.org/packages/wikimedia/arc-lamp
   Assert:
     tagline: Run-time assertions for parameter types, preconditions and postconditions.
     lang: PHP
@@ -214,16 +222,6 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/HtmlFormatter
       Documentation: https://doc.wikimedia.org/HtmlFormatter/master/
-  LuaSandbox:
-    tagline: Safely execute untrusted Lua 5.1 code, natively from PHP or HHVM.
-    lang: C
-    homepage: https://www.mediawiki.org/wiki/LuaSandbox
-    links:
-      Source code: https://gerrit.wikimedia.org/g/mediawiki/php/luasandbox
-      Documentation: https://doc.wikimedia.org/mediawiki-php-luasandbox/master/
-      Documentation (php.net): https://www.php.net/manual/en/intro.luasandbox.php
-      Package (Debian): https://packages.debian.org/stable/php-luasandbox
-      Package (PECL): https://pecl.php.net/package/luasandbox
   oauthclient-php:
     tagline: OAuth client for Wikipedia and other MediaWiki sites.
     homepage: https://www.mediawiki.org/wiki/Oauthclient-php
@@ -393,6 +391,24 @@ Infrastructure:
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/vagrant
       Documentation: https://doc.wikimedia.org/mediawiki-vagrant/
+  LuaSandbox:
+    tagline: Safely execute untrusted Lua 5.1 code, natively from PHP or HHVM.
+    lang: C
+    homepage: https://www.mediawiki.org/wiki/LuaSandbox
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/php/luasandbox
+      Documentation: https://doc.wikimedia.org/mediawiki-php-luasandbox/master/
+      Documentation (php.net): https://www.php.net/manual/en/intro.luasandbox.php
+      Package (Debian): https://packages.debian.org/stable/php-luasandbox
+      Package (PECL): https://pecl.php.net/package/luasandbox
+  Excimer:
+    tagline: Low-overhead interrupting timer and sampling profiler for PHP.
+    lang: C
+    homepage: https://www.mediawiki.org/wiki/Excimer
+    links:
+      Documentation: https://www.mediawiki.org/wiki/Excimer#Reference_documentation
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/php/excimer
+      Package (Debian): https://packages.debian.org/stable/php-excimer
 
 Testing:
 
