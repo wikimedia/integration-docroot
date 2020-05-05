@@ -116,27 +116,14 @@ Apps:
       Source code: https://github.com/wikimedia/wikipedia-ios
       Apple App Store: https://itunes.apple.com/app/apple-store/id324715238
       Contributing or Beta testing: https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS
-
-Services:
-
-  RESTBase:
-    homepage: https://github.com/wikimedia/restbase/#readme
-  Wikidata Query Service:
-    lang: Java
+  Who Wrote That:
+    tagline: Explore authorship and revision informationon Wikipedia with this browser app.
+    lang: JS
+    homepage: https://github.com/wikimedia/WhoWroteThat
     links:
-      Documentation: https://doc.wikimedia.org/wikidata-query-rdf/
-  search-extra:
-    tagline: Elasticsearch plugin, used by CirrusSearch.
-    lang: Java
-    links:
-      Source code: https://gerrit.wikimedia.org/g/search/extra
-      Documentation: https://doc.wikimedia.org/search-extra/
-  search-highlighter:
-    tagline: Elasticsearch plugin, used by CirrusSearch.
-    lang: Java
-    links:
-      Source code: https://gerrit.wikimedia.org/g/search/highlighter
-      Documentation: https://doc.wikimedia.org/search-highlighter/
+      Firefox Add-on Store: https://addons.mozilla.org/en-US/firefox/addon/whowrotethat/
+      Chrome Web Store: https://chrome.google.com/webstore/detail/who-wrote-that/ekkbnedhfelfaidbpaedaecjiokkionn
+      Source code: https://github.com/wikimedia/WhoWroteThat
 
 Libraries:
 
@@ -415,6 +402,24 @@ Infrastructure:
     homepage: https://wikitech.wikimedia.org/wiki/Performance/Metrics
     links:
       Source code: https://gerrit.wikimedia.org/g/performance/navtiming
+  RESTBase:
+    homepage: https://github.com/wikimedia/restbase/#readme
+  Wikidata Query Service:
+    lang: Java
+    links:
+      Documentation: https://doc.wikimedia.org/wikidata-query-rdf/
+  search-extra:
+    tagline: Elasticsearch plugin, used by CirrusSearch.
+    lang: Java
+    links:
+      Source code: https://gerrit.wikimedia.org/g/search/extra
+      Documentation: https://doc.wikimedia.org/search-extra/
+  search-highlighter:
+    tagline: Elasticsearch plugin, used by CirrusSearch.
+    lang: Java
+    links:
+      Source code: https://gerrit.wikimedia.org/g/search/highlighter
+      Documentation: https://doc.wikimedia.org/search-highlighter/
 
 Testing:
 
@@ -545,3 +550,58 @@ MediaWiki components:
     links:
       Code documentation (PHP): https://doc.wikimedia.org/mediawiki-skins-MinervaNeue/master/php/
       Code documentation (JS): https://doc.wikimedia.org/mediawiki-skins-MinervaNeue/master/js/
+
+Microsites:
+
+  www.wikipedia.org:
+    tagline: Portal for Wikipedia.org and other Wikimedia projects.
+    lang: HTML
+    links:
+      Live link: https://www.wikipedia.org/
+      Source code: https://gerrit.wikimedia.org/g/wikimedia/portals
+      Documentation: https://meta.wikimedia.org/wiki/Project_portals
+  analytics.wikimedia.org:
+    lang: HTML
+    links:
+      Live link: https://analytics.wikimedia.org/
+      Source code: https://gerrit.wikimedia.org/g/analytics/analytics.wikimedia.org
+  stats.wikimedia.org:
+    tagline: Wikistats 2.0.
+    lang: HTML
+    links:
+      Live link: https://stats.wikimedia.org/
+      Source code: https://gerrit.wikimedia.org/g/analytics/wikistats2
+  annual.wikimedia.org:
+    tagline: Annual report.
+    lang: HTML
+    links:
+      Live link: https://annual.wikimedia.org/
+      Source code: https://gerrit.wikimedia.org/g/wikimedia/annualreport
+      Documentation: https://wikitech.wikimedia.org/wiki/Microsites
+  transparency.wikimedia.org:
+    tagline: Transparency report.
+    lang: HTML
+    links:
+      Live link: https://transparency.wikimedia.org/
+      Source code: https://gerrit.wikimedia.org/g/wikimedia/TransparencyReport
+      Documentation: https://wikitech.wikimedia.org/wiki/Microsites
+  research.wikimedia.org:
+    tagline: Research landing page.
+    lang: HTML
+    links:
+      Live link: https://research.wikimedia.org/
+      Source code: https://gerrit.wikimedia.org/g/research/landing-page/
+      Documentation: https://wikitech.wikimedia.org/wiki/Microsites
+  integration.wikimedia.org:
+    tagline: Doc and Coverage reports.
+    lang: HTML
+    links:
+      Live link: https://integration.wikimedia.org/
+      Source code: https://gerrit.wikimedia.org/g/integration/docroot
+  performance.wikimedia.org:
+    tagline: Metrics, flame graphs, profiles.
+    lang: HTML
+    links:
+      Live link: https://performance.wikimedia.org/
+      Source code: https://gerrit.wikimedia.org/g/performance/docroot
+      Documentation: https://wikitech.wikimedia.org/wiki/Performance.wikimedia.org
