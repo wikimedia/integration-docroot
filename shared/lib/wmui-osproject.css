@@ -111,9 +111,10 @@ h2:not(#featured) + .wm-osproject-grid .wm-osproject-tile:not(:focus-within) .wm
 	color: #72777d;
 	cursor: pointer;
 	list-style: none;
-	margin: 0 -4px 0.2rem -4px;
-	padding: 0 20px 0 4px;
-	background: url(./ooui-caret-down.svg) calc(100% - 4px) 50% / 12px no-repeat;
+	/* Ensure text aligns vertically, whilst also having a padding
+	   on the hover background. */
+	margin: 0 -4px;
+	padding: 0 4px;
 }
 .wm-osproject-tile:not(:focus-within) .wm-osproject-tile-links:hover:before {
 	text-decoration: underline;
