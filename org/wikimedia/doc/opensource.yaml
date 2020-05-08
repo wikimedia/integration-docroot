@@ -179,6 +179,13 @@ Libraries:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/Equivset
       Documentation: https://doc.wikimedia.org/mediawiki-libs-Equivset/master/
       Package (Composer): https://packagist.org/packages/wikimedia/equivset
+  HtmlFormatter:
+    tagline: Transformations for MediaWiki HTML output, based on libxml2.
+    lang: PHP
+    homepage: https://www.mediawiki.org/wiki/HtmlFormatter
+    links:
+      Source code: https://gerrit.wikimedia.org/g/HtmlFormatter
+      Documentation: https://doc.wikimedia.org/HtmlFormatter/master/
   IPSet:
     tagline: Efficient matching of IP addresses against CIDR specifications.
     lang: PHP
@@ -195,13 +202,6 @@ Libraries:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/IPUtils
       Documentation: https://doc.wikimedia.org/mediawiki-libs-IPUtils/master/
       Package (Composer): https://packagist.org/packages/wikimedia/ip-utils
-  HtmlFormatter:
-    tagline: Transformations for MediaWiki HTML output, based on libxml2.
-    lang: PHP
-    homepage: https://www.mediawiki.org/wiki/HtmlFormatter
-    links:
-      Source code: https://gerrit.wikimedia.org/g/HtmlFormatter
-      Documentation: https://doc.wikimedia.org/HtmlFormatter/master/
   oauthclient-php:
     tagline: OAuth client for Wikipedia and other MediaWiki sites.
     homepage: https://www.mediawiki.org/wiki/Oauthclient-php
