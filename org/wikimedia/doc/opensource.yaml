@@ -202,6 +202,14 @@ Libraries:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/IPUtils
       Documentation: https://doc.wikimedia.org/mediawiki-libs-IPUtils/master/
       Package (Composer): https://packagist.org/packages/wikimedia/ip-utils
+  LangConv:
+    tagline: FST-based implementation of language and script conversion.
+    lang: PHP
+    homepage: https://www.mediawiki.org/wiki/LangConv
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/LangConv/
+      Documentation: https://doc.wikimedia.org/mediawiki-libs-LangConv/master/
+      Package (Composer): https://packagist.org/packages/wikimedia/langconv
   oauthclient-php:
     tagline: OAuth client for Wikipedia and other MediaWiki sites.
     homepage: https://www.mediawiki.org/wiki/Oauthclient-php
