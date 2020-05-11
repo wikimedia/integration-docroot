@@ -397,6 +397,12 @@ Infrastructure:
       Documentation: https://www.mediawiki.org/wiki/Excimer#Reference_documentation
       Source code: https://gerrit.wikimedia.org/g/mediawiki/php/excimer
       Package (Debian): https://packages.debian.org/stable/php-excimer
+  Fresh:
+    tagline: Shell environment for frontend development.
+    lang: Shell
+    homepage: https://gerrit.wikimedia.org/g/fresh/#fresh-environment
+    links:
+      Source code: https://gerrit.wikimedia.org/g/fresh/
   Arc Lamp:
     tagline: Gather stack traces from a PHP 7 app with Excimer and publish them as flame graphs and trace logs.
     lang: Python
