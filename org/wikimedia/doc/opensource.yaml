@@ -276,6 +276,13 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/ScopedCallback
       Documentation: https://doc.wikimedia.org/mediawiki-libs-ScopedCallback/master/
+  Services:
+    tagline: Generic service container to manage named services using lazy instantiator callbacks.
+    lang: PHP
+    homepage: https://www.mediawiki.org/wiki/Services_(PHP_library)
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/Services
+      Documentation: https://doc.wikimedia.org/mediawiki-libs-Services/master/
   Wikimedia SlimApp:
     lang: PHP
     links:
