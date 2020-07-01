@@ -23,7 +23,7 @@ class DocHomePage extends WmuiPageBase {
 		foreach ( $this->data as $section => $_ ) {
 			echo '<li><a href="#' . htmlspecialchars( $this->anchor( $section ) ) . '">' . htmlspecialchars( $section ) . '</a></li>';
 		}
-		echo '</ul>';
+		echo '</ul></nav>';
 		foreach ( $this->data as $section => $projects ) {
 			echo '<h2 id="' . htmlspecialchars( $this->anchor( $section ) ) . '">' . htmlspecialchars( $section ) . '</h2>';
 			echo '<div class="wm-osproject-grid">';
