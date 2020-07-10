@@ -56,4 +56,18 @@ class PageTest extends PHPUnit\Framework\TestCase {
 			$page->getDir()
 		);
 	}
+
+	public function testRequestPathSupportsSymlinkDocroot() {
+		$_SERVER['SCRIPT_NAME'] = '/index.php';
+		$_SERVER['DOCUMENT_ROOT'] = __DIR__ . '/fixture/symlink';
+		$page = Page::newIndex();
+		$this->assertEquals(
+			'/',
+			$page->getUrlPath()
+		);
+		$this->assertEquals(
+			__DIR__ . '/fixture/foo/',
+			$page->getDir()
+		);
+	}
 }

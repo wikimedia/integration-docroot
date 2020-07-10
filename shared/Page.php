@@ -59,8 +59,9 @@ class Page {
 		}
 		// Use realpath() to prevent escalation through e.g. "../"
 		// Note: realpath() also normalises paths to have no trailing slash
+		$realDocroot = realpath( $_SERVER['DOCUMENT_ROOT'] );
 		$realPath = realpath( $_SERVER['DOCUMENT_ROOT'] . $path );
-		if ( !$realPath || strpos( $realPath, $_SERVER['DOCUMENT_ROOT'] ) !== 0 ) {
+		if ( !$realPath || strpos( $realPath, $realDocroot ) !== 0 ) {
 			// Path escalation. Should be impossible as Apache normalises this.
 			self::error( 'Invalid context.' );
 			return;
@@ -68,7 +69,7 @@ class Page {
 		if ( substr( $realPath, -1 ) !== '/' ) {
 			$realPath .= '/';
 		}
-		$urlPath = substr( $realPath, strlen( rtrim( $_SERVER['DOCUMENT_ROOT'], '/' ) ) );
+		$urlPath = substr( $realPath, strlen( $realDocroot ) );
 
 		return [
 			'urlPath' => $urlPath,
