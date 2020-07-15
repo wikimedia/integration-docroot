@@ -1,8 +1,15 @@
 /*! wmui-page.css | Based on <https://design.wikimedia.org/style-guide/> */
 
+:root {
+  --wmci-desktop-wide: 1140px;
+}
+
 html {
-  background: #eaecf0;
-  font: 10px/1.6 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var( --wmui-color-base80 );
+  font-family: sans-serif; /* Basic support without css-variables */
+  font-family: var( --font-family-system-sans );
+  line-height: var( --line-height-base );
+  font-size: 10px;
   color: #222;
 }
 
@@ -14,7 +21,7 @@ body {
 h2 {
   font-size: 2.4rem;
   padding-bottom: 2px;
-  border-bottom: 3px solid #eaecf0;
+  border-bottom: 3px solid var( --wmui-color-base80 );
 }
 
 p {
@@ -22,7 +29,7 @@ p {
 }
 
 a {
-  color: #36c;
+  color: var( --wmui-color-accent50 );
   text-decoration: none;
 }
 a:hover {
@@ -32,16 +39,18 @@ a:hover {
 
 .wm-container {
   margin: 0 auto;
-  max-width: 1140px;
+  max-width: var( --wmci-desktop-wide );
   padding: 0 1rem;
   box-sizing: border-box;
 }
-@media ( min-width: 240px ) {
+@media ( min-width: 320px ) {
+  /* Beyond --width-breakpoint-mobile */
   .wm-container {
     padding: 0 2rem;
   }
 }
-@media ( min-width: 768px ) {
+@media ( min-width: 720px ) {
+  /* Beyond --width-breakpoint-tablet */
   .wm-container {
     padding: 0 3.2rem;
   }
@@ -71,8 +80,8 @@ header a[role="banner"] em {
 }
 
 main {
-  background: #fff;
-  box-shadow: 0 1px 4px 0 rgba(0, 0 ,0, 0.25);
+  background: var( --wmui-color-base100 );
+  box-shadow: 0 1px 4px 0 rgba( 0, 0 ,0, 0.25 );
   padding: 3.2rem 0 6rem 0;
 }
 
@@ -102,7 +111,7 @@ footer nav li a {
 @media ( min-width: 414px ) {
   footer nav li:after {
     content: "\2022";
-    color: #72777d;
+    color: var( --wmui-color-base30 );
     padding: 0 0 0 0.8rem;
   }
   footer nav li:last-child:after {

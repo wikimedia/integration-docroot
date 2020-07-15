@@ -19,7 +19,7 @@ class DocHomePage extends WmuiPageBase {
 	}
 
 	public function renderContent() {
-		echo '<nav><ul class="wm-osproject-nav">';
+		echo '<nav class="wm-osproject-nav"><ul>';
 		foreach ( $this->data as $section => $_ ) {
 			echo '<li><a href="#' . htmlspecialchars( $this->anchor( $section ) ) . '">' . htmlspecialchars( $section ) . '</a></li>';
 		}

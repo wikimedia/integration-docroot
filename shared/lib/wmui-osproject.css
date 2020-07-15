@@ -1,6 +1,6 @@
 /*! wmui-osproject.css */
 
-.wm-osproject-nav {
+.wm-osproject-nav ul {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: flex-start;
@@ -12,13 +12,13 @@
 	margin: 0 1rem 0.1rem 0;
 	box-sizing: border-box;
 }
-.wm-osproject-nav li a {
+.wm-osproject-nav a {
 	display: block;
 	padding: 1rem 2.4rem;
 	border-radius: 2px;
 }
-.wm-osproject-nav li a:hover {
-	background: #f8f9fa;
+.wm-osproject-nav a:hover {
+	background: var( --wmui-color-base90 );
 }
 
 .wm-osproject-nav ~ h2 {
@@ -34,8 +34,8 @@
 }
 
 .wm-osproject-tile {
-	background: #f8f9fa;
-	border: 1px solid #eaecf0;
+	background: var( --wmui-color-base90 );
+	border: 1px solid var( --wmui-color-base80 );
 	padding: 3.2rem 2.4rem;
 	border-radius: 2px;
 	margin: 0 1rem 1rem 0;
@@ -49,7 +49,7 @@
 	justify-content: flex-start;
 }
 .wm-osproject-tile:focus-within {
-	border-color: #36c;
+	border-color: var( --wmui-color-accent50 );
 	outline: none;
 	box-shadow: 0 1px 4px 0 rgba( 0, 0, 0, 0.25 );
 }
@@ -63,7 +63,7 @@
 }
 .wm-osproject-tile-title small {
 	float: right;
-	color: #72777d;
+	color: var( --wmui-color-base30 );
 	font-weight: normal;
 	font-style: normal;
 	-webkit-user-select: none; /* Safari, https://bugs.webkit.org/show_bug.cgi?id=208677 */
@@ -108,7 +108,7 @@ h2:not(#featured) + .wm-osproject-grid .wm-osproject-tile:not(:focus-within) .wm
 .wm-osproject-tile:not(:focus-within) .wm-osproject-tile-links:not(:empty):before {
 	display: block;
 	content: "More information…";
-	color: #72777d;
+	color: var( --wmui-color-base30 );
 	cursor: pointer;
 	list-style: none;
 	/* Ensure text aligns vertically, whilst also having a padding
@@ -118,9 +118,9 @@ h2:not(#featured) + .wm-osproject-grid .wm-osproject-tile:not(:focus-within) .wm
 }
 .wm-osproject-tile:not(:focus-within) .wm-osproject-tile-links:hover:before {
 	text-decoration: underline;
-	outline: 2px solid #eaecf0;
-	background-color: #eaecf0;
-	color: #54595d;
+	outline: 2px solid var( --wmui-color-base80 );
+	background-color: var( --wmui-color-base80 );
+	color: var( --wmui-color-base20 );
 }
 .wm-osproject-tile:not(:focus-within) .wm-osproject-tile-links li {
 	display: none;

@@ -5,6 +5,7 @@ class WmuiPageBase extends Page {
 	protected $site = '';
 	protected $caption = '';
 	protected $stylesheets = [
+		'/lib/wikimedia-ui-base-0.16.0.css',
 		'/lib/wmui-page.css',
 	];
 
