@@ -19,3 +19,9 @@
 	width: 100px;
 	margin-right: 1rem;
 }
+
+.cover-item-meter span {
+	/* align edges */
+	min-width: 3rem;
+	display: inline-block;
+}
