@@ -46,25 +46,6 @@ class CoveragePage extends DocPage {
 
 		$sort = isset( $_GET['sort'] ) ? (string)$_GET['sort'] : null;
 
-		if ( $this->pageName === 'Test coverage' ) {
-			$href = '/cover-extensions/';
-			$breadcrumbs = <<<HTML
-<ul class="nav nav-tabs">
-	<li class="active"><a href="#">Coverage home</a></li>
-	<li><a href="$href">MediaWiki extensions</a></li>
-</ul>
-HTML;
-		} else {
-			$href = '/cover/';
-			$breadcrumbs = <<<HTML
-<ul class="nav nav-tabs">
-	<li><a href="$href">Coverage home</a></li>
-	<li class="active"><a href="#">MediaWiki extensions</a></li>
-</ul>
-HTML;
-		}
-		$this->addHtmlContent( $breadcrumbs );
-
 		$intro = <<<HTML
 <blockquote>
 <p>
@@ -72,31 +53,44 @@ Test coverage refers to measuring how much a software program has been
 exercised by tests. Coverage is a means of determining the rigour with
 which the question underlying the test has been answered.
 </p>
-<footer>
-<a href="https://en.wikipedia.org/w/index.php?title=Fault_coverage&oldid=675795947">Wikipedia</a>
-</footer>
+– <a href="https://en.wikipedia.org/w/index.php?title=Fault_coverage&oldid=675795947">Wikipedia</a>
 </blockquote>
 HTML;
 		$this->addHtmlContent( $intro );
 
+		if ( $this->pageName === 'Test coverage' ) {
+			$href = '/cover-extensions/';
+			$breadcrumbs = <<<HTML
+<ul class="wm-nav cover-nav">
+	<li><a href="#" class="wm-nav-item-active">Coverage home</a></li>
+	<li><a href="$href">MediaWiki extensions</a></li>
+</ul>
+HTML;
+		} else {
+			$href = '/cover/';
+			$breadcrumbs = <<<HTML
+<ul class="wm-nav cover-nav">
+	<li><a href="$href">Coverage home</a></li>
+	<li><a href="#" class="wm-nav-item-active">MediaWiki extensions</a></li>
+</ul>
+HTML;
+		}
+		$this->addHtmlContent( $breadcrumbs );
+
 		if ( $sort === 'cov' ) {
 			$sortNav = <<<HTML
-<div class="btn-group btn-group-sm">
-		<a class="btn btn-default" href="./">Sort by name</a>
-		<button type="button" class="btn btn-default active">Sort by coverage percentage</button>
-</div>
+		<a role="button" class="wm-btn" href="./">Sort by name</a>
+		<a role="button" class="wm-btn wm-btn-active" href="./?sort=cov">Sort by coverage percentage</a>
 HTML;
 		} else {
 			$sortNav = <<<HTML
-<div class="btn-group btn-group-sm">
-		<button type="button" class="btn btn-default active">Sort by name</button>
-		<a class="btn btn-default" href="./?sort=cov">Sort by coverage percentage</a>
-</div>
+		<a role="button" class="wm-btn wm-btn-active" href="./">Sort by name</a>
+		<a role="button" class="wm-btn" href="./?sort=cov">Sort by coverage percentage</a>
 HTML;
 		}
 
-		$this->addHtmlContent( $sortNav );
-		$this->addHtmlContent( '<ul class="nav nav-pills nav-stacked cover-list">' );
+		$this->addHtmlContent( "<hr>$sortNav" );
+		$this->addHtmlContent( '<ul class="wm-nav">' );
 		$html = '';
 		$clovers = [];
 		foreach ( $cloverFiles as $cloverFile ) {
@@ -121,16 +115,17 @@ HTML;
 			$percent = (string)round( $info['percent'] );
 			$color = $this->getLevelColor( $info['percent'] );
 			$minWidth = $percent >= 10 ? '3em' : '2em';
+
+			$lowThreshold = self::COVERAGE_LOW;
+			$highThreshold = self::COVERAGE_HIGH;
 			$html .= <<<HTML
 <li>
 	<a class="cover-item" href="./$dirName/">
+		<span class="cover-item-meter">
+			<span>$percent%</span>
+			<meter min="0" max="100" low="$lowThreshold" high="$highThreshold" optimum="99" value="$percent">$percent%</meter>
+		</span>
 		<span>$dirName</span>
-		<div class="progress">
-			<div class="progress-bar progress-bar-$color" role="progressbar" aria-valuenow="$percent" 
-				aria-valuemin="0" aria-valuemax="100" style="min-width: $minWidth; width: $percent%">
-				$percent%
-			</div>
-		</div>
 	</a>
 </li>
 HTML;
@@ -221,5 +216,10 @@ HTML;
 		if ( $this->getDirIndexDirectories( $dir ) ) {
 			parent::handleDirIndex( $dir, $urlPath );
 		}
+	}
+
+	protected function isNavActive( $href ) {
+		// Also mark /cover/ as active when on /cover-extensions/
+		return $this->getUrlPath() === $href || $href === '/cover/';
 	}
 }

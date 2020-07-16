@@ -1,14 +1,20 @@
 <?php
 
-class DocPage extends TwbsPageBase {
+class DocPage extends WmuiPageBase {
 	protected $site = 'Documentation';
 
 	protected function getNavItems() {
 		return [
-			'/index/' => 'Documentation index',
+			'/' => 'Home',
+			'/index/' => 'Doc index',
 			'/cover/' => 'Test coverage',
-			'https://gerrit.wikimedia.org/r/' => 'Gerrit Code-Review',
-			'https://integration.wikimedia.org/' => 'Continuous integration',
+		];
+	}
+
+	protected function getFooterItems() {
+		return [
+			'https://integration.wikimedia.org/zuul/' => 'Continuous integration status',
+			'https://gerrit.wikimedia.org/r/' => 'Gerrit Code Review',
 		];
 	}
 }

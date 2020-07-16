@@ -131,12 +131,23 @@ class Page {
 		$this->content .= trim( $content );
 	}
 
+	protected function isNavActive( $href ) {
+		return $this->getUrlPath() === $href;
+	}
+
 	protected function getNavItems() {
-		return [
-			'https://gerrit.wikimedia.org/r/' => 'Gerrit',
-			'https://integration.wikimedia.org/' => 'Integration',
-			'https://doc.wikimedia.org/' => 'Documentation',
-		];
+		// Stub
+		return [];
+	}
+
+	/**
+	 * Get submenu items for the current page.
+	 *
+	 * @return array
+	 */
+	protected function getSubnavItems() {
+		// Stub
+		return [];
 	}
 
 	public function flush() {
@@ -188,9 +199,9 @@ class Page {
 		}
 
 		if ( count( $subDirPaths ) === 0 ) {
-			$this->addHtmlContent( '<div class="alert alert-warning" role="alert"><strong>Empty directory!</strong></div>' );
+			$this->addHtmlContent( '<div class="wm-alert wm-alert-error" role="alert"><strong>Empty directory!</strong></div>' );
 		} else {
-			$this->addHtmlContent( '<ul class="nav nav-pills nav-stacked">' );
+			$this->addHtmlContent( '<ul class="wm-nav">' );
 			foreach ( $subDirPaths as $path ) {
 				$dirName = basename( $path );
 				$this->addHtmlContent( '<li><a href="' . htmlspecialchars( "{$urlPath}{$dirName}/" ) . '">'

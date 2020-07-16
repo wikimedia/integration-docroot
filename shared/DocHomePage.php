@@ -1,6 +1,6 @@
 <?php
 
-class DocHomePage extends WmuiPageBase {
+class DocHomePage extends DocPage {
 	protected $site = 'Open Source';
 	protected $caption = 'Free and open-source software from Wikimedia.';
 	private $data = [];
@@ -18,14 +18,17 @@ class DocHomePage extends WmuiPageBase {
 		return $p;
 	}
 
-	public function renderContent() {
-		echo '<nav class="wm-osproject-nav"><ul>';
+	protected function getSubnavItems() {
+		$items = [];
 		foreach ( $this->data as $section => $_ ) {
-			echo '<li><a href="#' . htmlspecialchars( $this->anchor( $section ) ) . '">' . htmlspecialchars( $section ) . '</a></li>';
+			$items[ '#' . $this->anchor( $section ) ] = $section;
 		}
-		echo '</ul></nav>';
+		return $items;
+	}
+
+	public function renderContent() {
 		foreach ( $this->data as $section => $projects ) {
-			echo '<h2 id="' . htmlspecialchars( $this->anchor( $section ) ) . '">' . htmlspecialchars( $section ) . '</h2>';
+			echo '<h2 class="wm-osproject-heading" id="' . htmlspecialchars( $this->anchor( $section ) ) . '">' . htmlspecialchars( $section ) . '</h2>';
 			echo '<div class="wm-osproject-grid">';
 			uksort( $projects, 'strnatcasecmp' );
 			foreach ( $projects as $title => $project ) {
@@ -64,14 +67,5 @@ class DocHomePage extends WmuiPageBase {
 		$title = strtolower( $title );
 		$title = preg_replace( '/[^a-z]+/', '-', $title );
 		return $title;
-	}
-
-	protected function getNavItems() {
-		return [
-			'/index/' => 'Documentation index',
-			'/cover/' => 'Test coverage',
-			'https://gerrit.wikimedia.org/r/' => 'Gerrit Code-Review',
-			'https://integration.wikimedia.org/' => 'Continuous integration',
-		];
 	}
 }

@@ -1,14 +1,16 @@
-/* Override Bootstrap ".nav>li>a" selector */
-.cover-list .cover-item {
+.cover-nav {
 	display: flex;
 }
 
-.cover-item .progress {
-	display: inline-block;
-	order: -1;
-	vertical-align: middle;
+.wm-nav .cover-item {
+	display: flex;
+}
+
+.cover-item-meter {
+	display: flex;
+	flex-flow: column;
+	margin-right: 1rem;
 	width: 100px;
-	margin-right: 1em;
-	/* Override Bootstrap ".progress" margin */
-	margin-bottom: 0;
+	text-align: center;
+	font-size: 1.2rem;
 }

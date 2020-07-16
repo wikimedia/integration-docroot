@@ -9,6 +9,11 @@ class WmuiPageBase extends Page {
 		'/lib/wmui-page.css',
 	];
 
+	protected function getFooterItems() {
+		// Stub
+		return [];
+	}
+
 	public function flush() {
 ?><!DOCTYPE html>
 <html dir="ltr" lang="en-US">
@@ -42,17 +47,37 @@ class WmuiPageBase extends Page {
 	?>
 </div></header>
 <main role="main"><div class="wm-container">
+<nav class="wm-site-nav"><ul class="wm-nav">
 <?php
+	$cur = $this->getUrlPath();
+	foreach ( $this->getNavItems() as $href => $text ) {
+		$isActive = $this->isNavActive( $href );
+		$subItems = $isActive ? $this->getSubnavItems() : [];
+
+		$attr = $isActive ? ' class="wm-nav-item-active"' : '';
+		echo "<li>" . '<a href="' . htmlspecialchars( $href ) . '"' . $attr . '>' . htmlspecialchars( $text ) . '</a>';
+		if ( $subItems ) {
+			echo '<ul>';
+			foreach ( $subItems as $subHref => $subText ) {
+				echo '<li><a href="' . htmlspecialchars( $subHref ) . '">' . htmlspecialchars( $subText ) . '</a>';
+			}
+			echo '</ul>';
+		}
+		echo '</li>';
+	};
+?>
+</ul></nav>
+<article><?php
 	if ( $this->pageName ) {
 		echo '<h1>' . htmlentities( $this->pageName ) . '</h1>';
 	}
-?>
-<article><?php $this->renderContent(); ?></article>
+	$this->renderContent();
+?></article>
 </div></main>
 <footer role="contentinfo"><div class="wm-container">
 	<nav role="navigation"><ul>
 <?php
-	foreach ( $this->getNavItems() as $href => $text ) {
+	foreach ( $this->getFooterItems() as $href => $text ) {
 		echo '<li><a href="' . htmlspecialchars( $href ) . '">' . htmlspecialchars( $text ) . '</a></li>';
 	}
 ?>

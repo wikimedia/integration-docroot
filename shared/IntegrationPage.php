@@ -5,11 +5,10 @@ class IntegrationPage extends TwbsPageBase {
 
 	protected function getNavItems() {
 		return [
-			'https://doc.wikimedia.org/cover/' => 'Coverage',
-			'https://tools.wmflabs.org/nagf/?project=integration' => 'Monitor',
-			'/zuul/' => 'Zuul',
-			'https://gerrit.wikimedia.org/r/' => 'Gerrit',
+			'/zuul/' => 'Zuul status',
 			'https://doc.wikimedia.org/' => 'Documentation',
+			'https://doc.wikimedia.org/cover/' => 'Test coverage',
+			'https://gerrit.wikimedia.org/r/' => 'Gerrit Code Review',
 		];
 	}
 }

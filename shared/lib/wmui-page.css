@@ -1,7 +1,7 @@
 /*! wmui-page.css | Based on <https://design.wikimedia.org/style-guide/> */
 
 :root {
-  --wmci-desktop-wide: 1140px;
+  --wmci-desktop-wide: 1200px;
 }
 
 html {
@@ -18,10 +18,26 @@ body {
   font-size: 1.6rem;
 }
 
+h1 {
+  font-size: 3.2rem;
+  font-family: var( --font-family-serif );
+  font-weight: var( --font-weight-normal );
+}
+
 h2 {
   font-size: 2.4rem;
   padding-bottom: 2px;
   border-bottom: 3px solid var( --wmui-color-base80 );
+}
+
+blockquote {
+  padding-left: 1rem;
+  border-left:  3px solid var( --wmui-color-base80 );
+}
+
+hr {
+  margin: 3.2rem 0;
+  border: 3px solid var( --wmui-color-base80 );
 }
 
 p {
@@ -48,11 +64,17 @@ a:hover {
   .wm-container {
     padding: 0 2rem;
   }
+  .wm-site-nav {
+    margin: 0 -2rem;
+  }
 }
 @media ( min-width: 720px ) {
   /* Beyond --width-breakpoint-tablet */
   .wm-container {
     padding: 0 3.2rem;
+  }
+  .wm-site-nav {
+    margin: 0 - 3.2rem;
   }
 }
 
@@ -116,6 +138,110 @@ footer nav li a {
   }
   footer nav li:last-child:after {
     content: "";
+  }
+}
+
+.wm-alert {
+  background-color: var( --background-color-framed );
+  border-radius: var( --border-radius-base );
+  border: var( --border-base );
+  color: var( --color-base );
+  padding: 1rem;
+}
+.wm-alert-error {
+  background-color: var( --background-color-error--framed );
+  border: var( --border-error );
+  color: var( --color-error );
+}
+
+.wm-nav li {
+  display: block;
+  flex: 0 1 345px;
+  margin: 0 1rem 0.1rem 0;
+  box-sizing: border-box;
+}
+.wm-nav a {
+  display: block;
+  padding: 1rem 2.4rem;
+  border-radius: 2px;
+  color: var( --wmui-color-base10 );
+}
+.wm-nav li ul {
+  margin-left: 2.4rem;
+  border-left: 1px solid var( --wmui-color-base80 );
+  font-size: 1.4rem;
+  color: var( --wmui-color-base20 );
+}
+.wm-nav a:hover {
+  background: var( --wmui-color-base90 );
+}
+.wm-nav .wm-nav-item-active,
+.wm-nav .wm-nav-item-active:hover {
+  background-color: var( --wmui-color-accent90 );
+  color: var( --wmui-color-accent50 );
+  border-radius: var( --border-radius-base );
+  font-weight: var( --font-weight-semi-bold );
+  cursor: default;
+}
+
+.wm-btn {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  background-color: var( --background-color-framed );
+  border-radius: var( --border-radius-base );
+  border: var( --border-base );
+  color: var( --color-base );
+  font-weight: var( --font-weight-semi-bold );
+  font-size: 1.2rem;
+}
+.wm-btn:hover {
+  background-color: var( --background-color-framed--hover );
+  border-color: var( --border-color-base--hover );
+  color: var( --color-base--hover );
+}
+.wm-btn:active {
+  background-color: var( --background-color-framed--active );
+  border-color: var( --border-color-base--active );
+  color: var( --color-base--active );
+}
+.wm-btn-active {
+  background-color: var( --background-color-input-binary--active );
+  color: var( --wmui-color-base100 );
+  cursor: default;
+  pointer-events: none;
+}
+
+@media (max-width: 720px) {
+  /* Up until --width-breakpoint-tablet */
+  .wm-site-nav {
+    box-shadow: var( --box-shadow-menu );
+  }
+  .wm-site-nav ul {
+    margin: 0;
+  }
+  .wm-site-nav li {
+    margin-right: 0;
+  }
+}
+@media (min-width: 720px) {
+  /* Beyond --width-breakpoint-tablet */
+  .wm-site-nav {
+    float: left;
+    width: 25.6rem;
+    position: relative;
+    z-index: 1;
+  }
+  article {
+    float: left;
+    box-sizing: border-box;
+    width:  100%;
+    margin-left: -25.6rem;
+    padding-left: 27.6rem;
+  }
+  main:after {
+    content: " ";
+    display: table;
+    clear: both;
   }
 }
 
