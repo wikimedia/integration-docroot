@@ -121,11 +121,11 @@ HTML;
 			$html .= <<<HTML
 <li>
 	<a class="cover-item" href="./$dirName/">
-		<span class="cover-item-meter">
-			<span>$percent%</span>
-			<meter min="0" max="100" low="$lowThreshold" high="$highThreshold" optimum="99" value="$percent">$percent%</meter>
-		</span>
 		<span>$dirName</span>
+		<span class="cover-item-meter">
+			<meter min="0" max="100" low="$lowThreshold" high="$highThreshold" optimum="99" value="$percent">$percent%</meter>
+			<span> $percent%</span>
+		</span>
 	</a>
 </li>
 HTML;

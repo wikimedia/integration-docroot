@@ -108,7 +108,7 @@ main {
 }
 
 ul {
-  margin: 1em;
+  margin: 1rem;
   padding: 0;
 }
 ul ul {
@@ -213,6 +213,10 @@ footer nav li a {
 
 @media (max-width: 720px) {
   /* Up until --width-breakpoint-tablet */
+  main {
+    padding-top: 1rem;
+  }
+
   .wm-site-nav {
     box-shadow: var( --box-shadow-menu );
   }
@@ -238,6 +242,11 @@ footer nav li a {
     margin-left: -25.6rem;
     padding-left: 27.6rem;
   }
+
+  main h1:first-child {
+    margin-top: 0;
+  }
+
   main:after {
     content: " ";
     display: table;

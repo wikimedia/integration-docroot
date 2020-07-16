@@ -4,13 +4,18 @@
 
 .wm-nav .cover-item {
 	display: flex;
+	align-items: center;
 }
 
 .cover-item-meter {
-	display: flex;
-	flex-flow: column;
+	order: -1;
+	padding-right: 1rem;
+	border-right: var( --border-base );
 	margin-right: 1rem;
-	width: 100px;
-	text-align: center;
 	font-size: 1.2rem;
+}
+
+.cover-item meter {
+	width: 100px;
+	margin-right: 1rem;
 }
