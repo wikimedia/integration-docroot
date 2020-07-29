@@ -521,6 +521,12 @@ MediaWiki components:
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/Flow
       Code documentation: https://doc.wikimedia.org/Flow/master/js/
+  GlobalWatchlist:
+    homepage: https://www.mediawiki.org/wiki/Extension:GlobalWatchlist
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/GlobalWatchlist
+      Code documentation (PHP): https://doc.wikimedia.org/GlobalWatchlist/master/php/
+      Code documentation (JS): https://doc.wikimedia.org/GlobalWatchlist/master/js/
   GuidedTour:
     homepage: https://www.mediawiki.org/wiki/Extension:GuidedTour
     links:
