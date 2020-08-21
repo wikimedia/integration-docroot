@@ -22,3 +22,14 @@ Start the server with `composer start:integration`, and view <http://localhost:4
 The production service for this uses PHP 7.0.
 
 See also <https://wikitech.wikimedia.org/wiki/Doc.wikimedia.org>.
+
+CI published files are available outside of the document root, one thus have to
+set the environment variable `WMF_DOC_PATH` to indicate where the files are
+located. We serve first from the document root and fallback to that directory
+if nothing was found.
+
+The development server uses `./dev/wmf_doc_path` which comes with several
+boilerplates:
+* http://localhost:4000/cover/
+* http://localhost:4000/cover-extensions/
+* http://localhost:4000/index/

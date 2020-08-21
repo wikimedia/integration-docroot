@@ -31,8 +31,18 @@ class CoveragePage extends DocPage {
 	const COVERAGE_LOW = 50;
 	const COVERAGE_HIGH = 90;
 
+	/**
+	 * @param string $path Path relative to WMF_DOC_PATH env variable
+	 */
 	public function setCoverageDir( $path ) {
-		$this->coverageDir = $path;
+		if ( getenv( 'WMF_DOC_PATH' ) === false ) {
+			self::error( '$WMF_DOC_PATH must be properly set' );
+		}
+		$coverageDir = self::resolvePath( getenv( 'WMF_DOC_PATH' ), $path );
+		if ( !$coverageDir ) {
+			self::error( 'Coverage path not found' );
+		}
+		$this->coverageDir = $coverageDir;
 	}
 
 	/**

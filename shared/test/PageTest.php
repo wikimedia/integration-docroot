@@ -6,12 +6,14 @@ class PageTest extends PHPUnit\Framework\TestCase {
 	public function setUp() {
 		unset( $_SERVER['REDIRECT_URL'] );
 		unset( $_SERVER['DOCUMENT_ROOT'] );
+		putenv( 'WMFDOCPATH' );
 		$this->scriptName = $_SERVER['SCRIPT_NAME'];
 	}
 
 	public function tearDown() {
 		unset( $_SERVER['REDIRECT_URL'] );
 		unset( $_SERVER['DOCUMENT_ROOT'] );
+		putenv( 'WMFDOCPATH' );
 		$_SERVER['SCRIPT_NAME'] = $this->scriptName;
 	}
 
@@ -89,6 +91,21 @@ class PageTest extends PHPUnit\Framework\TestCase {
 		);
 		$this->assertEquals(
 			__DIR__ . '/fixture/foo/',
+			$page->getDir()
+		);
+	}
+
+	public function testFallbackToDocPath() {
+		$_SERVER['DOCUMENT_ROOT'] = __DIR__ . '/fixture/doesnotexit444';
+		$_SERVER['SCRIPT_NAME'] = '/index.php';
+		putenv( 'WMF_DOC_PATH=' . __DIR__ . '/fixture/docpath' );
+		$page = Page::newIndex();
+		$this->assertEquals(
+			'/',
+			$page->getUrlPath()
+		);
+		$this->assertEquals(
+			__DIR__ . '/fixture/docpath/',
 			$page->getDir()
 		);
 	}

@@ -67,24 +67,26 @@ class Page {
 			// Direct inclusion from e.g. cover/index.php
 			$path = dirname( $_SERVER['SCRIPT_NAME'] ) . '/';
 		}
-		if ( !$path || !isset( $_SERVER['DOCUMENT_ROOT'] ) ) {
-			self::error( 'Invalid context.' );
-			return;
-		}
-		// Use realpath() to prevent escalation through e.g. "../"
-		// Note: realpath() also normalises paths to have no trailing slash
-		$realDocroot = realpath( $_SERVER['DOCUMENT_ROOT'] );
-		$realPath = self::resolvePath( $realDocroot, $path );
 
-		if ( !$realPath ) {
+		$realPath = self::resolvePath( $_SERVER['DOCUMENT_ROOT'], $path );
+		if ( $realPath ) {
+			$realBase = realpath( $_SERVER['DOCUMENT_ROOT'] );
+		} elseif ( getenv( 'WMF_DOC_PATH' ) !== false ) {
+			// Fall back to CI published files
+			$realPath = self::resolvePath( getenv( 'WMF_DOC_PATH' ), $path );
+			$realBase = realpath( getenv( 'WMF_DOC_PATH' ) );
+		}
+
+		if ( !$realPath || !$realBase ) {
 			// Path escalation. Should be impossible as Apache normalises this.
 			self::error( 'Invalid context path.' );
 			return;
 		}
+
 		if ( substr( $realPath, -1 ) !== '/' ) {
 			$realPath .= '/';
 		}
-		$urlPath = substr( $realPath, strlen( $realDocroot ) );
+		$urlPath = substr( $realPath, strlen( $realBase ) );
 
 		return [
 			'urlPath' => $urlPath,

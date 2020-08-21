@@ -22,7 +22,8 @@ require_once __DIR__ . '/../../../../shared/autoload.php';
 
 /** @var CoveragePage $p */
 $p = CoveragePage::newDirIndex( 'Test coverage' );
-$p->setCoverageDir( __DIR__ );
+// Directory under WMF_DOC_PATH
+$p->setCoverageDir( '/cover' );
 $p->handleCoverageIndex();
 $p->handleDirIndex( $p->getDir(), $p->getUrlPath() );
 $p->flush();

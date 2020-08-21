@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage>
+	<project>
+		<metrics
+			methods="10"
+			coveredmethods="9"
+			conditionals="8"
+			coveredconditionals="7"
+			statements="6"
+			coveredstatements="5"
+			elements="4"
+			coveredelements="3"
+			/>
+	</project>
+</coverage>

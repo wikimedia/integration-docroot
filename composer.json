@@ -11,8 +11,12 @@
 		"process-timeout": 0
 	},
 	"scripts": {
-		"start:doc": "php -S localhost:4000 -t org/wikimedia/doc",
-		"start:integration": "php -S localhost:4001 -t org/wikimedia/integration",
+		"start:doc": [
+			"WMF_DOC_PATH=$PWD/dev/wmf_doc_path php -d variables_order=EGPCS -S localhost:4000 -t org/wikimedia/doc dev/router.php"
+		],
+		"start:integration": [
+			"WMF_DOC_PATH=$PWD/dev/wmf_doc_path php -d variables_order=EGPCS -S localhost:4001 -t org/wikimedia/integration dev/router.php"
+		],
 		"test": [
 			"parallel-lint . --exclude vendor",
 			"phpunit",
