@@ -44,6 +44,20 @@ class Page {
 		return $p;
 	}
 
+	/**
+	 * Resolve $path relatively to $base and ensure it is container in $base
+	 *
+	 * Use realpath() to prevent escalation through e.g. "../"
+	 * Note: realpath() also normalises paths to have no trailing slash.
+	 */
+	public static function resolvePath( $base, $path ) {
+		$realPath = realpath( $base . $path );
+		if ( !$realPath || strpos( $realPath, realpath( $base ) ) !== 0 ) {
+			return false;
+		}
+		return $realPath;
+	}
+
 	/** @return string[] */
 	protected static function getRequestPath() {
 		if ( isset( $_SERVER['REDIRECT_URL'] ) ) {
@@ -60,10 +74,11 @@ class Page {
 		// Use realpath() to prevent escalation through e.g. "../"
 		// Note: realpath() also normalises paths to have no trailing slash
 		$realDocroot = realpath( $_SERVER['DOCUMENT_ROOT'] );
-		$realPath = realpath( $_SERVER['DOCUMENT_ROOT'] . $path );
-		if ( !$realPath || strpos( $realPath, $realDocroot ) !== 0 ) {
+		$realPath = self::resolvePath( $realDocroot, $path );
+
+		if ( !$realPath ) {
 			// Path escalation. Should be impossible as Apache normalises this.
-			self::error( 'Invalid context.' );
+			self::error( 'Invalid context path.' );
 			return;
 		}
 		if ( substr( $realPath, -1 ) !== '/' ) {

@@ -15,6 +15,28 @@ class PageTest extends PHPUnit\Framework\TestCase {
 		$_SERVER['SCRIPT_NAME'] = $this->scriptName;
 	}
 
+	/**
+	 * @dataProvider resolvePathCases
+	 */
+	public function testResolvePath( $expected, $base, $path ) {
+		$this->assertEquals( $expected, Page::resolvePath( $base, $path ) );
+	}
+
+	public static function resolvePathCases() {
+		$fixture = __DIR__ . '/fixture';
+		return [
+			// $expected, $base, $path
+			'root is root in root' => [ '/', '/', '/' ],
+			'file in base' => [ $fixture . '/foo', $fixture, '/foo' ],
+			'validates symlink' => [ $fixture . '/foo', $fixture, '/symlink' ],
+			'supports base being a symlink' => [
+				$fixture . '/foo', $fixture . '/symlink', '/' ],
+			'reject ..' => [ false, $fixture, '/..' ],
+			'reject ../' => [ false, $fixture, '/../' ],
+			'reject ./..' => [ false, $fixture, './..' ],
+		];
+	}
+
 	public function testRequestPathWithHomepage() {
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
 		$_SERVER['DOCUMENT_ROOT'] = __DIR__ . '/fixture';
