@@ -3,7 +3,7 @@ Document root for integration.wikimedia.org and doc.wikimedia.org
 
 ## integration.wikimedia.org
 
-Start the server with `composer start:doc` and view <http://localhost:4000>.
+Start the server with `composer start:doc` and view <http://localhost:4001>.
 
 The production service for this uses PHP 7.3.
 

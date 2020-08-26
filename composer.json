@@ -12,7 +12,7 @@
 	},
 	"scripts": {
 		"start:doc": "php -S localhost:4000 -t org/wikimedia/doc",
-		"start:integration": "php -S localhost:4000 -t org/wikimedia/integration",
+		"start:integration": "php -S localhost:4001 -t org/wikimedia/integration",
 		"test": [
 			"parallel-lint . --exclude vendor",
 			"phpunit",
