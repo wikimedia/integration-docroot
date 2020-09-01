@@ -342,6 +342,12 @@ Infrastructure:
     homepage: https://doc.wikimedia.org/homer/master/
     links:
       Source code: https://gerrit.wikimedia.org/g/operations/software/homer/
+  wmflib:
+    tagline: Generic Python library for common tasks in the WMF production infrastructure.
+    lang: Python
+    homepage: https://doc.wikimedia.org/wmflib/master/
+    links:
+      Source code: https://gerrit.wikimedia.org/g/operations/software/pywmflib/
   Spicerack:
     tagline: Task orchestration framework, based on Cumin.
     lang: Python
