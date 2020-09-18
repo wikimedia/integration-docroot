@@ -323,6 +323,13 @@ Libraries:
     links:
       Documentation: https://doc.wikimedia.org/mediawiki-libs-XMPReader/master/
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/XMPReader
+  Shellbox:
+    tagline: Web service for containerized shell execution.
+    lang: PHP
+    homepage: https://gerrit.wikimedia.org/g/mediawiki/libs/Shellbox
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/Shellbox
+      Documentation: https://doc.wikimedia.org/mediawiki-libs-Shellbox/master/
 
 Infrastructure:
   Puppet:
