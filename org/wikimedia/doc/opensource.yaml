@@ -463,6 +463,11 @@ Infrastructure:
     links:
       Source code: https://gerrit.wikimedia.org/g/operations/software/transferpy/
       Documentation: https://doc.wikimedia.org/transferpy/
+  ecs:
+    tagline: WMF Common Logging Schema based on Elastic Common Schema
+    links:
+      Source code: https://gerrit.wikimedia.org/g/operations/software/ecs/
+      Documentation: https://doc.wikimedia.org/ecs/
 
 Testing:
 
