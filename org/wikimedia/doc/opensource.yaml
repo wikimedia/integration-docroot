@@ -584,7 +584,7 @@ MediaWiki components:
       Code documentation: https://doc.wikimedia.org/TemplateData/master/js/
   Wikibase:
     tagline: The knowledge base for linked open data that runs Wikidata.org.
-    homepage: https://wikiba.se/
+    homepage: https://www.mediawiki.org/wiki/Wikibase
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/Wikibase
       Code documentation (JS): https://doc.wikimedia.org/Wikibase/master/js/
