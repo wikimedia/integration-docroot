@@ -5,7 +5,7 @@ Featured:
     homepage: https://www.mediawiki.org/
     links:
       Source code: https://phabricator.wikimedia.org/source/mediawiki/
-      Documentation: https://www.mediawiki.org/wiki/Manual:Contents
+      Documentation: https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Contents
       Code documentation (PHP): https://doc.wikimedia.org/mediawiki-core/master/php/
       Code documentation (JS): https://doc.wikimedia.org/mediawiki-core/master/js/
       PhpMetrics report: https://doc.wikimedia.org/mediawiki-core/master/phpmetrics/
@@ -13,7 +13,7 @@ Featured:
   VisualEditor:
     tagline: Richtext visual editor for the browser. WYSIWYG, based on HTML5+RDFa and ContentEditable.
     lang: JS
-    homepage: https://www.mediawiki.org/wiki/VisualEditor
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/VisualEditor
     links:
       Source code: https://gerrit.wikimedia.org/g/VisualEditor/VisualEditor
       Documentation: https://doc.wikimedia.org/VisualEditor/master/
@@ -21,7 +21,7 @@ Featured:
   Parsoid:
     tagline: Two-way MediaWiki wikitext↔HTML parser.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/Parsoid
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Parsoid
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/services/parsoid/
       Documentation: https://doc.wikimedia.org/Parsoid-PHP/master/
@@ -39,7 +39,7 @@ Localisation:
   cssjanus-php:
     tagline: Convert stylesheets from left-to-right to right-to-left. (PHP port)
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/CSSJanus
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/CSSJanus
     links:
       Source code: https://github.com/cssjanus/cssjanus-php
       Documentation: https://github.com/cssjanus/cssjanus-php#basic-usage
@@ -48,7 +48,7 @@ Localisation:
   CLDRPluralRuleParser:
     tagline: Parse CLDR plural rules from Unicode.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/CLDRPluralRuleParser
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/CLDRPluralRuleParser
     links:
       Source code: https://gerrit.wikimedia.org/g/CLDRPluralRuleParser/
       Documentation: https://doc.wikimedia.org/CLDRPluralRuleParser/master/
@@ -61,14 +61,14 @@ Localisation:
   utfnormal:
     tagline: Unicode normalization routines to produce NFC/UTF-8 strings.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/Utfnormal
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Utfnormal
     links:
       Source code: https://gerrit.wikimedia.org/g/utfnormal
       Documentation: https://doc.wikimedia.org/utfnormal/master/
   UnicodeJS:
     tagline: String manipulation based on Unicode standard word breaks, graphemes, and character classes.
     lang: JS
-    homepage: https://www.mediawiki.org/wiki/UnicodeJS
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/UnicodeJS
     links:
       Source code: https://gerrit.wikimedia.org/g/unicodejs
       Documentation: https://doc.wikimedia.org/unicodejs/master/
@@ -90,7 +90,7 @@ User experience:
   OOUI:
     tagline: Rapidly create web-applications in JS or PHP. Cross-browser, i18n and a11y ready.
     lang: JS, PHP
-    homepage: https://www.mediawiki.org/wiki/OOUI
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/OOUI
     links:
       Source code: https://gerrit.wikimedia.org/g/oojs/ui
       Demo: https://doc.wikimedia.org/oojs-ui/master/demos/
@@ -108,7 +108,7 @@ Apps:
     links:
       Source code: https://github.com/wikimedia/apps-android-wikipedia
       Google Play Store: https://play.google.com/store/apps/details?id=org.wikipedia
-      Contributing: https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/Android/App_hacking
+      Contributing: https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/Android/App_hacking
   Wikipedia for iOS:
     tagline: The official Wikipedia app.
     homepage: https://github.com/wikimedia/wikipedia-ios
@@ -116,7 +116,7 @@ Apps:
     links:
       Source code: https://github.com/wikimedia/wikipedia-ios
       Apple App Store: https://itunes.apple.com/app/apple-store/id324715238
-      Contributing or Beta testing: https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS
+      Contributing or Beta testing: https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/iOS
   Who Wrote That:
     tagline: Explore authorship and revision informationon Wikipedia with this browser app.
     lang: JS
@@ -145,14 +145,14 @@ Libraries:
   at-ease:
     tagline: Safe alternative to PHP's error-control operator.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/At-ease
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/At-ease
     links:
       Source code: https://gerrit.wikimedia.org/g/at-ease/
       Documentation: https://doc.wikimedia.org/at-ease/master/
   base-convert:
     tagline: Convert arbitrarily-length strings from one numeric base to another.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/Base_convert
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Base_convert
     links:
       Source code: https://gerrit.wikimedia.org/g/base-convert/
       Documentation: https://doc.wikimedia.org/base-convert/master/
@@ -160,7 +160,7 @@ Libraries:
   CDB:
     tagline: Fast and highly reliable key-value database file format.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/CDB
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/CDB
     links:
       Source code: https://gerrit.wikimedia.org/g/cdb/
       Documentation: https://doc.wikimedia.org/cdb/master/
@@ -168,7 +168,7 @@ Libraries:
   css-sanitizer:
     tagline: CSS parser in pure PHP to transform or filter stylesheets.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/Css-sanitizer
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Css-sanitizer
     links:
       Source code: https://gerrit.wikimedia.org/g/css-sanitizer/
       Documentation: https://doc.wikimedia.org/css-sanitizer/master/
@@ -183,7 +183,7 @@ Libraries:
   Equivset:
     tagline: Detect visually similar UTF-8 characters, partially based on Unicode Confusables.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/Equivset
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Equivset
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/Equivset
       Documentation: https://doc.wikimedia.org/mediawiki-libs-Equivset/master/
@@ -191,7 +191,7 @@ Libraries:
   HtmlFormatter:
     tagline: Transformations for MediaWiki HTML output, based on libxml2.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/HtmlFormatter
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/HtmlFormatter
     links:
       Source code: https://gerrit.wikimedia.org/g/HtmlFormatter
       Documentation: https://doc.wikimedia.org/HtmlFormatter/master/
@@ -206,7 +206,7 @@ Libraries:
   IPSet:
     tagline: Efficient matching of IP addresses against CIDR specifications.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/IPSet
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/IPSet
     links:
       Source code: https://gerrit.wikimedia.org/g/IPSet
       Documentation: https://doc.wikimedia.org/IPSet/master/
@@ -214,7 +214,7 @@ Libraries:
   IPUtils:
     tagline: Parsing and formatting of IPv4/IPv6 addresses and CIDR ranges.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/IPUtils
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/IPUtils
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/IPUtils
       Documentation: https://doc.wikimedia.org/mediawiki-libs-IPUtils/master/
@@ -222,7 +222,7 @@ Libraries:
   LangConv:
     tagline: FST-based implementation of language and script conversion.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/LangConv
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/LangConv
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/LangConv/
       Documentation: https://doc.wikimedia.org/mediawiki-libs-LangConv/master/
@@ -237,13 +237,13 @@ Libraries:
       Package (Composer): https://packagist.org/packages/wikimedia/minify
   oauthclient-php:
     tagline: OAuth client for Wikipedia and other MediaWiki sites.
-    homepage: https://www.mediawiki.org/wiki/Oauthclient-php
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Oauthclient-php
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/oauthclient-php
       Documentation: https://doc.wikimedia.org/mediawiki-oauthclient-php/master/
       Package (Composer): https://packagist.org/packages/mediawiki/oauthclient
   ObjectFactory:
-    homepage: https://www.mediawiki.org/wiki/ObjectFactory
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/ObjectFactory
     tagline: Construct objects based on a static description.
     lang: PHP
     links:
@@ -252,7 +252,7 @@ Libraries:
   OOjs:
     tagline: Create, extend and mixin classes with JavaScript.
     lang: JS
-    homepage: https://www.mediawiki.org/wiki/OOjs
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/OOjs
     links:
       Source code: https://gerrit.wikimedia.org/g/oojs/core
       Documentation: https://doc.wikimedia.org/oojs/master/
@@ -271,7 +271,7 @@ Libraries:
   php-session-serializer:
     tagline: CSS parser in pure PHP to transform or filter stylesheets.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/Php-session-serializer
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Php-session-serializer
     links:
       Source code: https://gerrit.wikimedia.org/g/php-session-serializer
       Documentation: https://doc.wikimedia.org/php-session-serializer/master/
@@ -283,7 +283,7 @@ Libraries:
   RelPath:
     tagline: Compute the relative path between two file paths.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/RelPath
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/RelPath
     links:
       Source code: https://gerrit.wikimedia.org/g/RelPath
       Documentation: https://doc.wikimedia.org/RelPath/master/
@@ -291,7 +291,7 @@ Libraries:
   RemexHtml:
     tagline: Fast HTML5 parser in pure PHP.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/RemexHtml
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/RemexHtml
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/RemexHtml/
       Documentation: https://doc.wikimedia.org/mediawiki-libs-RemexHtml/master/
@@ -299,21 +299,21 @@ Libraries:
   RunningStat:
     tagline: Compute statistics for a stream of numbers using only constant space.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/RunningStat
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/RunningStat
     links:
       Source code: https://gerrit.wikimedia.org/g/RunningStat
       Documentation: https://doc.wikimedia.org/RunningStat/master/
   ScopedCallback:
     tagline: Invoke a callback automatically after an object goes out of scope.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/ScopedCallback
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/ScopedCallback
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/ScopedCallback
       Documentation: https://doc.wikimedia.org/mediawiki-libs-ScopedCallback/master/
   Services:
     tagline: Generic service container to manage named services using lazy instantiator callbacks.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/Services_(PHP_library)
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Services_(PHP_library)
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/Services
       Documentation: https://doc.wikimedia.org/mediawiki-libs-Services/master/
@@ -325,14 +325,14 @@ Libraries:
   Timestamp:
     tagline: Create, parse, and format timestamps.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/Timestamp
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Timestamp
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/Timestamp
       Documentation: https://doc.wikimedia.org/mediawiki-libs-Timestamp/master/
   WaitConditionLoop:
     tagline: Poll a condition and manage code execution between checks.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/WaitConditionLoop
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/WaitConditionLoop
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/WaitConditionLoop
       Documentation: https://doc.wikimedia.org/mediawiki-libs-WaitConditionLoop/master/
@@ -340,7 +340,7 @@ Libraries:
   WrappedString:
     tagline: Merge similarly formatted strings.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/WrappedString
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/WrappedString
     links:
       Source code: https://gerrit.wikimedia.org/g/WrappedString
       Documentation: https://doc.wikimedia.org/WrappedString/master/
@@ -406,7 +406,7 @@ Infrastructure:
   Quibble:
     tagline: Test runner for MediaWiki.
     lang: Python
-    homepage: https://www.mediawiki.org/wiki/Continuous_integration/Quibble
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Continuous_integration/Quibble
     links:
       Source code: https://gerrit.wikimedia.org/g/integration/quibble/+/master/
       Documentation: https://doc.wikimedia.org/quibble/
@@ -430,7 +430,7 @@ Infrastructure:
     homepage: https://doc.wikimedia.org/mw-tools-releng/
   MediaWiki-Vagrant:
     tagline: Portable MediaWiki development environment.
-    homepage: https://www.mediawiki.org/wiki/MediaWiki-Vagrant
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/MediaWiki-Vagrant
     lang: Puppet
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/vagrant
@@ -438,7 +438,7 @@ Infrastructure:
   LuaSandbox:
     tagline: Safely execute untrusted Lua 5.1 code, natively from PHP or HHVM.
     lang: C
-    homepage: https://www.mediawiki.org/wiki/LuaSandbox
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/LuaSandbox
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/php/luasandbox
       Documentation: https://doc.wikimedia.org/mediawiki-php-luasandbox/master/
@@ -448,9 +448,9 @@ Infrastructure:
   Excimer:
     tagline: Low-overhead interrupting timer and sampling profiler for PHP.
     lang: C
-    homepage: https://www.mediawiki.org/wiki/Excimer
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Excimer
     links:
-      Documentation: https://www.mediawiki.org/wiki/Excimer#Reference_documentation
+      Documentation: https://www.mediawiki.org/wiki/Special:MyLanguage/Excimer#Reference_documentation
       Source code: https://gerrit.wikimedia.org/g/mediawiki/php/excimer
       Package (Debian): https://packages.debian.org/stable/php-excimer
   Fresh:
@@ -513,7 +513,7 @@ Testing:
   testing-access-wrapper:
     tagline: Convenient shortcuts for accessing protected or private properties and methods.
     lang: PHP
-    homepage: https://www.mediawiki.org/wiki/Testing-access-wrapper
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Testing-access-wrapper
     links:
       Source code: https://gerrit.wikimedia.org/g/testing-access-wrapper/
       Documentation: https://doc.wikimedia.org/testing-access-wrapper/master/
@@ -561,44 +561,44 @@ Testing:
 MediaWiki components:
   CirrusSearch:
     tagline: Elasticsearch integration for MediaWiki.
-    homepage: https://www.mediawiki.org/wiki/Extension:CirrusSearch
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CirrusSearch
     links:
       Code documentation: https://doc.wikimedia.org/CirrusSearch/master/php/
   CollaborationKit:
-    homepage: https://www.mediawiki.org/wiki/Extension:CollaborationKit
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CollaborationKit
     links:
       Code documentation (PHP): https://doc.wikimedia.org/CollaborationKit/master/php/
       Code documentation (JS): https://doc.wikimedia.org/CollaborationKit/master/js/
   EventLogging:
-    homepage: https://www.mediawiki.org/wiki/Extension:EventLogging
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:EventLogging
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/EventLogging
       Code documentation: https://doc.wikimedia.org/EventLogging/master/js/
   Flow:
-    homepage: https://www.mediawiki.org/wiki/Extension:Flow
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Flow
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/Flow
       Code documentation: https://doc.wikimedia.org/Flow/master/js/
   GlobalWatchlist:
-    homepage: https://www.mediawiki.org/wiki/Extension:GlobalWatchlist
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GlobalWatchlist
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/GlobalWatchlist
       Code documentation (PHP): https://doc.wikimedia.org/GlobalWatchlist/master/php/
       Code documentation (JS): https://doc.wikimedia.org/GlobalWatchlist/master/js/
   GuidedTour:
-    homepage: https://www.mediawiki.org/wiki/Extension:GuidedTour
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GuidedTour
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/GuidedTour
       Code documentation: https://doc.wikimedia.org/GuidedTour/master/js/
   Kartographer:
     tagline: Add map capabilitity to wiki pages.
-    homepage: https://www.mediawiki.org/wiki/Extension:Kartographer
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Kartographer
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/Kartographer
       Code documentation (PHP): https://doc.wikimedia.org/Kartographer/master/php/
       Code documentation (JS): https://doc.wikimedia.org/Kartographer/master/js/
   MobileFrontend:
-    homepage: https://www.mediawiki.org/wiki/Extension:MobileFrontend
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:MobileFrontend
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/MobileFrontend
       Storybook: https://doc.wikimedia.org/MobileFrontend/master/js/ui/
@@ -606,26 +606,26 @@ MediaWiki components:
       Code documentation (PHP): https://doc.wikimedia.org/MobileFrontend/master/php/
   MultimediaViewer:
     lang: JS
-    homepage: https://www.mediawiki.org/wiki/Extension:MultimediaViewer
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:MultimediaViewer
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/MultimediaViewer
       Code documentation: https://doc.wikimedia.org/MultimediaViewer/master/js/
   Popups:
     lang: JS
-    homepage: https://www.mediawiki.org/wiki/Extension:Popups
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Popups
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/Popups
       Storybook: https://doc.wikimedia.org/Popups/master/js/ui/
       Code documentation (JS): https://doc.wikimedia.org/Popups/master/js/js/
       Code documentation (PHP): https://doc.wikimedia.org/Popups/master/php/
   TemplateData:
-    homepage: https://www.mediawiki.org/wiki/Extension:TemplateData
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:TemplateData
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/TemplateData
       Code documentation: https://doc.wikimedia.org/TemplateData/master/js/
   Wikibase:
     tagline: The knowledge base for linked open data that runs Wikidata.org.
-    homepage: https://www.mediawiki.org/wiki/Wikibase
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/Wikibase
       Code documentation (JS): https://doc.wikimedia.org/Wikibase/master/js/
@@ -637,13 +637,13 @@ MediaWiki components:
       dist-size (Data-Bridge): https://doc.wikimedia.org/Wikibase/master/js/data-bridge-dist-size/
       dist-size (Tainted-Ref): https://doc.wikimedia.org/Wikibase/master/js/tainted-ref-dist-size/
   Vector skin:
-    homepage: https://www.mediawiki.org/wiki/Skin:Vector
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Skin:Vector
     links:
       Storybook: https://doc.wikimedia.org/mediawiki-skins-Vector/master/js/ui/
       Code documentation (PHP): https://doc.wikimedia.org/mediawiki-skins-Vector/master/php/
       Code documentation (JS): https://doc.wikimedia.org/mediawiki-skins-Vector/master/js/
   MinervaNeue skin:
-    homepage: https://www.mediawiki.org/wiki/Skin:Minerva_Neue
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Skin:Minerva_Neue
     links:
       Code documentation (PHP): https://doc.wikimedia.org/mediawiki-skins-MinervaNeue/master/php/
       Code documentation (JS): https://doc.wikimedia.org/mediawiki-skins-MinervaNeue/master/js/
@@ -656,7 +656,7 @@ Microsites:
     links:
       Live link: https://www.wikipedia.org/
       Source code: https://gerrit.wikimedia.org/g/wikimedia/portals
-      Documentation: https://meta.wikimedia.org/wiki/Project_portals
+      Documentation: https://meta.wikimedia.org/wiki/Special:MyLanguage/Project_portals
   analytics.wikimedia.org:
     lang: HTML
     links:

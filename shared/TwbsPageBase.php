@@ -71,7 +71,7 @@ class TwbsPageBase extends Page {
 <div class="footer">
 	<div class="container"><div class="row">
 		<p class="col-sm-8">
-			More information on <a href="https://www.mediawiki.org/wiki/Continuous_integration">Continuous Integration</a> at www.mediawiki.org.
+			More information on <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Continuous_integration">Continuous Integration</a> at www.mediawiki.org.
 		</p>
 		<p class="col-sm-4 text-right"><a href="https://www.wikimedia.org"><img src="/lib/wikimedia-button.png" srcset="/lib/wikimedia-button-2x.png 2x" width="88" height="31" alt="Wikimedia Foundation"></a></p>
 	</div></div>
