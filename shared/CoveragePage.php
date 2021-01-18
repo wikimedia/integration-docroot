@@ -28,8 +28,8 @@ class CoveragePage extends DocPage {
 	/**
 	 * Defaults from phpunit/src/Util/Configuration.php
 	 */
-	const COVERAGE_LOW = 50;
-	const COVERAGE_HIGH = 90;
+	public const COVERAGE_LOW = 50;
+	public const COVERAGE_HIGH = 90;
 
 	/**
 	 * @param string $path Path relative to WMF_DOC_PATH env variable

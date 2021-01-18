@@ -64,7 +64,7 @@ class WmuiPageBase extends Page {
 			echo '</ul>';
 		}
 		echo '</li>';
-	};
+	}
 ?>
 </ul></nav>
 <article><?php

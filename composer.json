@@ -1,11 +1,11 @@
 {
 	"require": {
-		"php": ">=7.0.0"
+		"php": ">=7.2.0"
 	},
 	"require-dev": {
-		"mediawiki/mediawiki-codesniffer": "26.0.0",
+		"mediawiki/mediawiki-codesniffer": "34.0.0",
 		"php-parallel-lint/php-parallel-lint": "1.2.0",
-		"phpunit/phpunit": "^6.0"
+		"phpunit/phpunit": "^8.0"
 	},
 	"config": {
 		"process-timeout": 0

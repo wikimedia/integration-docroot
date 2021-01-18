@@ -14,7 +14,7 @@ class StructureTest extends PHPUnit\Framework\TestCase {
 		];
 
 		foreach ( $data as $section => $projects ) {
-			$this->assertInternalType( 'array', $projects, "Value of $section" );
+			$this->assertIsArray( $projects, "Value of $section" );
 			foreach ( $projects as $title => $project ) {
 				$this->assertTrue(
 					isset( $project['homepage'] ) || (

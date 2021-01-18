@@ -42,7 +42,7 @@ if ( is_dir( $published_file ) ) {
 	require_once './org/wikimedia/doc/dir.php';
 }
 
-if ( 'php' === pathinfo( $published_file, PATHINFO_EXTENSION ) ) {
+if ( pathinfo( $published_file, PATHINFO_EXTENSION ) === 'php' ) {
 	// Execute .php file
 	require_once $published_file;
 	return true;
