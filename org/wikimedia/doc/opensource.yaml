@@ -210,6 +210,14 @@ Libraries:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/LangConv/
       Documentation: https://doc.wikimedia.org/mediawiki-libs-LangConv/master/
       Package (Composer): https://packagist.org/packages/wikimedia/langconv
+  Minify:
+    tagline: Minification of JavaScript code and CSS stylesheets.
+    lang: PHP
+    homepage: https://gerrit.wikimedia.org/g/mediawiki/libs/Minify
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/Minify
+      Documentation: https://doc.wikimedia.org/mediawiki-libs-Minify/master/
+      Package (Composer): https://packagist.org/packages/wikimedia/minify
   oauthclient-php:
     tagline: OAuth client for Wikipedia and other MediaWiki sites.
     homepage: https://www.mediawiki.org/wiki/Oauthclient-php
