@@ -1,12 +1,8 @@
-# Puppet (ops, jenkins, ..)
-/deployment
-/ssd
-/localhost/qunit/
-
-jenkins-autodeploy
-
 # Development
 /node_modules
 /vendor
 composer.lock
 /.phpunit.result.cache
+
+# Deployment
+/scap/log
