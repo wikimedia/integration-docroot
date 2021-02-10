@@ -4,7 +4,7 @@
 	colors="true"
 	beStrictAboutOutputDuringTests="true">
 	<testsuites>
-		<testsuite>
+		<testsuite name="Tests">
 			<directory>./shared/test</directory>
 		</testsuite>
 	</testsuites>
