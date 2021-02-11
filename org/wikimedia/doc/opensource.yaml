@@ -16,7 +16,7 @@ Featured:
     links:
       Source code: https://gerrit.wikimedia.org/g/VisualEditor/VisualEditor
       Documentation: https://doc.wikimedia.org/VisualEditor/master/
-      Demo: https://doc.wikimedia.org/VisualEditor/master/lib/ve/demos/ve/desktop-wikimediaui.html
+      Demo: https://doc.wikimedia.org/VisualEditor/master/js/lib/ve/demos/ve/desktop-wikimediaui.html
   Parsoid:
     tagline: Two-way MediaWiki wikitext↔HTML parser.
     lang: PHP
