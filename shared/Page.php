@@ -69,9 +69,13 @@ class Page {
 		} elseif ( isset( $_SERVER['SCRIPT_NAME'] ) ) {
 			// Direct inclusion from e.g. cover/index.php
 			$path = dirname( $_SERVER['SCRIPT_NAME'] ) . '/';
+		} else {
+			self::error( 'Undefined request path.' );
+			exit;
 		}
 
 		$realPath = self::resolvePath( $_SERVER['DOCUMENT_ROOT'], $path );
+		$realBase = false;
 		if ( $realPath ) {
 			$realBase = realpath( $_SERVER['DOCUMENT_ROOT'] );
 		} elseif ( getenv( 'WMF_DOC_PATH' ) !== false ) {
@@ -83,7 +87,7 @@ class Page {
 		if ( !$realPath || !$realBase ) {
 			// Path escalation. Should be impossible as Apache normalises this.
 			self::error( 'Invalid context path.' );
-			return;
+			exit;
 		}
 
 		if ( substr( $realPath, -1 ) !== '/' ) {
@@ -189,7 +193,7 @@ class Page {
 	}
 
 	protected function getDirIndexDirectories( $dir = null ) {
-		$dir = $dir !== null ? $dir : $this->getDir();
+		$dir = $dir ?? $this->getDir();
 		return glob( $dir . "/*", GLOB_ONLYDIR );
 	}
 

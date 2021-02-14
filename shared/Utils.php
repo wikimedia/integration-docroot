@@ -12,6 +12,7 @@ class Utils {
 	 *
 	 * @param string $input
 	 * @return array
+	 * @return-taint tainted
 	 */
 	public static function parseRmsYaml( $input ) {
 		$lines = explode( "\n", $input );

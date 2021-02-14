@@ -35,6 +35,7 @@ if ( is_dir( $published_file ) ) {
 		return true;
 	}
 	if ( is_readable( $published_file . '/index.php' ) ) {
+		// @phan-suppress-next-line SecurityCheck-PathTraversal
 		require_once $published_file . '/index.php';
 		return true;
 	}
@@ -44,6 +45,7 @@ if ( is_dir( $published_file ) ) {
 
 if ( pathinfo( $published_file, PATHINFO_EXTENSION ) === 'php' ) {
 	// Execute .php file
+	// @phan-suppress-next-line SecurityCheck-PathTraversal
 	require_once $published_file;
 	return true;
 } else {

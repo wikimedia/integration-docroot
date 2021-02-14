@@ -40,12 +40,12 @@ class DocHomePage extends DocPage {
 
 	private function renderTile( $title, array $data ) {
 		$titleHtml = htmlspecialchars( $title );
-		$lang = @$data['lang'] ?: '';
+		$lang = $data['lang'] ?? '';
 		$lang = explode( ',', $lang );
 		$lang = implode( ', ', array_map( 'trim', $lang ) );
 		$langHtml = htmlspecialchars( $lang );
-		$taglineHtml = htmlspecialchars( @$data['tagline'] ?: '' );
-		$homepageHtml = htmlspecialchars( @$data['homepage'] ?: '' );
+		$taglineHtml = htmlspecialchars( $data['tagline'] ?? '' );
+		$homepageHtml = htmlspecialchars( $data['homepage'] ?? '' );
 ?>
 		<div class="wm-osproject-tile" tabindex="0">
 		<h3 class="wm-osproject-tile-title">
@@ -57,7 +57,7 @@ class DocHomePage extends DocPage {
 			if ( $homepageHtml ) {
 				echo '<li><a href="' . $homepageHtml . '">Project homepage</a></li>';
 			}
-			foreach ( @$data['links'] ?: [] as $text => $url ) {
+			foreach ( $data['links'] ?? [] as $text => $url ) {
 				echo '<li><a href="' . htmlspecialchars( $url ) . '">' . htmlspecialchars( $text ) . '</a></li>';
 			}
 		?></ul>
