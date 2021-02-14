@@ -40,13 +40,16 @@ class DocHomePage extends DocPage {
 
 	private function renderTile( $title, array $data ) {
 		$titleHtml = htmlspecialchars( $title );
-		$langHtml = htmlspecialchars( @$data['lang'] ?: '' );
+		$lang = @$data['lang'] ?: '';
+		$lang = explode( ',', $lang );
+		$lang = implode( ', ', array_map( 'trim', $lang ) );
+		$langHtml = htmlspecialchars( $lang );
 		$taglineHtml = htmlspecialchars( @$data['tagline'] ?: '' );
 		$homepageHtml = htmlspecialchars( @$data['homepage'] ?: '' );
 ?>
 		<div class="wm-osproject-tile" tabindex="0">
 		<h3 class="wm-osproject-tile-title">
-			<?php echo $titleHtml ?><small><?php echo $langHtml ?></small>
+			<?php echo $titleHtml ?><small> <?php echo $langHtml ?></small>
 		</h3>
 		<p class="wm-osproject-tile-tagline"><?php echo $taglineHtml ?></p>
 		<ul class="wm-osproject-tile-links">

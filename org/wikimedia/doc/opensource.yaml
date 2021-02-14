@@ -9,6 +9,7 @@ Featured:
       Code documentation (PHP): https://doc.wikimedia.org/mediawiki-core/master/php/
       Code documentation (JS): https://doc.wikimedia.org/mediawiki-core/master/js/
       PhpMetrics report: https://doc.wikimedia.org/mediawiki-core/master/phpmetrics/
+    lang: PHP, JS
   VisualEditor:
     tagline: Richtext visual editor for the browser. WYSIWYG, based on HTML5+RDFa and ContentEditable.
     lang: JS
@@ -88,7 +89,7 @@ User experience:
       Documentation: https://design.wikimedia.org/style-guide/
   OOUI:
     tagline: Rapidly create web-applications in JS or PHP. Cross-browser, i18n and a11y ready.
-    lang: JS
+    lang: JS, PHP
     homepage: https://www.mediawiki.org/wiki/OOUI
     links:
       Source code: https://gerrit.wikimedia.org/g/oojs/ui
@@ -240,6 +241,7 @@ Libraries:
       Source code: https://gerrit.wikimedia.org/g/oojs/core
       Documentation: https://doc.wikimedia.org/oojs/master/
   OOjs Router:
+    lang: JS
     links:
       Source code: https://gerrit.wikimedia.org/g/oojs/router
       Documentation: https://doc.wikimedia.org/oojs-router/master/
@@ -587,11 +589,13 @@ MediaWiki components:
       Code documentation (JS): https://doc.wikimedia.org/MobileFrontend/master/js/js/
       Code documentation (PHP): https://doc.wikimedia.org/MobileFrontend/master/php/
   MultimediaViewer:
+    lang: JS
     homepage: https://www.mediawiki.org/wiki/Extension:MultimediaViewer
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/MultimediaViewer
       Code documentation: https://doc.wikimedia.org/MultimediaViewer/master/js/
   Popups:
+    lang: JS
     homepage: https://www.mediawiki.org/wiki/Extension:Popups
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/Popups
@@ -644,7 +648,7 @@ Microsites:
       Source code: https://gerrit.wikimedia.org/g/analytics/analytics.wikimedia.org
   stats.wikimedia.org:
     tagline: Wikistats 2.0.
-    lang: HTML
+    lang: HTML, JS
     links:
       Live link: https://stats.wikimedia.org/
       Source code: https://gerrit.wikimedia.org/g/analytics/wikistats2

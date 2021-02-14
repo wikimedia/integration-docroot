@@ -44,6 +44,7 @@
 }
 .wm-osproject-tile-title small {
 	float: right;
+	line-height: 1.6rem;
 	color: var( --wmui-color-base30 );
 	font-weight: normal;
 	font-style: normal;
