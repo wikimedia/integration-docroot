@@ -172,6 +172,14 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/css-sanitizer/
       Documentation: https://doc.wikimedia.org/css-sanitizer/master/
+  Dodo:
+    tagline: DOm DOcument implementation in pure PHP
+    lang: PHP
+    homepage: https://www.mediawiki.org/wiki/Dodo
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/Dodo/
+      Documentation: https://doc.wikimedia.org/mediawiki-libs-Dodo/master/
+      Package (Composer): https://packagist.org/packages/wikimedia/dodo
   Equivset:
     tagline: Detect visually similar UTF-8 characters, partially based on Unicode Confusables.
     lang: PHP
@@ -187,6 +195,14 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/HtmlFormatter
       Documentation: https://doc.wikimedia.org/HtmlFormatter/master/
+  IDLeDOM:
+    tagline: DOM interfaces generated from WebIDL
+    lang: PHP
+    homepage: https://www.mediawiki.org/wiki/IDLeDOM
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/IDLeDOM/
+      Documentation: https://doc.wikimedia.org/mediawiki-libs-IDLeDOM/main/
+      Package (Composer): https://packagist.org/packages/wikimedia/idle-dom
   IPSet:
     tagline: Efficient matching of IP addresses against CIDR specifications.
     lang: PHP
