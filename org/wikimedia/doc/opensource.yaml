@@ -11,13 +11,15 @@ Featured:
       PhpMetrics report: https://doc.wikimedia.org/mediawiki-core/master/phpmetrics/
     lang: PHP, JS
   VisualEditor:
-    tagline: Richtext visual editor for the browser. WYSIWYG, based on HTML5+RDFa and ContentEditable.
+    tagline: Rich text visual editor for the browser with a MediaWiki integration. WYSIWYG, based on HTML5+RDFa and ContentEditable.
     lang: JS
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/VisualEditor
     links:
-      Source code: https://gerrit.wikimedia.org/g/VisualEditor/VisualEditor
-      Documentation: https://doc.wikimedia.org/VisualEditor/master/
-      Demo: https://doc.wikimedia.org/VisualEditor/master/js/lib/ve/demos/ve/desktop-wikimediaui.html
+      Source code (standalone): https://gerrit.wikimedia.org/g/VisualEditor/VisualEditor
+      Source code (MediaWiki integration): https://gerrit.wikimedia.org/g/mediawiki/extensions/VisualEditor
+      Documentation (MediaWiki integration): https://doc.wikimedia.org/VisualEditor/master/
+      Demo (standalone): https://doc.wikimedia.org/VisualEditor/master/js/lib/ve/demos/ve/desktop-wikimediaui.html
+      Demo (MediaWiki integration): https://www.mediawiki.org/wiki/Project:Sandbox?veaction=edit
   Parsoid:
     tagline: Two-way MediaWiki wikitext↔HTML parser.
     lang: PHP
