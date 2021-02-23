@@ -49,7 +49,7 @@ class DocHomePage extends DocPage {
 ?>
 		<div class="wm-osproject-tile" tabindex="0">
 		<h3 class="wm-osproject-tile-title">
-			<?php echo $titleHtml ?><small> <?php echo $langHtml ?></small>
+			<?php echo $titleHtml ?> <small><?php echo $langHtml ?></small>
 		</h3>
 		<p class="wm-osproject-tile-tagline"><?php echo $taglineHtml ?></p>
 		<ul class="wm-osproject-tile-links">
