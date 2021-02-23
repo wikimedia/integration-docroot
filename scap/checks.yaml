@@ -1,0 +1,7 @@
+checks:
+    restart-php-fpm:
+        type: command
+        stage: promote
+        timeout: 30
+        # Defined in Puppet profile::doc
+        command: /usr/local/sbin/restart-php-fpm-unsafe
