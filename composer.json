@@ -4,9 +4,9 @@
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "35.0.0",
+		"mediawiki/mediawiki-phan-config": "0.10.6",
 		"php-parallel-lint/php-parallel-lint": "1.2.0",
-		"phpunit/phpunit": "^8.0",
-		"mediawiki/mediawiki-phan-config": "0.10.6"
+		"phpunit/phpunit": "^8.0"
 	},
 	"config": {
 		"process-timeout": 0
