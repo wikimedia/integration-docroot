@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -eu
+
+# We only want to restart php-fpm on the doc* hosts
+if [[ "$(hostname)" =~ ^doc[0-9]+ ]]
+then
+
+	# The following script is defined by Puppet
+	/usr/local/sbin/restart-php-fpm-unsafe
+fi
