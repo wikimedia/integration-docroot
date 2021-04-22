@@ -20,21 +20,34 @@
 (function ($) {
     'use strict';
 
-    // store for the remainder of this tab's life.
-    function set_tab_store(name, value) {
-        try {
-            sessionStorage.setItem(name, value);
-        } catch (e) {
-            // Disabled, or out of quota.
+    var fragment_filter_prefix = '#q=';
+
+    // read filter from fragment
+    function read_fragment_filter() {
+        var hash = location.hash;
+
+        if (hash.indexOf(fragment_filter_prefix) === -1) {
+            return '';
         }
+
+        return hash.slice(fragment_filter_prefix.length);
     }
 
-    function read_tab_store(name) {
-        try {
-            return sessionStorage.getItem(name);
-        } catch (e) {
-            // Disallowed.
-            return null;
+    function update_fragment_filter(value) {
+        var obj;
+        if (value !== '') {
+            history.replaceState(null, '', fragment_filter_prefix + value);
+        } else {
+            // Prefer not to leave an empty "#" or "#q=".
+            // But if the browser doesn't have the URL API yet,
+            // then don't bother with workarounds
+            if (window.URL) {
+                obj = new URL(location.href);
+                obj.hash = '';
+                history.replaceState(null, '', obj.toString());
+            } else {
+                path = history.replaceState(null, '', '#');
+            }
         }
     }
 
@@ -68,7 +81,7 @@
         }, options);
 
         var collapsed_exceptions = [];
-        var current_filter = read_tab_store('zuul_filter_string') || '';
+        var current_filter = read_fragment_filter();
         var $jq;
 
         var xhr,
@@ -847,7 +860,6 @@
             handle_filter_change: function() {
                 // Update the filter and save it to a cookie
                 current_filter = $('#filter_string').val();
-                set_tab_store('zuul_filter_string', current_filter);
                 if (current_filter === '') {
                     $('#filter_form_clear_box').hide();
                 }
@@ -860,6 +872,8 @@
                     format.display_patchset($change_box, 200);
                 });
                 app.handle_pipeline_visibility();
+
+                update_fragment_filter(current_filter);
             },
 
             handle_pipeline_visibility: function() {
