@@ -10,13 +10,13 @@
 	<a class="btn btn-default btn-sm" href="https://grafana.wikimedia.org/dashboard/db/zuul">Zuul</a>
 	<br/>
 	<a href="https://grafana.wikimedia.org/dashboard/db/zuul?from=now-24h&to=now&panelId=26&fullscreen" target="_blank">
-		<img class="graphite-graph" title="Changes in Zuul" src="https://graphite.wikimedia.org/render/?from=-24hours
+		<img class="graphite-graph" title="Changes in Zuul (per hour)" src="https://graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
 &amp;width=400
 &amp;areaMode=first
 &amp;lineMode=staircase
 &amp;target=alias(summarize(sumSeries(zuul.pipeline.*.current_changes),'1h'),'Changes in pipelines per hour')
-&amp;title=Changes%20in%20Zuul%20pipelines%20(per%20hour)" title="Changes in Zuul (per hour)" />
+&amp;title=Changes%20in%20Zuul%20pipelines%20(per%20hour)" />
 	</a>
 	<a href="https://grafana.wikimedia.org/dashboard/db/zuul-gearman?from=now-24h&to=now" target="_blank">
 		<img class="graphite-graph" title="Gearman job queue" src="https://graphite.wikimedia.org/render/?from=-24hours
