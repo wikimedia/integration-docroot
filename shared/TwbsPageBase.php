@@ -7,7 +7,6 @@ class TwbsPageBase extends Page {
 	];
 	protected $scripts = [
 		'/lib/jquery.min.js',
-		'/lib/bootstrap/js/bootstrap.min.js',
 	];
 
 	protected function getNavHtml() {
