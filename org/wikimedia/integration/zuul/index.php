@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../../shared/autoload.php';
 
-$p = IntegrationPage::newFromPageName( 'Zuul Status' );
+$p = IntegrationZuulPage::newFromPageName( 'Zuul Status' );
 $p->addHtmlFile( __DIR__ . '/default.html' );
 
 $p->addStylesheet( 'styles/zuul.css' );

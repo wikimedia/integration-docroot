@@ -9,3 +9,4 @@ require_once __DIR__ . '/DocIndexPage.php';
 require_once __DIR__ . '/DocHomePage.php';
 require_once __DIR__ . '/CoveragePage.php';
 require_once __DIR__ . '/IntegrationPage.php';
+require_once __DIR__ . '/IntegrationZuulPage.php';
