@@ -116,7 +116,7 @@ HTML;
 		}
 		if ( isset( $_GET['sort'] ) && $_GET['sort'] === 'cov' ) {
 			// Order by coverage, ascending
-			uasort( $clovers, function ( $a, $b ) {
+			uasort( $clovers, static function ( $a, $b ) {
 				if ( $a['percent'] === $b['percent'] ) {
 					return 0;
 				}
