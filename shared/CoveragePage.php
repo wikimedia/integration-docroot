@@ -134,12 +134,13 @@ HTML;
 			$html .= <<<HTML
 <li>
 	<a class="cover-item" href="./$dirName/">
-		<span>$dirName</span>
 		<span class="cover-item-meter">
 			<meter min="0" max="100" low="$lowThreshold" high="$highThreshold" optimum="99" value="$percent">$percent%</meter>
 			<span> $percent%</span>
 		</span>
+		<span>$dirName</span>
 	</a>
+	<span class="cover-extra">(<a href="./$dirName/clover.xml">xml</a>)</span>
 </li>
 HTML;
 		}

@@ -3,12 +3,13 @@
 }
 
 .wm-nav .cover-item {
-	display: flex;
+	display: inline-flex;
 	align-items: center;
+	/* override `.wm-nav li > a` styles from wmui-page.css */
+	padding-right: 1rem;
 }
 
 .cover-item-meter {
-	order: -1;
 	padding-right: 1rem;
 	border-right: var( --border-base );
 	margin-right: 1rem;
