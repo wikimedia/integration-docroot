@@ -556,6 +556,12 @@ Testing:
     homepage: https://github.com/wikimedia/eslint-plugin-mediawiki
     links:
       Source code: https://github.com/wikimedia/eslint-plugin-mediawiki
+  MediaWiki API testing:
+    tagline: A library for end-to-end integration tests of MediaWiki APIs
+    lang: JS
+    homepage: https://www.mediawiki.org/wiki/MediaWiki_API_integration_tests
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/tools/api-testing
   Fresnel:
     tagline: Measure and compare performance of web pages.
     lang: JS
