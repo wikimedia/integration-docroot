@@ -561,6 +561,7 @@ Testing:
     lang: JS
     homepage: https://www.mediawiki.org/wiki/MediaWiki_API_integration_tests
     links:
+      Documentation: https://doc.wikimedia.org/mediawiki-tools-api-testing/master/
       Source code: https://gerrit.wikimedia.org/g/mediawiki/tools/api-testing
   Fresnel:
     tagline: Measure and compare performance of web pages.
