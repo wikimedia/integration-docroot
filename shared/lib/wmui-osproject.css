@@ -29,12 +29,17 @@
 	flex-flow: column;
 	justify-content: flex-start;
 }
-.wm-osproject-tile:focus-within {
+.wm-osproject-tile:focus-within,
+.wm-osproject-tile:target {
 	border-color: var( --wmui-color-accent50 );
 	outline: none;
 	box-shadow: 0 1px 4px 0 rgba( 0, 0, 0, 0.25 );
 }
-.wm-osproject-tile:not(:focus-within) {
+.wm-osproject-tile:target {
+	/* To have the tile below the sticky heading */
+	scroll-margin-top: 4.5rem;
+}
+.wm-osproject-tile:not(:focus-within):not(:target) {
 	cursor: pointer;
 }
 
@@ -60,7 +65,7 @@
 .wm-osproject-tile-title small:empty {
 	display: none;
 }
-.wm-osproject-tile:not(:focus-within) .wm-osproject-tile-title {
+.wm-osproject-tile:not(:focus-within):not(:target) .wm-osproject-tile-title {
 	font-size: inherit;
 }
 
@@ -68,7 +73,7 @@
 	margin: 0.8rem 0 1rem 0;
 	flex-grow: 2;
 }
-h2:not(#featured) + .wm-osproject-grid .wm-osproject-tile:not(:focus-within) .wm-osproject-tile-tagline {
+h2:not(#featured) + .wm-osproject-grid .wm-osproject-tile:not(:focus-within):not(:target) .wm-osproject-tile-tagline {
 	display: -webkit-box;
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
@@ -87,7 +92,7 @@ h2:not(#featured) + .wm-osproject-grid .wm-osproject-tile:not(:focus-within) .wm
 /* We use :not(:focus-within) instead of making this appear always and then
    hiding from a :focus-within rule so that in browsers without :focus-within
    support the list is simply expanded by default without toggle button. */
-.wm-osproject-tile:not(:focus-within) .wm-osproject-tile-links:not(:empty):before {
+.wm-osproject-tile:not(:focus-within):not(:target) .wm-osproject-tile-links:not(:empty):before {
 	display: block;
 	content: "More information…";
 	color: var( --wmui-color-base30 );
@@ -98,12 +103,12 @@ h2:not(#featured) + .wm-osproject-grid .wm-osproject-tile:not(:focus-within) .wm
 	margin: 0 -4px;
 	padding: 0 4px;
 }
-.wm-osproject-tile:not(:focus-within) .wm-osproject-tile-links:hover:before {
+.wm-osproject-tile:not(:focus-within):not(:target) .wm-osproject-tile-links:hover:before {
 	text-decoration: underline;
 	outline: 2px solid var( --wmui-color-base80 );
 	background-color: var( --wmui-color-base80 );
 	color: var( --wmui-color-base20 );
 }
-.wm-osproject-tile:not(:focus-within) .wm-osproject-tile-links li {
+.wm-osproject-tile:not(:focus-within):not(:target) .wm-osproject-tile-links li {
 	display: none;
 }

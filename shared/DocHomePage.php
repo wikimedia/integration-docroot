@@ -47,7 +47,7 @@ class DocHomePage extends DocPage {
 		$taglineHtml = htmlspecialchars( $data['tagline'] ?? '' );
 		$homepageHtml = htmlspecialchars( $data['homepage'] ?? '' );
 ?>
-		<div class="wm-osproject-tile" tabindex="0">
+		<div class="wm-osproject-tile" tabindex="0" id="<?php echo $titleHtml ?>">
 		<h3 class="wm-osproject-tile-title">
 			<?php echo $titleHtml ?> <small><?php echo $langHtml ?></small>
 		</h3>
