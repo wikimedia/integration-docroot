@@ -15,6 +15,7 @@ class DocPage extends WmuiPageBase {
 		return [
 			'https://integration.wikimedia.org/zuul/' => 'Continuous integration status',
 			'https://gerrit.wikimedia.org/r/' => 'Gerrit Code Review',
+			'https://wikitech.wikimedia.org/wiki/Doc.wikimedia.org' => 'doc.wikimedia.org documentation',
 		];
 	}
 }
