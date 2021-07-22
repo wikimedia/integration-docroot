@@ -3,14 +3,14 @@
 class PageTest extends PHPUnit\Framework\TestCase {
 	private $scriptName;
 
-	public function setUp() : void {
+	public function setUp(): void {
 		unset( $_SERVER['REDIRECT_URL'] );
 		unset( $_SERVER['DOCUMENT_ROOT'] );
 		putenv( 'WMF_DOC_PATH' );
 		$this->scriptName = $_SERVER['SCRIPT_NAME'];
 	}
 
-	public function tearDown() : void {
+	public function tearDown(): void {
 		unset( $_SERVER['REDIRECT_URL'] );
 		unset( $_SERVER['DOCUMENT_ROOT'] );
 		putenv( 'WMF_DOC_PATH' );
