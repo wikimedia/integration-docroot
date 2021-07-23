@@ -8,6 +8,7 @@ class DocPage extends WmuiPageBase {
 			'/' => 'Home',
 			'/index/' => 'Doc index',
 			'/cover/' => 'Test coverage',
+			'/metrics/' => 'Code metrics',
 		];
 	}
 
