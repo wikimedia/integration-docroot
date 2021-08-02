@@ -18,7 +18,7 @@
  *
  */
 
-// Ignore this for now whilst we hackisly maintain PHP 7.0 compat. T247653
+// Ignore this for now whilst we hackishly maintain PHP 7.0 compat. T247653
 // phpcs:disable PSR12.Properties.ConstantVisibility.NotFound
 
 /**
@@ -72,22 +72,32 @@ HTML;
 		$this->addHtmlContent( $intro );
 
 		if ( $this->pageName === 'Test coverage' ) {
-			$href = '/cover-extensions/';
 			$breadcrumbs = <<<HTML
 <ul class="wm-nav cover-nav">
 	<li><a href="#" class="wm-nav-item-active">Coverage home</a></li>
-	<li><a href="$href">MediaWiki extensions</a></li>
+	<li><a href="/cover-extensions/">MediaWiki extensions</a></li>
+	<li><a gref="/cover-skins/">MediaWiki skins</a></li>
+</ul>
+HTML;
+		} elseif ( $this->pageName === 'MediaWiki extension test coverage' ) {
+			$breadcrumbs = <<<HTML
+<ul class="wm-nav cover-nav">
+	<li><a href="/cover/">Coverage home</a></li>
+	<li><a href="#" class="wm-nav-item-active">MediaWiki extensions</a></li>
+	<li><a gref="/cover-skins/">MediaWiki skins</a></li>
 </ul>
 HTML;
 		} else {
-			$href = '/cover/';
+			// } elseif ( $this->pageName === 'MediaWiki skin test coverage' ) {
 			$breadcrumbs = <<<HTML
 <ul class="wm-nav cover-nav">
-	<li><a href="$href">Coverage home</a></li>
-	<li><a href="#" class="wm-nav-item-active">MediaWiki extensions</a></li>
+	<li><a href="/cover/">Coverage home</a></li>
+	<li><a href="/cover-extensions/">MediaWiki extensions</a></li>
+	<li><a gref="#" class="wm-nav-item-active">MediaWiki skins</a></li>
 </ul>
 HTML;
 		}
+
 		$this->addHtmlContent( $breadcrumbs );
 
 		if ( $sort === 'cov' ) {
