@@ -76,7 +76,7 @@ HTML;
 <ul class="wm-nav cover-nav">
 	<li><a href="#" class="wm-nav-item-active">Coverage home</a></li>
 	<li><a href="/cover-extensions/">MediaWiki extensions</a></li>
-	<li><a gref="/cover-skins/">MediaWiki skins</a></li>
+	<li><a href="/cover-skins/">MediaWiki skins</a></li>
 </ul>
 HTML;
 		} elseif ( $this->pageName === 'MediaWiki extension test coverage' ) {
@@ -93,7 +93,7 @@ HTML;
 <ul class="wm-nav cover-nav">
 	<li><a href="/cover/">Coverage home</a></li>
 	<li><a href="/cover-extensions/">MediaWiki extensions</a></li>
-	<li><a gref="#" class="wm-nav-item-active">MediaWiki skins</a></li>
+	<li><a href="#" class="wm-nav-item-active">MediaWiki skins</a></li>
 </ul>
 HTML;
 		}
