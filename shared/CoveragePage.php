@@ -84,7 +84,7 @@ HTML;
 <ul class="wm-nav cover-nav">
 	<li><a href="/cover/">Coverage home</a></li>
 	<li><a href="#" class="wm-nav-item-active">MediaWiki extensions</a></li>
-	<li><a gref="/cover-skins/">MediaWiki skins</a></li>
+	<li><a href="/cover-skins/">MediaWiki skins</a></li>
 </ul>
 HTML;
 		} else {
