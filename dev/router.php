@@ -40,7 +40,16 @@ if ( is_dir( $published_file ) ) {
 		return true;
 	}
 	// Simulate Apache `RewriteRule .* dir.php`
-	require_once './org/wikimedia/doc/dir.php';
+	//
+	// When on the docserver/index/ page, and following the link to
+	// any of the generated doc directories, it should list the contents
+	// of that directory. (e.g. click on "multisubdir").
+	//
+	// Without the REDIRECT_URL assignment, Page::getRequestPath()
+	// would instead interpret it as being on the coverage index.
+	$_SERVER['REDIRECT_URL'] = $_SERVER['REQUEST_URI'];
+	require_once __DIR__ . '/../org/wikimedia/doc/dir.php';
+	return true;
 }
 
 if ( pathinfo( $published_file, PATHINFO_EXTENSION ) === 'php' ) {
