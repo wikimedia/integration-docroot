@@ -215,17 +215,17 @@ HTML;
 	}
 
 	/**
-	 * Exclude directories that already have been listed
+	 * Exclude directories that already have been listed by handleCoverageIndex()
 	 *
 	 * @param string|null $parent
 	 * @return string[]
 	 */
-	protected function getDirIndexDirectories( $parent = null ) {
-		$dirs = parent::getDirIndexDirectories( $parent );
+	protected function getDirIndexContents( $parent = null ) {
+		$entries = parent::getDirIndexContents( $parent );
 		$noClover = [];
-		foreach ( $dirs as $dir ) {
-			if ( !file_exists( "$dir/clover.xml" ) ) {
-				$noClover[] = $dir;
+		foreach ( $entries as $entry ) {
+			if ( !is_dir( $entry ) || !file_exists( "$entry/clover.xml" ) ) {
+				$noClover[] = $entry;
 			}
 		}
 
@@ -237,7 +237,7 @@ HTML;
 	 * directories left over that didn't have clover.xml files.
 	 */
 	public function handleDirIndex( $dir, $urlPath ) {
-		if ( $this->getDirIndexDirectories( $dir ) ) {
+		if ( $this->getDirIndexContents( $dir ) ) {
 			parent::handleDirIndex( $dir, $urlPath );
 		}
 	}

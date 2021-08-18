@@ -12,7 +12,7 @@ class DocIndexPage extends DocPage {
 	 * @param string|null $parent
 	 * @return string[]
 	 */
-	protected function getDirIndexDirectories( $parent = null ) {
+	protected function getDirIndexContents( $parent = null ) {
 		$exclude = [
 			'cover',
 			'cover-extensions',
@@ -20,12 +20,12 @@ class DocIndexPage extends DocPage {
 			'lib',
 		];
 
-		$dirs = [];
-		foreach ( parent::getDirIndexDirectories( $parent ) as $dir ) {
-			if ( !in_array( basename( $dir ), $exclude, true ) ) {
-				$dirs[] = $dir;
+		$entries = [];
+		foreach ( parent::getDirIndexContents( $parent ) as $entry ) {
+			if ( !in_array( basename( $entry ), $exclude, true ) ) {
+				$entries[] = $entry;
 			}
 		}
-		return $dirs;
+		return $entries;
 	}
 }

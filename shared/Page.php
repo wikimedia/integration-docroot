@@ -192,9 +192,14 @@ class Page {
 <?php
 	}
 
-	protected function getDirIndexDirectories( $dir = null ) {
+	protected function getDirIndexContents( $dir = null ) {
 		$dir = $dir ?? $this->getDir();
-		return glob( $dir . "/*", GLOB_ONLYDIR );
+		// glob() excludes dot-files by default
+		return array_filter( glob( $dir . "/*" ), static function ( $entry ) {
+			// Avoid listing ourselves, e.g. /cover/index.php on /cover/.
+			$name = basename( $entry );
+			return $name !== 'index.html' && $name !== 'index.php';
+		} );
 	}
 
 	/**
@@ -215,22 +220,22 @@ class Page {
 			}
 		}
 
-		$subDirPaths = $this->getDirIndexDirectories( $dir );
+		$entries = $this->getDirIndexContents( $dir );
 		if ( $this->flags & self::INDEX_ALLOW_SKIP ) {
-			if ( count( $subDirPaths ) === 1 ) {
-				header( "Location: {$urlPath}" . basename( $subDirPaths[0] ) . '/' );
+			if ( count( $entries ) === 1 ) {
+				header( "Location: {$urlPath}" . basename( $entries[0] ) . '/' );
 				exit;
 			}
 		}
 
-		if ( count( $subDirPaths ) === 0 ) {
+		if ( count( $entries ) === 0 ) {
 			$this->addHtmlContent( '<div class="wm-alert wm-alert-error" role="alert"><strong>Empty directory!</strong></div>' );
 		} else {
 			$this->addHtmlContent( '<ul class="wm-nav">' );
-			foreach ( $subDirPaths as $path ) {
-				$dirName = basename( $path );
-				$this->addHtmlContent( '<li><a href="' . htmlspecialchars( "{$urlPath}{$dirName}/" ) . '">'
-					. htmlspecialchars( $dirName )
+			foreach ( $entries as $path ) {
+				$name = basename( $path );
+				$this->addHtmlContent( '<li><a href="' . htmlspecialchars( "{$urlPath}{$name}/" ) . '">'
+					. htmlspecialchars( $name )
 					. '</a>'
 				);
 			}
