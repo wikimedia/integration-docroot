@@ -234,7 +234,7 @@ class Page {
 			$this->addHtmlContent( '<ul class="wm-nav">' );
 			foreach ( $entries as $path ) {
 				$name = basename( $path );
-				$this->addHtmlContent( '<li><a href="' . htmlspecialchars( "{$urlPath}{$name}/" ) . '">'
+				$this->addHtmlContent( '<li><a href="' . htmlspecialchars( "{$urlPath}{$name}" ) . '">'
 					. htmlspecialchars( $name )
 					. '</a>'
 				);
