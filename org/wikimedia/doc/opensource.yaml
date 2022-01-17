@@ -525,6 +525,21 @@ Infrastructure:
     links:
       Source code: https://gerrit.wikimedia.org/g/operations/software/transferpy/
       Documentation: https://doc.wikimedia.org/transferpy/
+  wikidiff2:
+    tagline: Fast diff engine for MediaWiki.
+    lang: C, PHP
+    homepage: https://www.mediawiki.org/wiki/Wikidiff2
+    links:
+      Documentation: https://www.mediawiki.org/wiki/Wikidiff2
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/php/wikidiff2
+      Issue tracker: https://phabricator.wikimedia.org/tag/wikidiff2/
+  wmerrors:
+    tagline: Extended error handling and display.
+    lang: C, PHP
+    homepage: https://www.mediawiki.org/wiki/Wmerrors
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/php/wmerrors
+      Issue tracker: https://phabricator.wikimedia.org/tag/wmerrors/
   wmflib:
     tagline: Generic Python library for common tasks in the WMF production infrastructure.
     lang: Python
