@@ -686,6 +686,21 @@ MediaWiki components:
       Storybook (Termbox): https://doc.wikimedia.org/wikibase-termbox/master/ui/
       dist-size (Data-Bridge): https://doc.wikimedia.org/Wikibase/master/js/data-bridge-dist-size/
       dist-size (Tainted-Ref): https://doc.wikimedia.org/Wikibase/master/js/tainted-ref-dist-size/
+  WikiLambda:
+    tagline: Letting users create, manage, and evaluate functions on a wiki, wikifunctions.org.
+    homepage: https://www.mediawiki.org/wiki/Extnsion:WikiLambda
+    links:
+      Source code (MW extension): https://gerrit.wikimedia.org/g/mediawiki/extensions/WikiLambda
+      Code documentation (MW JS): https://doc.wikimedia.org/WikiLambda/master/js/
+      Code coverage (MW JS): https://doc.wikimedia.org/cover/WikiLambda/lcov-report/
+      Code documentation (MW PHP): https://doc.wikimedia.org/WikiLambda/master/php/
+      Code coverage (MW PHP): https://doc.wikimedia.org/cover-extensions/WikiLambda/index.html
+      Source code (orchestrator): https://gerrit.wikimedia.org/g/mediawiki/services/function-orchestrator
+      Code coverage (orchestrator): https://doc.wikimedia.org/cover/mediawiki-services-function-orchestrator/lcov-report/
+      Source code (evaluator): https://gerrit.wikimedia.org/g/mediawiki/services/function-evaluator
+      Code coverage (evaluator): https://doc.wikimedia.org/cover/mediawiki-services-function-evaluator/lcov-report/
+      Source code (shared schemata): https://gerrit.wikimedia.org/g/mediawiki/services/function-schemata
+      Code coverage (shared schemata): https://doc.wikimedia.org/cover/mediawiki-services-function-schemata/lcov-report/
   Vector skin:
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Skin:Vector
     links:
