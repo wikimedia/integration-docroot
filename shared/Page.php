@@ -71,7 +71,6 @@ class Page {
 			$path = dirname( $_SERVER['SCRIPT_NAME'] ) . '/';
 		} else {
 			self::error( 'Undefined request path.' );
-			exit;
 		}
 
 		$realPath = self::resolvePath( $_SERVER['DOCUMENT_ROOT'], $path );
@@ -87,7 +86,6 @@ class Page {
 		if ( !$realPath || !$realBase ) {
 			// Path escalation. Should be impossible as Apache normalises this.
 			self::error( 'Invalid context path.' );
-			exit;
 		}
 
 		if ( substr( $realPath, -1 ) !== '/' ) {
@@ -243,6 +241,7 @@ class Page {
 		}
 	}
 
+	/** @phan-return never */
 	public static function error( $msg, $statusCode = 500 ) {
 		$statusCode = (int)$statusCode;
 		http_response_code( $statusCode );
