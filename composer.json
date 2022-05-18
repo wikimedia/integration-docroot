@@ -27,7 +27,7 @@
 		"fix": [
 			"phpcbf"
 		],
-		"phan": "phan --allow-polyfill-parser --no-progress-bar",
+		"phan": "phan --allow-polyfill-parser --long-progress-bar",
 		"phpcs": "phpcs -sp --cache"
 	}
 }
