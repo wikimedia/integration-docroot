@@ -1,6 +1,6 @@
 checks:
-    restart-php-fpm:
-        type: script
-        stage: promote
-        timeout: 30
-        command: restart-php-fpm
+  restart-php-fpm:
+    type: script
+    stage: promote
+    timeout: 30
+    command: restart-php-fpm
