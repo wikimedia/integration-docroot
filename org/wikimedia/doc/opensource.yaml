@@ -678,8 +678,8 @@ MediaWiki components:
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/Wikibase
-      Code documentation (JS): https://doc.wikimedia.org/Wikibase/master/js/
-      Code documentation (PHP): https://doc.wikimedia.org/Wikibase/master/php/
+      Code documentation: https://doc.wikimedia.org/Wikibase/master/php/
+      WikibaseLexeme documentation: https://doc.wikimedia.org/WikibaseLexeme/master/php/
       Storybook (Vue.js components): https://doc.wikimedia.org/wikibase-vuejs-components/master
       Storybook (Data-Bridge): https://doc.wikimedia.org/Wikibase/master/js/data-bridge-storybook
       Storybook (Tainted-Ref): https://doc.wikimedia.org/Wikibase/master/js/tainted-ref-storybook
