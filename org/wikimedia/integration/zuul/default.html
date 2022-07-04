@@ -8,8 +8,9 @@
 	Dashboards:
 	<a class="btn btn-default btn-sm" href="https://grafana.wikimedia.org/d/000000284/continuous-integration">CI</a>
 	<a class="btn btn-default btn-sm" href="https://grafana.wikimedia.org/d/000000321/zuul">Zuul</a>
+	<a class="btn btn-default btn-sm" href="https://grafana.wikimedia.org/d/000000322/zuul-gearman">Gearman</a>
 	<br/>
-	<a href="https://grafana.wikimedia.org/dashboard/db/zuul?from=now-24h&to=now&panelId=26&fullscreen" target="_blank">
+	<a href="https://grafana.wikimedia.org/d/000000321/zuul?orgId=1&viewPanel=26&from=now-24h&to=now" target="_blank">
 		<img class="graphite-graph" title="Changes in Zuul (per hour)" src="https://graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
 &amp;width=400
@@ -18,7 +19,7 @@
 &amp;target=alias(summarize(sumSeries(zuul.pipeline.*.current_changes),'1h'),'Changes in pipelines per hour')
 &amp;title=Changes%20in%20Zuul%20pipelines%20(per%20hour)" />
 	</a>
-	<a href="https://grafana.wikimedia.org/dashboard/db/zuul-gearman?from=now-24h&to=now" target="_blank">
+	<a href="https://grafana.wikimedia.org/d/000000322/zuul-gearman?viewPanel=10&from=now-24h&to=now" target="_blank">
 		<img class="graphite-graph" title="Gearman job queue" src="https://graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
 &amp;width=400
@@ -28,7 +29,7 @@
 &amp;title=Gearman%20job%20queue%20" />
 	</a>
 <br/>
-	<a href="https://grafana.wikimedia.org/dashboard/db/zuul?from=now-3d&to=now" target="_blank">
+	<a href="https://grafana.wikimedia.org/d/000000321/zuul?from=now-3d&to=now" target="_blank">
 		<img class="graphite-graph" title="Zuul test pipeline" src="https://graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
 &amp;width=400
@@ -40,7 +41,7 @@
 &amp;target=alias(summarize(zuul.pipeline.test.current_changes,'1h','max'),'hourly max')
 &amp;title=Zuul%20test%20pipeline" />
 	</a>
-	<a href="https://grafana.wikimedia.org/dashboard/db/zuul?from=now-3d&to=now" target="_blank">
+	<a href="https://grafana.wikimedia.org/d/000000321/zuul?from=now-3d&to=now" target="_blank">
 		<img class="graphite-graph" title="Zuul gate pipeline" src="https://graphite.wikimedia.org/render/?from=-24hours
 &amp;height=180
 &amp;width=400
