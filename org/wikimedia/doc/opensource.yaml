@@ -80,6 +80,14 @@ Localisation:
     homepage: https://github.com/wikimedia/jquery.i18n
     links:
       Source code: https://github.com/wikimedia/jquery.i18n
+  language-data:
+    tagline: Language related data based on CLDR and utility libraries to interact with that data
+    lang: JS, PHP
+    homepage: https://language-data.readthedocs.io/en/latest/index.html
+    links:
+      Source code: https://github.com/wikimedia/language-data
+      Package (Composer): https://packagist.org/packages/wikimedia/language-data
+      Package (npm): https://www.npmjs.com/package/language-data
 
 User experience:
 
