@@ -88,6 +88,15 @@ Localisation:
       Source code: https://github.com/wikimedia/language-data
       Package (Composer): https://packagist.org/packages/wikimedia/language-data
       Package (npm): https://www.npmjs.com/package/@wikimedia/language-data
+  banana-i18n:
+    tagline: Internationalization library that uses "banana" format - A JSON based localization file format.
+    lang: JS, Vue, React
+    homepage: https://wikimedia.github.io/banana-i18n/
+    links:
+      Source code: https://github.com/wikimedia/banana-i18n
+      JavaScript package (npm): https://www.npmjs.com/package/banana-i18n
+      React package (npm): https://www.npmjs.com/package/@wikimedia/react.i18n
+      Vue package (npm): https://www.npmjs.com/package/vue-banana-i18n
 
 User experience:
 
