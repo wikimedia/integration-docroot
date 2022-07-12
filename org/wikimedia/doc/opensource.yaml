@@ -87,7 +87,7 @@ Localisation:
     links:
       Source code: https://github.com/wikimedia/language-data
       Package (Composer): https://packagist.org/packages/wikimedia/language-data
-      Package (npm): https://www.npmjs.com/package/language-data
+      Package (npm): https://www.npmjs.com/package/@wikimedia/language-data
 
 User experience:
 
