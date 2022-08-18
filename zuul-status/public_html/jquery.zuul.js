@@ -344,9 +344,9 @@
                 var enqueue_time = this.enqueue_time(
                         change.enqueue_time);
                 var $remaining_time = $('<small />').addClass('time')
-                    .attr('title', 'Remaining Time').html(remaining_time);
+                    .attr('title', 'Remaining Time').html("ETA: " + remaining_time);
                 var $enqueue_time = $('<small />').addClass('time')
-                    .attr('title', 'Elapsed Time').html(enqueue_time);
+                    .attr('title', 'Elapsed Time').html("Elapsed: " + enqueue_time);
 
                 var $right = $('<div />');
                 if (change.live === true) {

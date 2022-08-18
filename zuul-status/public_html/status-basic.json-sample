@@ -14,6 +14,8 @@
                                 "id": "10101,1",
                                 "url": "#!/review.example.org/r/10101",
                                 "project": "openstack/infra/zuul",
+                                "remaining_time": 0,
+                                "live": true,
                                 "jobs": [
                                     {
                                         "name": "zuul-merge",
@@ -41,6 +43,8 @@
                                 "id": "10103,1",
                                 "url": "#!/review.example.org/r/10103",
                                 "project": "google/gerrit",
+                                "remaining_time": 0,
+                                "live": true,
                                 "jobs": [
                                     {
                                         "name": "gerrit-merge",
@@ -76,6 +80,8 @@
                                 "id": "10104,1",
                                 "url": "#!/review.example.org/r/10104",
                                 "project": "openstack/infra/zuul",
+                                "remaining_time": 180000,
+                                "live": true,
                                 "jobs": [
                                     {
                                         "name": "zuul-merge",
@@ -117,6 +123,8 @@
                                 "id": "7f1d65cb0f663c907698f915da01c008c7ef4748",
                                 "url": "#!/review.example.org/r/10100",
                                 "project": "openstack/infra/zuul",
+                                "remaining_time": 120000,
+                                "live": true,
                                 "jobs": [
                                     {
                                         "name": "zuul-lint",
