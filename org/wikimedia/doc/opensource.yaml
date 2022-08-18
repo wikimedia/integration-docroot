@@ -519,11 +519,11 @@ Infrastructure:
   Scap:
     tagline: The deployment tool used by Wikimedia Foundation.
     lang: Python
-    homepage: https://doc.wikimedia.org/mw-tools-scap/
+    homepage: https://doc.wikimedia.org/scap/
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/tools/scap
-      Scap2 manual: https://doc.wikimedia.org/mw-tools-scap/scap2/commands.html
-      Scap3 manual: https://doc.wikimedia.org/mw-tools-scap/scap3/deploy_commands.html
+      Scap2 manual: https://doc.wikimedia.org/scap/scap2/commands.html
+      Scap3 manual: https://doc.wikimedia.org/scap/scap3/deploy_commands.html
   search-extra:
     tagline: Elasticsearch plugin, used by CirrusSearch.
     lang: Java
