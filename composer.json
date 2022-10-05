@@ -1,6 +1,7 @@
 {
 	"require": {
-		"php": ">=7.2.0"
+		"php": ">=7.2.0",
+		"ext-simplexml": "*"
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "39.0.0",
