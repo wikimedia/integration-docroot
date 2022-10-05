@@ -134,8 +134,6 @@ HTML;
 			$dirName = htmlspecialchars( basename( dirname( $cloverFile ) ) );
 			$modifiedTime = date( DateTimeInterface::ATOM, stat( $cloverFile )['mtime'] );
 			$percent = (string)round( $info['percent'] );
-			$color = $this->getLevelColor( $info['percent'] );
-			$minWidth = $percent >= 10 ? '3em' : '2em';
 
 			$lowThreshold = self::COVERAGE_LOW;
 			$highThreshold = self::COVERAGE_HIGH;
@@ -167,7 +165,7 @@ HTML;
 		$total = 0;
 		$xml = new SimpleXMLElement( $contents );
 		$metrics = $xml->project->metrics;
-		// A proper clover.xml file will have all of the four types, but
+		// A proper clover.xml file will have all the four types, but
 		// we're also converting other types into clover.xml, that don't
 		// have all the keys we expect. Using isset() should make this safe.
 		foreach ( $types as $type ) {
@@ -193,24 +191,6 @@ HTML;
 		return [
 			'percent' => round( $percent * 100, 2 )
 		];
-	}
-
-	/**
-	 * Get the CSS class for the progress bar,
-	 * based on code in PHP_CodeCoverage
-	 *
-	 * @param float $percent
-	 * @return string
-	 */
-	protected function getLevelColor( $percent ) {
-		if ( $percent <= self::COVERAGE_LOW ) {
-			return 'danger';
-		} elseif ( $percent >= self::COVERAGE_HIGH ) {
-			return 'success';
-		} else {
-			// In the middle
-			return 'warning';
-		}
 	}
 
 	/**
