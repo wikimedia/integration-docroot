@@ -135,6 +135,7 @@ HTML;
 		}
 		foreach ( $clovers as $cloverFile => $info ) {
 			$dirName = htmlspecialchars( basename( dirname( $cloverFile ) ) );
+			$modifiedTime = date( DateTimeInterface::ATOM, stat( $cloverFile )['mtime'] );
 			$percent = (string)round( $info['percent'] );
 			$color = $this->getLevelColor( $info['percent'] );
 			$minWidth = $percent >= 10 ? '3em' : '2em';
@@ -151,6 +152,7 @@ HTML;
 		<span>$dirName</span>
 	</a>
 	<span class="cover-extra">(<a href="./$dirName/clover.xml">xml</a>)</span>
+	<span class="cover-mtime">$modifiedTime</span>
 </li>
 HTML;
 		}
