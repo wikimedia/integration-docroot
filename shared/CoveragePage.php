@@ -169,7 +169,7 @@ HTML;
 	 * Get data out of the clover.xml file
 	 *
 	 * @param string $contents Contents of a clover.xml file
-	 * @return array|bool false on failure
+	 * @return array
 	 */
 	protected function parseClover( $contents ) {
 		$types = [ 'methods', 'conditionals', 'statements', 'elements' ];

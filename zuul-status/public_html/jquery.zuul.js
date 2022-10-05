@@ -46,7 +46,7 @@
                 obj.hash = '';
                 history.replaceState(null, '', obj.toString());
             } else {
-                path = history.replaceState(null, '', '#');
+                history.replaceState(null, '', '#');
             }
         }
     }
@@ -198,11 +198,11 @@
                     .attr('aria-valuemax', '100')
                     .css('width', progress_percent + '%');
 
-                var $bar_outter = $('<div />')
+                var $bar_outer = $('<div />')
                     .addClass('progress zuul-job-result')
                     .append($bar_inner);
 
-                return $bar_outter;
+                return $bar_outer;
             },
 
             enqueue_time: function(ms) {
@@ -255,7 +255,7 @@
 
             change_total_progress_bar: function(change) {
                 var job_percent = Math.floor(100 / change.jobs.length);
-                var $bar_outter = $('<div />')
+                var $bar_outer = $('<div />')
                     .addClass('progress zuul-change-total-result');
 
                 $.each(change.jobs, function (i, job) {
@@ -285,10 +285,10 @@
                         }
                         $bar_inner.attr('title', job.name)
                             .css('width', job_percent + '%');
-                        $bar_outter.append($bar_inner);
+                        $bar_outer.append($bar_inner);
                     }
                 });
-                return $bar_outter;
+                return $bar_outer;
             },
 
             change_header: function(change) {

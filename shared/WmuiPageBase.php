@@ -49,7 +49,6 @@ class WmuiPageBase extends Page {
 <main role="main"><div class="wm-container">
 <nav class="wm-site-nav"><ul class="wm-nav">
 <?php
-	$cur = $this->getUrlPath();
 	foreach ( $this->getNavItems() as $href => $text ) {
 		$isActive = $this->isNavActive( $href );
 		$subItems = $isActive ? $this->getSubnavItems() : [];

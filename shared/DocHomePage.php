@@ -68,7 +68,6 @@ class DocHomePage extends DocPage {
 	private function anchor( $title ) {
 		$title = trim( $title );
 		$title = strtolower( $title );
-		$title = preg_replace( '/[^a-z]+/', '-', $title );
-		return $title;
+		return preg_replace( '/[^a-z]+/', '-', $title );
 	}
 }

@@ -7,7 +7,7 @@
  * Inspired by MediaWiki maintenance/dev/includes/router.php
  */
 
-if ( PHP_SAPI != 'cli-server' ) {
+if ( PHP_SAPI !== 'cli-server' ) {
 	die( "This script can only be run by php's cli-server sapi." );
 }
 
@@ -56,9 +56,9 @@ if ( pathinfo( $published_file, PATHINFO_EXTENSION ) === 'php' ) {
 	// Execute .php file
 	// @phan-suppress-next-line SecurityCheck-PathTraversal
 	require_once $published_file;
-	return true;
 } else {
 	// Pass through the rest
 	readfile( $published_file );
-	return true;
 }
+
+return true;

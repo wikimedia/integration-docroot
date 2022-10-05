@@ -27,7 +27,7 @@ class StructureTest extends PHPUnit\Framework\TestCase {
 				);
 
 				$unknown = array_diff( array_keys( $project ), $knownKeys );
-				$this->assertEquals( $unknown, [], "Illegal keys for $title" );
+				$this->assertEquals( [], $unknown, "Illegal keys for $title" );
 			}
 		}
 	}

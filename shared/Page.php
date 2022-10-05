@@ -20,6 +20,7 @@ class Page {
 
 	/**
 	 * @param string $pageName
+	 * @return static
 	 */
 	public static function newFromPageName( $pageName ) {
 		$p = new static();
@@ -27,6 +28,9 @@ class Page {
 		return $p;
 	}
 
+	/**
+	 * @return static
+	 */
 	public static function newIndex() {
 		$p = new static();
 		$p->pageName = false;
@@ -36,6 +40,7 @@ class Page {
 	/**
 	 * @param string $pageName
 	 * @param int $flags
+	 * @return static
 	 */
 	public static function newDirIndex( $pageName, $flags = 0 ) {
 		$p = new static();
@@ -216,11 +221,9 @@ class Page {
 		}
 
 		$entries = $this->getDirIndexContents( $dir );
-		if ( $this->flags & self::INDEX_ALLOW_SKIP ) {
-			if ( count( $entries ) === 1 ) {
-				header( "Location: {$urlPath}" . basename( $entries[0] ) . '/' );
-				exit;
-			}
+		if ( ( $this->flags & self::INDEX_ALLOW_SKIP ) && count( $entries ) === 1 ) {
+			header( "Location: $urlPath" . basename( $entries[0] ) . '/' );
+			exit;
 		}
 
 		if ( count( $entries ) === 0 ) {
@@ -229,7 +232,7 @@ class Page {
 			$this->addHtmlContent( '<ul class="wm-nav">' );
 			foreach ( $entries as $path ) {
 				$name = basename( $path );
-				$this->addHtmlContent( '<li><a href="' . htmlspecialchars( "{$urlPath}{$name}" ) . '">'
+				$this->addHtmlContent( '<li><a href="' . htmlspecialchars( "$urlPath$name" ) . '">'
 					. htmlspecialchars( $name )
 					. '</a>'
 				);

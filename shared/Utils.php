@@ -45,7 +45,7 @@ class Utils {
 				// Promote from null to object
 				$dest = [];
 			}
-			list( $key, $val ) = explode( ':', $trimmed, 2 );
+			[ $key, $val ] = explode( ':', $trimmed, 2 );
 			$val = ltrim( $val, ' ' );
 			if ( $val !== '' ) {
 				// Add string
