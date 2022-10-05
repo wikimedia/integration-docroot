@@ -54,7 +54,7 @@ class CoveragePage extends DocPage {
 		$cloverFiles = glob( $this->coverageDir . '/*/clover.xml' );
 		$this->embedCSS( file_get_contents( __DIR__ . '/cover.css' ) );
 
-		$sort = isset( $_GET['sort'] ) ? (string)$_GET['sort'] : null;
+		$sortKey = isset( $_GET['sort'] ) ? (string)$_GET['sort'] : null;
 
 		$intro = <<<HTML
 <blockquote>
@@ -97,15 +97,23 @@ HTML;
 
 		$this->addHtmlContent( $breadcrumbs );
 
-		if ( $sort === 'cov' ) {
+		if ( $sortKey === 'cov' ) {
 			$sortNav = <<<HTML
 		<a role="button" class="wm-btn" href="./">Sort by name</a>
 		<a role="button" class="wm-btn wm-btn-active" href="./?sort=cov">Sort by coverage percentage</a>
+		<a role="button" class="wm-btn wm-btn-active" href="./?sort=mtime">Sort by modified time</a>
+HTML;
+		} elseif ( $sortKey === 'time' ) {
+			$sortNav = <<<HTML
+		<a role="button" class="wm-btn wm-btn-active" href="./">Sort by name</a>
+		<a role="button" class="wm-btn wm-btn-active" href="./?sort=cov">Sort by coverage percentage</a>
+		<a role="button" class="wm-btn" href="./?sort=mtime">Sort by modified time</a>
 HTML;
 		} else {
 			$sortNav = <<<HTML
 		<a role="button" class="wm-btn wm-btn-active" href="./">Sort by name</a>
 		<a role="button" class="wm-btn" href="./?sort=cov">Sort by coverage percentage</a>
+		<a role="button" class="wm-btn wm-btn-active" href="./?sort=mtime">Sort by modified time</a>
 HTML;
 		}
 
@@ -119,20 +127,23 @@ HTML;
 				// Race condition?
 				continue;
 			}
-			$clovers[$cloverFile] = $this->parseClover( $clover );
+			$clovers[$cloverFile] = $this->parseClover( $clover ) + [
+				'mtime' => stat( $cloverFile )['mtime'],
+			];
 		}
-		if ( isset( $_GET['sort'] ) && $_GET['sort'] === 'cov' ) {
-			// Order by coverage, ascending
-			uasort( $clovers, static function ( $a, $b ) {
-				if ( $a['percent'] === $b['percent'] ) {
+		if ( $sortKey !== null && in_array( $sortKey, [ 'cov', 'mtime' ] ) ) {
+			uasort( $clovers, static function ( $a, $b ) use ( $sortKey ) {
+				if ( $a[$sortKey] === $b[$sortKey] ) {
 					return 0;
 				}
-				return ( $a['percent'] < $b['percent'] ) ? -1 : 1;
+
+				return ( $a[$sortKey] < $b[$sortKey] ) ? -1 : 1;
 			} );
 		}
+
 		foreach ( $clovers as $cloverFile => $info ) {
 			$dirName = htmlspecialchars( basename( dirname( $cloverFile ) ) );
-			$modifiedTime = date( DateTimeInterface::ATOM, stat( $cloverFile )['mtime'] );
+			$modifiedTime = date( DateTimeInterface::ATOM, $info['mtime'] );
 			$percent = (string)round( $info['percent'] );
 
 			$lowThreshold = self::COVERAGE_LOW;
