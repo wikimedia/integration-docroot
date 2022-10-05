@@ -74,6 +74,7 @@ class WmuiPageBase extends Page {
 ?></article>
 </div></main>
 <footer role="contentinfo"><div class="wm-container">
+	<p class="wm-modified">Modified: <?php echo date( DateTimeInterface::ATOM ); ?> </p>
 	<nav role="navigation"><ul>
 <?php
 	foreach ( $this->getFooterItems() as $href => $text ) {

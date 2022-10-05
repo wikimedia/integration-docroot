@@ -254,6 +254,6 @@ footer nav li a {
   }
 }
 
-.wm-link--powered {
+.wm-link--powered, .wm-modified {
   text-transform: uppercase;
 }
