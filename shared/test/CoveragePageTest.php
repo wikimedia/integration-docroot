@@ -37,34 +37,12 @@ class CoveragePageTest extends PHPUnit\Framework\TestCase {
 		$page = CoveragePage::newFromPageName( 'Example' );
 
 		if ( $expected === false ) {
-			$this->setExpectedException( Exception::class );
+			$this->expectException( Exception::class );
 		}
 
 		$this->assertSame(
 			$expected,
 			$method->invokeArgs( $page, [ $input ] )
 		);
-	}
-
-	/**
-	 * @see PHPUnit\Framework\TestCase::setExpectedException
-	 *
-	 * Compatibility with PHPUnit 4 and PHPUnit 6,
-	 * which renamed setExpectedException() to expectException().
-	 */
-	public function setExpectedException( $name, $message = '', $code = null ) {
-		if ( is_callable( [ $this, 'expectException' ] ) ) {
-			if ( $name !== null ) {
-				$this->expectException( $name );
-			}
-			if ( $message !== '' ) {
-				$this->expectExceptionMessage( $message );
-			}
-			if ( $code !== null ) {
-				$this->expectExceptionCode( $code );
-			}
-		} else {
-			parent::setExpectedException( $name, $message, $code );
-		}
 	}
 }
