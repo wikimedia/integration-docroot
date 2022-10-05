@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @covers Page
+ */
 class PageTest extends PHPUnit\Framework\TestCase {
 	private $scriptName;
 

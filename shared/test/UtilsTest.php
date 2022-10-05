@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @covers Utils
+ */
 class UtilsTest extends PHPUnit\Framework\TestCase {
 	public function testParseRmsYaml() {
 		$this->assertSame(

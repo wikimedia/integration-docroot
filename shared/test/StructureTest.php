@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @covers nothing
+ */
 class StructureTest extends PHPUnit\Framework\TestCase {
 	public function testOpensourceYaml() {
 		$data = Utils::parseRmsYaml(
