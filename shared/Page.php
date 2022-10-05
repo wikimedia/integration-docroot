@@ -1,17 +1,14 @@
 <?php
 
-// Ignore this for now whilst we hackisly maintain PHP 7.0 compat. T247653
-// phpcs:disable PSR12.Properties.ConstantVisibility.NotFound
-
 class Page {
 	/** If the directory only has one subdirectory, redirect to it. */
-	const INDEX_ALLOW_SKIP = 1;
+	public const INDEX_ALLOW_SKIP = 1;
 
 	/** Append the directory name to the page name. */
-	const INDEX_PREFIX = 2;
+	public const INDEX_PREFIX = 2;
 
 	/** Append the parent directory to the page name (if INDEX_PREFIX is on). */
-	const INDEX_PARENT_PREFIX = 4;
+	public const INDEX_PARENT_PREFIX = 4;
 
 	protected $site = 'Wikimedia';
 	protected $pageName = false;

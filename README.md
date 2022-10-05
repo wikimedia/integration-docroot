@@ -19,7 +19,7 @@ The Zuul status page can be tested with sample data sets available in
 
 Start the server with `composer start:doc`, and view <http://localhost:4000>.
 
-The production service for this uses PHP 7.0.
+The production service for this uses PHP 7.3.
 
 See also <https://wikitech.wikimedia.org/wiki/Doc.wikimedia.org>.
 

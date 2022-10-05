@@ -18,9 +18,6 @@
  *
  */
 
-// Ignore this for now whilst we hackishly maintain PHP 7.0 compat. T247653
-// phpcs:disable PSR12.Properties.ConstantVisibility.NotFound
-
 /**
  * Show a dashboard of code coverage results on the main index page
  */
@@ -31,8 +28,8 @@ class CoveragePage extends DocPage {
 	/**
 	 * Defaults from phpunit/src/Util/Configuration.php
 	 */
-	const COVERAGE_LOW = 50;
-	const COVERAGE_HIGH = 90;
+	private const COVERAGE_LOW = 50;
+	private const COVERAGE_HIGH = 90;
 
 	/**
 	 * @param string $path Path relative to WMF_DOC_PATH env variable
