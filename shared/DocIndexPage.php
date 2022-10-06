@@ -16,6 +16,7 @@ class DocIndexPage extends DocPage {
 		$exclude = [
 			'cover',
 			'cover-extensions',
+			'cover-skins',
 			'index',
 			'lib',
 		];
