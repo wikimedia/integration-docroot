@@ -54,7 +54,8 @@ class CoveragePage extends DocPage {
 		$cloverFiles = glob( $this->coverageDir . '/*/clover.xml' );
 		$this->embedCSS( file_get_contents( __DIR__ . '/cover.css' ) );
 
-		$sortKey = isset( $_GET['sort'] ) ? (string)$_GET['sort'] : null;
+		$sortParam = isset( $_GET['sort'] ) ? (string)$_GET['sort'] : null;
+		$sortKey = null;
 
 		$intro = <<<HTML
 <blockquote>
@@ -97,23 +98,25 @@ HTML;
 
 		$this->addHtmlContent( $breadcrumbs );
 
-		if ( $sortKey === 'cov' ) {
+		if ( $sortParam === 'cov' ) {
 			$sortNav = <<<HTML
 		<a role="button" class="wm-btn" href="./">Sort by name</a>
 		<a role="button" class="wm-btn wm-btn-active" href="./?sort=cov">Sort by coverage percentage</a>
-		<a role="button" class="wm-btn wm-btn-active" href="./?sort=mtime">Sort by modified time</a>
-HTML;
-		} elseif ( $sortKey === 'time' ) {
-			$sortNav = <<<HTML
-		<a role="button" class="wm-btn wm-btn-active" href="./">Sort by name</a>
-		<a role="button" class="wm-btn wm-btn-active" href="./?sort=cov">Sort by coverage percentage</a>
 		<a role="button" class="wm-btn" href="./?sort=mtime">Sort by modified time</a>
 HTML;
+			$sortKey = 'percent';
+		} elseif ( $sortParam === 'mtime' ) {
+			$sortNav = <<<HTML
+		<a role="button" class="wm-btn" href="./">Sort by name</a>
+		<a role="button" class="wm-btn" href="./?sort=cov">Sort by coverage percentage</a>
+		<a role="button" class="wm-btn wm-btn-active" href="./?sort=mtime">Sort by modified time</a>
+HTML;
+			$sortKey = 'mtime';
 		} else {
 			$sortNav = <<<HTML
 		<a role="button" class="wm-btn wm-btn-active" href="./">Sort by name</a>
 		<a role="button" class="wm-btn" href="./?sort=cov">Sort by coverage percentage</a>
-		<a role="button" class="wm-btn wm-btn-active" href="./?sort=mtime">Sort by modified time</a>
+		<a role="button" class="wm-btn" href="./?sort=mtime">Sort by modified time</a>
 HTML;
 		}
 
@@ -131,7 +134,7 @@ HTML;
 				'mtime' => stat( $cloverFile )['mtime'],
 			];
 		}
-		if ( $sortKey !== null && in_array( $sortKey, [ 'cov', 'mtime' ] ) ) {
+		if ( $sortKey !== null ) {
 			uasort( $clovers, static function ( $a, $b ) use ( $sortKey ) {
 				if ( $a[$sortKey] === $b[$sortKey] ) {
 					return 0;
