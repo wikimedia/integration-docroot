@@ -1,12 +1,11 @@
 /shared/lib
-/zuul-status/public_html
+/org/wikimedia/integration/zuul/jquery-visibility.js
+/org/wikimedia/integration/zuul/jquery.zuul.js
+/org/wikimedia/integration/zuul/zuul.app.js
 
 # symlinks
 /org/wikimedia/integration/lib
 /org/wikimedia/doc/lib
-/org/wikimedia/integration/zuul/jquery-visibility.js
-/org/wikimedia/integration/zuul/jquery.zuul.js
-/org/wikimedia/integration/zuul/zuul.app.js
 
 # artefacts
 /org/wikimedia/doc/
