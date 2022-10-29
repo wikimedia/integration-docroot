@@ -15,42 +15,13 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-/* global zuul_start */
+/* global zuul_build_dom, zuul_start */
 ( function () {
-
-	/**
-	 * Call this instead of the default zuul_build_dom().
-	 *
-	 * Differences:
-	 *
-	 * - Strip h1 - our Page template has one already.
-	 * - Strip div.container - our Page template has one already.
-	 *   Adding another would make the page narrower due to double
-	 *   padding.
-	 *
-	 * @param {HTMLElement} container
-	 */
-	function prepareZuulDom( container ) {
-		var defaultLayout = '<div class="zuul-container" id="zuul-container">' +
-			'<div style="display: none;" class="alert" id="zuul_msg"></div>' +
-			'<button class="btn btn-default pull-right zuul-spinner">updating <span class="glyphicon glyphicon-refresh"></span></button>' +
-			'<p>Queue lengths: <span id="zuul_queue_events_num">0</span> events, <span id="zuul_queue_results_num">0</span> results.</p>' +
-			'<div id="zuul_controls"></div>' +
-			'<div id="zuul_pipelines" class="row"></div>' +
-			'<p>Zuul version: <span id="zuul-version-span"></span></p>' +
-			'<p>Last reconfigured: <span id="last-reconfigured-span"></span></p>' +
-			'</div>';
-
-		$( function () {
-			$( container ).html( defaultLayout );
-		} );
-	}
 
 	// Enable cache buster query string
 	// https://phabricator.wikimedia.org/T94796
 	$.ajaxSetup( { cache: false } );
 
-	prepareZuulDom( '#zuul_wrapper' );
-	zuul_start( $ );
-
+	zuul_build_dom( '#zuul_wrapper' );
+	zuul_start();
 }() );

@@ -1,7 +1,16 @@
 {
 	"root": true,
 	"extends": [
-		"wikimedia/client",
+		"wikimedia/client-es6",
 		"wikimedia/jquery"
-	]
+	],
+	"rules": {
+		"camelcase": "off",
+		"jsdoc/check-types": "off",
+		"no-jquery/no-parse-html-literal": "off",
+		"no-jquery/no-animate-toggle": "off",
+		"no-implicit-globals": "off",
+		"no-jquery/no-global-selector": "off",
+		"no-underscore-dangle": "off"
+	}
 }
