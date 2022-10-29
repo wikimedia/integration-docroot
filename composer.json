@@ -9,14 +9,13 @@
 		"php-parallel-lint/php-parallel-lint": "1.3.2",
 		"phpunit/phpunit": "^9.5"
 	},
-	"config": {
-		"process-timeout": 0
-	},
 	"scripts": {
 		"start:doc": [
+			"Composer\\Config::disableProcessTimeout",
 			"WMF_DOC_PATH=$PWD/dev/wmf_doc_path php -d variables_order=EGPCS -S localhost:4000 -t org/wikimedia/doc dev/router.php"
 		],
 		"start:integration": [
+			"Composer\\Config::disableProcessTimeout",
 			"WMF_DOC_PATH=$PWD/dev/wmf_doc_path php -d variables_order=EGPCS -S localhost:4001 -t org/wikimedia/integration dev/router.php"
 		],
 		"test": [
