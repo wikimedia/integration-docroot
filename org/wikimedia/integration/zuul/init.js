@@ -18,10 +18,6 @@
 /* global zuul_build_dom, zuul_start */
 ( function () {
 
-	// Enable cache buster query string
-	// https://phabricator.wikimedia.org/T94796
-	$.ajaxSetup( { cache: false } );
-
 	zuul_build_dom( '#zuul_wrapper' );
 	zuul_start();
 }() );

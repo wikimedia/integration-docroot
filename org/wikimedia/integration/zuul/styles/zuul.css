@@ -24,6 +24,13 @@
     opacity: 1;
 }
 
+.zuul-filter-input {
+    min-width: 20em;
+}
+.zuul-filter-clear {
+    cursor: pointer;
+}
+
 .zuul-pipelines {
     margin: 0 -15px;
 }
@@ -86,7 +93,7 @@ table.zuul-change-box {
 .zuul-patchset-header {
     background: var( --wmui-color-base90 );
     border-bottom: 1px solid var( --wmui-color-base80 );
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     padding: 6px 8px;
 
     /* two columns: left (name+sub) and right (ETA) */
@@ -107,22 +114,35 @@ table.zuul-change-box {
 .zuul-patchset-sub {
     display: flex;
     gap: 5px;
+    font-size: 1rem;
 }
 .zuul-patchset-change {
     flex-grow: 0;
-    font-size: 1rem;
 }
 .zuul-patchset-progress {
     flex-grow: 1;
 }
 
 .change_project {
-    word-break: break-word;
+    word-break: break-all;
+}
+
+.zuul-change-job {
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 2px 2px 8px;
+    border-bottom: 1px solid var( --wmui-color-base90 );
+    margin-bottom: -1px;
+    line-height: 1.4;
+    font-size: 1.2rem;
+}
+.zuul-change-job:last-child {
+    border-bottom: 0;
 }
 
 .zuul-job-result {
     box-sizing: border-box;
-    float: right;
+    flex-shrink: 0;
     width: 70px;
     height: 20px;
     margin: 0 0 0 2px;
@@ -184,16 +204,26 @@ table.zuul-change-box {
 
     animation: zuul-progressbar-stripes 1s linear infinite;
 }
-.zuul-progressbar--success {
+.zuul-progressbar[data-result="success"],
+.zuul-job-result--label[data-result="success"] {
     background: #3f9c35;
 }
-.zuul-progressbar--warning {
+.zuul-progressbar[data-result="aborted"],
+.zuul-progressbar[data-result="canceled"],
+.zuul-progressbar[data-result="lost"]
+.zuul-progressbar[data-result="skipped"],
+.zuul-job-result--label[data-result="aborted"],
+.zuul-job-result--label[data-result="canceled"],
+.zuul-job-result--label[data-result="lost"]
+.zuul-job-result--label[data-result="skipped"] {
     background: #ec7a08;
 }
-.zuul-progressbar--error {
+.zuul-progressbar[data-result="failure"],
+.zuul-progressbar[data-result="unstable"],
+.zuul-job-result--label[data-result="failure"],
+.zuul-job-result--label[data-result="unstable"] {
     background: #c00;
 }
-
 
 .zuul-queue-line {
     vertical-align: top;
@@ -252,21 +282,10 @@ table.zuul-change-box {
     max-width: 100px;
     margin: 0;
     display: inline-block;
+    vertical-align: middle;
  }
 
 .zuul-patchset-body {
     margin: 0;
     padding: 0;
-}
-
-.zuul-change-job {
-    display: block; /* override list-item */
-    padding: 2px 2px 2px 8px;
-    border-bottom: 1px solid var( --wmui-color-base90 );
-    margin-bottom: -1px;
-    line-height: 1.4;
-    font-size: 1.2rem;
-}
-.zuul-change-job:last-child {
-    border-bottom: 0;
 }

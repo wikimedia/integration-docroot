@@ -1,8 +1,5 @@
 /shared/lib
-/org/wikimedia/integration/zuul/jquery-visibility.js
-/org/wikimedia/integration/zuul/jquery.zuul.js
 /org/wikimedia/integration/zuul/status-*-sample.json
-/org/wikimedia/integration/zuul/zuul.app.js
 
 # symlinks
 /org/wikimedia/integration/lib

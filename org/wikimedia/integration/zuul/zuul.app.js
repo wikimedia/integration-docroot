@@ -78,8 +78,6 @@ function zuul_start() {
 		$( '#zuul_controls' ).append( zuul.app.control_form() );
 
 		zuul.app.schedule();
-		// zuul.app.update();
-		// zuul.options.enabled = false;
 
 		$( document ).on( {
 			visibilitychange: function () {

@@ -11,6 +11,7 @@
 		"no-jquery/no-animate-toggle": "off",
 		"no-jquery/no-global-selector": "off",
 		"no-jquery/no-parse-html-literal": "off",
-		"no-underscore-dangle": "off"
+		"no-underscore-dangle": "off",
+		"operator-linebreak": "off"
 	}
 }
