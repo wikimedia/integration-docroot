@@ -70,6 +70,7 @@
 
 	$.zuul = function ( options ) {
 		options = $.extend( {
+			demo: false,
 			enabled: true,
 			source: 'status.json',
 			msg_id: '#zuul_msg',
@@ -105,7 +106,14 @@
 					);
 				}
 
-				$job_line.append( this.job_status( job ) );
+				const result = job.result ? job.result.toLowerCase() : ( job.url ? 'in progress' : 'queued' );
+				if ( result === 'in progress' ) {
+					$job_line.append(
+						this.job_progress_bar( job.elapsed_time, job.remaining_time )
+					);
+				} else {
+					$job_line.append( this.status_label( result ) );
+				}
 
 				if ( job.voting === false ) {
 					$job_line.append(
@@ -119,59 +127,51 @@
 				return $job_line;
 			},
 
-			job_status: function ( job ) {
-				let result = job.result ? job.result.toLowerCase() : null;
-				if ( result === null ) {
-					result = job.url ? 'in progress' : 'queued';
-				}
-
-				if ( result === 'in progress' ) {
-					return this.job_progress_bar( job.elapsed_time,
-						job.remaining_time );
-				} else {
-					return this.status_label( result );
-				}
-			},
-
 			status_label: function ( result ) {
-				const $status = $( '<span>' );
-				$status.addClass( 'zuul-job-result label' );
+				const $status = $( '<span>' )
+					.addClass( 'zuul-job-result zuul-job-result--label' )
+					.text( result );
 
 				switch ( result ) {
 					case 'success':
-						$status.addClass( 'label-success' );
+						$status.addClass( 'zuul-progressbar--success' );
 						break;
 					case 'failure':
-						$status.addClass( 'label-danger' );
-						break;
 					case 'unstable':
-						$status.addClass( 'label-warning' );
+						$status.addClass( 'zuul-progressbar--error' );
 						break;
 					case 'skipped':
-						$status.addClass( 'label-info' );
+					case 'lost':
+					case 'aborted':
+					case 'canceled':
+						$status.addClass( 'zuul-progressbar--warning' );
 						break;
-						// 'in progress' 'queued' 'lost' 'aborted' ...
-					default:
-						$status.addClass( 'label-default' );
 				}
-				$status.text( result );
 				return $status;
 			},
 
 			job_progress_bar: function ( elapsed_time, remaining_time ) {
-				const progress_percent = 100 * ( elapsed_time / ( elapsed_time +
-                                                              remaining_time ) );
+				let progress_percent = 100 * ( elapsed_time / ( elapsed_time +
+                  remaining_time ) );
+				let progress_width = progress_percent;
+
+				const progress_class = [ 'zuul-progressbar' ];
+				if ( !progress_percent ) {
+					progress_percent = 0;
+					progress_width = 100;
+					progress_class.push( 'zuul-progressbar--animated' );
+				}
+
 				const $bar_inner = $( '<div>' )
-					.addClass( 'progress-bar' )
+					.addClass( progress_class )
 					.attr( 'role', 'progressbar' )
-					.attr( 'aria-valuenow', 'progressbar' )
-					.attr( 'aria-valuemin', progress_percent )
+					.attr( 'aria-valuenow', progress_percent )
 					.attr( 'aria-valuemin', '0' )
 					.attr( 'aria-valuemax', '100' )
-					.css( 'width', progress_percent + '%' );
+					.css( 'width', progress_width + '%' );
 
 				const $bar_outer = $( '<div>' )
-					.addClass( 'progress zuul-job-result' )
+					.addClass( 'zuul-job-result zuul-job-result--progress' )
 					.append( $bar_inner );
 
 				return $bar_outer;
@@ -180,20 +180,22 @@
 			enqueue_time: function ( ms ) {
 				// Special format case for enqueue time to add style
 				const hours = 60 * 60 * 1000;
-				const now = Date.now();
-				const delta = now - ms;
-				let status = 'text-success';
+				const delta = options.demo ?
+					// In demo mode, assume jobs started 0min-5h ago
+					( Math.floor( Math.random() * 5 * 60 ) * 60 * 1000 ) :
+					Date.now() - ms;
+				let status = '';
 				const text = this.time( delta, true );
 				if ( delta > ( 4 * hours ) ) {
-					status = 'text-danger';
+					status = 'wm-text-error';
 				} else if ( delta > ( 2 * hours ) ) {
-					status = 'text-warning';
+					status = 'wm-text-warning';
 				}
 				return '<span class="' + status + '">' + text + '</span>';
 			},
 
 			time: function ( ms, words ) {
-				if ( typeof ( words ) === 'undefined' ) {
+				if ( typeof words === 'undefined' ) {
 					words = false;
 				}
 				let seconds = ( +ms ) / 1000;
@@ -228,7 +230,7 @@
 			change_total_progress_bar: function ( change ) {
 				const job_percent = Math.floor( 100 / change.jobs.length );
 				const $bar_outer = $( '<div>' )
-					.addClass( 'progress zuul-change-total-result' );
+					.addClass( 'zuul-job-result--progress zuul-change-total-result' );
 
 				// eslint-disable-next-line no-jquery/no-each-util
 				$.each( change.jobs, function ( i, job ) {
@@ -239,24 +241,25 @@
 
 					if ( result !== 'queued' ) {
 						const $bar_inner = $( '<div>' )
-							.addClass( 'progress-bar' );
+							.addClass( 'zuul-progressbar' );
 
 						switch ( result ) {
 							case 'success':
-								$bar_inner.addClass( 'progress-bar-success' );
+								$bar_inner.addClass( 'zuul-progressbar--success' );
 								break;
 							case 'lost':
 							case 'failure':
-								$bar_inner.addClass( 'progress-bar-danger' );
+								$bar_inner.addClass( 'zuul-progressbar--error' );
 								break;
 							case 'unstable':
-								$bar_inner.addClass( 'progress-bar-warning' );
+								$bar_inner.addClass( 'zuul-progressbar--warning' );
 								break;
 							case 'in progress':
 							case 'queued':
 								break;
 						}
-						$bar_inner.attr( 'title', job.name )
+						$bar_inner
+							.attr( 'title', job.name )
 							.css( 'width', job_percent + '%' );
 						$bar_outer.append( $bar_inner );
 					}
@@ -270,35 +273,31 @@
 					change_id = change_id.substr( 0, 7 );
 				}
 
-				const $change_link = $( '<small>' );
+				let $change_link;
 				if ( change.url !== null ) {
 					if ( /^[0-9a-f]{40}$/.test( change.id ) ) {
 						const change_id_short = change.id.slice( 0, 7 );
-						$change_link.append(
-							$( '<a>' ).attr( 'href', change.url ).append(
-								$( '<abbr>' )
-									.attr( 'title', change.id )
-									.text( change_id_short )
-							)
+						$change_link = $( '<a>' ).attr( 'href', change.url ).append(
+							$( '<abbr>' )
+								.attr( 'title', change.id )
+								.text( change_id_short )
 						);
 					} else {
-						$change_link.append(
-							$( '<a>' ).attr( 'href', change.url ).text( change.id )
-						);
+						$change_link = $( '<a>' ).attr( 'href', change.url ).text( change.id );
 					}
 				} else {
-					$change_link.text( change_id );
+					$change_link = $( '<span>' ).text( change_id );
 				}
 
 				const $change_progress_row_left = $( '<div>' )
-					.addClass( 'col-xs-4' )
+					.addClass( 'zuul-patchset-change' )
 					.append( $change_link );
 				const $change_progress_row_right = $( '<div>' )
-					.addClass( 'col-xs-8' )
+					.addClass( 'zuul-patchset-progress' )
 					.append( this.change_total_progress_bar( change ) );
 
 				const $change_progress_row = $( '<div>' )
-					.addClass( 'row' )
+					.addClass( 'zuul-patchset-sub' )
 					.append( $change_progress_row_left )
 					.append( $change_progress_row_right );
 
@@ -307,38 +306,31 @@
 					.text( change.project );
 
 				const $left = $( '<div>' )
-					.addClass( 'col-xs-8' )
+					.addClass( 'zuul-patchset-header-left' )
 					.append( $project_span, $change_progress_row );
-
-				const remaining_time = this.time(
-					change.remaining_time, true );
-				const enqueue_time = this.enqueue_time(
-					change.enqueue_time );
-				const $remaining_time = $( '<small>' ).addClass( 'time' )
-					.attr( 'title', 'Remaining Time' ).html( remaining_time );
-				const $enqueue_time = $( '<small>' ).addClass( 'time' )
-					.attr( 'title', 'Elapsed Time' ).html( enqueue_time );
 
 				const $right = $( '<div>' );
 				if ( change.live === true ) {
-					$right.addClass( 'col-xs-4 text-right' )
+					const remaining_time = this.time( change.remaining_time, true );
+					const enqueue_time = this.enqueue_time( change.enqueue_time );
+					const $remaining_time = $( '<span>' )
+						.attr( 'title', 'Remaining Time' ).html( 'ETA: ' + remaining_time );
+					const $enqueue_time = $( '<span>' )
+						.attr( 'title', 'Elapsed Time' ).html( 'Elapsed: ' + enqueue_time );
+					$right.addClass( 'zuul-patchset-eta' )
 						.append( $remaining_time, $( '<br>' ), $enqueue_time );
 				}
 
-				const $header = $( '<div>' )
-					.addClass( 'row' )
-					.append( $left, $right );
-				return $header;
+				return $left.add( $right );
 			},
 
 			change_list: function ( jobs ) {
 				const $list = $( '<ul>' )
-					.addClass( 'list-group zuul-patchset-body' );
+					.addClass( 'zuul-patchset-body' );
 
 				// eslint-disable-next-line no-jquery/no-each-util
 				$.each( jobs, function ( i, job ) {
 					const $item = $( '<li>' )
-						.addClass( 'list-group-item' )
 						.addClass( 'zuul-change-job' )
 						.append( format.job( job ) );
 					$list.append( $item );
@@ -349,7 +341,7 @@
 
 			change_panel: function ( change ) {
 				const $header = $( '<div>' )
-					.addClass( 'panel-heading zuul-patchset-header' )
+					.addClass( 'zuul-patchset-header' )
 					.append( this.change_header( change ) );
 
 				const panel_id = change.id ? change.id.replace( ',', '_' ) :
@@ -357,7 +349,7 @@
                                            '-' + change.enqueue_time;
 				const $panel = $( '<div>' )
 					.attr( 'id', panel_id )
-					.addClass( 'panel panel-default zuul-change' )
+					.addClass( 'zuul-change' )
 					.append( $header )
 					.append( this.change_list( change.jobs ) );
 
@@ -366,35 +358,26 @@
 			},
 
 			change_status_icon: function ( change ) {
-				let icon_name = 'green.png';
+				let icon_class = 'zuul-queue-icon--success';
 				let icon_title = 'Succeeding';
 
 				if ( change.active !== true ) {
-					// Grey icon
-					icon_name = 'grey.png';
+					icon_class = 'zuul-queue-icon--waiting';
 					icon_title = 'Waiting until closer to head of queue to' +
                         ' start jobs';
 				} else if ( change.live !== true ) {
-					// Grey icon
-					icon_name = 'grey.png';
+					icon_class = 'zuul-queue-icon--waiting';
 					icon_title = 'Dependent change required for testing';
 				} else if ( change.failing_reasons &&
                          change.failing_reasons.length > 0 ) {
 					const reason = change.failing_reasons.join( ', ' );
 					icon_title = 'Failing because ' + reason;
-					if ( reason.match( /merge conflict/ ) ) {
-						// Black icon
-						icon_name = 'black.png';
-					} else {
-						// Red icon
-						icon_name = 'red.png';
-					}
+					icon_class = 'zuul-queue-icon--error';
 				}
 
-				const $icon = $( '<img>' )
-					.attr( 'src', 'images/' + icon_name )
-					.attr( 'title', icon_title )
-					.css( 'margin-top', '-6px' );
+				const $icon = $( '<span>' )
+					.addClass( [ 'zuul-queue-icon', icon_class ] )
+					.attr( 'title', icon_title );
 
 				return $icon;
 			},
@@ -404,18 +387,10 @@
 
 				for ( let i = 0; i < change_queue._tree_columns; i++ ) {
 					const $tree_cell = $( '<td>' )
-						.css( 'height', '100%' )
-						.css( 'padding', '0 0 10px 0' )
-						.css( 'margin', '0' )
-						.css( 'width', '16px' )
-						.css( 'min-width', '16px' )
-						.css( 'overflow', 'hidden' )
-						.css( 'vertical-align', 'top' );
+						.addClass( 'zuul-queue-line' );
 
 					if ( i < change._tree.length && change._tree[ i ] !== null ) {
-						$tree_cell.css( 'background-image',
-							'url(\'images/line.png\')' )
-							.css( 'background-repeat', 'repeat-y' );
+						$tree_cell.addClass( 'zuul-queue-line--solid' );
 					}
 
 					if ( i === change._tree_index ) {
@@ -423,15 +398,14 @@
 							this.change_status_icon( change ) );
 					}
 					if ( change._tree_branches.indexOf( i ) !== -1 ) {
-						const $image = $( '<img>' )
-							.css( 'vertical-align', 'baseline' );
+						const $image = $( '<span>' );
 						if ( change._tree_branches.indexOf( i ) ===
                             change._tree_branches.length - 1 ) {
 							// Angle line
-							$image.attr( 'src', 'images/line-angle.png' );
+							$image.addClass( 'zuul-queue-angle' );
 						} else {
 							// T line
-							$image.attr( 'src', 'images/line-t.png' );
+							$image.addClass( 'zuul-queue-tee' );
 						}
 						$tree_cell.append( $image );
 					}
@@ -448,7 +422,6 @@
 
 				const $change_table = $( '<table>' )
 					.addClass( 'zuul-change-box' )
-					.css( 'box-sizing', 'content-box' )
 					.append( $change_row );
 
 				return $change_table;
@@ -460,36 +433,32 @@
 					.addClass( 'zuul-pipeline-header' );
 
 				const $heading = $( '<h3>' )
-					.css( 'vertical-align', 'middle' )
 					.text( pipeline.name )
 					.append(
+						' ',
 						$( '<span>' )
-							.addClass( 'badge pull-right' )
-							.css( 'vertical-align', 'middle' )
-							.css( 'margin-top', '0.5em' )
+							.addClass( 'zuul-badge zuul-pipeline-count' )
 							.text( count )
 					);
 
 				$header_div.append( $heading );
 
 				if ( typeof pipeline.description === 'string' ) {
-					const $descr = $( '<small>' );
 					// eslint-disable-next-line no-jquery/no-each-util
 					$.each( pipeline.description.split( /\r?\n\r?\n/ ), function ( index, descr_part ) {
-						$descr.append( $( '<p>' ).text( descr_part ) );
+						$header_div.append(
+							$( '<p class="zuul-pipeline-desc">' ).text( descr_part )
+						);
 					} );
-					$header_div.append(
-						$( '<p>' ).append( $descr )
-					);
 				}
 				return $header_div;
 			},
 
 			pipeline: function ( pipeline, count ) {
 				const $html = $( '<div>' )
-				// WMF(Aug 2019): Hide pipelines without matches when filtering.
+					// WMF(Aug 2019): Hide pipelines without matches when filtering.
 					.data( 'change_ids', new Set() )
-					.addClass( 'zuul-pipeline col-md-4' )
+					.addClass( 'zuul-pipeline' )
 					.append( this.pipeline_header( pipeline, count ) );
 
 				// eslint-disable-next-line no-jquery/no-each-util
@@ -506,6 +475,7 @@
 								}
 								$html.append(
 									$( '<p>' )
+										.addClass( 'zuul-queue-desc' )
 										.text( 'Queue: ' )
 										.append(
 											$( '<abbr>' )
@@ -647,8 +617,7 @@
 				xhr = $.getJSON( options.source )
 					.done( function ( data ) {
 						if ( 'message' in data ) {
-							$msg.removeClass( 'alert-danger' )
-								.addClass( 'alert-info' )
+							$msg.removeClass( 'wm-alert-error' )
 								.text( data.message )
 								.show();
 						} else {
@@ -690,7 +659,7 @@
 							return;
 						}
 						$msg.text( options.source + ': ' + errMsg )
-							.addClass( 'alert-danger' )
+							.addClass( 'wm-alert-error' )
 							.removeClass( 'zuul-msg-wrap-off' )
 							.show();
 					} )
@@ -715,33 +684,24 @@
 				return this;
 			},
 
+			// Build the filter form filling anything from cookies
 			control_form: function () {
-				// Build the filter form filling anything from cookies
-
 				const $control_form = $( '<form>' )
-					.attr( 'role', 'form' )
-					.addClass( 'form-inline' );
+					.attr( 'role', 'form' );
 
-				$control_form
-					.append( this.filter_form_group() )
-					.append( ' ' )
-					.append( this.expand_form_group() );
-
-				return $control_form;
-			},
-
-			filter_form_group: function () {
 				const $label = $( '<label>' )
-					.addClass( 'control-label' )
 					.attr( 'for', 'filter_string' )
-					.text( 'Filter' );
+					.text( 'Filter:' );
+
+				const $input_group = $( '<span>' )
+					.addClass( 'wm-input-group--aside' );
 
 				// WMF(April 2019): Add 'placeholder' to Filter input.
 				// WMF(April 2019): Improve 'title' text for Filter input.
 				const $input = $( '<input>' ).prop( {
 					type: 'text',
 					id: 'filter_string',
-					className: 'form-control',
+					className: 'wm-input-text',
 					title: 'Any partial match for a gerrit change number, repo name, or pipeline. Multiple terms may be comma-separated.',
 					placeholder: 'e.g. 1234 or mediawiki…   [ / ]',
 					value: current_filter
@@ -754,14 +714,13 @@
 
 				// Update the filter form with a clear button if required
 				const $clear_icon = $( '<span>' )
-					.addClass( 'form-control-feedback' )
-					.addClass( 'glyphicon glyphicon-remove-circle' )
+					.addClass( 'wm-input-icon--clear' )
 					.attr( 'id', 'filter_form_clear_box' )
-					.attr( 'title', 'clear filter' )
+					.attr( 'title', 'Clear filter' )
 					.css( 'cursor', 'pointer' );
 
 				$clear_icon.on( 'click', function () {
-					$input.val( '' );
+					$input.val( '' ).trigger( 'focus' );
 					app.handle_filter_change();
 				} );
 
@@ -769,10 +728,14 @@
 					$clear_icon.hide();
 				}
 
-				const $form_group = $( '<div>' )
-					.addClass( 'form-group has-feedback' )
-					.append( $label, ' ', $input, ' ', $clear_icon );
-				return $form_group;
+				$control_form.append(
+					$label,
+					' ',
+					$input_group.append( $input, $clear_icon ),
+					' ',
+					this.expand_form_group()
+				);
+				return $control_form;
 			},
 
 			expand_form_group: function () {
@@ -790,10 +753,7 @@
 					.text( ' Expand by default' )
 					.prepend( $checkbox );
 
-				const $form_group = $( '<div>' )
-					.addClass( 'checkbox' )
-					.append( $label );
-				return $form_group;
+				return $label;
 			},
 
 			// WMF(April 2019): Expose this for zuul.app.js to focus
@@ -883,7 +843,7 @@
 							}
 							change._tree_branches = [];
 							change._tree = [];
-							if ( typeof ( change.items_behind ) === 'undefined' ) {
+							if ( typeof change.items_behind === 'undefined' ) {
 								change.items_behind = [];
 							}
 							change.items_behind.sort( function ( a, b ) {

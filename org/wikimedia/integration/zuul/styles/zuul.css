@@ -1,63 +1,272 @@
+.wm-container {
+    /* enable full width on zuul status page */
+    max-width: initial;
+}
+
+.zuul-badge {
+    padding: 0 .5rem;
+    line-height: 2rem;
+    text-align: center;
+    border: 1px solid var( --wmui-color-base80 );
+    border-radius: var( --border-radius-base );
+    background: var( --wmui-color-base90 );
+    color: var( --wmui-color-base20 );
+    font-size: 1rem;
+}
+
+.zuul-spinner {
+    float: right;
+    opacity: 0;
+    transition: opacity 0.1s ease-out;
+    pointer-events: none;
+}
+.zuul-container-loading .zuul-spinner {
+    opacity: 1;
+}
+
+.zuul-pipelines {
+    margin: 0 -15px;
+}
+.zuul-pipelines::after {
+    content: ' ';
+    display: table;
+    clear: both;
+}
+.zuul-pipeline {
+    float: left;
+    box-sizing: border-box;
+    width: 33.3%;
+    padding: 0 15px;
+}
+@media (max-width: 1024px) {
+    .zuul-pipeline {
+        float: none;
+        width: initial;
+    }
+}
+
 .zuul-pipeline abbr {
-    /* Bootstrap 3 adds a border bottom for this.
-       Between that being released (2014) and now (2019),
-       browsers have started to add `text-decoration:underline dotted`
-       by default to ABBR elements as well. Disable that to avoid
-       a double underline. */
+    cursor: help;
+    border-bottom: 1px dotted #999;
     text-decoration: none;
+}
+.zuul-pipeline-header h3 {
+    vertical-align: middle;
+}
+
+.zuul-pipeline-count {
+    float: right;
+}
+
+.zuul-pipeline-desc,
+.zuul-queue-desc,
+.zuul-patchset-eta  {
+    font-size: 1rem;
+    color: var( --wmui-color-base30 );
 }
 
 .zuul-change {
+    background: var( --wmui-color-base100 );
+    border: 1px solid var( --wmui-color-base80 );
+    border-radius: var( --border-radius-base );
+    box-sizing: border-box;
+
     margin-bottom: 10px;
 }
 
-.zuul-change-id {
-    float: right;
+table.zuul-change-box {
+    box-sizing: content-box;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
-
-.zuul-job-result {
-    float: right;
-    width: 70px;
-    height: 15px;
-    margin: 2px 0 0 0;
-}
-
-.zuul-change-total-result {
-    height: 10px;
-    width: 100px;
-    margin: 0;
-    display: inline-block;
-    vertical-align: middle;
-}
-.zuul-spinner {
-    opacity: 0;
-    transition: opacity 0.1s ease-out;
-    cursor: default;
-    pointer-events: none;
-}
-
-.zuul-container-loading .zuul-spinner {
-    opacity: 1;
-    cursor: progress;
-}
-
 .zuul-change-cell {
     padding-left: 5px;
 }
 
-.zuul-change-job {
-    padding: 2px 8px;
-}
-
-.zuul-job-name {
-    font-size: small;
-}
-
-.zuul-non-voting-desc {
-    font-size: smaller;
-}
-
 .zuul-patchset-header {
-    font-size: small;
-    padding: 8px 12px;
+    background: var( --wmui-color-base90 );
+    border-bottom: 1px solid var( --wmui-color-base80 );
+    font-size: 1.2rem;
+    padding: 6px 8px;
+
+    /* two columns: left (name+sub) and right (ETA) */
+    display: flex;
+    gap: 5px;
+}
+.zuul-patchset-header-left {
+    flex-grow: 1;
+    /* two rows: 1 (name), 2 (sub) */
+    display: flex;
+    flex-flow: column;
+}
+.zuul-patchset-eta {
+    flex-grow: 0;
+    text-align: right;
+    white-space: nowrap;
+}
+.zuul-patchset-sub {
+    display: flex;
+    gap: 5px;
+}
+.zuul-patchset-change {
+    flex-grow: 0;
+    font-size: 1rem;
+}
+.zuul-patchset-progress {
+    flex-grow: 1;
+}
+
+.change_project {
+    word-break: break-word;
+}
+
+.zuul-job-result {
+    box-sizing: border-box;
+    float: right;
+    width: 70px;
+    height: 20px;
+    margin: 0 0 0 2px;
+    padding: 4px;
+
+    font-size: 1.2rem;
+}
+.zuul-job-result--progress {
+    overflow: hidden;
+    background: #ededed;
+    border-radius: 1px;
+    box-shadow: inset 0 0 1px #03030340;
+}
+.zuul-job-result--label {
+    text-align: center;
+    white-space: nowrap;
+    line-height: 12px; /* inner of .zuul-job-result, 12=20-4-4 */
+    background: var( --wmui-color-base30 );
+    color: var( --wmui-color-base100 );
+}
+
+.zuul-progressbar {
+    float: left;
+    width: 0%;
+    height: 100%;
+    font-size: 11px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    background-color: #39a5dc;
+    box-shadow: inset 0 -1px #00000026;
+    transition: width .6s ease;
+
+    box-shadow: none;
+}
+@keyframes zuul-progressbar-stripes {
+    0% {
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+.zuul-progressbar--animated {
+    background-image: linear-gradient(-45deg,
+        rgba(3, 3, 3, 0.15) 25%,
+        rgba(3, 3, 3, 0.15) 26%,
+        transparent 27%,
+        transparent 49%,
+        rgba(3, 3, 3, 0.15) 50%,
+        rgba(3, 3, 3, 0.15) 51%,
+        transparent 52%,
+        transparent 74%,
+        rgba(3, 3, 3, 0.15) 75%,
+        rgba(3, 3, 3, 0.15) 76%,
+        transparent 77%
+    );
+    background-size: 40px 40px;
+
+    animation: zuul-progressbar-stripes 1s linear infinite;
+}
+.zuul-progressbar--success {
+    background: #3f9c35;
+}
+.zuul-progressbar--warning {
+    background: #ec7a08;
+}
+.zuul-progressbar--error {
+    background: #c00;
+}
+
+
+.zuul-queue-line {
+    vertical-align: top;
+    width: 10px;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+.zuul-queue-line--solid {
+    background-image: linear-gradient(to right,
+        transparent 3px,
+        var(--wmui-color-base20) 3px,
+        var(--wmui-color-base20) 5px,
+        transparent 5px
+    );
+    background-size: 8px 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.zuul-queue-angle,
+.zuul-queue-tee {
+    vertical-align: top;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-image: url(../images/line-angle.png);
+    background-size: 10px;
+    background-position: top center;
+    background-repeat: no-repeat;
+}
+.zuul-queue-tee {
+    background-image: url(../images/line-t.png);
+}
+.zuul-queue-icon {
+    vertical-align: top;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: var( --border-radius-base );
+}
+.zuul-queue-icon--waiting {
+    background: var( --wmui-color-base70 );
+}
+.zuul-queue-icon--success {
+    background: #3f9c35;
+}
+.zuul-queue-icon--error {
+    background: #c00;
+}
+
+.zuul-change-total-result {
+    height: 10px;
+    /* automatically shrink when less space available, e.g. in long queue with many indents */
+    width: 100%;
+    max-width: 100px;
+    margin: 0;
+    display: inline-block;
+ }
+
+.zuul-patchset-body {
+    margin: 0;
+    padding: 0;
+}
+
+.zuul-change-job {
+    display: block; /* override list-item */
+    padding: 2px 2px 2px 8px;
+    border-bottom: 1px solid var( --wmui-color-base90 );
+    margin-bottom: -1px;
+    line-height: 1.4;
+    font-size: 1.2rem;
+}
+.zuul-change-job:last-child {
+    border-bottom: 0;
 }

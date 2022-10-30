@@ -24,13 +24,13 @@
  */
 function zuul_build_dom( container ) {
 	const defaultLayout = '<div class="zuul-container" id="zuul-container">' +
-		'<div style="display: none;" class="alert" id="zuul_msg"></div>' +
-		'<button class="btn btn-default pull-right zuul-spinner">updating <span class="glyphicon glyphicon-refresh"></span></button>' +
-		'<p>Queue lengths: <span id="zuul_queue_events_num">0</span> events, <span id="zuul_queue_results_num">0</span> results.</p>' +
+		'<div style="display: none;" class="wm-alert" id="zuul_msg"></div>' +
+		'<span class="zuul-badge zuul-spinner">Updating…</span>' +
 		'<div id="zuul_controls"></div>' +
-		'<div id="zuul_pipelines" class="row"></div>' +
+		'<div id="zuul_pipelines" class="zuul-pipelines"></div>' +
 		'<p>Zuul version: <span id="zuul-version-span"></span></p>' +
 		'<p>Last reconfigured: <span id="last-reconfigured-span"></span></p>' +
+		'<p>Queue lengths: <span id="zuul_queue_events_num">0</span> events, <span id="zuul_queue_results_num">0</span> results.</p>' +
 		'</div>';
 
 	$( function () {
@@ -46,11 +46,12 @@ function zuul_start() {
 	const demo = location.search.match( /[?&]demo=([^?&]*)/ );
 	const source_url = location.search.match( /[?&]source_url=([^?&]*)/ );
 	let source = demo ?
-		'./status-' + ( demo[ 1 ] || 'basic' ) + '.json-sample' :
+		'./status-' + ( demo[ 1 ] || 'basic' ) + '-sample.json' :
 		'status.json';
 	source = source_url ? source_url[ 1 ] : source;
 
 	const zuul = $.zuul( {
+		demo: !!demo,
 		source: source
 	} );
 
@@ -77,6 +78,8 @@ function zuul_start() {
 		$( '#zuul_controls' ).append( zuul.app.control_form() );
 
 		zuul.app.schedule();
+		// zuul.app.update();
+		// zuul.options.enabled = false;
 
 		$( document ).on( {
 			visibilitychange: function () {

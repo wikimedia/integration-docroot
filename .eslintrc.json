@@ -7,10 +7,10 @@
 	"rules": {
 		"camelcase": "off",
 		"jsdoc/check-types": "off",
-		"no-jquery/no-parse-html-literal": "off",
-		"no-jquery/no-animate-toggle": "off",
 		"no-implicit-globals": "off",
+		"no-jquery/no-animate-toggle": "off",
 		"no-jquery/no-global-selector": "off",
+		"no-jquery/no-parse-html-literal": "off",
 		"no-underscore-dangle": "off"
 	}
 }

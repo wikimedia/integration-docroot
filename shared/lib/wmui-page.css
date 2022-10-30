@@ -19,15 +19,21 @@ body {
 }
 
 h1 {
+  margin: 1rem 0;
   font-size: 3.2rem;
   font-family: var( --font-family-serif );
   font-weight: var( --font-weight-normal );
 }
 
 h2 {
+  margin: 1rem 0;
   font-size: 2.4rem;
   padding-bottom: 2px;
   border-bottom: 3px solid var( --wmui-color-base80 );
+}
+
+h3 {
+  margin: 1rem 0 0.5rem;
 }
 
 blockquote {
@@ -42,6 +48,15 @@ hr {
 
 p {
   line-height: 1.5;
+}
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p,
+h5 + p,
+h6 + p,
+ul + p {
+  margin-top: 0;
 }
 
 a {
@@ -142,16 +157,28 @@ footer nav li a {
 }
 
 .wm-alert {
-  background-color: var( --background-color-framed );
-  border-radius: var( --border-radius-base );
-  border: var( --border-base );
+  background-color: var( --wmui-color-base80 );
+  border: 1px solid var( --wmui-color-base50 );
   color: var( --color-base );
   padding: 1rem;
 }
 .wm-alert-error {
-  background-color: var( --background-color-error--framed );
-  border: var( --border-error );
-  color: var( --color-error );
+  background-color: var( --wmui-color-red90 );
+  border-color: var( --wmui-color-red50 );
+}
+.wm-alert-success {
+  background-color: var( --wmui-color-green90 );
+  border-color: var( --wmui-color-green30 );
+}
+
+.wm-text-error {
+  color: var( --wmui-color-red50 );
+}
+.wm-text-warning {
+  color: var( --wmui-color-yellow30 );
+}
+.wm-alert-success {
+  color: var( --wmui-color-green30 );
 }
 
 .wm-nav li {
@@ -243,7 +270,8 @@ footer nav li a {
     padding-left: 27.6rem;
   }
 
-  main h1:first-child {
+  main h1:first-child,
+  main h2:first-child {
     margin-top: 0;
   }
 
@@ -256,4 +284,38 @@ footer nav li a {
 
 .wm-link--powered, .wm-modified {
   text-transform: uppercase;
+}
+
+.wm-input-text {
+  margin: 0;
+  background-color: var(--wmui-color-base100 );
+  color: var(--wmui-color-base0 );
+  border: 1px solid var( --wmui-color-base50 );
+  border-radius: var( --border-radius-base );
+  padding: 5px 8px;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: 1.4;
+}
+.wm-input-text::placeholder {
+  color: var( --wmui-color-base30 );
+  opacity: 1;
+}
+
+.wm-input-group--aside {
+  position: relative;
+}
+.wm-input-group--aside .wm-input-text  {
+  padding-right: 42px;
+}
+.wm-input-icon--clear {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: inline-block;
+  width: 34px;
+  height: 100%;
+  background: url(../../lib/images/ooui-clear.svg) no-repeat 50% 50%;
+  background-size: contain;
+  opacity: 50%;
 }
