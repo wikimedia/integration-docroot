@@ -79,6 +79,9 @@
     box-sizing: border-box;
 
     margin-bottom: 10px;
+
+    font-size: 1.3rem;
+    font-weight: 300;
 }
 
 table.zuul-change-box {
@@ -93,7 +96,6 @@ table.zuul-change-box {
 .zuul-patchset-header {
     background: var( --wmui-color-base90 );
     border-bottom: 1px solid var( --wmui-color-base80 );
-    font-size: 1.3rem;
     padding: 6px 8px;
 
     /* two columns: left (name+sub) and right (ETA) */
@@ -114,10 +116,10 @@ table.zuul-change-box {
 .zuul-patchset-sub {
     display: flex;
     gap: 5px;
-    font-size: 1rem;
 }
 .zuul-patchset-change {
     flex-grow: 0;
+    font-size: 1.1rem;
 }
 .zuul-patchset-progress {
     flex-grow: 1;
@@ -130,7 +132,8 @@ table.zuul-change-box {
 .zuul-change-job {
     display: flex;
     justify-content: space-between;
-    padding: 2px 2px 2px 8px;
+    align-items: center;
+    padding: 4px 2px 2px 8px;
     border-bottom: 1px solid var( --wmui-color-base90 );
     margin-bottom: -1px;
     line-height: 1.4;
@@ -147,8 +150,6 @@ table.zuul-change-box {
     height: 20px;
     margin: 0 0 0 2px;
     padding: 4px;
-
-    font-size: 1.2rem;
 }
 .zuul-job-result--progress {
     overflow: hidden;
@@ -157,11 +158,12 @@ table.zuul-change-box {
     box-shadow: inset 0 0 1px #03030340;
 }
 .zuul-job-result--label {
-    text-align: center;
-    white-space: nowrap;
-    line-height: 12px; /* inner of .zuul-job-result, 12=20-4-4 */
     background: var( --wmui-color-base30 );
     color: var( --wmui-color-base100 );
+    line-height: 11px;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .zuul-progressbar {
@@ -264,6 +266,8 @@ table.zuul-change-box {
     width: 10px;
     height: 10px;
     border-radius: var( --border-radius-base );
+    /* tooltip discovery */
+    cursor: help;
 }
 .zuul-queue-icon--waiting {
     background: var( --wmui-color-base70 );

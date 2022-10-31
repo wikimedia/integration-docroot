@@ -17,7 +17,8 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-/* eslint max-len: ["warn", { "code": 120 }] */
+/* eslint max-len: ["warn", { "code": 120, "ignoreTemplateLiterals": true }] */
+/* global Mustache:false */
 /* exported zuul_start */
 
 ( function () {
@@ -28,11 +29,9 @@
 	// read filter from fragment
 	function read_fragment_filter() {
 		const hash = location.hash;
-
-		if ( hash.indexOf( fragment_filter_prefix ) === -1 ) {
+		if ( !hash.includes( fragment_filter_prefix ) ) {
 			return '';
 		}
-
 		return hash.slice( fragment_filter_prefix.length );
 	}
 
@@ -41,8 +40,7 @@
 			history.replaceState( null, '', fragment_filter_prefix + value );
 		} else {
 			// Prefer not to leave an empty "#" or "#q=".
-			// But if the browser doesn't have the URL API yet,
-			// then don't bother with workarounds
+			// If the browser doesn't have the URL API yet, don't bother with workarounds
 			if ( window.URL ) {
 				const obj = new URL( location.href );
 				obj.hash = '';
@@ -53,12 +51,12 @@
 		}
 	}
 
-	// remember for this origin, across browser tabs and restarts.
+	// remember for this domain, across browser tabs and restarts.
 	function set_persistent_store( name, value ) {
 		try {
 			localStorage.setItem( name, value );
 		} catch ( e ) {
-			// Disabled, or out of quota.
+			// Disallowed (disabled, or out of quota).
 		}
 	}
 
@@ -71,8 +69,95 @@
 		}
 	}
 
+	const pipeline_template = `<div class="zuul-pipeline">
+		<div class="zuul-pipeline-header">
+			<h3>{{pipeline.name}} <span class="zuul-badge zuul-pipeline-count">{{count}}</span></h3>
+			{{#pipeline_descriptions}}
+			<p class="zuul-pipeline-desc">{{.}}</p>
+			{{/pipeline_descriptions}}
+		</div>
+		{{#queues_and_changes}}
+			{{#queue}}
+			<p class="zuul-queue-desc">Queue: <abbr title="{{name}}">{{short_name}}</abbr></p>
+			{{/queue}}
+			{{#change_box_data}}
+			{{> change_box_template}}
+			{{/change_box_data}}
+		{{/queues_and_changes}}
+	</div>`;
+
+	const change_box_template = `<table class="zuul-change-box">
+		<tr>
+			{{#change_tree_cells}}
+			<td class="zuul-queue-line {{solid_class}}">
+				{{#icon}}
+				<span class="zuul-queue-icon {{icon_class}}" title="{{icon_title}}"></span>
+				{{/icon}}
+				{{#branch_class}}
+				<span class="{{branch_class}}"></span>
+				{{/branch_class}}
+			</td>
+			{{/change_tree_cells}}
+			<td class="zuul-change-cell" style="width: {{change_width}}px;">
+				{{#change_panel_data}}
+				{{> change_template}}
+				{{/change_panel_data}}
+			</td>
+		</tr>
+	</table>`;
+
+	const change_template = `<div class="zuul-change" id="{{panel_id}}">
+		<div class="zuul-patchset-header">
+			<div class="zuul-patchset-header-left">
+				<span class="change_project">{{change.project}}</span>
+				<div class="zuul-patchset-sub">
+					<div class="zuul-patchset-change">
+						{{#change.url}}
+						<a href="{{change.url}}">{{change_id_short}}</a>
+						{{/change.url}}
+						{{^change.url}}
+						<span>{{change_id_short}}</span>
+						{{/change.url}}
+					</div>
+					<div class="zuul-patchset-progress">
+						<div class="zuul-job-result--progress zuul-change-total-result">
+							{{#change.jobs}}{{#_progressbar_total}}<span class="zuul-progressbar" data-result="{{_progressbar_total}}" title="{{name}}" style="width: {{job_percent}}%;"></span>{{/_progressbar_total}}{{/change.jobs}}
+						</div>
+					</div>
+				</div>
+			</div>
+			{{#change.live}}
+			<div class="zuul-patchset-eta">
+				<span title="Remaining Time">ETA: {{remaining_time}}</span><br>
+				<span title="Elapsed Time">Elapsed: <span class="{{ellapsed_time.text_class}}">{{ellapsed_time.text}}</span></span>
+			</div>
+			{{/change.live}}
+		</div>
+		<ul class="zuul-patchset-body">
+			{{#change.jobs}}
+			{{> job_template}}
+			{{/change.jobs}}
+		</ul>
+	</div>`;
+
+	const job_template = `<li class="zuul-change-job">
+		{{#url}}
+		<a class="zuul-job-name" href="{{url}}">{{_display_name}}</a>
+		{{/url}}
+		{{^url}}
+		<span class="zuul-job-name">{{_display_name}}</span>
+		{{/url}}
+
+		{{#_progressbar}}
+		<span class="zuul-job-result zuul-job-result--progress"><span class="{{progress_class}}" role="progressbar" aria-valuenow="{{progress_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress_width}}%;"></span></span>
+		{{/_progressbar}}
+		{{^_progressbar}}
+		<span class="zuul-job-result zuul-job-result--label" data-result="{{_result_normalized}}">{{_result_normalized}}</span>
+		{{/_progressbar}}
+	</li>`;
+
 	$.zuul = function ( options ) {
-		options = $.extend( {
+		options = Object.assign( {
 			demo: false,
 			enabled: true,
 			source: 'status.json',
@@ -91,68 +176,21 @@
 		let $jq;
 
 		const format = {
-			job: function ( job ) {
-				const result = job.result ? job.result.toLowerCase() : ( job.url ? 'in progress' : 'queued' );
-				const jobName = job.name + ( job.voting === false ? ' (non\u00a0voting)' : '' );
-
-				let progress_percent = 100 * (
-					job.elapsed_time / ( job.elapsed_time + job.remaining_time ) );
-				let progress_width = progress_percent;
-				const progress_class = [ 'zuul-progressbar' ];
-				if ( !progress_percent ) {
-					progress_percent = 0;
-					progress_width = 100;
-					progress_class.push( 'zuul-progressbar--animated' );
-				}
-
-				return $( '<li>' )
-					.addClass( 'zuul-change-job' )
-					.append(
-						( job.url !== null )
-							? $( '<a>' )
-								.addClass( 'zuul-job-name' )
-								.attr( 'href', job.url )
-								.text( jobName )
-							: $( '<span>' )
-								.addClass( 'zuul-job-name' )
-								.text( jobName )
-					)
-					.append(
-						( result === 'in progress' )
-							? $( '<div>' )
-								.addClass( 'zuul-job-result zuul-job-result--progress' )
-								.append( $( '<div>' )
-									.addClass( progress_class )
-									.attr( 'role', 'progressbar' )
-									.attr( 'aria-valuenow', progress_percent )
-									.attr( 'aria-valuemin', '0' )
-									.attr( 'aria-valuemax', '100' )
-									.css( 'width', progress_width + '%' )
-								)
-							: $( '<span>' )
-								.addClass( 'zuul-job-result zuul-job-result--label' )
-								.attr( 'data-result', result )
-								.text( result )
-					)
-					.get( 0 );
-			},
-
 			enqueue_time: function ( ms ) {
-				// Special format case for enqueue time to add style
 				const hours = 60 * 60 * 1000;
 				const delta = options.demo ?
 					// In demo mode, ignore the far-past timestamps in the sample data,
 					// and instead pretend jobs started 0min-5h ago
 					( Math.floor( Math.random() * 5 * 60 ) * 60 * 1000 ) :
 					Date.now() - ms;
-				let status = '';
 				const text = this.time( delta, true );
+				let text_class = '';
 				if ( delta > ( 4 * hours ) ) {
-					status = 'wm-text-error';
+					text_class = 'wm-text-error';
 				} else if ( delta > ( 2 * hours ) ) {
-					status = 'wm-text-warning';
+					text_class = 'wm-text-warning';
 				}
-				return '<span class="' + status + '">' + text + '</span>';
+				return { text, text_class };
 			},
 
 			time: function ( ms, words ) {
@@ -187,25 +225,7 @@
 				return r;
 			},
 
-			change_total_progress_bar: function ( change ) {
-				const job_percent = Math.floor( 100 / change.jobs.length );
-				return $( '<div>' )
-					.addClass( 'zuul-job-result--progress zuul-change-total-result' )
-					.append( change.jobs.map( ( job ) => {
-						const result = job.result ? job.result.toLowerCase() : ( job.url ? 'in progress' : 'queued' );
-						if ( result === 'queued' ) {
-							return '';
-						}
-						return $( '<div>' )
-							.addClass( 'zuul-progressbar' )
-							.attr( 'data-result', result )
-							.attr( 'title', job.name )
-							.css( 'width', job_percent + '%' )
-							.get( 0 );
-					} ) );
-			},
-
-			change_panel: function ( change ) {
+			change_panel_data: function ( change ) {
 				const panel_id = change.id ?
 					change.id.replace( ',', '_' ) :
 					change.project.replace( '/', '_' ) + '-' + change.enqueue_time;
@@ -215,155 +235,101 @@
 				const change_id_short = isLongHash ? change.id.slice( 0, 7 ) : ( change.id || 'NA' );
 
 				const remaining_time = change.live && this.time( change.remaining_time, true );
-				const enqueue_time = change.live && this.enqueue_time( change.enqueue_time );
+				const ellapsed_time = change.live && this.enqueue_time( change.enqueue_time );
 
-				return $( '<div>' )
-					.addClass( 'zuul-change' )
-					.attr( 'id', panel_id )
-					.append(
-						$( '<div>' )
-							.addClass( 'zuul-patchset-header' )
-							.on( 'click', this.toggle_patchset )
-							.append( $( '<div>' )
-								.addClass( 'zuul-patchset-header-left' )
-								.append(
-									$( '<span>' )
-										.addClass( 'change_project' )
-										.text( change.project ),
-									$( '<div>' )
-										.addClass( 'zuul-patchset-sub' )
-										.append( $( '<div>' )
-											.addClass( 'zuul-patchset-change' )
-											.append( ( !change.url )
-												? $( '<span>' ).text( change_id_short )
-												: $( '<a>' )
-													.attr( 'href', change.url )
-													.append( ( isLongHash )
-														? $( '<abbr>' )
-															.attr( 'title', change.id )
-															.text( change_id_short )
-														: change_id_short
-													)
-											)
-										)
-										.append( $( '<div>' )
-											.addClass( 'zuul-patchset-progress' )
-											.append( this.change_total_progress_bar( change ) )
-										)
-								)
-							)
-							.append( ( change.live === true )
-								? $( '<div>' )
-									.addClass( 'zuul-patchset-eta' )
-									.append(
-										$( '<span>' )
-											.attr( 'title', 'Remaining Time' ).html( 'ETA: ' + remaining_time ),
-										$( '<br>' ),
-										$( '<span>' )
-											.attr( 'title', 'Elapsed Time' ).html( 'Elapsed: ' + enqueue_time )
-									)
-								: []
-							)
-					)
-					.append( $( '<ul>' )
-						.addClass( 'zuul-patchset-body' )
-						.append( change.jobs.map( ( job ) => format.job( job ) ) )
-					);
+				// Each job gets an equal proportion in the combined "total" progress bar
+				const job_percent = Math.floor( 100 / change.jobs.length );
+				change.jobs.forEach( ( job ) => {
+					const result = job.result ? job.result.toLowerCase() : ( job.url ? 'in progress' : 'queued' );
+
+					// In the combined progressbar, let the unfilled (right) side of the progress
+					// bar represent jobs that are still waiting in the queue. That is, draw no
+					// progress bar segmen for them (null).
+					job._progressbar_total = ( result === 'queued' ? null : result );
+					job._display_name = job.name + ( job.voting === false ? ' (non\u00a0voting)' : '' );
+					job._result_normalized = result;
+
+					if ( result === 'in progress' ) {
+						let progress_percent = 100 * (
+							job.elapsed_time / ( job.elapsed_time + job.remaining_time ) );
+						let progress_width = progress_percent;
+						let progress_class = 'zuul-progressbar';
+
+						if ( !progress_percent ) {
+							progress_percent = 0;
+							progress_width = 100;
+							progress_class += ' zuul-progressbar--animated';
+						}
+
+						job._progressbar = {
+							progress_percent,
+							progress_width,
+							progress_class
+						};
+					}
+				} );
+
+				return {
+					panel_id,
+					change,
+					change_id_short,
+					job_percent,
+					remaining_time,
+					ellapsed_time
+				};
 			},
 
-			change_status_icon: function ( change ) {
-				let icon_class = 'zuul-queue-icon--success';
-				let icon_title = 'Succeeding';
-
-				if ( change.active !== true ) {
-					icon_class = 'zuul-queue-icon--waiting';
-					icon_title = 'Waiting until closer to head of queue to' +
-                        ' start jobs';
-				} else if ( change.live !== true ) {
-					icon_class = 'zuul-queue-icon--waiting';
-					icon_title = 'Dependent change required for testing';
-				} else if ( change.failing_reasons &&
-                         change.failing_reasons.length > 0 ) {
-					const reason = change.failing_reasons.join( ', ' );
-					icon_title = 'Failing because ' + reason;
-					icon_class = 'zuul-queue-icon--error';
-				}
-
-				return $( '<span>' )
-					.addClass( [ 'zuul-queue-icon', icon_class ] )
-					.attr( 'title', icon_title );
-			},
-
-			change_with_status_tree: function ( change, change_queue ) {
+			change_box_data: function ( change, change_queue ) {
 				const change_width = 360 - ( 16 * change_queue._tree_columns );
 
-				const $change_row = $( '<tr>' );
-				for ( let i = 0; i < change_queue._tree_columns; i++ ) {
-					const $tree_cell = $( '<td>' )
-						.addClass( 'zuul-queue-line' );
-
-					if ( i < change._tree.length && change._tree[ i ] !== null ) {
-						$tree_cell.addClass( 'zuul-queue-line--solid' );
-					}
-
-					if ( i === change._tree_index ) {
-						$tree_cell.append(
-							this.change_status_icon( change )
-						);
-					}
-					if ( change._tree_branches.indexOf( i ) !== -1 ) {
-						if ( change._tree_branches.indexOf( i ) === change._tree_branches.length - 1 ) {
-							// Angle line
-							$tree_cell.append( $( '<span>' ).addClass( 'zuul-queue-angle' ) );
-						} else {
-							// T line
-							$tree_cell.append( $( '<span>' ).addClass( 'zuul-queue-tee' ) );
-						}
-					}
-					$change_row.append( $tree_cell );
+				let icon_class = 'zuul-queue-icon--success';
+				let icon_title = 'Succeeding';
+				if ( !change.active ) {
+					icon_class = 'zuul-queue-icon--waiting';
+					icon_title = 'Waiting until closer to head of queue to start jobs';
+				} else if ( !change.live ) {
+					icon_class = 'zuul-queue-icon--waiting';
+					icon_title = 'Dependent change required for testing';
+				} else if ( change.failing_reasons && change.failing_reasons.length ) {
+					icon_class = 'zuul-queue-icon--error';
+					icon_title = 'Failing because ' + change.failing_reasons.join( ', ' );
 				}
 
-				$change_row.append( $( '<td>' )
-					.css( 'width', change_width + 'px' )
-					.addClass( 'zuul-change-cell' )
-					.append( this.change_panel( change ) )
-				);
+				const change_tree_cells = [];
+				for ( let i = 0; i < change_queue._tree_columns; i++ ) {
 
-				return $( '<table>' )
-					.addClass( 'zuul-change-box' )
-					.append( $change_row );
+					// Start or continue drawing a line down toward the current change box
+					const draw_line = ( i < change._tree.length && change._tree[ i ] !== null );
+					const is_self = ( i === change._tree_index );
+					const is_branch_point = change._tree_branches.includes( i );
+					const branch_class = is_branch_point && (
+						( change._tree_branches.indexOf( i ) === change._tree_branches.length - 1 )
+							// Angle line
+							? 'zuul-queue-angle'
+							// T line
+							: 'zuul-queue-tee'
+					);
+
+					change_tree_cells.push( {
+						solid_class: draw_line ? 'zuul-queue-line--solid' : null,
+						icon: is_self ? { icon_class, icon_title } : null,
+						branch_class
+					} );
+				}
+
+				return {
+					change_width,
+					change_tree_cells,
+					change_panel_data: this.change_panel_data( change )
+				};
 			},
 
 			pipeline: function ( pipeline, count ) {
-				const pipelineDescs = ( typeof pipeline.description === 'string' )
+				const pipeline_descriptions = ( typeof pipeline.description === 'string' )
 					? pipeline.description.split( /\r?\n\r?\n/ )
 					: [];
 
-				const $html = $( '<div>' )
-					// Track change_ids so that when filtering, we can easly hide pipelines
-					// that contain no visible matches
-					.data( 'change_ids', new Set() )
-					.addClass( 'zuul-pipeline' )
-					.append( $( '<div>' )
-						.addClass( 'zuul-pipeline-header' )
-						.append(
-							$( '<h3>' )
-								.text( pipeline.name )
-								.append(
-									' ',
-									$( '<span>' )
-										.addClass( 'zuul-badge zuul-pipeline-count' )
-										.text( count )
-								),
-							pipelineDescs.map( ( descr_part ) =>
-								$( '<p>' )
-									.addClass( 'zuul-pipeline-desc' )
-									.text( descr_part )
-									.get( 0 )
-							)
-						)
-					);
-
+				const queues_and_changes = [];
 				pipeline.change_queues.forEach( ( change_queue ) => {
 					change_queue.heads.forEach( ( changes, head_i ) => {
 						if ( pipeline.change_queues.length > 1 && head_i === 0 ) {
@@ -371,34 +337,49 @@
 							const short_name = ( name.length > 32 )
 								? name.slice( 0, 32 ) + '…'
 								: name;
-
-							$html.append( $( '<p>' )
-								.addClass( 'zuul-queue-desc' )
-								.text( 'Queue: ' )
-								.append( $( '<abbr>' )
-									.attr( 'title', name )
-									.text( short_name )
-								)
-							);
+							queues_and_changes.push( { queue: { name, short_name } } );
 						}
 
 						changes.forEach( ( change ) => {
-							const $change_box = format.change_with_status_tree(
-								change,
-								change_queue
-							);
-							$html.append( $change_box );
-							format.display_patchset( $change_box );
+							queues_and_changes.push( {
+								change_box_data: format.change_box_data( change, change_queue )
+							} );
 						} );
 					} );
 				} );
+
+				const pipeline_html = Mustache.render( pipeline_template,
+					{
+						pipeline,
+						count,
+						pipeline_descriptions,
+						queues_and_changes
+					},
+					{
+						change_box_template,
+						change_template,
+						job_template
+					}
+				);
+
+				const $html = $( $.parseHTML( pipeline_html ) )
+					// Track change_ids so that when filtering, we can easly hide pipelines
+					// that contain no visible matches
+					.data( 'change_ids', new Set() )
+					.on( 'click', '.zuul-patchset-header', this.toggle_patchset );
+
+				// FIXME: Hold-over from Mustache conversion.
+				// TODO: Refactor to make post-hoc modification simply not needed
+				$html.find( '.zuul-change-box' ).each( function () {
+					format.display_patchset( $( this ) );
+				} );
+
 				return $html;
 			},
 
+			// Toggle showing/hiding the patchset when the header is clicked.
 			toggle_patchset: function ( e ) {
-				// Toggle showing/hiding the patchset when the header is clicked.
-
-				if ( e.target.nodeName.toLowerCase() === 'a' ) {
+				if ( e.target.nodeName === 'A' ) {
 					// Ignore clicks from gerrit patch set link
 					return;
 				}
@@ -425,32 +406,23 @@
 				const expand_by_default = $( '#expand_by_default' ).prop( 'checked' );
 				const panel_project = $panel.find( '.change_project' ).text().toLowerCase();
 				const $pipeline = $change_box.parents( '.zuul-pipeline' );
-				const panel_pipeline = $pipeline
-					.find( '.zuul-pipeline-header > h3' )
-					.html()
-					.toLowerCase();
+				const panel_pipeline = $pipeline.find( '.zuul-pipeline-header > h3' ).text().toLowerCase();
 
 				const collapsed_index = collapsed_exceptions.indexOf( panel_change );
 				// Expand by default, or is an exception
 				const show_body = ( expand_by_default && collapsed_index === -1 ||
 					!expand_by_default && collapsed_index !== -1
 				);
-				// Check if we should hide the whole panel
-				let show_panel = true;
-				if ( current_filter !== '' ) {
-					show_panel = false;
-					const filter = current_filter.trim().split( /[\s,]+/ );
-					filter.forEach( ( f_val ) => {
-						if ( f_val !== '' ) {
-							f_val = f_val.toLowerCase();
-							if ( panel_project.indexOf( f_val ) !== -1 ||
-                                panel_pipeline.indexOf( f_val ) !== -1 ||
-                                panel_change.indexOf( f_val ) !== -1 ) {
-								show_panel = true;
-							}
-						}
-					} );
-				}
+
+				// Show panel if no filters, or at least one filter matches one field
+				const show_panel = ( current_filter === '' ||
+					current_filter.toLowerCase().split( /[\s,]+/ ).some( ( f_val ) => {
+						return ( f_val !== '' ) && ( panel_project.includes( f_val ) ||
+							panel_pipeline.includes( f_val ) ||
+							panel_change.includes( f_val )
+						);
+					} )
+				);
 
 				if ( show_body ) {
 					$body.show( animate );
@@ -527,10 +499,8 @@
 							$( '#zuul-version-span' ).text( data.zuul_version );
 						}
 						if ( 'last_reconfigured' in data ) {
-							const last_reconfigured =
-                                new Date( data.last_reconfigured );
-							$( '#last-reconfigured-span' ).text(
-								last_reconfigured.toString() );
+							const last_reconfigured = new Date( data.last_reconfigured );
+							$( '#last-reconfigured-span' ).text( last_reconfigured.toString() );
 						}
 
 						const $pipelines = $( options.pipelines_id );
@@ -543,19 +513,16 @@
 						app.handle_pipeline_visibility();
 
 						$( options.queue_events_num ).text(
-							data.trigger_event_queue ?
-								data.trigger_event_queue.length : '0'
+							data.trigger_event_queue ? data.trigger_event_queue.length : '0'
 						);
 						$( options.queue_results_num ).text(
-							data.result_event_queue ?
-								data.result_event_queue.length : '0'
+							data.result_event_queue ? data.result_event_queue.length : '0'
 						);
 
 						last_rendered_raw = raw;
 					} )
 					.catch( function ( jqxhrOrError ) {
-						// jqXHR: network failure,
-						// Error: JSON syntax error.
+						// jqXHR: network failure. Error: JSON syntax error.
 						const errMsg = jqxhrOrError.statusText || jqxhrOrError;
 						if ( jqxhrOrError.statusText === 'abort' ) {
 							return;
@@ -760,21 +727,18 @@
  * @return {$.zuul}
  */
 function zuul_start( container ) {
-	const defaultLayout = '<div style="display: none;" class="wm-alert" id="zuul_msg"></div>' +
-		'<span class="zuul-badge zuul-spinner">Updating…</span>' +
-		'<div id="zuul_controls"></div>' +
-		'<div id="zuul_pipelines" class="zuul-pipelines"></div>' +
-		'<p>Zuul version: <span id="zuul-version-span"></span></p>' +
-		'<p>Last reconfigured: <span id="last-reconfigured-span"></span></p>' +
-		'<p>Queue lengths: <span id="zuul_queue_events_num">0</span> events, <span id="zuul_queue_results_num">0</span> results.</p>';
+	const defaultLayout = `<div style="display: none;" class="wm-alert" id="zuul_msg"></div>
+		<span class="zuul-badge zuul-spinner">Updating…</span>
+		<div id="zuul_controls"></div>
+		<div id="zuul_pipelines" class="zuul-pipelines"></div>
+		<p>Zuul version: <span id="zuul-version-span"></span></p>
+		<p>Last reconfigured: <span id="last-reconfigured-span"></span></p>
+		<p>Queue lengths: <span id="zuul_queue_events_num">0</span> events, <span id="zuul_queue_results_num">0</span> results.</p>`;
 
 	const demo = location.search.match( /[?&]demo=([^?&]*)/ );
-	const source_url = location.search.match( /[?&]source_url=([^?&]*)/ );
-	let source = demo ?
+	const source = demo ?
 		'./status-' + ( demo[ 1 ] || 'basic' ) + '-sample.json' :
 		'status.json';
-	source = source_url ? source_url[ 1 ] : source;
-
 	const zuul = $.zuul( {
 		demo: !!demo,
 		source: source
