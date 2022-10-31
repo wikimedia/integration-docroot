@@ -1,4 +1,4 @@
-// jquery plugin for Zuul status page
+// Zuul status page
 //
 // Copyright 2012 OpenStack Foundation
 // Copyright 2013 Timo Tijhof
@@ -18,6 +18,7 @@
 // under the License.
 
 /* eslint max-len: ["warn", { "code": 120 }] */
+/* exported zuul_start */
 
 ( function () {
 	'use strict';
@@ -753,3 +754,71 @@
 		};
 	};
 }() );
+
+/**
+ * @param {HTMLElement|jQuery|string} container Element or element selector
+ * @return {$.zuul}
+ */
+function zuul_start( container ) {
+	const defaultLayout = '<div style="display: none;" class="wm-alert" id="zuul_msg"></div>' +
+		'<span class="zuul-badge zuul-spinner">Updating…</span>' +
+		'<div id="zuul_controls"></div>' +
+		'<div id="zuul_pipelines" class="zuul-pipelines"></div>' +
+		'<p>Zuul version: <span id="zuul-version-span"></span></p>' +
+		'<p>Last reconfigured: <span id="last-reconfigured-span"></span></p>' +
+		'<p>Queue lengths: <span id="zuul_queue_events_num">0</span> events, <span id="zuul_queue_results_num">0</span> results.</p>';
+
+	const demo = location.search.match( /[?&]demo=([^?&]*)/ );
+	const source_url = location.search.match( /[?&]source_url=([^?&]*)/ );
+	let source = demo ?
+		'./status-' + ( demo[ 1 ] || 'basic' ) + '-sample.json' :
+		'status.json';
+	source = source_url ? source_url[ 1 ] : source;
+
+	const zuul = $.zuul( {
+		demo: !!demo,
+		source: source
+	} );
+
+	const $container = $( container ).addClass( 'zuul-container' ).html( defaultLayout );
+	$( '#zuul_controls' ).append( zuul.app.control_form() );
+
+	zuul.jq.on( 'update-start', function () {
+		$container.addClass( 'zuul-container-loading' );
+	} );
+	zuul.jq.on( 'update-end', function () {
+		$container.removeClass( 'zuul-container-loading' );
+	} );
+	zuul.jq.one( 'update-end', function () {
+		// Do this asynchronous so that if the first update adds a
+		// message, the message will not animate as the content fades in.
+		// Instead, it fades with the rest of the content.
+		setTimeout( function () {
+			// Fade in the content
+			$container.addClass( 'zuul-container-ready' );
+		} );
+	} );
+
+	zuul.app.schedule();
+
+	$( document ).on( {
+		visibilitychange: function () {
+			if ( document.hiden ) {
+				zuul.options.enabled = false;
+			} else {
+				zuul.options.enabled = true;
+				zuul.app.update();
+			}
+		},
+		keydown: function ( e ) {
+			if ( e.key === '/' && e.target.nodeName !== 'INPUT' ) {
+				// Keyboard shortcut
+				zuul.app.focus_filter_input();
+				// Don't actually render a slash now
+				return false;
+			}
+		}
+	} );
+
+	return zuul;
+}

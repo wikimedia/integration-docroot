@@ -1,4 +1,4 @@
-// Initialise Wikimedia's Zuul status dashbaord
+// Initialise Wikimedia's Zuul status page
 //
 // Copyright 2015 Timo Tijhof
 // Copyright 2015 Wikimedia Foundation
@@ -15,9 +15,8 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-/* global zuul_build_dom, zuul_start */
+/* global zuul_start */
 ( function () {
 
-	zuul_build_dom( '#zuul_wrapper' );
-	zuul_start();
+	zuul_start( '#zuul_container' );
 }() );
