@@ -251,13 +251,13 @@ table.zuul-change-box {
     display: inline-block;
     width: 10px;
     height: 10px;
-    background-image: url(../images/line-angle.png);
+    background-image: url(images/line-angle.png);
     background-size: 10px;
     background-position: top center;
     background-repeat: no-repeat;
 }
 .zuul-queue-tee {
-    background-image: url(../images/line-t.png);
+    background-image: url(images/line-t.png);
 }
 .zuul-queue-icon {
     vertical-align: top;
@@ -291,4 +291,6 @@ table.zuul-change-box {
 .zuul-patchset-body {
     margin: 0;
     padding: 0;
+
+    transform-origin: top; /* For upward animation in JS */
 }

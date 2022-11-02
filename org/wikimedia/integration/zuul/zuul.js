@@ -69,6 +69,62 @@
 		}
 	}
 
+	/**
+	 * @param {HTMLElement} element
+	 * @param {Object} options
+	 * @param {Object[]} options.keyframes Required
+	 */
+	function animate( element, options ) {
+		options = Object.assign( {
+			duration: options.duration || 0,
+			easing: 'ease-in-out',
+			fill: 'forwards',
+			after() {}
+		}, options );
+		const anim = element.animate( options.keyframes, options );
+		anim.finished.then( () => {
+			options.after();
+			anim.cancel();
+		} );
+	}
+
+	function showAnimate( element ) {
+		element.hidden = false;
+		animate( element, {
+			duration: 200,
+			keyframes: [ { transform: 'scaleY(0)' }, { transform: 'scaleY(1)' } ]
+		} );
+	}
+
+	function hideAnimate( element ) {
+		animate( element, {
+			duration: 200,
+			keyframes: [ { transform: 'scaleY(0)' } ],
+			after() { element.hidden = true; }
+		} );
+	}
+
+	function parseHTML( htmlString ) {
+		const node = document.createElement( 'div' );
+		node.innerHTML = htmlString;
+		const ret = node.firstElementChild;
+		// Detach
+		ret.remove();
+		return ret;
+	}
+
+	const container_template = `
+		<div hidden class="wm-alert zuul-msg"></div>
+		<span class="zuul-badge zuul-spinner">Updating…</span>
+		<form role="form" class="zuul-controls">
+			<label class="wm-input-group--aside">Filter: <input type="text" class="wm-input-text zuul-filter-input" title="Any partial match for a gerrit change number, repo name, or pipeline. Multiple terms may be comma-separated." placeholder="e.g. 1234 or mediawiki… &nbsp; [ / ]" value="{{filter_value}}"><span class="wm-input-icon--clear zuul-filter-clear" title="Clear filter" {{^filter_value}}hidden{{/filter_value}}></span></label>
+			<label><input type="checkbox" class="zuul-control-expand" {{#expandByDefault}}checked{{/expandByDefault}}> Expand by default</label>
+		</form>
+		<div class="zuul-pipelines"></div>
+		<p>Zuul version: <span class="zuul-info--version"></span></p>
+		<p>Last reconfigured: <span class="zuul-info--reconfigured"></span></p>
+		<p>Queue lengths: <span class="zuul-info--queue-events">0</span> events, <span class="zuul-info--queue-results">0</span> results.</p>`;
+
 	const pipeline_template = `<div class="zuul-pipeline">
 		<div class="zuul-pipeline-header">
 			<h3>{{pipeline.name}} <span class="zuul-badge zuul-pipeline-count">{{count}}</span></h3>
@@ -86,7 +142,7 @@
 		{{/queues_and_changes}}
 	</div>`;
 
-	const change_box_template = `<table class="zuul-change-box">
+	const change_box_template = `<table class="zuul-change-box" data-changeid="{{change.id}}" {{^visibility.showPanel}}hidden{{/visibility.showPanel}}>
 		<tr>
 			{{#change_tree_cells}}
 			<td class="zuul-queue-line {{solid_class}}">
@@ -133,7 +189,7 @@
 			</div>
 			{{/change.live}}
 		</div>
-		<ul class="zuul-patchset-body">
+		<ul class="zuul-patchset-body" {{^visibility.showBody}}hidden{{/visibility.showBody}}>
 			{{#change.jobs}}
 			{{> job_template}}
 			{{/change.jobs}}
@@ -156,24 +212,24 @@
 		{{/_progressbar}}
 	</li>`;
 
-	$.zuul = function ( options ) {
+	function Zuul( options ) {
 		options = Object.assign( {
 			demo: false,
 			enabled: true,
 			source: 'status.json',
-			msg_id: '#zuul_msg',
-			pipelines_id: '#zuul_pipelines',
-			queue_events_num: '#zuul_queue_events_num',
-			queue_results_num: '#zuul_queue_results_num'
+			container: '#zuul_container',
+			onUpdateStart() {
+			},
+			onUpdateEnd() {
+			}
 		}, options );
 
-		let collapsed_exceptions = [];
+		const collapsedExceptions = new Set();
+		const pipelineStates = [];
+		let domOut = null;
 		let current_filter = read_fragment_filter();
-		let zuul_graph_update_count = 0;
+		let expandByDefault = read_persistent_store( 'zuul_expand_by_default' ) === 'true';
 		let last_rendered_raw;
-		let xhr;
-		// eslint-disable-next-line prefer-const
-		let $jq;
 
 		const format = {
 			enqueue_time: function ( ms ) {
@@ -183,7 +239,7 @@
 					// and instead pretend jobs started 0min-5h ago
 					( Math.floor( Math.random() * 5 * 60 ) * 60 * 1000 ) :
 					Date.now() - ms;
-				const text = this.time( delta, true );
+				const text = format.time( delta, true );
 				let text_class = '';
 				if ( delta > ( 4 * hours ) ) {
 					text_class = 'wm-text-error';
@@ -226,16 +282,14 @@
 			},
 
 			change_panel_data: function ( change ) {
-				const panel_id = change.id ?
-					change.id.replace( ',', '_' ) :
-					change.project.replace( '/', '_' ) + '-' + change.enqueue_time;
+				const panel_id = ( change.id || 'unknown' ).replace( ',', '_' );
 
 				// Zuul events may respond to a commit hash (eg. tag) without a Gerrit change number
 				const isLongHash = /^[0-9a-f]{40}$/.test( change.id || '' );
 				const change_id_short = isLongHash ? change.id.slice( 0, 7 ) : ( change.id || 'NA' );
 
-				const remaining_time = change.live && this.time( change.remaining_time, true );
-				const ellapsed_time = change.live && this.enqueue_time( change.enqueue_time );
+				const remaining_time = change.live && format.time( change.remaining_time, true );
+				const ellapsed_time = change.live && format.enqueue_time( change.enqueue_time );
 
 				// Each job gets an equal proportion in the combined "total" progress bar
 				const job_percent = Math.floor( 100 / change.jobs.length );
@@ -271,7 +325,6 @@
 
 				return {
 					panel_id,
-					change,
 					change_id_short,
 					job_percent,
 					remaining_time,
@@ -318,9 +371,10 @@
 				}
 
 				return {
+					change,
 					change_width,
 					change_tree_cells,
-					change_panel_data: this.change_panel_data( change )
+					change_panel_data: format.change_panel_data( change )
 				};
 			},
 
@@ -328,6 +382,15 @@
 				const pipeline_descriptions = ( typeof pipeline.description === 'string' )
 					? pipeline.description.split( /\r?\n\r?\n/ )
 					: [];
+
+				// Track which change boxes are visible so that that when filtering,
+				// we can easily hide pipelines that contain no visible matches
+				const state = {
+					filterable: {},
+					changeBoxes: new Set(),
+					visible: new Set(),
+					element: null
+				};
 
 				const queues_and_changes = [];
 				pipeline.change_queues.forEach( ( change_queue ) => {
@@ -341,7 +404,15 @@
 						}
 
 						changes.forEach( ( change ) => {
+							state.filterable[ change.id ] = [ pipeline.name, change.project, change.id ]
+								.join( ' ' ).toLowerCase();
+
+							const visibility = format.getChangeVisibility( change.id, state );
+							if ( visibility.showPanel ) {
+								state.visible.add( change.id );
+							}
 							queues_and_changes.push( {
+								visibility,
 								change_box_data: format.change_box_data( change, change_queue )
 							} );
 						} );
@@ -362,19 +433,21 @@
 					}
 				);
 
-				const $html = $( $.parseHTML( pipeline_html ) )
-					// Track change_ids so that when filtering, we can easly hide pipelines
-					// that contain no visible matches
-					.data( 'change_ids', new Set() )
-					.on( 'click', '.zuul-patchset-header', this.toggle_patchset );
-
-				// FIXME: Hold-over from Mustache conversion.
-				// TODO: Refactor to make post-hoc modification simply not needed
-				$html.find( '.zuul-change-box' ).each( function () {
-					format.display_patchset( $( this ) );
+				const pipelinesElement = parseHTML( pipeline_html );
+				pipelinesElement.addEventListener( 'click', ( e ) => {
+					if ( e.target.closest( '.zuul-patchset-header' ) ) {
+						format.toggle_patchset( e );
+					}
 				} );
 
-				return $html;
+				pipelinesElement.querySelectorAll( '.zuul-change-box' ).forEach( ( changeBox ) => {
+					state.changeBoxes.add( changeBox );
+				} );
+
+				state.element = pipelinesElement;
+				pipelineStates.push( state );
+
+				return pipelinesElement;
 			},
 
 			// Toggle showing/hiding the patchset when the header is clicked.
@@ -384,100 +457,121 @@
 					return;
 				}
 
-				// Grab the patchset panel
-				const $panel = $( e.target ).parents( '.zuul-change' );
-				const $body = $panel.children( '.zuul-patchset-body' );
-				$body.toggle( 200 );
-				const collapsed_index = collapsed_exceptions.indexOf( $panel.attr( 'id' ) );
-				if ( collapsed_index === -1 ) {
+				// Find the outer change box
+				const changeBox = e.target.closest( '.zuul-change-box' );
+				const changeID = changeBox.dataset.changeid;
+				const changeBody = changeBox.querySelector( '.zuul-patchset-body' );
+
+				if ( changeBody.hidden ) {
+					showAnimate( changeBody );
+				} else {
+					hideAnimate( changeBody );
+				}
+
+				if ( !collapsedExceptions.has( changeID ) ) {
 					// Currently not an exception, add it to list
-					collapsed_exceptions.push( $panel.attr( 'id' ) );
+					collapsedExceptions.add( changeID );
 				} else {
 					// Currently an except, remove from exceptions
-					collapsed_exceptions.splice( collapsed_index, 1 );
+					collapsedExceptions.delete( changeID );
 				}
 			},
 
-			display_patchset: function ( $change_box, animate ) {
+			getChangeVisibility: function ( changeID, pipelineState ) {
 				// Determine if we should hide the body/results
-				const $panel = $change_box.find( '.zuul-change' );
-				const panel_change = $panel.attr( 'id' );
-				const $body = $panel.children( '.zuul-patchset-body' );
-				const expand_by_default = $( '#expand_by_default' ).prop( 'checked' );
-				const panel_project = $panel.find( '.change_project' ).text().toLowerCase();
-				const $pipeline = $change_box.parents( '.zuul-pipeline' );
-				const panel_pipeline = $pipeline.find( '.zuul-pipeline-header > h3' ).text().toLowerCase();
-
-				const collapsed_index = collapsed_exceptions.indexOf( panel_change );
+				const isCollapsedExempt = collapsedExceptions.has( changeID );
 				// Expand by default, or is an exception
-				const show_body = ( expand_by_default && collapsed_index === -1 ||
-					!expand_by_default && collapsed_index !== -1
+				const showBody = ( expandByDefault && !isCollapsedExempt ||
+					!expandByDefault && isCollapsedExempt
 				);
 
 				// Show panel if no filters, or at least one filter matches one field
-				const show_panel = ( current_filter === '' ||
+				const filterable = pipelineState.filterable[ changeID ];
+				const showPanel = ( current_filter === '' ||
 					current_filter.toLowerCase().split( /[\s,]+/ ).some( ( f_val ) => {
-						return ( f_val !== '' ) && ( panel_project.includes( f_val ) ||
-							panel_pipeline.includes( f_val ) ||
-							panel_change.includes( f_val )
-						);
+						return f_val !== '' && filterable.includes( f_val );
 					} )
 				);
 
-				if ( show_body ) {
-					$body.show( animate );
-				} else {
-					$body.hide( animate );
-				}
+				return { showBody, showPanel };
+			},
 
-				if ( show_panel === true ) {
-					$change_box.show( animate );
-					$pipeline.data( 'change_ids' ).add( panel_change );
+			display_patchset: function ( changeBox, pipelineState ) {
+				const changeID = changeBox.dataset.changeid;
+				const { showBody, showPanel } = format.getChangeVisibility( changeID, pipelineState );
+
+				const changeBody = changeBox.querySelector( '.zuul-patchset-body' );
+				changeBody.hidden = !showBody;
+				changeBox.hidden = !showPanel;
+				if ( showPanel ) {
+					pipelineState.visible.add( changeID );
 				} else {
-					$change_box.hide( animate );
-					$pipeline.data( 'change_ids' ).delete( panel_change );
+					pipelineState.visible.delete( changeID );
 				}
 			}
 		};
 
 		const app = {
+			render: function () {
+				const container = typeof options.container === 'string'
+					? document.querySelector( options.container )
+					: options.container;
+
+				// Fill the container with the status page layout,
+				// and render the form based on current URL/cookies
+				container.classList.add( 'zuul-container' );
+				container.innerHTML = Mustache.render( container_template, {
+					filter_value: current_filter,
+					expandByDefault
+				} );
+				domOut = {
+					msg: container.querySelector( '.zuul-msg' ),
+					filterInput: container.querySelector( '.zuul-filter-input' ),
+					filterClear: container.querySelector( '.zuul-filter-clear' ),
+					controlExpand: container.querySelector( '.zuul-control-expand' ),
+					pipelines: container.querySelector( '.zuul-pipelines' ),
+					infoVersion: container.querySelector( '.zuul-info--version' ),
+					infoReconfigured: container.querySelector( '.zuul-info--reconfigured' ),
+					infoQueueEvents: container.querySelector( '.zuul-info--queue-events' ),
+					infoQueueResults: container.querySelector( '.zuul-info--queue-results' )
+				};
+
+				// Listen for 'input' instead of 'change'.
+				// The input event will fire as-you-type. The 'change' event
+				// only fires when clicking or tabbing to elsewhere on the page.
+				domOut.filterInput.addEventListener( 'input', app.handle_filter_change );
+				domOut.filterClear.addEventListener( 'click', () => {
+					domOut.filterInput.value = '';
+					domOut.filterInput.focus();
+					app.handle_filter_change();
+				} );
+				domOut.controlExpand.addEventListener( 'change', app.handle_expand_by_default );
+			},
+
 			schedule: function () {
 				if ( !options.enabled ) {
-					setTimeout( function () {
-						app.schedule( app );
-					}, 5000 );
 					return;
 				}
-				app.update().always( function () {
+				app.update().finally( function () {
 					setTimeout( function () {
-						app.schedule( app );
+						app.schedule();
 					}, 5000 );
 				} );
-
-				/* Only update graphs every minute */
-				if ( zuul_graph_update_count > 11 ) {
-					zuul_graph_update_count = 0;
-				}
 			},
 
 			/** @return {jQuery.Promise} */
 			update: function () {
-				// Cancel the previous update if it hasn't completed yet.
-				if ( xhr ) {
-					xhr.abort();
-				}
+				options.onUpdateStart();
 
-				app.emit( 'update-start' );
-
-				const $msg = $( options.msg_id );
-				xhr = $.ajax( options.source, {
-					dataType: 'text',
-					// Enable cache buster query string
-					// https://phabricator.wikimedia.org/T94796
-					cache: false
-				} );
-
-				return xhr
+				// Bypass cache
+				// https://phabricator.wikimedia.org/T94796
+				return fetch( options.source, { cache: 'no-store' } )
+					.then( function ( resp ) {
+						if ( !resp.ok ) {
+							throw new Error( 'HTTP ' + resp.status );
+						}
+						return resp.text();
+					} )
 					.then( function ( raw ) {
 						if ( last_rendered_raw === raw ) {
 							// Don't re-render if response identical to last,
@@ -488,164 +582,86 @@
 						const data = JSON.parse( raw );
 
 						if ( 'message' in data ) {
-							$msg.removeClass( 'wm-alert-error' )
-								.text( data.message )
-								.show();
+							domOut.msg.classList.remove( 'wm-alert-error' );
+							domOut.msg.textContent = data.message;
+							domOut.msg.hidden = false;
 						} else {
-							$msg.empty().hide();
+							domOut.msg.hidden = true;
 						}
 
 						if ( 'zuul_version' in data ) {
-							$( '#zuul-version-span' ).text( data.zuul_version );
+							domOut.infoVersion.textContent = data.zuul_version;
 						}
 						if ( 'last_reconfigured' in data ) {
 							const last_reconfigured = new Date( data.last_reconfigured );
-							$( '#last-reconfigured-span' ).text( last_reconfigured.toString() );
+							domOut.infoReconfigured.textContent = last_reconfigured.toString();
 						}
 
-						const $pipelines = $( options.pipelines_id );
-						$pipelines.html( '' );
+						domOut.pipelines.innerHTML = '';
+						pipelineStates.length = 0;
+
 						data.pipelines.forEach( ( pipeline ) => {
 							const count = app.create_tree( pipeline );
-							$pipelines.append(
-								format.pipeline( pipeline, count ) );
+							domOut.pipelines.append( format.pipeline( pipeline, count ) );
 						} );
 						app.handle_pipeline_visibility();
 
-						$( options.queue_events_num ).text(
-							data.trigger_event_queue ? data.trigger_event_queue.length : '0'
-						);
-						$( options.queue_results_num ).text(
-							data.result_event_queue ? data.result_event_queue.length : '0'
-						);
+						domOut.infoQueueEvents.textContent =
+							( data.trigger_event_queue ? data.trigger_event_queue.length : '0' );
+						domOut.infoQueueResults.textContent =
+							( data.result_event_queue ? data.result_event_queue.length : '0' );
 
 						last_rendered_raw = raw;
 					} )
 					.catch( function ( jqxhrOrError ) {
 						// jqXHR: network failure. Error: JSON syntax error.
 						const errMsg = jqxhrOrError.statusText || jqxhrOrError;
-						if ( jqxhrOrError.statusText === 'abort' ) {
-							return;
-						}
-						$msg.text( options.source + ': ' + errMsg )
-							.addClass( 'wm-alert-error' )
-							.removeClass( 'zuul-msg-wrap-off' )
-							.show();
+						domOut.msg.classList.add( 'wm-alert-error' );
+						domOut.msg.textContent = options.source + ': ' + errMsg;
+						domOut.msg.hidden = false;
 					} )
-					.always( function () {
-						xhr = undefined;
-						app.emit( 'update-end' );
+					.finally( function () {
+						options.onUpdateEnd();
 					} );
-			},
-
-			emit: function () {
-				$jq.trigger.apply( $jq, arguments );
-				return this;
-			},
-			on: function () {
-				$jq.on.apply( $jq, arguments );
-				return this;
-			},
-			one: function () {
-				$jq.one.apply( $jq, arguments );
-				return this;
-			},
-
-			// Build the filter form filling anything from cookies
-			control_form: function () {
-				return $( '<form>' ).attr( 'role', 'form' ).append(
-					$( '<label>' )
-						.attr( 'for', 'filter_string' )
-						.text( 'Filter:' ),
-					' ',
-					$( '<span>' )
-						.addClass( 'wm-input-group--aside' )
-						.append(
-							$( '<input>' )
-								.prop( {
-									type: 'text',
-									id: 'filter_string',
-									className: 'wm-input-text zuul-filter-input',
-									// eslint-disable-next-line max-len
-									title: 'Any partial match for a gerrit change number, repo name, or pipeline. Multiple terms may be comma-separated.',
-									placeholder: 'e.g. 1234 or mediawiki… \u00a0 [ / ]',
-									value: current_filter
-								} )
-								// Listen for 'input' instead of 'change'.
-								// The input event will fire as-you-type. The 'change' event
-								// only fires when clicking or tabbing to elsewhere on the page.
-								.on( 'input', app.handle_filter_change ),
-							$( '<span>' )
-								.addClass( 'wm-input-icon--clear zuul-filter-clear' )
-								.attr( 'id', 'filter_form_clear_box' )
-								.attr( 'title', 'Clear filter' )
-								.prop( 'hidden', ( current_filter === '' ) )
-								.on( 'click', function () {
-									$( '#filter_string' ).val( '' ).trigger( 'focus' );
-									app.handle_filter_change();
-								} )
-						),
-					' ',
-					this.expand_form_group()
-				);
-			},
-
-			expand_form_group: function () {
-				const initial_value = (
-					read_persistent_store( 'zuul_expand_by_default' ) === 'true'
-				);
-
-				return $( '<label>' )
-					.text( ' Expand by default' )
-					.prepend( $( '<input>' )
-						.attr( 'type', 'checkbox' )
-						.attr( 'id', 'expand_by_default' )
-						.prop( 'checked', initial_value )
-						.on( 'change', this.handle_expand_by_default )
-					);
 			},
 
 			// Called from zuul.app.js to focus input field when pressing "/" keyboard shortcut.
 			focus_filter_input: function () {
-				$( '#filter_string' ).trigger( 'focus' );
+				domOut.filterInput.focus();
 			},
 
+			// Read and apply the filter, and update the URL fragment
 			handle_filter_change: function () {
-				// Update the filter and save it to a cookie
-				current_filter = $( '#filter_string' ).val();
+				current_filter = domOut.filterInput.value;
 
-				$( '#filter_form_clear_box' ).prop( 'hidden', current_filter === '' );
-				$( '.zuul-change-box' ).each( function ( i, element ) {
-					format.display_patchset( $( element ), 200 );
-				} );
+				for ( const pipelineState of pipelineStates ) {
+					for ( const changeBox of pipelineState.changeBoxes ) {
+						format.display_patchset( changeBox, pipelineState );
+					}
+				}
+
 				app.handle_pipeline_visibility();
+				domOut.filterClear.hidden = ( current_filter === '' );
 
 				update_fragment_filter( current_filter );
 			},
 
+			// When filtering, hide pipelines that contain zero matches
 			handle_pipeline_visibility: function () {
-				if ( current_filter !== '' ) {
-					// Hide pipelines without matches when filtering.
-					$( '.zuul-pipeline' ).each( function () {
-						if ( $( this ).data( 'change_ids' ).size ) {
-							$( this ).show();
-						} else {
-							$( this ).hide();
-						}
-					} );
-				} else {
-					$( '.zuul-pipeline' ).show();
+				for ( const pipelineState of pipelineStates ) {
+					pipelineState.element.hidden =
+						( current_filter !== '' && !pipelineState.visible.size );
 				}
 			},
 
+			// Handle toggling "Expand by default"
 			handle_expand_by_default: function ( e ) {
-				// Handle toggling expand by default
-				set_persistent_store( 'zuul_expand_by_default', String( e.target.checked ) );
-				collapsed_exceptions = [];
-				$( '.zuul-change-box' ).each( function ( index, obj ) {
-					const $change_box = $( obj );
-					format.display_patchset( $change_box, 200 );
-				} );
+				expandByDefault = e.target.checked;
+				set_persistent_store( 'zuul_expand_by_default', String( expandByDefault ) );
+
+				// Expand or collapse all change boxes
+				collapsedExceptions.clear();
+				app.handle_filter_change();
 			},
 
 			create_tree: function ( pipeline ) {
@@ -664,7 +680,7 @@
 					} );
 					change_queue.heads.forEach( function ( head ) {
 						head.forEach( function ( change ) {
-							if ( change.live === true ) {
+							if ( change.live ) {
 								count += 1;
 							}
 							const idx = tree.indexOf( change.id );
@@ -712,75 +728,55 @@
 			}
 		};
 
-		$jq = $( app );
-		return {
-			options: options,
-			format: format,
-			app: app,
-			jq: $jq
-		};
-	};
+		this.options = options;
+		this.app = app;
+	}
+
+	window.Zuul = Zuul;
 }() );
 
 /**
- * @param {HTMLElement|jQuery|string} container Element or element selector
- * @return {$.zuul}
+ * @param {string} containerSelector CSS selector
+ * @return {Zuul}
  */
-function zuul_start( container ) {
-	const defaultLayout = `<div style="display: none;" class="wm-alert" id="zuul_msg"></div>
-		<span class="zuul-badge zuul-spinner">Updating…</span>
-		<div id="zuul_controls"></div>
-		<div id="zuul_pipelines" class="zuul-pipelines"></div>
-		<p>Zuul version: <span id="zuul-version-span"></span></p>
-		<p>Last reconfigured: <span id="last-reconfigured-span"></span></p>
-		<p>Queue lengths: <span id="zuul_queue_events_num">0</span> events, <span id="zuul_queue_results_num">0</span> results.</p>`;
+function zuul_start( containerSelector ) {
+	/* global Zuul */
 
 	const demo = location.search.match( /[?&]demo=([^?&]*)/ );
 	const source = demo ?
 		'./status-' + ( demo[ 1 ] || 'basic' ) + '-sample.json' :
 		'status.json';
-	const zuul = $.zuul( {
+	const container = document.querySelector( containerSelector );
+
+	const zuul = new Zuul( {
 		demo: !!demo,
-		source: source
+		source: source,
+		container: container,
+		onUpdateStart() {
+			container.classList.add( 'zuul-container-loading' );
+		},
+		onUpdateEnd() {
+			container.classList.remove( 'zuul-container-loading' );
+		}
 	} );
 
-	const $container = $( container ).addClass( 'zuul-container' ).html( defaultLayout );
-	$( '#zuul_controls' ).append( zuul.app.control_form() );
-
-	zuul.jq.on( 'update-start', function () {
-		$container.addClass( 'zuul-container-loading' );
-	} );
-	zuul.jq.on( 'update-end', function () {
-		$container.removeClass( 'zuul-container-loading' );
-	} );
-	zuul.jq.one( 'update-end', function () {
-		// Do this asynchronous so that if the first update adds a
-		// message, the message will not animate as the content fades in.
-		// Instead, it fades with the rest of the content.
-		setTimeout( function () {
-			// Fade in the content
-			$container.addClass( 'zuul-container-ready' );
-		} );
-	} );
-
+	zuul.app.render();
 	zuul.app.schedule();
 
-	$( document ).on( {
-		visibilitychange: function () {
-			if ( document.hiden ) {
-				zuul.options.enabled = false;
-			} else {
-				zuul.options.enabled = true;
-				zuul.app.update();
-			}
-		},
-		keydown: function ( e ) {
-			if ( e.key === '/' && e.target.nodeName !== 'INPUT' ) {
-				// Keyboard shortcut
-				zuul.app.focus_filter_input();
-				// Don't actually render a slash now
-				return false;
-			}
+	document.addEventListener( 'visibilitychange', () => {
+		if ( document.hidden ) {
+			zuul.options.enabled = false;
+		} else {
+			zuul.options.enabled = true;
+			zuul.app.schedule();
+		}
+	} );
+	document.addEventListener( 'keydown', ( e ) => {
+		if ( e.key === '/' && e.target.nodeName !== 'INPUT' ) {
+			// Keyboard shortcut
+			zuul.app.focus_filter_input();
+			// Don't actually insert a slash now
+			return false;
 		}
 	} );
 

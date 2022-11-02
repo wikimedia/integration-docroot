@@ -1,4 +1,5 @@
 {
+  "message": "Hello world",
   "pipelines": [
     {
       "description": "Newly uploaded patchsets enter this pipeline to receive an initial +/-1 Verified vote from Jenkins.",

@@ -160,6 +160,7 @@ footer nav li a {
   background-color: var( --wmui-color-base80 );
   border: 1px solid var( --wmui-color-base50 );
   color: var( --color-base );
+  margin: 1rem 0;
   padding: 1rem;
 }
 .wm-alert-error {
