@@ -113,6 +113,16 @@
 		return ret;
 	}
 
+	// Usually 0-5min ago sometimes 1h or 2h ago.
+	const demoTime = [ 130, 180, 160, 120, 240, 301, 3600 + 180, 2 * 3600 + 180 ];
+	let demoTimeOffset = -1;
+	function demoTimeAgo() {
+		if ( ++demoTimeOffset >= demoTime.length ) {
+			demoTimeOffset = 0;
+		}
+		return demoTime[ demoTimeOffset ] * 1000;
+	}
+
 	const container_template = `
 		<div hidden class="wm-alert zuul-msg"></div>
 		<span class="zuul-badge zuul-spinner">Updating…</span>
@@ -155,9 +165,7 @@
 			</td>
 			{{/change_tree_cells}}
 			<td class="zuul-change-cell" style="width: {{change_width}}px;">
-				{{#change_panel_data}}
 				{{> change_template}}
-				{{/change_panel_data}}
 			</td>
 		</tr>
 	</table>`;
@@ -234,11 +242,8 @@
 		const format = {
 			enqueue_time: function ( ms ) {
 				const hours = 60 * 60 * 1000;
-				const delta = options.demo ?
-					// In demo mode, ignore the far-past timestamps in the sample data,
-					// and instead pretend jobs started 0min-5h ago
-					( Math.floor( Math.random() * 5 * 60 ) * 60 * 1000 ) :
-					Date.now() - ms;
+				// In demo mode, ignore the far-past timestamps in the sample data
+				const delta = options.demo ? demoTimeAgo() : Date.now() - ms;
 				const text = format.time( delta, true );
 				let text_class = '';
 				if ( delta > ( 4 * hours ) ) {
@@ -281,7 +286,7 @@
 				return r;
 			},
 
-			change_panel_data: function ( change ) {
+			change_box_data: function ( change, change_queue ) {
 				const panel_id = ( change.id || 'unknown' ).replace( ',', '_' );
 
 				// Zuul events may respond to a commit hash (eg. tag) without a Gerrit change number
@@ -323,18 +328,7 @@
 					}
 				} );
 
-				return {
-					panel_id,
-					change_id_short,
-					job_percent,
-					remaining_time,
-					ellapsed_time
-				};
-			},
-
-			change_box_data: function ( change, change_queue ) {
 				const change_width = 360 - ( 16 * change_queue._tree_columns );
-
 				let icon_class = 'zuul-queue-icon--success';
 				let icon_title = 'Succeeding';
 				if ( !change.active ) {
@@ -350,7 +344,6 @@
 
 				const change_tree_cells = [];
 				for ( let i = 0; i < change_queue._tree_columns; i++ ) {
-
 					// Start or continue drawing a line down toward the current change box
 					const draw_line = ( i < change._tree.length && change._tree[ i ] !== null );
 					const is_self = ( i === change._tree_index );
@@ -374,7 +367,11 @@
 					change,
 					change_width,
 					change_tree_cells,
-					change_panel_data: format.change_panel_data( change )
+					panel_id,
+					change_id_short,
+					job_percent,
+					remaining_time,
+					ellapsed_time
 				};
 			},
 
