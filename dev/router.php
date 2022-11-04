@@ -16,10 +16,39 @@ if ( !isset( $_SERVER['SCRIPT_FILENAME'] ) ) {
 	return false;
 }
 
-$app_file = realpath( $_SERVER['DOCUMENT_ROOT'] . $_SERVER['REQUEST_URI'] );
-if ( is_readable( $app_file ) ) {
-	// The requested file belong to our PHP application.
-	return false;
+$app_file = realpath( $_SERVER['DOCUMENT_ROOT'] . $_SERVER['SCRIPT_NAME'] );
+if ( is_readable( $app_file ) && is_file( $app_file ) ) {
+	$ext = pathinfo( $app_file, PATHINFO_EXTENSION );
+	if ( $ext == 'php' ) {
+		// Let built-in server handle script execution.
+		return false;
+	} else {
+		// Serve static file with appropriate Content-Type headers.
+		$mimes = [
+			'css' => 'text/css',
+			'html' => 'text/html',
+			'js' => 'text/javascript',
+			'json' => 'application/json',
+			'svg' => 'image/svg+xml',
+		];
+		$mime = $mimes[$ext] ?? mime_content_type( $app_file ) ?: 'text/plain';
+		if ( strpos( $mime, 'text/' ) === 0 ) {
+			$mime .= '; charset=UTF-8';
+		}
+		$content = file_get_contents( $app_file );
+
+		$acceptGzip = preg_match( '/\bgzip\b/', $_SERVER['HTTP_ACCEPT_ENCODING'] ?? '' );
+		if ( $acceptGzip && preg_match( '/text|json|xml/', $mime ) ) {
+			$content = gzencode( $content, 9 );
+			header( 'Content-Encoding: gzip' );
+		}
+		header( 'Vary: Accept-Encoding' );
+		header( "Content-Type: $mime" );
+		header( 'Content-Length: ' . strlen( $content ) );
+	// @phan-suppress-next-line SecurityCheck-XSS
+		echo $content;
+		return true;
+	}
 }
 
 // Fallback to published files under $WMF_DOC_PATH
