@@ -85,6 +85,10 @@ if ( is_readable( $app_file ) && is_file( $app_file ) ) {
 		header( 'Vary: Accept-Encoding' );
 		header( "Content-Type: $mime" );
 		header( 'Content-Length: ' . strlen( $content ) );
+		// For /zuul/status-basic-sample.json
+		if ( $ext == 'json' ) {
+			header( 'Access-Control-Allow-Origin: *' );
+		}
 		// @phan-suppress-next-line SecurityCheck-XSS
 		echo $content;
 		return true;
