@@ -105,7 +105,7 @@ User experience:
     lang: JS, Vue
     links:
       Source code: https://gerrit.wikimedia.org/g/design/codex/
-      Documentation: https://doc.wikimedia.org/codex/main/
+      Documentation: https://doc.wikimedia.org/codex/latest/
   WikimediaUI Base:
     tagline: Stylesheet containing Wikimedia Design style values.
     lang: CSS, LESS
