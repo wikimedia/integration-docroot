@@ -511,7 +511,7 @@ Infrastructure:
     homepage: https://doc.wikimedia.org/spicerack/master/
     links:
       Source code: https://gerrit.wikimedia.org/g/operations/software/spicerack/
-      Coobooks API: https://doc.wikimedia.org/spicerack/master/introduction.html#cookbooks-api
+      Cookbooks API: https://doc.wikimedia.org/spicerack/master/introduction.html#cookbooks-api
   SRE Cookbooks:
     tagline: Collection of Spicerack cookbooks for WMF production infrastructure.
     lang: Python
