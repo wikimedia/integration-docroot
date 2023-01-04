@@ -12,11 +12,11 @@
 	"scripts": {
 		"start:doc": [
 			"Composer\\Config::disableProcessTimeout",
-			"WMF_DOC_PATH=$PWD/dev/wmf_doc_path php -d variables_order=EGPCS -S localhost:4000 -t org/wikimedia/doc dev/router.php"
+			"WMF_DOC_PATH=$PWD/dev/wmf_doc_path php -S localhost:4000 -t org/wikimedia/doc dev/router.php"
 		],
 		"start:integration": [
 			"Composer\\Config::disableProcessTimeout",
-			"WMF_DOC_PATH=$PWD/dev/wmf_doc_path php -d variables_order=EGPCS -S localhost:4001 -t org/wikimedia/integration dev/router.php"
+			"WMF_DOC_PATH=$PWD/dev/wmf_doc_path php -S localhost:4001 -t org/wikimedia/integration dev/router.php"
 		],
 		"test": [
 			"parallel-lint . --exclude vendor",
