@@ -88,6 +88,9 @@ if ( is_readable( $app_file ) && is_file( $app_file ) ) {
 		// For /zuul/status-basic-sample.json
 		if ( $ext == 'json' ) {
 			header( 'Access-Control-Allow-Origin: *' );
+			// Retrieving the Zuul status is done with Cache-Control: no-store
+			// Gerrit FrontEnd development adds X-TEST-ORIGIN: gerrit-fe-dev-helper
+			header( 'Access-Control-Allow-Headers: Cache-Control, X-TEST-ORIGIN' );
 		}
 		// @phan-suppress-next-line SecurityCheck-XSS
 		echo $content;
