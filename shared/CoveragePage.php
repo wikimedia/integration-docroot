@@ -121,7 +121,7 @@ HTML;
 		}
 
 		$this->addHtmlContent( "<hr>$sortNav" );
-		$this->addHtmlContent( '<ul class="wm-nav">' );
+		$this->addHtmlContent( '<ul class="wm-nav cover-list">' );
 		$html = '';
 		$clovers = [];
 		foreach ( $cloverFiles as $cloverFile ) {
@@ -155,13 +155,12 @@ HTML;
 <li>
 	<a class="cover-item" href="./$dirName/">
 		<span class="cover-item-meter">
-			<meter min="0" max="100" low="$lowThreshold" high="$highThreshold" optimum="99" value="$percent">$percent%</meter>
-			<span> $percent%</span>
+			<meter min="0" max="100" low="$lowThreshold" high="$highThreshold" optimum="99" value="$percent">$percent%</meter><span> $percent%</span>
 		</span>
 		<span>$dirName</span>
+		<span class="cover-mtime">$modifiedTime</span>
 	</a>
 	<span class="cover-extra">(<a href="./$dirName/clover.xml">xml</a>)</span>
-	<span class="cover-mtime">$modifiedTime</span>
 </li>
 HTML;
 		}

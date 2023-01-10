@@ -2,7 +2,14 @@
 	display: flex;
 }
 
+.cover-list li {
+	display: flex;
+	flex: initial;
+}
+
+/* override `.wm-nav li > a` */
 .wm-nav .cover-item {
+	flex: 1; /* the a.cover-item should grow instead of cover-extra */
 	display: inline-flex;
 	align-items: center;
 	/* override `.wm-nav li > a` styles from wmui-page.css */
@@ -25,4 +32,14 @@
 	/* align edges */
 	min-width: 3rem;
 	display: inline-block;
+}
+
+.cover-mtime {
+	flex: 1; /* grow */
+	text-align: right;
+	font-size: 1.2rem;
+}
+
+.cover-extra {
+	padding: 1rem 0; /* match `.wm-nav li > a` */
 }
