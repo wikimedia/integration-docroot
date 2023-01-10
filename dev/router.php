@@ -33,6 +33,18 @@ if ( $base !== '' && is_readable( $published_file ) ) {
 			require_once $published_file . '/index.php';
 			return true;
 		}
+		// If we're in a directory that exists in both the web app
+		// and the doc path, the doc path takes precedence (handled
+		// above). If the doc path has no index file, but the web app
+		// does, then we let the web app render it.
+		// This is used for the doc.wikimedia.org/cover/
+		$app_file = realpath( $_SERVER['DOCUMENT_ROOT'] . $_SERVER['REQUEST_URI'] );
+		if ( is_readable( $app_file . '/index.php' ) ) {
+			// @phan-suppress-next-line SecurityCheck-PathTraversal
+			require_once $app_file . '/index.php';
+			return true;
+		}
+
 		// Simulate Apache `RewriteRule .* dir.php`
 		//
 		// When on the docserver/index/ page, and following the link to
