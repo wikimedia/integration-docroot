@@ -205,12 +205,17 @@
 	</div>`;
 
 	const job_template = `<li class="zuul-change-job">
+		{{#report_url}}
+		<a class="zuul-job-name" href="{{report_url}}">{{_display_name}}</a>
+		{{/report_url}}
+		{{^report_url}}
 		{{#url}}
 		<a class="zuul-job-name" href="{{url}}">{{_display_name}}</a>
 		{{/url}}
 		{{^url}}
 		<span class="zuul-job-name">{{_display_name}}</span>
 		{{/url}}
+		{{/report_url}}
 
 		{{#_progressbar}}
 		<span class="zuul-job-result zuul-job-result--progress"><span class="{{progress_class}}" role="progressbar" aria-valuenow="{{progress_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress_width}}%;"></span></span>
