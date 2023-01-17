@@ -465,8 +465,10 @@ Infrastructure:
     lang: PHP
     homepage: https://packagist.org/packages/wikimedia/less.php
     links:
-      Source code: https://github.com/wikimedia/less.php
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/less.php/
+      Documentation: https://doc.wikimedia.org/mediawiki-libs-less.php/master/
       Package (Composer): https://packagist.org/packages/wikimedia/less.php
+      Test coverage: https://doc.wikimedia.org/cover/mediawiki-libs-less.php/
   MediaWiki-Vagrant:
     tagline: Portable MediaWiki development environment.
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/MediaWiki-Vagrant
