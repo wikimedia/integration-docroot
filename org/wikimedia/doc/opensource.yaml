@@ -655,6 +655,11 @@ MediaWiki components:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/GlobalWatchlist
       Code documentation (PHP): https://doc.wikimedia.org/GlobalWatchlist/master/php/
       Code documentation (JS): https://doc.wikimedia.org/GlobalWatchlist/master/js/
+  GrowthExperiments:
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GrowthExperiments
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/GrowthExperiments
+      Frontend code documentation (JS): https://doc.wikimedia.org/GrowthExperiments/master/js/frontend
   GuidedTour:
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GuidedTour
     links:
