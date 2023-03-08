@@ -9,6 +9,7 @@ Featured:
       Code documentation (PHP): https://doc.wikimedia.org/mediawiki-core/master/php/
       Code documentation (JS): https://doc.wikimedia.org/mediawiki-core/master/js/
       PhpMetrics report: https://doc.wikimedia.org/mediawiki-core/master/phpmetrics/
+      Test coverage: https://doc.wikimedia.org/cover/mediawiki-core/includes/index.html
     lang: PHP, JS
   VisualEditor:
     tagline: Rich text visual editor for the browser with a MediaWiki integration. WYSIWYG, based on HTML5+RDFa and ContentEditable.
@@ -198,6 +199,7 @@ Libraries:
       Source code: https://gerrit.wikimedia.org/g/cdb/
       Documentation: https://doc.wikimedia.org/cdb/master/
       Package (Composer): https://packagist.org/packages/wikimedia/cdb
+      Test coverage: https://doc.wikimedia.org/cover/cdb/
   css-sanitizer:
     tagline: CSS parser in pure PHP to transform or filter stylesheets.
     lang: PHP
@@ -301,6 +303,7 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/jquery-client
       Documentation: https://doc.wikimedia.org/jquery-client/master/#!/api/jQuery.client
+      Test coverage: https://doc.wikimedia.org/cover/jquery-client/
   php-session-serializer:
     tagline: CSS parser in pure PHP to transform or filter stylesheets.
     lang: PHP
@@ -627,6 +630,7 @@ Testing:
       # FIXME: https://phabricator.wikimedia.org/T251214
       Documentation: https://github.com/wikimedia/fresnel/blob/master/API.md
       Package (npm): https://www.npmjs.com/package/fresnel
+      Test coverage: https://doc.wikimedia.org/cover/fresnel/
 
 MediaWiki components:
   CirrusSearch:
