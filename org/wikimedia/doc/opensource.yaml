@@ -499,6 +499,7 @@ Infrastructure:
     links:
       Source code: https://gerrit.wikimedia.org/g/integration/pipelinelib
       Documentation: https://wikitech.wikimedia.org/wiki/PipelineLib
+      Groovy API: https://doc.wikimedia.org/pipelinelib/
   Quibble:
     tagline: Test runner for MediaWiki.
     lang: Python
