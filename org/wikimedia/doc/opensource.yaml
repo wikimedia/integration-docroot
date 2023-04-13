@@ -38,7 +38,7 @@ Localisation:
     links:
       Source code: https://github.com/cssjanus/cssjanus
       Documentation: https://github.com/cssjanus/cssjanus#basic-usage
-      Demo: https://cssjanus.github.io/
+      Demo: https://doc.wikimedia.org/cssjanus/master/
   php-cssjanus:
     tagline: Convert stylesheets from left-to-right to right-to-left. (PHP port)
     lang: PHP
@@ -46,7 +46,7 @@ Localisation:
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/php-cssjanus/
       Documentation: https://doc.wikimedia.org/mediawiki-libs-php-cssjanus/master/
-      Demo: https://cssjanus.github.io/
+      Demo: https://doc.wikimedia.org/cssjanus/master/
       Package (Composer): https://packagist.org/packages/cssjanus/cssjanus
       Test coverage: https://doc.wikimedia.org/cover/mediawiki-libs-php-cssjanus/
   CLDRPluralRuleParser:
