@@ -1,5 +1,5 @@
 <?php
-$cfg = require __DIR__ . '/../vendor/mediawiki/mediawiki-phan-config/src/config.php';
+$cfg = require __DIR__ . '/../vendor/mediawiki/mediawiki-phan-config/src/config-library.php';
 
 // We override the directory lists to erase the defaults provided by
 // mediawiki-phan-config which are specific to MediaWiki.
