@@ -720,16 +720,16 @@ MediaWiki components:
     homepage: https://www.mediawiki.org/wiki/Extension:WikiLambda
     links:
       Source code (MW extension): https://gerrit.wikimedia.org/g/mediawiki/extensions/WikiLambda
-      Source code (evaluator): https://gerrit.wikimedia.org/g/mediawiki/services/function-evaluator
-      Source code (orchestrator): https://gerrit.wikimedia.org/g/mediawiki/services/function-orchestrator
-      Source code (shared schemata): https://gerrit.wikimedia.org/g/mediawiki/services/function-schemata
       Code documentation (MW JS): https://doc.wikimedia.org/WikiLambda/master/js/
       Code documentation (MW PHP): https://doc.wikimedia.org/WikiLambda/master/php/
       Test coverage (MW JS): https://doc.wikimedia.org/cover/WikiLambda/lcov-report/
       Test coverage (MW PHP): https://doc.wikimedia.org/cover-extensions/WikiLambda/index.html
-      Test coverage (evaluator): https://doc.wikimedia.org/cover/mediawiki-services-function-evaluator/lcov-report/
-      Test coverage (orchestrator): https://doc.wikimedia.org/cover/mediawiki-services-function-orchestrator/lcov-report/
-      Test coverage (shared schemata): https://doc.wikimedia.org/cover/mediawiki-services-function-schemata/lcov-report/
+      Source code (orchestrator): https://gitlab.wikimedia.org/repos/abstract-wiki/wikifunctions/function-orchestrator
+      Test coverage (orchestrator): https://doc.wikimedia.org/cover/abstract-wiki/wikifunctions/function-orchestrator/
+      Source code (evaluator): https://gitlab.wikimedia.org/repos/abstract-wiki/wikifunctions/function-evaluator
+      Test coverage (evaluator): https://doc.wikimedia.org/cover/abstract-wiki/wikifunctions/function-evaluator/
+      Source code (shared schemata): https://gitlab.wikimedia.org/repos/abstract-wiki/wikifunctions/function-schemata
+      Test coverage (shared schemata): https://doc.wikimedia.org/cover/abstract-wiki/wikifunctions/function-schemata/
   Vector skin:
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Skin:Vector
     links:
