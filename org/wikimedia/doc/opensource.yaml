@@ -703,6 +703,13 @@ MediaWiki components:
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/TemplateData
       Code documentation: https://doc.wikimedia.org/TemplateData/master/js/
+  TimedMediaHandler:
+    lang: JS
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:TimedMediaHandler
+    tagline: Allows you to display audio and video files in wiki pages
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/TimedMediaHandler
+      Code documentation: https://doc.wikimedia.org/TimedMediaHandler/master/js/
   Wikibase:
     tagline: The knowledge base for linked open data that runs Wikidata.org.
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase
