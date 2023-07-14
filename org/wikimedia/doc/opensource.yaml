@@ -270,6 +270,14 @@ Libraries:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/Minify
       Documentation: https://doc.wikimedia.org/mediawiki-libs-Minify/master/
       Package (Composer): https://packagist.org/packages/wikimedia/minify
+  mwbot-rs:
+    tagline: framework for writing MediaWiki bots and tools in Rust
+    lang: Rust
+    homepage: https://www.mediawiki.org/wiki/mwbot-rs
+    links:
+      Source code: https://gitlab.wikimedia.org/repos/mwbot-rs/mwbot
+      Documentation: https://doc.wikimedia.org/mwbot-rs/mwbot/mwbot/
+      Package (Cargo): https://lib.rs/crates/mwbot
   oauthclient-php:
     tagline: OAuth client for Wikipedia and other MediaWiki sites.
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Oauthclient-php
