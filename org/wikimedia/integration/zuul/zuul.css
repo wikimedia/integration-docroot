@@ -3,6 +3,13 @@
     max-width: initial;
 }
 
+.zuul-spinner::before { /**
+    Maître Corbeau ſur un arbre perché,
+    Tenoit en ſon bec un fromage
+    Maître **/content: "\01F98A\00A0"/*, par l'odeur alléché,
+    Lui tint à peu près ce langage.
+*/;}
+
 .zuul-badge {
     padding: 0 .5rem;
     line-height: 2rem;
