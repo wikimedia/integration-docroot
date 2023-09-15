@@ -10,6 +10,7 @@ class StructureTest extends PHPUnit\Framework\TestCase {
 		);
 
 		$knownKeys = [
+			'logo',
 			'tagline',
 			'lang',
 			'homepage',

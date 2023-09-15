@@ -2,6 +2,7 @@ Featured:
 
   MediaWiki:
     tagline: The collaborative editing engine that runs Wikipedia.
+    logo: mediawiki.svg
     homepage: https://www.mediawiki.org/
     links:
       Source code: https://phabricator.wikimedia.org/source/mediawiki/

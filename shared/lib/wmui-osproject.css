@@ -29,6 +29,12 @@
 	flex-flow: column;
 	justify-content: flex-start;
 }
+.wm-osproject-tile-logo {
+	width: 3rem;
+	height: 3rem;
+	vertical-align: middle;
+}
+
 .wm-osproject-tile:focus-within,
 .wm-osproject-tile:target {
 	border-color: var( --wmui-color-accent50 );
@@ -42,7 +48,6 @@
 .wm-osproject-tile:not(:focus-within):not(:target) {
 	cursor: pointer;
 }
-
 .wm-osproject-tile-title {
 	margin: 0;
 	line-height: 1;
