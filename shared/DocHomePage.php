@@ -48,16 +48,13 @@ class DocHomePage extends DocPage {
 		$homepageHtml = htmlspecialchars( $data['homepage'] ?? '' );
 ?>
 		<div class="wm-osproject-tile" tabindex="0" id="<?php echo $titleHtml ?>">
-		<h3 class="wm-osproject-tile-title">
-<?php
+		<h3 class="wm-osproject-tile-title"><?php
 		if ( isset( $data['logo'] ) ) {
-			$logoFile = 'logos/' . basename( $data['logo'] );
-?>
-		<img loading="lazy" class="wm-osproject-tile-logo" src="<?php echo $logoFile ?>" />
-<?php
+			$logoUrl = '/logos/' . basename( $data['logo'] );
+			?><img loading="lazy" class="wm-osproject-tile-logo" src="<?php echo htmlspecialchars( $logoUrl ) ?>"><?php
 		}
-?>
-			<?php echo $titleHtml ?> <small><?php echo $langHtml ?></small>
+		echo $titleHtml;
+		?> <small><?php echo $langHtml ?></small>
 		</h3>
 		<p class="wm-osproject-tile-tagline"><?php echo $taglineHtml ?></p>
 		<ul class="wm-osproject-tile-links">

@@ -16,7 +16,7 @@
 .wm-osproject-tile {
 	background: var( --wmui-color-base90 );
 	border: 1px solid var( --wmui-color-base80 );
-	padding: 3.2rem 2.4rem;
+	padding: 2.4rem;
 	border-radius: 2px;
 	margin: 0 1rem 1rem 0;
 	box-sizing: border-box;
@@ -32,6 +32,7 @@
 .wm-osproject-tile-logo {
 	width: 3rem;
 	height: 3rem;
+	margin-right: 0.8rem;
 	vertical-align: middle;
 }
 
@@ -50,7 +51,7 @@
 }
 .wm-osproject-tile-title {
 	margin: 0;
-	line-height: 1;
+	line-height: 3rem;
 }
 .wm-osproject-tile-title small {
 	float: right;
@@ -58,6 +59,7 @@
 	color: var( --wmui-color-base30 );
 	font-weight: normal;
 	font-style: normal;
+	font-size: small;
 	-webkit-user-select: none; /* Safari, https://bugs.webkit.org/show_bug.cgi?id=208677 */
 	user-select: none; /* FF 69+, Chrome 54+ */
 }
@@ -78,6 +80,14 @@
 	margin: 0.8rem 0 1rem 0;
 	flex-grow: 2;
 }
+
+/* On focused tiles, grow title and optional logo to 4rem. */
+.wm-osproject-tile:focus-within .wm-osproject-tile-logo,
+.wm-osproject-tile:target .wm-osproject-tile-logo {
+	width: 4rem;
+	height: 4rem;
+}
+
 h2:not(#featured) + .wm-osproject-grid .wm-osproject-tile:not(:focus-within):not(:target) .wm-osproject-tile-tagline {
 	display: -webkit-box;
 	-webkit-line-clamp: 1;
