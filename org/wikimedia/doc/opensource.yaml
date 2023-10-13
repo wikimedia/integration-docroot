@@ -314,7 +314,7 @@ Libraries:
       Documentation: https://doc.wikimedia.org/jquery-client/master/#!/api/jQuery.client
       Test coverage: https://doc.wikimedia.org/cover/jquery-client/
   php-session-serializer:
-    tagline: CSS parser in pure PHP to transform or filter stylesheets.
+    tagline: Provides methods that work like PHP's session_encode and session_decode functions but don't mess with the $_SESSION superglobal.
     lang: PHP
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Php-session-serializer
     links:
