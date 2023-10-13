@@ -323,8 +323,11 @@ Libraries:
   Purtle:
     tagline: Fast streaming RDF serializer for PHP.
     lang: PHP
+    homepage: https://www.mediawiki.org/wiki/Purtle
     links:
+      Source code: https://gerrit.wikimedia.org/g/purtle
       Documentation: https://doc.wikimedia.org/purtle/master/
+      Package (Composer): https://packagist.org/packages/wikimedia/purtle
   RelPath:
     tagline: Compute the relative path between two file paths.
     lang: PHP
