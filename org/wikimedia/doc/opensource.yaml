@@ -57,6 +57,7 @@ Localisation:
     links:
       Source code: https://gerrit.wikimedia.org/g/CLDRPluralRuleParser/
       Documentation: https://doc.wikimedia.org/CLDRPluralRuleParser/master/
+      Package (Composer): https://packagist.org/packages/wikimedia/cldr-plural-rule-parser
   cldrpluralruleparser.js:
     tagline: Parse CLDR plural rules from Unicode.
     lang: JS
@@ -100,6 +101,20 @@ Localisation:
       JavaScript package (npm): https://www.npmjs.com/package/banana-i18n
       React package (npm): https://www.npmjs.com/package/@wikimedia/react.i18n
       Vue package (npm): https://www.npmjs.com/package/vue-banana-i18n
+  Bcp47Code:
+    tagline: A simple interface representing a language object which can be represented by a BCP 47 code.
+    lang: PHP
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Bcp47Code
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/Bcp47Code/
+      Package (Composer): https://packagist.org/packages/wikimedia/bcp-47-code
+      Documentation: https://doc.wikimedia.org/mediawiki-libs-Bcp47Code/main/
+  IPAValidator:
+    tagline: Composer package for validating and normalizing IPA
+    lang: PHP
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/IPAValidator
+      Package (Composer): https://packagist.org/packages/wikimedia/ipa-validator
 
 User experience:
 
@@ -170,13 +185,23 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/AhoCorasick
       Documentation: https://doc.wikimedia.org/AhoCorasick/master/
+      Package (Composer): https://packagist.org/packages/wikimedia/aho-corasick
+  Alea:
+    tagline: Pure PHP port of the JavaScript alea.js seedable pseudo-random number generator library.
+    lang: PHP
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Alea
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/alea/
+      Documentation: https://doc.wikimedia.org/mediawiki-libs-alea/master/
+      Package (Composer): https://packagist.org/packages/wikimedia/alea
   Assert:
     tagline: Run-time assertions for parameter types, preconditions and postconditions.
     lang: PHP
-    homepage: https://gerrit.wikimedia.org/g/mediawiki/libs/Assert
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Assert
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/Assert
       Documentation: https://doc.wikimedia.org/mediawiki-libs-Assert/master/
+      Package (Composer): https://packagist.org/packages/wikimedia/assert
   at-ease:
     tagline: Safe alternative to PHP's error-control operator.
     lang: PHP
@@ -201,6 +226,21 @@ Libraries:
       Documentation: https://doc.wikimedia.org/cdb/master/
       Package (Composer): https://packagist.org/packages/wikimedia/cdb
       Test coverage: https://doc.wikimedia.org/cover/cdb/
+  clover-diff:
+    tagline: A PHP tool to diff two clover.xml files
+    lang: PHP
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/CloverDiff
+      Documentation: https://doc.wikimedia.org/mediawiki-libs-CloverDiff/master/
+      Package (Composer): https://packagist.org/packages/wikimedia/clover-diff
+  CommonPasswords:
+    tagline: A list of common passwords implemented to provide NIST best practices of preventing usage of the 100,000 most used passwords.
+    lang: PHP
+    homepage: https://www.mediawiki.org/wiki/CommonPasswords
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/CommonPasswords
+      Documentation: https://doc.wikimedia.org/mediawiki-libs-CommonPasswords/master/
+      Package (Composer): https://packagist.org/packages/wikimedia/common-passwords
   css-sanitizer:
     tagline: CSS parser in pure PHP to transform or filter stylesheets.
     lang: PHP
@@ -208,6 +248,13 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/css-sanitizer/
       Documentation: https://doc.wikimedia.org/css-sanitizer/master/
+  DeadlinkChecker:
+    tagline: A PHP library for checking if a given url is dead or alive
+    lang: PHP
+    homepage: https://www.mediawiki.org/wiki/DeadlinkChecker
+    links:
+      Source code: https://github.com/wikimedia/DeadlinkChecker
+      Package (Composer): https://packagist.org/packages/wikimedia/deadlinkchecker
   Dodo:
     tagline: DOm DOcument implementation in pure PHP
     lang: PHP
@@ -255,6 +302,13 @@ Libraries:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/IPUtils
       Documentation: https://doc.wikimedia.org/mediawiki-libs-IPUtils/master/
       Package (Composer): https://packagist.org/packages/wikimedia/ip-utils
+  JsonCodec:
+    tagline: Interfaces to serialize and deserialize PHP objects to/from JSON
+    lang: PHP
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/JsonCodec
+      Documentation: https://doc.wikimedia.org/mediawiki-libs-JsonCodec/main/
+      Package (Composer): https://packagist.org/packages/wikimedia/json-codec
   LangConv:
     tagline: FST-based implementation of language and script conversion.
     lang: PHP
@@ -279,6 +333,14 @@ Libraries:
       Source code: https://gitlab.wikimedia.org/repos/mwbot-rs/mwbot
       Documentation: https://doc.wikimedia.org/mwbot-rs/mwbot/mwbot/
       Package (Cargo): https://lib.rs/crates/mwbot
+  NormalizedException:
+    tagline: A minimal library to facilitate PSR-3-friendly exception handling
+    lang: PHP
+    homepage: https://www.mediawiki.org/wiki/NormalizedException
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/NormalizedException/
+      Documentation: https://www.mediawiki.org/wiki/NormalizedException
+      Package (Composer): https://packagist.org/packages/wikimedia/normalized-exception
   oauthclient-php:
     tagline: OAuth client for Wikipedia and other MediaWiki sites.
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Oauthclient-php
@@ -302,6 +364,7 @@ Libraries:
       Documentation: https://doc.wikimedia.org/oojs/master/
   OOjs Router:
     lang: JS
+    homepage: https://www.mediawiki.org/wiki/OOjs_Router
     links:
       Source code: https://gerrit.wikimedia.org/g/oojs/router
       Documentation: https://doc.wikimedia.org/oojs-router/master/
@@ -313,6 +376,14 @@ Libraries:
       Source code: https://gerrit.wikimedia.org/g/jquery-client
       Documentation: https://doc.wikimedia.org/jquery-client/master/#!/api/jQuery.client
       Test coverage: https://doc.wikimedia.org/cover/jquery-client/
+  phan-taint-check-plugin:
+    tagline: A Phan plugin meant to use static analysis to find certain types of security vulnerabilities in PHP code
+    lang: PHP
+    homepage: https://www.mediawiki.org/wiki/Continuous_integration/Phan/phan-taint-check-plugin
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/tools/phan/SecurityCheckPlugin/
+      Live demo: https://doc.wikimedia.org/mediawiki-tools-phan-SecurityCheckPlugin/master/demos/
+      Package (Composer): https://packagist.org/packages/mediawiki/mediawiki-phan-config
   php-session-serializer:
     tagline: Provides methods that work like PHP's session_encode and session_decode functions but don't mess with the $_SESSION superglobal.
     lang: PHP
@@ -344,6 +415,13 @@ Libraries:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/RemexHtml/
       Documentation: https://doc.wikimedia.org/mediawiki-libs-RemexHtml/master/
       Package (Composer): https://packagist.org/packages/wikimedia/remex-html
+  RequestTimeout:
+    tagline: Provides a global request timeout concept, ideally using Excimer, with a fallback to set_time_limit()
+    lang: PHP
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/RequestTimeout
+      Documentation: https://doc.wikimedia.org/mediawiki-libs-RequestTimeout/master/
+      Package (Composer): https://packagist.org/packages/wikimedia/request-timeout
   RunningStat:
     tagline: Compute statistics for a stream of numbers using only constant space.
     lang: PHP
@@ -370,6 +448,14 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/wikimedia/slimapp
       Documentation: https://doc.wikimedia.org/wikimedia-slimapp/master/
+  TextCat:
+    tagline: PHP port of the TextCat language guesser utility
+    lang: PHP
+    homepage: https://www.mediawiki.org/wiki/TextCat
+    links:
+      Source code: https://gerrit.wikimedia.org/g/wikimedia/textcat
+      Live demo: https://textcatdemo.toolforge.org/
+      Package (Composer): https://packagist.org/packages/wikimedia/textcat
   Timestamp:
     tagline: Create, parse, and format timestamps.
     lang: PHP
@@ -385,6 +471,13 @@ Libraries:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/WaitConditionLoop
       Documentation: https://doc.wikimedia.org/mediawiki-libs-WaitConditionLoop/master/
       Package (Composer): https://packagist.org/packages/wikimedia/wait-condition-loop
+  WebIDL:
+    tagline: Parser for Web IDL, a language to specify web APIs in interoperable way
+    lang: PHP
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/WebIDL
+      Documentation: https://doc.wikimedia.org/mediawiki-libs-WebIDL/main/
+      Package (Composer): https://packagist.org/packages/wikimedia/webidl
   WrappedString:
     tagline: Merge similarly formatted strings.
     lang: PHP
@@ -404,6 +497,14 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/Shellbox
       Documentation: https://doc.wikimedia.org/mediawiki-libs-Shellbox/master/
+  Zest:
+    tagline: Port of the zest.js CSS selector library
+    lang: PHP
+    homepage: https://www.mediawiki.org/wiki/Zest
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/Zest/
+      Documentation: https://doc.wikimedia.org/mediawiki-libs-Zest/master/
+      Package (Composer): https://packagist.org/packages/wikimedia/zest-css
 
 Infrastructure:
   Arc Lamp:
