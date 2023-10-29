@@ -14,10 +14,10 @@
     padding: 0 .5rem;
     line-height: 2rem;
     text-align: center;
-    border: 1px solid var( --wmui-color-base80 );
+    border: 1px solid var( --wmci-border-color-soft );
     border-radius: var( --border-radius-base );
-    background: var( --wmui-color-base90 );
-    color: var( --wmui-color-base20 );
+    background: var( --wmci-background-color-neutral-subtle );
+    color: var( --color-subtle );
     font-size: 1rem;
 }
 
@@ -61,7 +61,7 @@
 
 .zuul-pipeline abbr {
     cursor: help;
-    border-bottom: 1px dotted #999;
+    border-bottom: 1px dotted var( --border-color-base );
     text-decoration: none;
 }
 .zuul-pipeline-header h3 {
@@ -75,17 +75,17 @@
 .zuul-pipeline-desc,
 .zuul-queue-desc {
     font-size: 1.1rem;
-    color: var( --wmui-color-base30 );
+    color: var( --color-subtle );
 }
 
 .zuul-patchset-eta  {
     font-size: 1rem;
-    color: var( --wmui-color-base30 );
+    color: var( --color-subtle );
 }
 
 .zuul-change {
-    background: var( --wmui-color-base100 );
-    border: 1px solid var( --wmui-color-base80 );
+    background: var( --background-color-base );
+    border: 1px solid var( --wmci-border-color-soft );
     border-radius: var( --border-radius-base );
     box-sizing: border-box;
 
@@ -104,8 +104,8 @@ table.zuul-change-box {
 }
 
 .zuul-patchset-header {
-    background: var( --wmui-color-base90 );
-    border-bottom: 1px solid var( --wmui-color-base80 );
+    background: var( --wmci-background-color-neutral-subtle );
+    border-bottom: 1px solid var( --wmci-border-color-soft );
     padding: 6px 8px;
 
     /* two columns: left (name+sub) and right (ETA) */
@@ -144,7 +144,7 @@ table.zuul-change-box {
     justify-content: space-between;
     align-items: center;
     padding: 4px 2px 2px 8px;
-    border-bottom: 1px solid var( --wmui-color-base90 );
+    border-bottom: 1px solid var( --wmci-border-color-soft );
     margin-bottom: -1px;
     line-height: 1.4;
     font-size: 1.2rem;
@@ -168,8 +168,8 @@ table.zuul-change-box {
     box-shadow: inset 0 0 1px #03030340;
 }
 .zuul-job-result--label {
-    background: var( --wmui-color-base30 );
-    color: var( --wmui-color-base100 );
+    background: #72777d;
+    color: var( --color-inverted );
     line-height: 11px;
     font-weight: 400;
     text-align: center;
@@ -182,7 +182,7 @@ table.zuul-change-box {
     height: 100%;
     font-size: 11px;
     line-height: 20px;
-    color: #fff;
+    color: var( --color-inverted );
     text-align: center;
     background-color: #39a5dc;
     box-shadow: inset 0 -1px #00000026;
@@ -248,8 +248,8 @@ table.zuul-change-box {
 .zuul-queue-line--solid {
     background-image: linear-gradient(to right,
         transparent 3px,
-        var(--wmui-color-base20) 3px,
-        var(--wmui-color-base20) 5px,
+        #54595d 3px,
+        #54595d 5px,
         transparent 5px
     );
     background-size: 8px 100%;
@@ -280,7 +280,7 @@ table.zuul-change-box {
     cursor: help;
 }
 .zuul-queue-icon--waiting {
-    background: var( --wmui-color-base70 );
+    background: #c8ccd1;
 }
 .zuul-queue-icon--success {
     background: #3f9c35;

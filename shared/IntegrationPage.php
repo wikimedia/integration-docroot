@@ -1,6 +1,6 @@
 <?php
 
-class IntegrationPage extends WmuiPageBase {
+class IntegrationPage extends WikimediaUiThemePageBase {
 	protected $site = 'Integration';
 
 	protected function getNavItems() {

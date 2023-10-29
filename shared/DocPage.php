@@ -1,6 +1,6 @@
 <?php
 
-class DocPage extends WmuiPageBase {
+class DocPage extends WikimediaUiThemePageBase {
 	protected $site = 'Documentation';
 
 	protected function getNavItems() {

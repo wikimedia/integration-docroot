@@ -1,11 +1,11 @@
 <?php
 
-class WmuiPageBase extends Page {
+class WikimediaUiThemePageBase extends Page {
 	protected $org = 'Wikimedia';
 	protected $site = '';
 	protected $caption = '';
 	protected $stylesheets = [
-		'/lib/wikimedia-ui-base-0.16.0.css',
+		'/lib/codex-design-tokens/theme-wikimedia-ui-1.0.0.css',
 		'/lib/wmui-page.css',
 	];
 
