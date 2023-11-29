@@ -526,6 +526,12 @@ Infrastructure:
     links:
       Documentation: https://doc.wikimedia.org/cumin/master/
       Source code: https://gerrit.wikimedia.org/g/operations/software/cumin/
+  Discovery Parent Pom:
+    tagline: Maven parent pom for Wikimedia
+    lang: java
+    links:
+      Documentation: https://doc.wikimedia.org/discovery-parent-pom/
+      Source code: https://gerrit.wikimedia.org/g/wikimedia/discovery/discovery-parent-pom/
   DNS:
     tagline: Wikimedia DNS zones and GeoDNS configuration.
     homepage: https://gerrit.wikimedia.org/g/operations/dns
