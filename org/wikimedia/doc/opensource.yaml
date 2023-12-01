@@ -560,6 +560,11 @@ Infrastructure:
     homepage: https://gerrit.wikimedia.org/g/fresh/#fresh-environment
     links:
       Source code: https://gerrit.wikimedia.org/g/fresh/
+  Gearman Java:
+    tagline: Java implementation of the Gearman protocol
+    links:
+      Documentation: https://doc.wikimedia.org/gearman-java/
+      Source code: https://gerrit.wikimedia.org/g/integration/gearman-java
   homer:
     tagline: Configuration manager for network devices.
     lang: Python
