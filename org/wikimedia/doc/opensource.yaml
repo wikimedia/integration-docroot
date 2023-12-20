@@ -609,6 +609,14 @@ Infrastructure:
     homepage: https://wikitech.wikimedia.org/wiki/Performance/Metrics
     links:
       Source code: https://gerrit.wikimedia.org/g/performance/navtiming
+  PoolCounter:
+    tagline: Lock manager service which provides mutex-like functionality, with a limited wait queue length.
+    lang: C
+    homepage: https://www.mediawiki.org/wiki/PoolCounter
+    links:
+      Documentation: https://www.mediawiki.org/wiki/PoolCounter
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/services/poolcounter/+/HEAD/
+      Package (Debian): https://packages.debian.org/stable/poolcounter
   Puppet:
     tagline: Server provisioning and configuration for Wikimedia Foundation production.
     homepage: https://wikitech.wikimedia.org/wiki/Puppet_coding
