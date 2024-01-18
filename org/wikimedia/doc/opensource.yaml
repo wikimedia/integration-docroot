@@ -119,8 +119,8 @@ Localisation:
 User experience:
 
   Codex:
-    tagline: Build user interfaces with the Wikimedia Design System.
-    lang: JS, Vue
+    tagline: Design and build accessible and internationalization-ready user interfaces with the Wikimedia Design System. Features Vue 3 and CSS-only components.
+    lang: JS, Vue, CSS
     links:
       Source code: https://gerrit.wikimedia.org/g/design/codex/
       Documentation: https://doc.wikimedia.org/codex/latest/
@@ -141,12 +141,6 @@ User experience:
       Documentation: https://doc.wikimedia.org/codex/latest/icons/overview.html
       Source code: https://gerrit.wikimedia.org/g/design/codex/
       Package (npm): https://www.npmjs.com/package/@wikimedia/codex-icons
-  Wikimedia Design Style Guide:
-    tagline: Consistent look and behavior for our products.
-    homepage: https://design.wikimedia.org/style-guide/
-    links:
-      Source code: https://github.com/wikimedia/WikimediaUI-Style-Guide
-      Documentation: https://design.wikimedia.org/style-guide/
   OOUI:
     tagline: Rapidly create web-applications in JS or PHP. Cross-browser, i18n and a11y ready.
     lang: JS, PHP
