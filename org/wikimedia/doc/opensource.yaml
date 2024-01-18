@@ -124,6 +124,7 @@ User experience:
     links:
       Source code: https://gerrit.wikimedia.org/g/design/codex/
       Documentation: https://doc.wikimedia.org/codex/latest/
+      Package (npm): https://www.npmjs.com/package/@wikimedia/codex
   Codex Design Tokens:
     tagline: Stylesheets in various flavors and JSON containing Wikimedia Design style values.
     lang: CSS, Less, Sass, JSON
@@ -131,6 +132,7 @@ User experience:
     links:
       Documentation: https://doc.wikimedia.org/codex/latest/design-tokens/overview.html
       Source code: https://gerrit.wikimedia.org/g/design/codex/
+      Package (npm): https://www.npmjs.com/package/@wikimedia/codex-design-tokens
   Wikimedia Design Style Guide:
     tagline: Consistent look and behavior for our products.
     homepage: https://design.wikimedia.org/style-guide/
