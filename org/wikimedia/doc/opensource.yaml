@@ -133,6 +133,14 @@ User experience:
       Documentation: https://doc.wikimedia.org/codex/latest/design-tokens/overview.html
       Source code: https://gerrit.wikimedia.org/g/design/codex/
       Package (npm): https://www.npmjs.com/package/@wikimedia/codex-design-tokens
+  Codex Icons:
+    tagline: Codex icons in 'WikimediaUI' theme style as Less vars with SVG paths for Vue 3 apps.
+    lang: SVG, Less
+    homepage: https://doc.wikimedia.org/codex/latest/icons/overview.html
+    links:
+      Documentation: https://doc.wikimedia.org/codex/latest/icons/overview.html
+      Source code: https://gerrit.wikimedia.org/g/design/codex/
+      Package (npm): https://www.npmjs.com/package/@wikimedia/codex-icons
   Wikimedia Design Style Guide:
     tagline: Consistent look and behavior for our products.
     homepage: https://design.wikimedia.org/style-guide/
