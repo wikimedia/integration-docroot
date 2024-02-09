@@ -100,7 +100,9 @@
 		animate( element, {
 			duration: 200,
 			keyframes: [ { transform: 'scaleY(0)' } ],
-			after() { element.hidden = true; }
+			after() {
+				element.hidden = true;
+			}
 		} );
 	}
 

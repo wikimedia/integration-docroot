@@ -4,6 +4,6 @@
 		"test": "eslint ."
 	},
 	"devDependencies": {
-		"eslint-config-wikimedia": "0.25.1"
+		"eslint-config-wikimedia": "0.26.0"
 	}
 }
