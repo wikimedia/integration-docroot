@@ -193,7 +193,7 @@ class Page {
 	}
 
 	protected function getDirIndexContents( $dir = null ) {
-		$dir = $dir ?? $this->getDir();
+		$dir ??= $this->getDir();
 		// glob() excludes dot-files by default
 		return array_filter( glob( $dir . "/*" ), static function ( $entry ) {
 			// Avoid listing ourselves, e.g. /cover/index.php on /cover/.
