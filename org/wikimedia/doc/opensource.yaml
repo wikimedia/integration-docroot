@@ -782,6 +782,10 @@ MediaWiki components:
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CirrusSearch
     links:
       Code documentation: https://doc.wikimedia.org/CirrusSearch/master/php/
+  Cite:
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Cite
+    links:
+      Code documentation (JS): https://doc.wikimedia.org/Cite/master/js/
   CollaborationKit:
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CollaborationKit
     links:
