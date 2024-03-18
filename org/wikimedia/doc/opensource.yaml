@@ -518,6 +518,12 @@ Infrastructure:
     links:
       Source code: https://gerrit.wikimedia.org/g/performance/arc-lamp/+/master
       Package (Composer): https://packagist.org/packages/wikimedia/arc-lamp
+  Blubber:
+    tagline: BuildKit frontend for building application container images from a minimal set of declarative constructs in YAML.
+    lang: Go
+    links:
+      Documentation: https://doc.wikimedia.org/releng/blubber
+      Source code: https://gitlab.wikimedia.org/repos/releng/blubber
   coal:
     tagline: Process performance beacons and submit moving medians directly to Graphite.
     lang: Python
