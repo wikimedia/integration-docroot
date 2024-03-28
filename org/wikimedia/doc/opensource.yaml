@@ -792,6 +792,12 @@ MediaWiki components:
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Cite
     links:
       Code documentation (JS): https://doc.wikimedia.org/Cite/master/js/
+  CodeMirror:
+    tagline: Syntax highlighting for MediaWiki editors
+    lang: JS, PHP
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CodeMirror
+    links:
+      Code documentation (JS): https://doc.wikimedia.org/CodeMirror/master/js/
   CollaborationKit:
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CollaborationKit
     links:
