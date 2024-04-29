@@ -17,11 +17,13 @@ Featured:
     lang: JS
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/VisualEditor
     links:
+      Demo: https://www.mediawiki.org/wiki/Project:Sandbox?veaction=edit
       Source code (standalone): https://gerrit.wikimedia.org/g/VisualEditor/VisualEditor
+      Code documentation (standalone): https://doc.wikimedia.org/visualeditor-standalone/master/
+      Code coverage (standalone): https://doc.wikimedia.org/cover/visualeditor-standalone/
       Source code (MediaWiki integration): https://gerrit.wikimedia.org/g/mediawiki/extensions/VisualEditor
-      Documentation (MediaWiki integration): https://doc.wikimedia.org/VisualEditor/master/
-      Demo (standalone): https://doc.wikimedia.org/VisualEditor/master/js/lib/ve/demos/ve/desktop-wikimediaui.html
-      Demo (MediaWiki integration): https://www.mediawiki.org/wiki/Project:Sandbox?veaction=edit
+      Code documentation (MediaWiki integration): https://doc.wikimedia.org/VisualEditor/master/js/
+      Code coverage (MediaWiki integration): https://doc.wikimedia.org/cover-extensions/VisualEditor/
   Parsoid:
     tagline: Two-way MediaWiki wikitext↔HTML parser.
     lang: PHP
