@@ -492,9 +492,9 @@
 				// Show panel if no filters, or at least one filter matches one field
 				const filterable = pipelineState.filterable[ changeID ];
 				const showPanel = ( current_filter === '' ||
-					current_filter.toLowerCase().split( /[\s,]+/ ).some( ( f_val ) => {
-						return f_val !== '' && filterable.includes( f_val );
-					} )
+					current_filter.toLowerCase().split( /[\s,]+/ ).some(
+						( f_val ) => f_val !== '' && filterable.includes( f_val )
+					)
 				);
 
 				return { showBody, showPanel };
@@ -556,8 +556,8 @@
 				if ( !options.enabled ) {
 					return;
 				}
-				app.update().finally( function () {
-					setTimeout( function () {
+				app.update().finally( () => {
+					setTimeout( () => {
 						app.schedule();
 					}, 5000 );
 				} );
@@ -570,13 +570,13 @@
 				// Bypass cache
 				// https://phabricator.wikimedia.org/T94796
 				return fetch( options.source, { cache: 'no-store' } )
-					.then( function ( resp ) {
+					.then( ( resp ) => {
 						if ( !resp.ok ) {
 							throw new Error( 'HTTP ' + resp.status );
 						}
 						return resp.text();
 					} )
-					.then( function ( raw ) {
+					.then( ( raw ) => {
 						if ( last_rendered_raw === raw ) {
 							// Don't re-render if response identical to last,
 							// to make debugging easier (e.g. when using demo during development)
@@ -617,14 +617,14 @@
 
 						last_rendered_raw = raw;
 					} )
-					.catch( function ( jqxhrOrError ) {
+					.catch( ( jqxhrOrError ) => {
 						// jqXHR: network failure. Error: JSON syntax error.
 						const errMsg = jqxhrOrError.statusText || jqxhrOrError;
 						domOut.msg.classList.add( 'wm-alert-error' );
 						domOut.msg.textContent = options.source + ': ' + errMsg;
 						domOut.msg.hidden = false;
 					} )
-					.finally( function () {
+					.finally( () => {
 						options.onUpdateEnd();
 					} );
 			},
@@ -671,19 +671,19 @@
 			create_tree: function ( pipeline ) {
 				let count = 0;
 				let pipeline_max_tree_columns = 1;
-				pipeline.change_queues.forEach( function ( change_queue ) {
+				pipeline.change_queues.forEach( ( change_queue ) => {
 					const tree = [];
 					let max_tree_columns = 1;
 					const changes = [];
 					let last_tree_length = 0;
-					change_queue.heads.forEach( function ( head ) {
-						head.forEach( function ( change, change_i ) {
+					change_queue.heads.forEach( ( head ) => {
+						head.forEach( ( change, change_i ) => {
 							changes[ change.id ] = change;
 							change._tree_position = change_i;
 						} );
 					} );
-					change_queue.heads.forEach( function ( head ) {
-						head.forEach( function ( change ) {
+					change_queue.heads.forEach( ( head ) => {
+						head.forEach( ( change ) => {
 							if ( change.live ) {
 								count += 1;
 							}
@@ -703,11 +703,9 @@
 							if ( typeof change.items_behind === 'undefined' ) {
 								change.items_behind = [];
 							}
-							change.items_behind.sort( function ( a, b ) {
-								return ( changes[ b ]._tree_position -
-                                        changes[ a ]._tree_position );
-							} );
-							change.items_behind.forEach( function ( id ) {
+							change.items_behind.sort( ( a, b ) => ( changes[ b ]._tree_position -
+                                        changes[ a ]._tree_position ) );
+							change.items_behind.forEach( ( id ) => {
 								tree.push( id );
 								if ( tree.length > last_tree_length &&
                                     last_tree_length > 0 ) {
