@@ -339,6 +339,14 @@ Libraries:
       Source code: https://gitlab.wikimedia.org/repos/mwbot-rs/mwbot
       Documentation: https://doc.wikimedia.org/mwbot-rs/mwbot/mwbot/
       Package (Cargo): https://lib.rs/crates/mwbot
+  mwseaql:
+    tagline: MediaWiki table definitions for sea-ql
+    lang: Rust
+    homepage: https://www.mediawiki.org/wiki/mwbot-rs
+    links:
+      Source code: https://gitlab.wikimedia.org/repos/mwbot-rs/mwseaql
+      Documentation: https://doc.wikimedia.org/mwbot-rs/mwseaql/mwseaql/
+      Package (Cargo): https://lib.rs/crates/mwseaql
   NormalizedException:
     tagline: A minimal library to facilitate PSR-3-friendly exception handling
     lang: PHP
