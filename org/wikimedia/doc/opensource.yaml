@@ -808,11 +808,6 @@ MediaWiki components:
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CodeMirror
     links:
       Code documentation (JS): https://doc.wikimedia.org/CodeMirror/master/js/
-  CollaborationKit:
-    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CollaborationKit
-    links:
-      Code documentation (PHP): https://doc.wikimedia.org/CollaborationKit/master/php/
-      Code documentation (JS): https://doc.wikimedia.org/CollaborationKit/master/js/
   EventLogging:
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:EventLogging
     links:
