@@ -911,6 +911,20 @@ MediaWiki components:
       Code documentation (PHP): https://doc.wikimedia.org/mediawiki-skins-MinervaNeue/master/php/
       Code documentation (JS): https://doc.wikimedia.org/mediawiki-skins-MinervaNeue/master/js/
 
+Analytics:
+
+  analytics.wikimedia.org:
+    lang: HTML
+    tagline: Dashboards and data downloads for Wikimedia projects.
+    links:
+      Live link: https://analytics.wikimedia.org/
+      Source code: https://gerrit.wikimedia.org/g/analytics/analytics.wikimedia.org
+  Analytics API Documentation:
+    tagline: Open access to data about Wikipedia and other Wikimedia projects.
+    links:
+      Live link: https://doc.wikimedia.org/generated-data-platform/aqs/analytics-api/
+      Source code: https://gitlab.wikimedia.org/repos/generated-data-platform/aqs/analytics-api
+
 Microsites:
 
   www.wikipedia.org:
@@ -920,11 +934,6 @@ Microsites:
       Live link: https://www.wikipedia.org/
       Source code: https://gerrit.wikimedia.org/g/wikimedia/portals
       Documentation: https://meta.wikimedia.org/wiki/Special:MyLanguage/Project_portals
-  analytics.wikimedia.org:
-    lang: HTML
-    links:
-      Live link: https://analytics.wikimedia.org/
-      Source code: https://gerrit.wikimedia.org/g/analytics/analytics.wikimedia.org
   stats.wikimedia.org:
     tagline: Wikistats 2.0.
     lang: HTML, JS
