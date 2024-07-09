@@ -2378,11 +2378,6 @@
         {
           "window": 5,
           "heads": [],
-          "name": "operations/software/conftool"
-        },
-        {
-          "window": 5,
-          "heads": [],
           "name": "operations/software/cumin"
         },
         {
