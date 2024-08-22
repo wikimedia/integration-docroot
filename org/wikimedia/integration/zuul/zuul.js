@@ -775,9 +775,10 @@ function zuul_start( containerSelector ) {
 	} );
 	document.addEventListener( 'keydown', ( e ) => {
 		if ( e.key === '/' && e.target.nodeName !== 'INPUT' ) {
+			// Don't actually insert a slash now
+			e.preventDefault();
 			// Keyboard shortcut
 			zuul.app.focus_filter_input();
-			// Don't actually insert a slash now
 			return false;
 		}
 	} );
