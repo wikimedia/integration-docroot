@@ -146,7 +146,12 @@
 		</div>
 		{{#queues_and_changes}}
 			{{#queue}}
-			<p class="zuul-queue-desc">Queue: <abbr title="{{name}}">{{short_name}}</abbr></p>
+			<p class="zuul-queue-desc">
+			Queue: <abbr title="{{name}}">{{short_name}}</abbr>
+			{{#queue.window_size}}
+			(window: {{queue.window_size}})
+			{{/queue.window_size}}
+			</p>
 			{{/queue}}
 			{{#change_box_data}}
 			{{> change_box_template}}
@@ -399,12 +404,13 @@
 				const queues_and_changes = [];
 				pipeline.change_queues.forEach( ( change_queue ) => {
 					change_queue.heads.forEach( ( changes, head_i ) => {
+						const window_size = change_queue.window;
 						if ( pipeline.change_queues.length > 1 && head_i === 0 ) {
 							const name = change_queue.name;
 							const short_name = ( name.length > 32 )
 								? name.slice( 0, 32 ) + '…'
 								: name;
-							queues_and_changes.push( { queue: { name, short_name } } );
+							queues_and_changes.push( { queue: { name, short_name, window_size } } );
 						}
 
 						changes.forEach( ( change ) => {

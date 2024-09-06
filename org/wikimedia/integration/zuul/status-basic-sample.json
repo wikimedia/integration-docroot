@@ -1846,114 +1846,9 @@
       "description": "Pipeline for the authoritative jobs that start when a Code-Review \"+2\" score is submitted on Gerrit. If these pass, Jenkins will merge the commit.\n",
       "change_queues": [
         {
-          "window": 15,
-          "heads": [],
-          "name": "AhoCorasick, CLDRPluralRuleParser, HtmlFormatter, IPSet, RelPath, RunningStat, VisualEditor/VisualEditor, WrappedString, analytics/aggregator, analytics/aqs, analytics/blog, analytics/geowiki, analytics/limn-mobile-data, analytics/mediawiki-storage, analytics/multimedia, analytics/quarry/web, analytics/reportupdater, analytics/udplog, analytics/wikimetrics, analytics/wikistats2, analytics/wmde/scripts, at-ease, avro-php, base-convert, cdb, cloud/metricsinfra/prometheus-configurator, cloud/metricsinfra/prometheus-manager, cloud/toolforge/buildpacks, cloud/toolforge/disable-tool, cloud/toolforge/grid-webservices, cloud/toolforge/jobs-framework-api, cloud/toolforge/jobs-framework-cli, cloud/toolforge/jobs-framework-emailer, css-sanitizer, data-values/value-view, design/landing-page, integration/commit-message-validator, integration/dashboard, integration/docroot, integration/tox-wikimedia, integration/uprightdiff, integration/utils, integration/visualdiff, jquery-client, jsdoc/wmf-theme, labs/codesearch, labs/libraryupgrader, labs/libraryupgrader/config, labs/toollabs, labs/tools/VideoCutTool, labs/tools/apt-browser, labs/tools/articles-needing-links, labs/tools/awmd-stats, labs/tools/bodh, labs/tools/bodh-backend, labs/tools/book2scroll, labs/tools/bookreader, labs/tools/cdnjs-index, labs/tools/ci, labs/tools/commons-recon-service, labs/tools/coverme, labs/tools/crosswatch, labs/tools/dump-torrents, labs/tools/extdist, labs/tools/extjsonuploader, labs/tools/extreg-wos, labs/tools/flaky-ci, labs/tools/force-rebase, labs/tools/forrestbot, labs/tools/gblrenamemon, labs/tools/gdrive-to-commons, labs/tools/github-pr-closer, labs/tools/graphql, labs/tools/guc, labs/tools/heritage, labs/tools/indic-wscontest, labs/tools/ipchanges, labs/tools/maintain-kubeusers, labs/tools/majavah-bot, labs/tools/meetingtimes, labs/tools/mwpackages, labs/tools/nagf, labs/tools/ninthcircuit, labs/tools/phpcs, labs/tools/prism, labs/tools/ptable, labs/tools/qrcode-generator, labs/tools/reviewers, labs/tools/scotus-recordings, labs/tools/search-filters, labs/tools/sonarqubebot, labs/tools/stashbot, labs/tools/stewardbots, labs/tools/stewardbots-ui, labs/tools/video-cut-tool-back-end, labs/tools/video-cut-tool-worker, labs/tools/wiki-importer, labs/tools/wikibugs2, labs/tools/wikidata-slicer, labs/tools/wikitext-deprecation, mapdata, mediawiki/event-schemas, mediawiki/libs/Assert, mediawiki/libs/CommonPasswords, mediawiki/libs/Dodo, mediawiki/libs/Equivset, mediawiki/libs/IDLeDOM, mediawiki/libs/IPUtils, mediawiki/libs/LangConv, mediawiki/libs/Minify, mediawiki/libs/NormalizedException, mediawiki/libs/ObjectFactory, mediawiki/libs/RemexHtml, mediawiki/libs/RequestTimeout, mediawiki/libs/ScopedCallback, mediawiki/libs/Services, mediawiki/libs/Shellbox, mediawiki/libs/Timestamp, mediawiki/libs/WaitConditionLoop, mediawiki/libs/WebIDL, mediawiki/libs/XMPReader, mediawiki/libs/Zest, mediawiki/libs/alea, mediawiki/oauthclient-php, mediawiki/services/jobrunner, mediawiki/services/kafka-watcher, mediawiki/services/rcstream, mediawiki/tools/api-testing, mediawiki/tools/code-utils, mediawiki/tools/codesniffer, mediawiki/tools/cookiecutter-library, mediawiki/tools/dependency-analysis, mediawiki/tools/minus-x, mediawiki/tools/phan, mediawiki/tools/phan/PerfCheckPlugin, mediawiki/tools/phan/SecurityCheckPlugin, mediawiki/tools/phpunit-patch-coverage, mediawiki/tools/release, mediawiki/tools/releng, mediawiki/tools/train-dev, oojs/router, oojs/ui, openstack/horizon/wmf-proxy-dashboard, openstack/horizon/wmf-puppet-dashboard, operations/cookbooks, operations/debs/adminbot, operations/debs/contenttranslation/apertium, operations/debs/contenttranslation/apertium-af-nl, operations/debs/contenttranslation/apertium-anaphora, operations/debs/contenttranslation/apertium-apy, operations/debs/contenttranslation/apertium-arg, operations/debs/contenttranslation/apertium-arg-cat, operations/debs/contenttranslation/apertium-bel, operations/debs/contenttranslation/apertium-bel-rus, operations/debs/contenttranslation/apertium-br-fr, operations/debs/contenttranslation/apertium-ca-it, operations/debs/contenttranslation/apertium-cat, operations/debs/contenttranslation/apertium-cat-srd, operations/debs/contenttranslation/apertium-crh, operations/debs/contenttranslation/apertium-crh-tur, operations/debs/contenttranslation/apertium-cy-en, operations/debs/contenttranslation/apertium-dan, operations/debs/contenttranslation/apertium-dan-nor, operations/debs/contenttranslation/apertium-en-ca, operations/debs/contenttranslation/apertium-en-es, operations/debs/contenttranslation/apertium-en-gl, operations/debs/contenttranslation/apertium-eo-ca, operations/debs/contenttranslation/apertium-eo-en, operations/debs/contenttranslation/apertium-eo-es, operations/debs/contenttranslation/apertium-eo-fr, operations/debs/contenttranslation/apertium-es-an, operations/debs/contenttranslation/apertium-es-ast, operations/debs/contenttranslation/apertium-es-gl, operations/debs/contenttranslation/apertium-es-pt, operations/debs/contenttranslation/apertium-es-ro, operations/debs/contenttranslation/apertium-eu-en, operations/debs/contenttranslation/apertium-eu-es, operations/debs/contenttranslation/apertium-eus, operations/debs/contenttranslation/apertium-fr-es, operations/debs/contenttranslation/apertium-fra, operations/debs/contenttranslation/apertium-fra-cat, operations/debs/contenttranslation/apertium-hbs, operations/debs/contenttranslation/apertium-hbs-eng, operations/debs/contenttranslation/apertium-hbs-mkd, operations/debs/contenttranslation/apertium-hbs-slv, operations/debs/contenttranslation/apertium-hin, operations/debs/contenttranslation/apertium-id-ms, operations/debs/contenttranslation/apertium-is-sv, operations/debs/contenttranslation/apertium-isl, operations/debs/contenttranslation/apertium-isl-eng, operations/debs/contenttranslation/apertium-ita, operations/debs/contenttranslation/apertium-kaz, operations/debs/contenttranslation/apertium-kaz-tat, operations/debs/contenttranslation/apertium-lex-tools, operations/debs/contenttranslation/apertium-mk, operations/debs/contenttranslation/apertium-mk-bg, operations/debs/contenttranslation/apertium-mk-en, operations/debs/contenttranslation/apertium-mlt-ara, operations/debs/contenttranslation/apertium-nno, operations/debs/contenttranslation/apertium-nno-nob, operations/debs/contenttranslation/apertium-nob, operations/debs/contenttranslation/apertium-oc-ca, operations/debs/contenttranslation/apertium-oc-es, operations/debs/contenttranslation/apertium-oci-fra, operations/debs/contenttranslation/apertium-pol-szl, operations/debs/contenttranslation/apertium-pt-ca, operations/debs/contenttranslation/apertium-pt-gl, operations/debs/contenttranslation/apertium-recursive, operations/debs/contenttranslation/apertium-rus, operations/debs/contenttranslation/apertium-rus-ukr, operations/debs/contenttranslation/apertium-separable, operations/debs/contenttranslation/apertium-sme-nob, operations/debs/contenttranslation/apertium-spa, operations/debs/contenttranslation/apertium-spa-arg, operations/debs/contenttranslation/apertium-spa-cat, operations/debs/contenttranslation/apertium-spa-ita, operations/debs/contenttranslation/apertium-srd, operations/debs/contenttranslation/apertium-srd-ita, operations/debs/contenttranslation/apertium-streamparser, operations/debs/contenttranslation/apertium-sv-da, operations/debs/contenttranslation/apertium-swe, operations/debs/contenttranslation/apertium-swe-dan, operations/debs/contenttranslation/apertium-swe-nor, operations/debs/contenttranslation/apertium-tat, operations/debs/contenttranslation/apertium-tur, operations/debs/contenttranslation/apertium-ukr, operations/debs/contenttranslation/apertium-urd, operations/debs/contenttranslation/apertium-urd-hin, operations/debs/contenttranslation/cg3, operations/debs/contenttranslation/foma, operations/debs/contenttranslation/giella-core, operations/debs/contenttranslation/giella-sme, operations/debs/contenttranslation/hfst, operations/debs/contenttranslation/hfst-ospell, operations/debs/contenttranslation/lttoolbox, operations/debs/contenttranslation/python-toro, operations/debs/doxygen, operations/debs/jenkins-debian-glue, operations/debs/kubeyaml, operations/debs/node-tunnel-agent, operations/debs/prometheus-ipsec-exporter, operations/debs/pybal, operations/debs/python-git-archive-all, operations/debs/tidy-0.99, operations/docker-images/docker-pkg, operations/docker-images/docker-report, operations/docker-images/imagecatalog, operations/docker-images/toollabs-images, operations/dumps, operations/dumps/dcat, operations/dumps/import-tools, operations/dumps/statusapi, operations/homer/mock-private, operations/homer/public, operations/software, operations/software/bernard, operations/software/debmonitor, operations/software/elasticsearch-tool, operations/software/etcd-mirror, operations/software/external-monitoring, operations/software/hhvm_exporter, operations/software/httpbb, operations/software/ircyall, operations/software/keyholder, operations/software/klaxon, operations/software/knead-wikidough, operations/software/labsdb-auditor, operations/software/mailman-templates, operations/software/mediabackups, operations/software/netbox-extras, operations/software/puppet-compiler, operations/software/python-poolcounter, operations/software/pywmflib, operations/software/schema-changes, operations/software/service-checker, operations/software/spicerack, operations/software/statograph, operations/software/tools-manifest, operations/software/tools-webservice, operations/software/transferpy, operations/software/wmfbackups, operations/software/wmfdb, operations/software/wmfmariadbpy, operations/switchdc, performance/WikimediaDebug, performance/arc-lamp, performance/asoranking, performance/bttostatsv, performance/coal, performance/docroot, performance/mobile-synthetic-monitoring-tests, performance/navtiming, performance/perfromance, performance/synthetic-monitoring-tests, php-session-serializer, purtle, pywikibot/i18n, react.i18n, react.ooui, releng/phatality, research/recommendation-api, schemas/event/primary, schemas/event/secondary, test/gerrit-ping, testing-access-wrapper, translatewiki, unicodejs, utfnormal, wikibase/javascript-api, wikibase/property-suggester-scripts, wikidata/query-builder, wikimedia-cz/mediawiki-config, wikimedia-cz/tracker, wikimedia-cz/web-plugin, wikimedia-cz/web-theme, wikimedia-ui-base, wikimedia/bots/jouncebot, wikimedia/discovery/relevanceForge, wikimedia/fundraising/SmashPig, wikimedia/fundraising/dash, wikimedia/fundraising/process-control, wikimedia/fundraising/slander, wikimedia/fundraising/tools/DjangoBannerStats, wikimedia/iegreview, wikimedia/lucene-explain-parser, wikimedia/meet-accountmanager, wikimedia/portals, wikimedia/portals/deploy, wikimedia/security/deployer-audit, wikimedia/security/github-user-audit, wikimedia/security/gitmonitor, wikimedia/security/landing-page, wikimedia/security/spamaccountstats, wikimedia/security/tooling, wikimedia/security/tooling/peek, wikimedia/security/usertracker, wikimedia/slimapp, wikimedia/textcat, wikimedia/wikimania-scholarships, wikipedia/gadgets/ProveIt, wikipeg"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "analytics/datahub"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "analytics/gobblin-wmf"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "analytics/limn-language-data"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "analytics/refinery/source"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "analytics/wikistats"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "analytics/wmde/WDCM"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "analytics/wmde/WDCM-Overview-Dashboard"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "analytics/wmde/WDCM-Semantics-Dashboard"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "analytics/wmde/WDCM-ShinyServerFrontPage"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "analytics/wmde/WDCM-Usage-Dashboard"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "analytics/wmde/WDCM-packages"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "analytics/wmde/toolkit-analyzer"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "analytics/wmde/toolkit-analyzer-build"
-        },
-        {
           "window": 5,
           "heads": [],
           "name": "archived-repos"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "blubber-doc/example/calculator-service"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "blubber-doc/example/helloworldoid"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "cergen"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "cloud/toolforge/delete-crashing-pods"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "cloud/toolforge/ingress-admission-controller"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "cloud/toolforge/toolforge-cli, cloud/wmcs-backups"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "cloud/toolforge/volume-admission-controller"
         },
         {
           "window": 10,
@@ -1963,27 +1858,7 @@
         {
           "window": 5,
           "heads": [],
-          "name": "eventgate-wikimedia"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "eventlogging"
-        },
-        {
-          "window": 5,
-          "heads": [],
           "name": "fresh"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "generated-data-platform/datasets/image-suggestions"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "integration/composer"
         },
         {
           "window": 5,
@@ -1991,634 +1866,1888 @@
           "name": "integration/config"
         },
         {
-          "window": 5,
-          "heads": [],
-          "name": "integration/gear"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "integration/gearman-java"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "integration/jenkinsci/gearman-plugin"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "integration/pipelinelib"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "integration/quibble"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "integration/reporting"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "integration/utils-rs, labs/tools/logo-test, labs/tools/newusers, labs/tools/rust-hello-world, labs/tools/shorturls, labs/tools/suggestor, wikimedia/irc/ircservserv"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "integration/zuul"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "labs/striker"
-        },
-        {
-          "window": 6,
-          "heads": [],
-          "name": "labs/tools/Isa"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "labs/tools/commons-mass-description"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "labs/tools/harvesting-data-refinery"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "labs/tools/ipwatcher"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "labs/tools/ldap"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "labs/tools/map-of-monuments"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "labs/tools/massmailer"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "labs/tools/registry-admission-webhook"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "labs/tools/urbanecmbot"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "labs/tools/watch-translations"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "labs/tools/weapon-of-mass-description"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "labs/tools/wiki2email"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "labs/tools/wikinity"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "machinelearning/liftwing/inference-services"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "maps/kartotherian/deploy"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "maps/tilerator/deploy"
-        },
-        {
           "window": 13,
-          "heads": [],
+          "heads": [
+            [
+              {
+                "failing_reasons": [],
+                "items_behind": [
+                  "1070960,2"
+                ],
+                "jobs": [
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mwgate-node18",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mwgate-node18/59841/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624037.328922,
+                    "launch_time": 1725624037.311079,
+                    "number": 59841,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1043",
+                    "elapsed_time": 269269,
+                    "estimated_time": 146.4,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mwgate-node18/59841/console",
+                    "end_time": 1725624306.598742,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1043"
+                    ],
+                    "voting": true,
+                    "uuid": "661c352575bc4382aaa73e8e4052f49d"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "wmf-quibble-core-vendor-mysql-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/wmf-quibble-core-vendor-mysql-php74/11802/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624037.372641,
+                    "launch_time": 1725624037.31357,
+                    "number": 11802,
+                    "remaining_time": 154055,
+                    "node_name": null,
+                    "elapsed_time": 1417745,
+                    "estimated_time": 1571.8,
+                    "report_url": "https://integration.wikimedia.org/ci/job/wmf-quibble-core-vendor-mysql-php74/11802/console",
+                    "end_time": null,
+                    "result": null,
+                    "node_labels": [],
+                    "voting": true,
+                    "uuid": "ec3ed118deb44aa999e075cb3e56396a"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "wmf-quibble-selenium-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/wmf-quibble-selenium-php74/27589/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624037.374093,
+                    "launch_time": 1725624037.318383,
+                    "number": 27589,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1055",
+                    "elapsed_time": 1002445,
+                    "estimated_time": 974.4,
+                    "report_url": "https://integration.wikimedia.org/ci/job/wmf-quibble-selenium-php74/27589/console",
+                    "end_time": 1725625039.819274,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1055"
+                    ],
+                    "voting": true,
+                    "uuid": "aa7ae7f7dc9b473ca3aa9fc93ef8318c"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-composer-mysql-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-composer-mysql-php74/3087/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624037.375614,
+                    "launch_time": 1725624037.320934,
+                    "number": 3087,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1040",
+                    "elapsed_time": 691658,
+                    "estimated_time": 660.3,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-composer-mysql-php74/3087/console",
+                    "end_time": 1725624729.033763,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1040"
+                    ],
+                    "voting": true,
+                    "uuid": "958bb0cb396c41c3b33952ea03260040"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-mysql-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php74/10482/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624037.377098,
+                    "launch_time": 1725624037.324178,
+                    "number": 10482,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1057",
+                    "elapsed_time": 731048,
+                    "estimated_time": 665.6,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php74/10482/console",
+                    "end_time": 1725624768.425478,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "integration-agent-docker-1057",
+                      "pipelinelib",
+                      "Docker",
+                      "blubber"
+                    ],
+                    "voting": true,
+                    "uuid": "ba61d301216c4dac8503cc99e4f2610b"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-mysql-php81",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php81/2687/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624037.378515,
+                    "launch_time": 1725624037.326911,
+                    "number": 2687,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1056",
+                    "elapsed_time": 872229,
+                    "estimated_time": 699.5,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php81/2687/console",
+                    "end_time": 1725624909.608216,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "integration-agent-docker-1056",
+                      "pipelinelib",
+                      "Docker",
+                      "blubber"
+                    ],
+                    "voting": true,
+                    "uuid": "9010a924e55c4ce7855e3dd993e3e84a"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-mysql-php82",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php82/2687/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624037.407286,
+                    "launch_time": 1725624037.392092,
+                    "number": 2687,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1051",
+                    "elapsed_time": 687782,
+                    "estimated_time": 648.7,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php82/2687/console",
+                    "end_time": 1725624725.19007,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1051"
+                    ],
+                    "voting": true,
+                    "uuid": "b251703789aa488b947a1616a8b92dcd"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-mysql-php83",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php83/2687/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624037.44849,
+                    "launch_time": 1725624037.394957,
+                    "number": 2687,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1054",
+                    "elapsed_time": 579103,
+                    "estimated_time": 648.9,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php83/2687/console",
+                    "end_time": 1725624616.551496,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1054"
+                    ],
+                    "voting": true,
+                    "uuid": "0e3ebcfa84224658b03aca75aaf39548"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-composertest-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-composertest-php74/10624/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624037.44997,
+                    "launch_time": 1725624037.397515,
+                    "number": 10624,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1043",
+                    "elapsed_time": 65453,
+                    "estimated_time": 71.4,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-composertest-php74/10624/console",
+                    "end_time": 1725624102.903526,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1043"
+                    ],
+                    "voting": true,
+                    "uuid": "e4adc1f0eb334bdfb74e7ee00abbbe30"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-selenium-vendor-mysql-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-selenium-vendor-mysql-php74/10471/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624037.450949,
+                    "launch_time": 1725624037.402969,
+                    "number": 10471,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1049",
+                    "elapsed_time": 124383,
+                    "estimated_time": 130.3,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-selenium-vendor-mysql-php74/10471/console",
+                    "end_time": 1725624161.834111,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1049"
+                    ],
+                    "voting": true,
+                    "uuid": "b029c5ac96fb4fc081cb126b88a65fc1"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-apitests-vendor-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-apitests-vendor-php74/17614/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624037.489633,
+                    "launch_time": 1725624037.468643,
+                    "number": 17614,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1046",
+                    "elapsed_time": 162519,
+                    "estimated_time": 327.9,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-apitests-vendor-php74/17614/console",
+                    "end_time": 1725624200.009496,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "integration-agent-docker-1046",
+                      "pipelinelib",
+                      "Docker",
+                      "blubber"
+                    ],
+                    "voting": true,
+                    "uuid": "9e382a7acf074d40915bf7b0f71258c1"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-sqlite-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-sqlite-php74/2620/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624037.49219,
+                    "launch_time": 1725624037.471649,
+                    "number": 2620,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1041",
+                    "elapsed_time": 575864,
+                    "estimated_time": 571.5,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-sqlite-php74/2620/console",
+                    "end_time": 1725624613.356475,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1041"
+                    ],
+                    "voting": true,
+                    "uuid": "ca79f736bacc43e1b2b89b8637bbcc25"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-postgres-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-postgres-php74/2621/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624037.531658,
+                    "launch_time": 1725624037.474229,
+                    "number": 2621,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1057",
+                    "elapsed_time": 990728,
+                    "estimated_time": 926.8,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-postgres-php74/2621/console",
+                    "end_time": 1725625028.259775,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "integration-agent-docker-1057",
+                      "pipelinelib",
+                      "Docker",
+                      "blubber"
+                    ],
+                    "voting": true,
+                    "uuid": "87527f325f7f46beb4908878b9d1e4ed"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-core-php74-phan",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-core-php74-phan/10614/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624037.532256,
+                    "launch_time": 1725624037.478648,
+                    "number": 10614,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1046",
+                    "elapsed_time": 156021,
+                    "estimated_time": 141.7,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-core-php74-phan/10614/console",
+                    "end_time": 1725624193.554169,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "integration-agent-docker-1046",
+                      "pipelinelib",
+                      "Docker",
+                      "blubber"
+                    ],
+                    "voting": true,
+                    "uuid": "9426cf017d0c44da98c26d9f7deb708a"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-core-php81-phan",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-core-php81-phan/2769/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624037.532933,
+                    "launch_time": 1725624037.487498,
+                    "number": 2769,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1052",
+                    "elapsed_time": 126586,
+                    "estimated_time": 136,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-core-php81-phan/2769/console",
+                    "end_time": 1725624164.119847,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1052"
+                    ],
+                    "voting": true,
+                    "uuid": "596f17fd29114f1e872e5d720674d75a"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "quibble-vendor-mysql-php74-phpunit-standalone",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/quibble-vendor-mysql-php74-phpunit-standalone/4376/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624037.596034,
+                    "launch_time": 1725624037.553018,
+                    "number": 4376,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1042",
+                    "elapsed_time": 76223,
+                    "estimated_time": 122.2,
+                    "report_url": "https://integration.wikimedia.org/ci/job/quibble-vendor-mysql-php74-phpunit-standalone/4376/console",
+                    "end_time": 1725624113.820031,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1042"
+                    ],
+                    "voting": true,
+                    "uuid": "7df76ed4166f46b59a10b43180bcc8d0"
+                  }
+                ],
+                "url": "https://gerrit.wikimedia.org/r/c/mediawiki/core/+/1071178",
+                "item_ahead": null,
+                "enqueue_time": 1725624030378,
+                "project": "mediawiki/core",
+                "owner": {
+                  "username": "trainbranchbot",
+                  "name": "TrainBranchBot",
+                  "email": "mmodell+trainbranchbot@wikimedia.org"
+                },
+                "live": true,
+                "remaining_time": 154055,
+                "zuul_ref": "Z17ecb253e9e84b27be32f4f023605292",
+                "active": true,
+                "id": "1071178,1"
+              },
+              {
+                "failing_reasons": [],
+                "items_behind": [
+                  "1070962,3"
+                ],
+                "jobs": [
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "quibble-vendor-mysql-php74-noselenium",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/quibble-vendor-mysql-php74-noselenium/38376/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624112.66556,
+                    "launch_time": 1725624112.648321,
+                    "number": 38376,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1048",
+                    "elapsed_time": 604193,
+                    "estimated_time": 598.6,
+                    "report_url": "https://integration.wikimedia.org/ci/job/quibble-vendor-mysql-php74-noselenium/38376/console",
+                    "end_time": 1725624716.858853,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "integration-agent-docker-1048",
+                      "Docker",
+                      "blubber"
+                    ],
+                    "voting": true,
+                    "uuid": "7d0e61ccca5e41a08f374c1bf6e04ba0"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "quibble-vendor-mysql-php81-noselenium",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/quibble-vendor-mysql-php81-noselenium/14244/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624112.712243,
+                    "launch_time": 1725624112.651228,
+                    "number": 14244,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1047",
+                    "elapsed_time": 595964,
+                    "estimated_time": 547.3,
+                    "report_url": "https://integration.wikimedia.org/ci/job/quibble-vendor-mysql-php81-noselenium/14244/console",
+                    "end_time": 1725624708.676864,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "integration-agent-docker-1047",
+                      "pipelinelib",
+                      "Docker",
+                      "blubber"
+                    ],
+                    "voting": true,
+                    "uuid": "ca16c0e6f1424d7dbe49f4af8db10c72"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "quibble-vendor-mysql-php82-noselenium",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/quibble-vendor-mysql-php82-noselenium/14047/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624112.713412,
+                    "launch_time": 1725624112.654136,
+                    "number": 14047,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1055",
+                    "elapsed_time": 716544,
+                    "estimated_time": 530.8,
+                    "report_url": "https://integration.wikimedia.org/ci/job/quibble-vendor-mysql-php82-noselenium/14047/console",
+                    "end_time": 1725624829.257661,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1055"
+                    ],
+                    "voting": true,
+                    "uuid": "1622baee9b3e46f78b74c89e13d72ff1"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "quibble-vendor-mysql-php83-noselenium",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/quibble-vendor-mysql-php83-noselenium/5171/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624112.714637,
+                    "launch_time": 1725624112.659184,
+                    "number": 5171,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1048",
+                    "elapsed_time": 600306,
+                    "estimated_time": 514.4,
+                    "report_url": "https://integration.wikimedia.org/ci/job/quibble-vendor-mysql-php83-noselenium/5171/console",
+                    "end_time": 1725624713.020967,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "integration-agent-docker-1048",
+                      "Docker",
+                      "blubber"
+                    ],
+                    "voting": true,
+                    "uuid": "6d83d16b2c474f1fb15b7177b6911c07"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "quibble-vendor-mysql-php74-selenium",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/quibble-vendor-mysql-php74-selenium/36650/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624112.715887,
+                    "launch_time": 1725624112.664272,
+                    "number": 36650,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1043",
+                    "elapsed_time": 601868,
+                    "estimated_time": 601.4,
+                    "report_url": "https://integration.wikimedia.org/ci/job/quibble-vendor-mysql-php74-selenium/36650/console",
+                    "end_time": 1725624714.584721,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1043"
+                    ],
+                    "voting": true,
+                    "uuid": "5cdf22ef588a44f1a137b8501c181120"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mwgate-node18",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mwgate-node18/59842/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624112.777316,
+                    "launch_time": 1725624112.729397,
+                    "number": 59842,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1055",
+                    "elapsed_time": 41020,
+                    "estimated_time": 146.4,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mwgate-node18/59842/console",
+                    "end_time": 1725624153.797451,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1055"
+                    ],
+                    "voting": true,
+                    "uuid": "487643d164294c74a5420cfb5a75d137"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mwext-php74-phan",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mwext-php74-phan/38877/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624112.782095,
+                    "launch_time": 1725624112.732154,
+                    "number": 38877,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1041",
+                    "elapsed_time": 77501,
+                    "estimated_time": 89,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mwext-php74-phan/38877/console",
+                    "end_time": 1725624190.283434,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1041"
+                    ],
+                    "voting": true,
+                    "uuid": "33102d2c2df648989efed6167bd047d1"
+                  }
+                ],
+                "url": "https://gerrit.wikimedia.org/r/c/mediawiki/extensions/UploadWizard/+/1070960",
+                "item_ahead": "1071178,1",
+                "enqueue_time": 1725624096910,
+                "project": "mediawiki/extensions/UploadWizard",
+                "owner": {
+                  "username": "ebrahim",
+                  "name": "Ebrahim",
+                  "email": "ebrahim@gnu.org"
+                },
+                "live": true,
+                "remaining_time": 154055,
+                "zuul_ref": "Zaabadfb7a15849a59b3f20633ab30eb1",
+                "active": true,
+                "id": "1070960,2"
+              },
+              {
+                "failing_reasons": [],
+                "items_behind": [
+                  "1071054,3"
+                ],
+                "jobs": [
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mwgate-node18",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mwgate-node18/59843/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624226.297798,
+                    "launch_time": 1725624226.278651,
+                    "number": 59843,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1041",
+                    "elapsed_time": 186413,
+                    "estimated_time": 129.1,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mwgate-node18/59843/console",
+                    "end_time": 1725624412.711707,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1041"
+                    ],
+                    "voting": true,
+                    "uuid": "3dbe574ffb4a42909879e277509d4743"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "wmf-quibble-core-vendor-mysql-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/wmf-quibble-core-vendor-mysql-php74/11803/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624226.340257,
+                    "launch_time": 1725624226.281689,
+                    "number": 11803,
+                    "remaining_time": 343022,
+                    "node_name": null,
+                    "elapsed_time": 1228778,
+                    "estimated_time": 1571.8,
+                    "report_url": "https://integration.wikimedia.org/ci/job/wmf-quibble-core-vendor-mysql-php74/11803/console",
+                    "end_time": null,
+                    "result": null,
+                    "node_labels": [],
+                    "voting": true,
+                    "uuid": "721145defbe1442a82cffe4651aa173e"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "wmf-quibble-selenium-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/wmf-quibble-selenium-php74/27590/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624226.34181,
+                    "launch_time": 1725624226.28452,
+                    "number": 27590,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1043",
+                    "elapsed_time": 993719,
+                    "estimated_time": 971.4,
+                    "report_url": "https://integration.wikimedia.org/ci/job/wmf-quibble-selenium-php74/27590/console",
+                    "end_time": 1725625220.061348,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1043"
+                    ],
+                    "voting": true,
+                    "uuid": "6bdfbe0b924949f2a073839533806729"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-composer-mysql-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-composer-mysql-php74/3088/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624226.3428,
+                    "launch_time": 1725624226.290191,
+                    "number": 3088,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1047",
+                    "elapsed_time": 568159,
+                    "estimated_time": 660.3,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-composer-mysql-php74/3088/console",
+                    "end_time": 1725624794.501873,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "integration-agent-docker-1047",
+                      "pipelinelib",
+                      "Docker",
+                      "blubber"
+                    ],
+                    "voting": true,
+                    "uuid": "5d7d978b8ee94cdf9207d1785ddcba2b"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-mysql-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php74/10483/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624226.343833,
+                    "launch_time": 1725624226.294379,
+                    "number": 10483,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1044",
+                    "elapsed_time": 703934,
+                    "estimated_time": 665.6,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php74/10483/console",
+                    "end_time": 1725624930.278817,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1044"
+                    ],
+                    "voting": true,
+                    "uuid": "e04040e041c44b01bc496a185b3d942b"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-mysql-php81",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php81/2688/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624226.344783,
+                    "launch_time": 1725624226.296282,
+                    "number": 2688,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1053",
+                    "elapsed_time": 686298,
+                    "estimated_time": 699.5,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php81/2688/console",
+                    "end_time": 1725624912.643501,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1053"
+                    ],
+                    "voting": true,
+                    "uuid": "5dbfb9a538284e86b4030edd2cc3d94e"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-mysql-php82",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php82/2688/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624226.380468,
+                    "launch_time": 1725624226.361056,
+                    "number": 2688,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1041",
+                    "elapsed_time": 661563,
+                    "estimated_time": 648.7,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php82/2688/console",
+                    "end_time": 1725624887.943823,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1041"
+                    ],
+                    "voting": true,
+                    "uuid": "454f2ae3996843148be73a9a18fccfc9"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-mysql-php83",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php83/2688/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624226.381809,
+                    "launch_time": 1725624226.363612,
+                    "number": 2688,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1056",
+                    "elapsed_time": 819508,
+                    "estimated_time": 648.9,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php83/2688/console",
+                    "end_time": 1725625045.890056,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "integration-agent-docker-1056",
+                      "pipelinelib",
+                      "Docker",
+                      "blubber"
+                    ],
+                    "voting": true,
+                    "uuid": "5e3acfc9ba83462b8bd8bd92c67c3af3"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-composertest-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-composertest-php74/10625/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624226.424102,
+                    "launch_time": 1725624226.365903,
+                    "number": 10625,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1053",
+                    "elapsed_time": 68854,
+                    "estimated_time": 71.6,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-composertest-php74/10625/console",
+                    "end_time": 1725624295.278609,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1053"
+                    ],
+                    "voting": true,
+                    "uuid": "66bf9349a5694a4091c5e992219e0775"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-selenium-vendor-mysql-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-selenium-vendor-mysql-php74/10472/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624226.425241,
+                    "launch_time": 1725624226.370592,
+                    "number": 10472,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1049",
+                    "elapsed_time": 120488,
+                    "estimated_time": 129.8,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-selenium-vendor-mysql-php74/10472/console",
+                    "end_time": 1725624346.913243,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1049"
+                    ],
+                    "voting": true,
+                    "uuid": "170a746abc014a8b9341a7203935457b"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-apitests-vendor-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-apitests-vendor-php74/17615/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624226.426201,
+                    "launch_time": 1725624226.37918,
+                    "number": 17615,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1052",
+                    "elapsed_time": 136490,
+                    "estimated_time": 264.3,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-apitests-vendor-php74/17615/console",
+                    "end_time": 1725624362.916393,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1052"
+                    ],
+                    "voting": true,
+                    "uuid": "fa20e44ec0a0412a86ed1057ec9f3b9b"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-sqlite-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-sqlite-php74/2621/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624226.459878,
+                    "launch_time": 1725624226.444252,
+                    "number": 2621,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1056",
+                    "elapsed_time": 714004,
+                    "estimated_time": 571.5,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-sqlite-php74/2621/console",
+                    "end_time": 1725624940.464797,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "integration-agent-docker-1056",
+                      "pipelinelib",
+                      "Docker",
+                      "blubber"
+                    ],
+                    "voting": true,
+                    "uuid": "00965adfccb94b129796cb9a5a13d0b1"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-postgres-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-postgres-php74/2622/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624226.500763,
+                    "launch_time": 1725624226.446857,
+                    "number": 2622,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1050",
+                    "elapsed_time": 976894,
+                    "estimated_time": 926.8,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-postgres-php74/2622/console",
+                    "end_time": 1725625203.395486,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1050"
+                    ],
+                    "voting": true,
+                    "uuid": "75c40d775ba54c09926b36404e2e464d"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-core-php74-phan",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-core-php74-phan/10615/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624226.501855,
+                    "launch_time": 1725624226.449399,
+                    "number": 10615,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1053",
+                    "elapsed_time": 139947,
+                    "estimated_time": 144.2,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-core-php74-phan/10615/console",
+                    "end_time": 1725624366.448963,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1053"
+                    ],
+                    "voting": true,
+                    "uuid": "958bcf04e9a446a09f8fcf62263b8e64"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-core-php81-phan",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-core-php81-phan/2770/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624226.503576,
+                    "launch_time": 1725624226.454656,
+                    "number": 2770,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1051",
+                    "elapsed_time": 137617,
+                    "estimated_time": 136.8,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-core-php81-phan/2770/console",
+                    "end_time": 1725624364.120855,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1051"
+                    ],
+                    "voting": true,
+                    "uuid": "237770f3800d4f83bd1ed2af177bf581"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "quibble-vendor-mysql-php74-phpunit-standalone",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/quibble-vendor-mysql-php74-phpunit-standalone/4377/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725624226.564211,
+                    "launch_time": 1725624226.520676,
+                    "number": 4377,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1054",
+                    "elapsed_time": 73037,
+                    "estimated_time": 122.3,
+                    "report_url": "https://integration.wikimedia.org/ci/job/quibble-vendor-mysql-php74-phpunit-standalone/4377/console",
+                    "end_time": 1725624299.601646,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1054"
+                    ],
+                    "voting": true,
+                    "uuid": "d6b360aaa5864e049ddb96a7b7772463"
+                  }
+                ],
+                "url": "https://gerrit.wikimedia.org/r/c/mediawiki/core/+/1070962",
+                "item_ahead": "1070960,2",
+                "enqueue_time": 1725624208032,
+                "project": "mediawiki/core",
+                "owner": {
+                  "username": "ebrahim",
+                  "name": "Ebrahim",
+                  "email": "ebrahim@gnu.org"
+                },
+                "live": true,
+                "remaining_time": 343022,
+                "zuul_ref": "Z44a92f161dbc41b488a61efe9ffc8a65",
+                "active": true,
+                "id": "1070962,3"
+              },
+              {
+                "failing_reasons": [],
+                "items_behind": [],
+                "jobs": [
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mwgate-node18",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mwgate-node18/59844/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725625347.264682,
+                    "launch_time": 1725625347.247685,
+                    "number": 59844,
+                    "remaining_time": 42846,
+                    "node_name": null,
+                    "elapsed_time": 107854,
+                    "estimated_time": 150.7,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mwgate-node18/59844/console",
+                    "end_time": null,
+                    "result": null,
+                    "node_labels": [],
+                    "voting": true,
+                    "uuid": "950fff351f30422ba98f5e77f420306d"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "wmf-quibble-core-vendor-mysql-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/wmf-quibble-core-vendor-mysql-php74/11804/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725625347.308536,
+                    "launch_time": 1725625347.250771,
+                    "number": 11804,
+                    "remaining_time": 1463989,
+                    "node_name": null,
+                    "elapsed_time": 107811,
+                    "estimated_time": 1571.8,
+                    "report_url": "https://integration.wikimedia.org/ci/job/wmf-quibble-core-vendor-mysql-php74/11804/console",
+                    "end_time": null,
+                    "result": null,
+                    "node_labels": [],
+                    "voting": true,
+                    "uuid": "f58475047b2d49028f11ae32d6d90ef4"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "wmf-quibble-selenium-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/wmf-quibble-selenium-php74/27591/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725625347.309584,
+                    "launch_time": 1725625347.25602,
+                    "number": 27591,
+                    "remaining_time": 847490,
+                    "node_name": null,
+                    "elapsed_time": 107810,
+                    "estimated_time": 955.3,
+                    "report_url": "https://integration.wikimedia.org/ci/job/wmf-quibble-selenium-php74/27591/console",
+                    "end_time": null,
+                    "result": null,
+                    "node_labels": [],
+                    "voting": true,
+                    "uuid": "1b6fd67dd1df4e35b5b4809a70c89504"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-composer-mysql-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-composer-mysql-php74/3089/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725625347.310549,
+                    "launch_time": 1725625347.260841,
+                    "number": 3089,
+                    "remaining_time": 548491,
+                    "node_name": null,
+                    "elapsed_time": 107809,
+                    "estimated_time": 656.3,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-composer-mysql-php74/3089/console",
+                    "end_time": null,
+                    "result": null,
+                    "node_labels": [],
+                    "voting": true,
+                    "uuid": "69cef01c89074e4fb2dc45f2c09ccd3f"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-mysql-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php74/10484/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725625347.34337,
+                    "launch_time": 1725625347.32645,
+                    "number": 10484,
+                    "remaining_time": 557424,
+                    "node_name": null,
+                    "elapsed_time": 107776,
+                    "estimated_time": 665.2,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php74/10484/console",
+                    "end_time": null,
+                    "result": null,
+                    "node_labels": [],
+                    "voting": true,
+                    "uuid": "99109c78ef1f4f76b2c61507ac711dc3"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-mysql-php81",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php81/2689/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725625347.384226,
+                    "launch_time": 1725625347.329388,
+                    "number": 2689,
+                    "remaining_time": 600665,
+                    "node_name": null,
+                    "elapsed_time": 107735,
+                    "estimated_time": 708.4,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php81/2689/console",
+                    "end_time": null,
+                    "result": null,
+                    "node_labels": [],
+                    "voting": true,
+                    "uuid": "76cc82e1210a46eeac6882407e59a265"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-mysql-php82",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php82/2689/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725625347.386315,
+                    "launch_time": 1725625347.334048,
+                    "number": 2689,
+                    "remaining_time": 556567,
+                    "node_name": null,
+                    "elapsed_time": 107733,
+                    "estimated_time": 664.3,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php82/2689/console",
+                    "end_time": null,
+                    "result": null,
+                    "node_labels": [],
+                    "voting": true,
+                    "uuid": "72d6aa39e13249e499cce4b7915cdb37"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-mysql-php83",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php83/2689/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725625347.385326,
+                    "launch_time": 1725625347.337049,
+                    "number": 2689,
+                    "remaining_time": 552266,
+                    "node_name": null,
+                    "elapsed_time": 107734,
+                    "estimated_time": 660,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-mysql-php83/2689/console",
+                    "end_time": null,
+                    "result": null,
+                    "node_labels": [],
+                    "voting": true,
+                    "uuid": "8cab9873e30b463ab031b3965ce8ebb3"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-composertest-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-composertest-php74/10626/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725625347.387276,
+                    "launch_time": 1725625347.341871,
+                    "number": 10626,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1054",
+                    "elapsed_time": 64706,
+                    "estimated_time": 69.2,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-composertest-php74/10626/console",
+                    "end_time": 1725625412.093532,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "pipelinelib",
+                      "Docker",
+                      "blubber",
+                      "integration-agent-docker-1054"
+                    ],
+                    "voting": true,
+                    "uuid": "fddd15117ee742909bcd8f2e7a98c28c"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-selenium-vendor-mysql-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-selenium-vendor-mysql-php74/10473/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725625347.423517,
+                    "launch_time": 1725625347.407565,
+                    "number": 10473,
+                    "remaining_time": 23804,
+                    "node_name": null,
+                    "elapsed_time": 107696,
+                    "estimated_time": 131.5,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-selenium-vendor-mysql-php74/10473/console",
+                    "end_time": null,
+                    "result": null,
+                    "node_labels": [],
+                    "voting": true,
+                    "uuid": "f4680683cd2144c49a5bb5a3b09f5619"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-apitests-vendor-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-apitests-vendor-php74/17616/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725625347.464526,
+                    "launch_time": 1725625347.410204,
+                    "number": 17616,
+                    "remaining_time": 144845,
+                    "node_name": null,
+                    "elapsed_time": 107655,
+                    "estimated_time": 252.5,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-apitests-vendor-php74/17616/console",
+                    "end_time": null,
+                    "result": null,
+                    "node_labels": [],
+                    "voting": true,
+                    "uuid": "11af1f59bf0a4c05a23a559052df5c05"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-sqlite-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-sqlite-php74/2622/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725625347.465534,
+                    "launch_time": 1725625347.412727,
+                    "number": 2622,
+                    "remaining_time": 480646,
+                    "node_name": null,
+                    "elapsed_time": 107654,
+                    "estimated_time": 588.3,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-sqlite-php74/2622/console",
+                    "end_time": null,
+                    "result": null,
+                    "node_labels": [],
+                    "voting": true,
+                    "uuid": "c23e7fbb858c4032a19a2caa97a687db"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-quibble-vendor-postgres-php74",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-postgres-php74/2623/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725625347.466482,
+                    "launch_time": 1725625347.41826,
+                    "number": 2623,
+                    "remaining_time": 853847,
+                    "node_name": null,
+                    "elapsed_time": 107653,
+                    "estimated_time": 961.5,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-quibble-vendor-postgres-php74/2623/console",
+                    "end_time": null,
+                    "result": null,
+                    "node_labels": [],
+                    "voting": true,
+                    "uuid": "6fefcc43941f43c5a2dbfa858f6ea2bd"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-core-php74-phan",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-core-php74-phan/10616/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725625347.536095,
+                    "launch_time": 1725625347.484081,
+                    "number": 10616,
+                    "remaining_time": 35817,
+                    "node_name": null,
+                    "elapsed_time": 107583,
+                    "estimated_time": 143.4,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-core-php74-phan/10616/console",
+                    "end_time": null,
+                    "result": null,
+                    "node_labels": [],
+                    "voting": true,
+                    "uuid": "56703d003237422d8284e11bf93edbaa"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "mediawiki-core-php81-phan",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/mediawiki-core-php81-phan/2771/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725625347.538398,
+                    "launch_time": 1725625347.486675,
+                    "number": 2771,
+                    "remaining_time": 30119,
+                    "node_name": null,
+                    "elapsed_time": 107581,
+                    "estimated_time": 137.7,
+                    "report_url": "https://integration.wikimedia.org/ci/job/mediawiki-core-php81-phan/2771/console",
+                    "end_time": null,
+                    "result": null,
+                    "node_labels": [],
+                    "voting": true,
+                    "uuid": "893ee5b20a184ede90d0eb3c578d1cfa"
+                  },
+                  {
+                    "pipeline": "gate-and-submit",
+                    "retry": false,
+                    "name": "quibble-vendor-mysql-php74-phpunit-standalone",
+                    "canceled": false,
+                    "url": "https://integration.wikimedia.org/ci/job/quibble-vendor-mysql-php74-phpunit-standalone/4378/",
+                    "worker": {
+                      "name": "Unknown",
+                      "extra": {},
+                      "hostname": null,
+                      "fqdn": null,
+                      "ips": [],
+                      "program": null,
+                      "version": null
+                    },
+                    "start_time": 1725625347.541312,
+                    "launch_time": 1725625347.489096,
+                    "number": 4378,
+                    "remaining_time": 0,
+                    "node_name": "integration-agent-docker-1045",
+                    "elapsed_time": 77829,
+                    "estimated_time": 121.6,
+                    "report_url": "https://integration.wikimedia.org/ci/job/quibble-vendor-mysql-php74-phpunit-standalone/4378/console",
+                    "end_time": 1725625425.371309,
+                    "result": "SUCCESS",
+                    "node_labels": [
+                      "integration-agent-docker-1045",
+                      "pipelinelib",
+                      "Docker",
+                      "blubber"
+                    ],
+                    "voting": true,
+                    "uuid": "54339bf503f64b25b2934e91379b695e"
+                  }
+                ],
+                "url": "https://gerrit.wikimedia.org/r/c/mediawiki/core/+/1071054",
+                "item_ahead": "1070962,3",
+                "enqueue_time": 1725625340739,
+                "project": "mediawiki/core",
+                "owner": {
+                  "username": "jdlrobson",
+                  "name": "Jdlrobson",
+                  "email": "jrobson@wikimedia.org"
+                },
+                "live": true,
+                "remaining_time": 1463989,
+                "zuul_ref": "Z3298cdbdd92f4c5894c7f91473f04f54",
+                "active": true,
+                "id": "1071054,3"
+              }
+            ]
+          ],
           "name": "mediawiki"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/libs/metrics-platform"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/php/excimer, mediawiki/php/luasandbox, mediawiki/php/wikidiff2, mediawiki/php/wmerrors"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/apertium"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/apple-search"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/change-propagation"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/chromium-render"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/citoid"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/cxserver"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/eventstreams"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/example-node-api"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/function-evaluator"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/function-orchestrator"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/function-schemata, mediawiki/services/texvcinfo, mediawiki/services/texvcjs"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/geoshapes, mediawiki/services/push-notifications"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/image-suggestion-api"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/kartotherian"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/kask"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/mathoid"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/mobileapps"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/parsoid/deploy"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/poolcounter"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/recommendation-api"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/restbase"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/service-scaffold-node"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/servicelib-node"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/similar-users"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/wikifeeds"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/wikispeech/ahotts"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/wikispeech/mary-tts"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/wikispeech/mishkal"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/wikispeech/pronlex"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/wikispeech/symbolset"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/wikispeech/wikispeech-server"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/services/zotero"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/tools/cli"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/tools/mwdumper"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/tools/scap"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "mediawiki/tools/wikilambda-cli"
-        },
-        {
-          "window": 17,
-          "heads": [],
-          "name": "mediawiki/vagrant"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "node-rdkafka-factory"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "node-rdkafka-statsd"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "oojs/core"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/alerts"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/container/miscweb"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/debs/chartmuseum, operations/debs/dragonfly, operations/debs/helm, operations/debs/helm-diff, operations/debs/helm3, operations/debs/helmfile, operations/debs/kubeconform"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/deployment-charts"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/mediawiki-config"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/puppet-lint/wmf_styleguide-check"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/software/acme-chief, operations/software/certcentral"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/software/cassandra-table-properties"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/software/censorship-monitoring"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/software/cumin"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/software/ecs"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/software/gerrit"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/software/gerrit/plugins/barricade"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/software/gerrit/plugins/events-wikimedia"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/software/homer"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/software/netbox-reports"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/software/tegola"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "operations/software/thumbor-plugins"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "performance/fresnel"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "pywikibot/bots/CommonsDelinker"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "pywikibot/bots/FLOSSbot"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "pywikibot/bots/xqbot"
-        },
-        {
-          "window": 4,
-          "heads": [],
-          "name": "pywikibot/core"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "pywikibot/wikibase"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "research/landing-page"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "research/mwaddlink"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "research/ores/wheels"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "scoring/ores/assets"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "search/MjoLniR"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "search/cirrus-streaming-updater"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "search/extra"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "search/extra-analysis"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "search/glent"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "search/highlighter"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikibase/release-prototype"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikibase/termbox"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikidata/query/blazegraph"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikidata/query/flink-rdf-streaming-updater"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikidata/query/flink-swift-plugin"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikidata/query/gui"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikidata/query/rdf"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikimedia-cz/events"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikimedia-cz/tools"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikimedia-event-utilities"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikimedia/developer-portal"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikimedia/discovery/analytics"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikimedia/discovery/discovery-maven-tool-configs"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikimedia/discovery/discovery-parent-pom"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikimedia/fundraising/crm, wikimedia/fundraising/crm/civicrm, wikimedia/fundraising/crm/vendor"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikimedia/fundraising/stats"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikimedia/fundraising/tools"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikimedia/irc/ircservserv-config"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikimedia/production"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikimedia/security/security-api"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wikimedia/toolhub"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wmf-jvm-utils"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wmf-utils"
-        },
-        {
-          "window": 5,
-          "heads": [],
-          "name": "wvui"
         }
       ],
       "name": "gate-and-submit"
