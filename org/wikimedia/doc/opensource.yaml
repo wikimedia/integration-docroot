@@ -154,6 +154,12 @@ User experience:
       Code documentation (PHP): https://doc.wikimedia.org/oojs-ui/master/php/
       Package (npm): https://www.npmjs.com/package/oojs-ui
       Package (Composer): https://packagist.org/packages/oojs/oojs-ui
+  Codex PHP (Beta):
+    tagline: A PHP library for generating Codex CSS-only component markup using a builder-based methodology.
+    lang: PHP
+    links:
+      Source code: https://gerrit.wikimedia.org/g/design/codex-php
+      Documentation: https://doc.wikimedia.org/design-codex-php/main/
 
 Apps:
 
