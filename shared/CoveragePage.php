@@ -99,7 +99,7 @@ HTML;
 			'name' => [
 				'text' => 'Sort by name',
 				'class' => [ 'wm-btn' ],
-				'href' => "./"
+				'href' => "./?sort=name"
 			],
 			'percent' => [
 				'text' => 'Sort by coverage percentage',
@@ -115,7 +115,17 @@ HTML;
 
 		$sortKey = array_key_exists( $_GET['sort'] ?? '', $buttons ) ? $_GET['sort'] : 'name';
 
+		// Sort in the alternative direction next time
+		if ( ( $_GET['dir'] ?? 'asc' ) === 'asc' ) {
+			$sortDirButton = 'desc';
+			$sortAsc = true;
+		} else {
+			$sortDirButton = 'asc';
+			$sortAsc = false;
+		}
+
 		$buttons[$sortKey]['class'][] = 'wm-btn-active';
+		$buttons[$sortKey]['href'] .= '&dir=' . $sortDirButton;
 
 		$sortNav = '';
 		foreach ( $buttons as $button ) {
@@ -136,26 +146,30 @@ HTML;
 				continue;
 			}
 			$clovers[$cloverFile] = $this->parseClover( $clover ) + [
+				'name' => basename( dirname( $cloverFile ) ),
 				'mtime' => stat( $cloverFile )['mtime'],
 			];
 		}
-		if ( $sortKey !== 'name' ) {
-			uasort( $clovers, static function ( $a, $b ) use ( $sortKey ) {
+		uasort(
+			$clovers,
+			static function ( $a, $b ) use ( $sortKey, $sortAsc ) {
 				if ( $a[$sortKey] === $b[$sortKey] ) {
 					return 0;
 				}
 
-				return ( $a[$sortKey] < $b[$sortKey] ) ? -1 : 1;
-			} );
-		}
+				return $sortAsc
+					? ( ( $a[$sortKey] < $b[$sortKey] ) ? -1 : 1 )
+					: ( ( $a[$sortKey] > $b[$sortKey] ) ? -1 : 1 );
+			}
+		);
 
-		foreach ( $clovers as $cloverFile => $info ) {
-			$dirName = htmlspecialchars( basename( dirname( $cloverFile ) ) );
+		$lowThreshold = self::COVERAGE_LOW;
+		$highThreshold = self::COVERAGE_HIGH;
+		foreach ( $clovers as $info ) {
+			$dirName = htmlspecialchars( $info['name'] );
 			$modifiedTime = date( DateTimeInterface::ATOM, $info['mtime'] );
 			$percent = (string)round( $info['percent'] );
 
-			$lowThreshold = self::COVERAGE_LOW;
-			$highThreshold = self::COVERAGE_HIGH;
 			$html .= <<<HTML
 <li>
 	<a class="cover-item" href="./$dirName/">

@@ -212,7 +212,6 @@ footer nav li a {
   color: var( --color-progressive );
   border-radius: var( --border-radius-base );
   font-weight: var( --font-weight-semi-bold );
-  cursor: default;
 }
 
 .wm-btn {
@@ -235,11 +234,11 @@ footer nav li a {
   border-color: var( --border-color-base--active );
   color: var( --color-base--active );
 }
-.wm-btn-active {
+.wm-btn-active,
+.wm-btn-active:hover {
   background-color: var( --background-color-progressive--active );
   color: var( --color-inverted );
   cursor: default;
-  pointer-events: none;
 }
 
 @media (max-width: 720px) {
