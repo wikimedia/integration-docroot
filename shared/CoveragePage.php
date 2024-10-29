@@ -50,12 +50,9 @@ class CoveragePage extends DocPage {
 	 * includes a progress bar
 	 */
 	public function handleCoverageIndex() {
-		// Get list of directories with clover.xml
+		// Get a list of directories with clover.xml
 		$cloverFiles = glob( $this->coverageDir . '/*/clover.xml' );
 		$this->embedCSS( file_get_contents( __DIR__ . '/cover.css' ) );
-
-		$sortParam = isset( $_GET['sort'] ) ? (string)$_GET['sort'] : null;
-		$sortKey = null;
 
 		$intro = <<<HTML
 <blockquote>
@@ -98,25 +95,33 @@ HTML;
 
 		$this->addHtmlContent( $breadcrumbs );
 
-		if ( $sortParam === 'cov' ) {
-			$sortNav = <<<HTML
-		<a role="button" class="wm-btn" href="./">Sort by name</a>
-		<a role="button" class="wm-btn wm-btn-active" href="./?sort=cov">Sort by coverage percentage</a>
-		<a role="button" class="wm-btn" href="./?sort=mtime">Sort by modified time</a>
-HTML;
-			$sortKey = 'percent';
-		} elseif ( $sortParam === 'mtime' ) {
-			$sortNav = <<<HTML
-		<a role="button" class="wm-btn" href="./">Sort by name</a>
-		<a role="button" class="wm-btn" href="./?sort=cov">Sort by coverage percentage</a>
-		<a role="button" class="wm-btn wm-btn-active" href="./?sort=mtime">Sort by modified time</a>
-HTML;
-			$sortKey = 'mtime';
-		} else {
-			$sortNav = <<<HTML
-		<a role="button" class="wm-btn wm-btn-active" href="./">Sort by name</a>
-		<a role="button" class="wm-btn" href="./?sort=cov">Sort by coverage percentage</a>
-		<a role="button" class="wm-btn" href="./?sort=mtime">Sort by modified time</a>
+		$buttons = [
+			'name' => [
+				'text' => 'Sort by name',
+				'class' => [ 'wm-btn' ],
+				'href' => "./"
+			],
+			'percent' => [
+				'text' => 'Sort by coverage percentage',
+				'class' => [ 'wm-btn' ],
+				'href' => "./?sort=percent"
+			],
+			'mtime' => [
+				'text' => 'Sort by modified time',
+				'class' => [ 'wm-btn' ],
+				'href' => "./?sort=mtime"
+			],
+		];
+
+		$sortKey = array_key_exists( $_GET['sort'] ?? '', $buttons ) ? $_GET['sort'] : 'name';
+
+		$buttons[$sortKey]['class'][] = 'wm-btn-active';
+
+		$sortNav = '';
+		foreach ( $buttons as $button ) {
+			$class = implode( ' ', $button['class'] );
+			$sortNav .= <<<HTML
+		<a role="button" class="{$class}" href="{$button['href']}">{$button['text']}</a>
 HTML;
 		}
 
@@ -134,7 +139,7 @@ HTML;
 				'mtime' => stat( $cloverFile )['mtime'],
 			];
 		}
-		if ( $sortKey !== null ) {
+		if ( $sortKey !== 'name' ) {
 			uasort( $clovers, static function ( $a, $b ) use ( $sortKey ) {
 				if ( $a[$sortKey] === $b[$sortKey] ) {
 					return 0;
