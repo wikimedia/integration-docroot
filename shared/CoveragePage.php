@@ -66,32 +66,44 @@ which the question underlying the test has been answered.
 HTML;
 		$this->addHtmlContent( $intro );
 
-		if ( $this->pageName === 'Test coverage' ) {
-			$breadcrumbs = <<<HTML
+		$crumbs = [
+			'Test coverage' => [
+				'name' => 'Coverage home',
+				'href' => '/cover/',
+				'active' => false,
+			],
+			'MediaWiki extension test coverage' => [
+				'name' => 'MediaWiki extensions',
+				'href' => '/cover-extensions/',
+				'active' => false,
+			],
+			'MediaWiki skin test coverage' => [
+				'name' => 'MediaWiki skins',
+				'href' => '/cover-skins/',
+				'active' => false,
+			],
+		];
+
+		$crumbs[$this->pageName]['active'] = true;
+		$crumbs[$this->pageName]['href'] = '#';
+
+		$breadcrumbs = <<<HTML
 <ul class="wm-nav cover-nav">
-	<li><a href="#" class="wm-nav-item-active">Coverage home</a></li>
-	<li><a href="/cover-extensions/">MediaWiki extensions</a></li>
-	<li><a href="/cover-skins/">MediaWiki skins</a></li>
-</ul>
 HTML;
-		} elseif ( $this->pageName === 'MediaWiki extension test coverage' ) {
-			$breadcrumbs = <<<HTML
-<ul class="wm-nav cover-nav">
-	<li><a href="/cover/">Coverage home</a></li>
-	<li><a href="#" class="wm-nav-item-active">MediaWiki extensions</a></li>
-	<li><a href="/cover-skins/">MediaWiki skins</a></li>
-</ul>
-HTML;
-		} else {
-			// } elseif ( $this->pageName === 'MediaWiki skin test coverage' ) {
-			$breadcrumbs = <<<HTML
-<ul class="wm-nav cover-nav">
-	<li><a href="/cover/">Coverage home</a></li>
-	<li><a href="/cover-extensions/">MediaWiki extensions</a></li>
-	<li><a href="#" class="wm-nav-item-active">MediaWiki skins</a></li>
-</ul>
+		foreach ( $crumbs as $crumb ) {
+
+			$class = '';
+			if ( $crumb['active'] ) {
+				$class = ' class="wm-nav-item-active"';
+			}
+			$breadcrumbs .= <<<HTML
+	<li><a href="{$crumb['href']}"{$class}>{$crumb['name']}</a></li>
 HTML;
 		}
+
+		$breadcrumbs .= <<<HTML
+</ul>
+HTML;
 
 		$this->addHtmlContent( $breadcrumbs );
 
