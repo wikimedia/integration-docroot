@@ -238,7 +238,6 @@ footer nav li a {
 .wm-btn-active:hover {
   background-color: var( --background-color-progressive--active );
   color: var( --color-inverted );
-  cursor: default;
 }
 
 @media (max-width: 720px) {
