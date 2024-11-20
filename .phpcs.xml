@@ -2,7 +2,6 @@
 <ruleset>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
 		<exclude name="Generic.Files.LineLength.TooLong"/>
-		<exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact"/>
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPrivate"/>
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationPrivate"/>
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationProtected"/>
@@ -11,6 +10,19 @@
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingReturn"/>
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationProtected"/>
 		<exclude name="MediaWiki.Usage.SuperGlobalsUsage.SuperGlobals"/>
+	</rule>
+	<!--
+		We use inlined PHP which is overindented.
+
+        If we exclude the Sniff in the mediawiki-codesniffer rule above, our
+        LibraryUpgrader tool would keep removing it and offers an unwanted fix.
+
+        Since LibraryUpgrader only lookup for the above rule, load the Sniff
+        again excluding itself.
+
+	-->
+	<rule ref="Generic.WhiteSpace.ScopeIndent.IncorrectExact">
+		<exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />
 	</rule>
 	<file>.</file>
 	<arg name="encoding" value="UTF-8"/>
