@@ -819,11 +819,6 @@ MediaWiki components:
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/EventLogging
       Code documentation: https://doc.wikimedia.org/EventLogging/master/js/
-  Flow:
-    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Flow
-    links:
-      Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/Flow
-      Code documentation: https://doc.wikimedia.org/Flow/master/js/
   GlobalWatchlist:
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GlobalWatchlist
     links:
