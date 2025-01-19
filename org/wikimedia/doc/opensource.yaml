@@ -329,6 +329,14 @@ Libraries:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/LangConv/
       Documentation: https://doc.wikimedia.org/mediawiki-libs-LangConv/master/
       Package (Composer): https://packagist.org/packages/wikimedia/langconv
+  Message:
+    tagline: Interfaces to define i18n messages in a MediaWiki-compatible way.
+    lang: PHP
+    homepage: https://www.mediawiki.org/wiki/Message_(PHP_library)
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/libs/Message
+      Documentation: https://doc.wikimedia.org/mediawiki-libs-Message/master/
+      Package (Composer): https://packagist.org/packages/wikimedia/message
   Minify:
     tagline: Minification of JavaScript code and CSS stylesheets.
     lang: PHP
