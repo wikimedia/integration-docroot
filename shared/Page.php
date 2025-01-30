@@ -56,8 +56,15 @@ class Page {
 	 * Note: realpath() also normalises paths to have no trailing slash.
 	 */
 	public static function resolvePath( $base, $path ) {
+		if ( $base === false ) {
+			return false;
+		}
+		$realBase = realpath( $base );
+		if ( $realBase === false ) {
+			return false;
+		}
 		$realPath = realpath( $base . $path );
-		if ( !$realPath || strpos( $realPath, realpath( $base ) ) !== 0 ) {
+		if ( !$realPath || strpos( $realPath, $realBase ) !== 0 ) {
 			return false;
 		}
 		return $realPath;
@@ -79,10 +86,13 @@ class Page {
 		$realBase = false;
 		if ( $realPath ) {
 			$realBase = realpath( $_SERVER['DOCUMENT_ROOT'] );
-		} elseif ( getenv( 'WMF_DOC_PATH' ) !== false ) {
-			// Fall back to CI published files
-			$realPath = self::resolvePath( getenv( 'WMF_DOC_PATH' ), $path );
-			$realBase = realpath( getenv( 'WMF_DOC_PATH' ) );
+		} else {
+			$wmfDocPath = getenv( 'WMF_DOC_PATH' );
+			if ( $wmfDocPath !== false ) {
+				// Fall back to CI published files
+				$realPath = self::resolvePath( $wmfDocPath, $path );
+				$realBase = realpath( $wmfDocPath );
+			}
 		}
 
 		if ( !$realPath || !$realBase ) {
@@ -194,8 +204,9 @@ class Page {
 
 	protected function getDirIndexContents( $dir = null ) {
 		$dir ??= $this->getDir();
-		// glob() excludes dot-files by default
-		return array_filter( glob( $dir . "/*" ), static function ( $entry ) {
+		// note: glob() excludes dot-files by default
+		$files = glob( $dir . "/*" ) ?: [];
+		return array_filter( $files, static function ( $entry ) {
 			// Avoid listing ourselves, e.g. /cover/index.php on /cover/.
 			$name = basename( $entry );
 			return $name !== 'index.html' && $name !== 'index.php';

@@ -69,7 +69,7 @@ if ( $base !== '' && is_readable( $published_file ) ) {
 }
 
 $app_file = realpath( $_SERVER['DOCUMENT_ROOT'] . $_SERVER['SCRIPT_NAME'] );
-if ( is_readable( $app_file ) && is_file( $app_file ) ) {
+if ( $app_file !== false && is_readable( $app_file ) && is_file( $app_file ) ) {
 	$ext = pathinfo( $app_file, PATHINFO_EXTENSION );
 	if ( $ext == 'php' ) {
 		// Let built-in server handle script execution.
@@ -88,10 +88,20 @@ if ( is_readable( $app_file ) && is_file( $app_file ) ) {
 			$mime .= '; charset=UTF-8';
 		}
 		$content = file_get_contents( $app_file );
+		if ( $content === false ) {
+			http_response_code( 503 );
+			print( 'Failed to get file content' );
+			return true;
+		}
 
 		$acceptGzip = preg_match( '/\bgzip\b/', $_SERVER['HTTP_ACCEPT_ENCODING'] ?? '' );
 		if ( $acceptGzip && preg_match( '/text|json|xml/', $mime ) ) {
 			$content = gzencode( $content, 9 );
+			if ( $content === false ) {
+				http_response_code( 503 );
+				print( 'Failed to gzip content' );
+				return true;
+			}
 			header( 'Content-Encoding: gzip' );
 		}
 		header( 'Vary: Accept-Encoding' );

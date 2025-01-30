@@ -52,7 +52,10 @@ class CoveragePage extends DocPage {
 	public function handleCoverageIndex() {
 		// Get a list of directories with clover.xml
 		$cloverFiles = glob( $this->coverageDir . '/*/clover.xml' );
-		$this->embedCSS( file_get_contents( __DIR__ . '/cover.css' ) );
+		$css = file_get_contents( __DIR__ . '/cover.css' );
+		if ( $css ) {
+			$this->embedCSS( $css );
+		}
 
 		$intro = <<<HTML
 <blockquote>
@@ -125,7 +128,12 @@ HTML;
 			],
 		];
 
-		$sortKey = array_key_exists( $_GET['sort'] ?? '', $buttons ) ? $_GET['sort'] : 'name';
+		$sortKey =
+			array_key_exists(
+				(string)( $_GET['sort'] ?? '' ), $buttons
+			)
+			? $_GET['sort']
+			: 'name';
 
 		// Sort in the alternative direction next time
 		if ( ( $_GET['dir'] ?? 'asc' ) === 'asc' ) {

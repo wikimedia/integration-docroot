@@ -12,4 +12,10 @@ $cfg['exclude_analysis_directory_list'] = [
 	dirname( __DIR__ ) . '/shared/test/',
 ];
 
+$cfg['strict_method_checking'] = true;
+$cfg['strict_object_checking'] = true;
+$cfg['strict_param_checking'] = true;
+$cfg['strict_property_checking'] = true;
+$cfg['strict_return_checking'] = true;
+
 return $cfg;

@@ -58,7 +58,7 @@ class WikimediaUiThemePageBase extends Page {
 		if ( $subItems ) {
 			echo '<ul>';
 			foreach ( $subItems as $subHref => $subText ) {
-				echo '<li><a href="' . htmlspecialchars( $subHref ) . '">' . htmlspecialchars( $subText ) . '</a>';
+				echo '<li><a href="' . htmlspecialchars( (string)$subHref ) . '">' . htmlspecialchars( $subText ) . '</a>';
 			}
 			echo '</ul>';
 		}

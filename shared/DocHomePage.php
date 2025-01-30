@@ -28,7 +28,7 @@ class DocHomePage extends DocPage {
 
 	public function renderContent() {
 		foreach ( $this->data as $section => $projects ) {
-			echo '<h2 class="wm-osproject-heading" id="' . htmlspecialchars( $this->anchor( $section ) ) . '">' . htmlspecialchars( $section ) . '</h2>';
+			echo '<h2 class="wm-osproject-heading" id="' . htmlspecialchars( $this->anchor( $section ) ) . '">' . htmlspecialchars( (string)$section ) . '</h2>';
 			echo '<div class="wm-osproject-grid">';
 			uksort( $projects, 'strnatcasecmp' );
 			foreach ( $projects as $title => $project ) {
@@ -71,7 +71,7 @@ class DocHomePage extends DocPage {
 	}
 
 	private function anchor( $title ) {
-		$title = trim( $title );
+		$title = trim( (string)$title );
 		$title = strtolower( $title );
 		return preg_replace( '/[^a-z]+/', '-', $title );
 	}

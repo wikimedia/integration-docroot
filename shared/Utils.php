@@ -29,7 +29,7 @@ class Utils {
 			if ( $indent % 2 !== 0 ) {
 				throw new RuntimeException( "YAML: Odd indentation on line $line." );
 			}
-			$depth = $indent === 0 ? 0 : ( $indent / 2 );
+			$depth = $indent === 0 ? 0 : (int)( $indent / 2 );
 			if ( $depth < $prev ) {
 				// Close current object
 				array_splice( $stack, $depth + 1 );

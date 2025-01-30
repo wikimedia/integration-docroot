@@ -9,6 +9,7 @@ if ( getenv( 'WMF_DOC_PATH' ) === false ) {
 	if ( !$indexDir ) {
 		DocIndexPage::error( '$WMF_DOC_PATH path is invalid' );
 	} else {
+		// @phan-suppress-next-line PhanPossiblyFalseTypeArgument
 		$p->handleDirIndex( getenv( 'WMF_DOC_PATH' ), '/' );
 		$p->flush();
 	}
