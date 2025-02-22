@@ -954,21 +954,21 @@ Microsites:
     lang: HTML
     links:
       Live link: https://annual.wikimedia.org/
-      Source code: https://gerrit.wikimedia.org/g/wikimedia/annualreport
+      Source code: https://gitlab.wikimedia.org/repos/sre/miscweb/annualreport
       Documentation: https://wikitech.wikimedia.org/wiki/Microsites
   transparency.wikimedia.org:
     tagline: Transparency report.
     lang: HTML
     links:
       Live link: https://transparency.wikimedia.org/
-      Source code: https://gerrit.wikimedia.org/g/wikimedia/TransparencyReport
+      Source code: https://gitlab.wikimedia.org/repos/sre/miscweb/transparencyreport
       Documentation: https://wikitech.wikimedia.org/wiki/Microsites
   research.wikimedia.org:
     tagline: Research landing page.
     lang: HTML
     links:
       Live link: https://research.wikimedia.org/
-      Source code: https://gerrit.wikimedia.org/g/research/landing-page/
+      Source code: https://gitlab.wikimedia.org/repos/sre/miscweb/research-landing-page
       Documentation: https://wikitech.wikimedia.org/wiki/Microsites
   integration.wikimedia.org:
     tagline: Doc and Coverage reports.
