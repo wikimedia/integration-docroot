@@ -390,12 +390,6 @@ Libraries:
     links:
       Source code: https://gerrit.wikimedia.org/g/oojs/core
       Documentation: https://doc.wikimedia.org/oojs/master/
-  OOjs Router:
-    lang: JS
-    homepage: https://www.mediawiki.org/wiki/OOjs_Router
-    links:
-      Source code: https://gerrit.wikimedia.org/g/oojs/router
-      Documentation: https://doc.wikimedia.org/oojs-router/master/
   jQuery Client:
     tagline: A minimal user-agent parser for client-side JavaScript.
     lang: JS
