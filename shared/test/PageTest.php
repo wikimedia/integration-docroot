@@ -21,13 +21,13 @@ class PageTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @dataProvider resolvePathCases
+	 * @dataProvider provideResolvePathCases
 	 */
 	public function testResolvePath( $expected, $base, $path ) {
 		$this->assertEquals( $expected, Page::resolvePath( $base, $path ) );
 	}
 
-	public static function resolvePathCases() {
+	public static function provideResolvePathCases() {
 		$fixture = __DIR__ . '/fixture';
 		return [
 			// $expected, $base, $path
