@@ -11,35 +11,52 @@ if ( PHP_SAPI !== 'cli-server' ) {
 	die( "This script can only be run by php's cli-server sapi." );
 }
 
-if ( !isset( $_SERVER['SCRIPT_FILENAME'] ) ) {
+$envDocPath = getenv( 'WMF_DOC_PATH' );
+$srvDocroot = $_SERVER['DOCUMENT_ROOT'];
+$srvReqUri = $_SERVER['REQUEST_URI'];
+$srvScriptName = $_SERVER['SCRIPT_NAME'];
+
+if ( !$envDocPath || !$srvDocroot || !$srvReqUri || !$srvScriptName ) {
 	// Let built-in server handle error.
 	return false;
 }
 
-// Prefer published files under $WMF_DOC_PATH
-// But, if we're at the "/" root, render the normal index,
-// nor the dir.php index.
-$base = basename( $_SERVER['REQUEST_URI'] );
-$published_file = getenv( 'WMF_DOC_PATH' ) . $_SERVER['REQUEST_URI'];
-if ( $base !== '' && is_readable( $published_file ) ) {
+$published_file = realpath( $envDocPath . $srvReqUri );
+// | URL                    | app_file             | app_script
+// | ---------------------- | -------------------- | ----------
+// | /                      | /root                | /root/index.php
+// | /logos/mediawiki.svg   | /logos/mediawiki.svg | /logos/mediawiki.svg
+// | /logos/mediawiki.svg?x | false                | /logos/mediawiki.svg
+// | /?x=                   | false                | /root/index.php
+// | /cover/                | /root/cover          | /root/cover/index.php
+// | /cover/?x=             | false                | /root/cover/index.php
+
+// Path based on literal URL (including virtual dir and query string as-is)
+$app_file = realpath( $srvDocroot . $srvReqUri );
+// The presumed static file or PHP file guessed by PHP (sans query param)
+$app_script = realpath( $srvDocroot . $srvScriptName );
+
+// Prefer published files under WMF_DOC_PATH
+// Except for the "/" root, which should render the app homepage instead of dir.php index.
+if ( $published_file !== false && $published_file !== $envDocPath ) {
 	if ( is_dir( $published_file ) ) {
-		// Simulate Apache `DirectoryIndex index.html index.php
-		if ( is_readable( $published_file . '/index.html' ) ) {
+		// Simulate Apache `DirectoryIndex index.html index.php`
+		if ( is_file( $published_file . '/index.html' ) ) {
 			readfile( $published_file . '/index.html' );
 			return true;
 		}
-		if ( is_readable( $published_file . '/index.php' ) ) {
+		if ( is_file( $published_file . '/index.php' ) ) {
 			// @phan-suppress-next-line SecurityCheck-PathTraversal
 			require_once $published_file . '/index.php';
 			return true;
 		}
-		// If we're in a directory that exists in both the web app
-		// and the doc path, the doc path takes precedence (handled
-		// above). If the doc path has no index file, but the web app
-		// does, then we let the web app render it.
-		// This is used for the doc.wikimedia.org/cover/
-		$app_file = realpath( $_SERVER['DOCUMENT_ROOT'] . $_SERVER['REQUEST_URI'] );
-		if ( is_readable( $app_file . '/index.php' ) ) {
+
+		// If we're in a directory that exists in both the web app (DOCUMENT_ROOT)
+		// and WMF_DOC_PATH, the doc path takes precedence (handled above).
+		// If the doc path has no index file, but the web app does,
+		// we let the web app render it.
+		// This powers https://doc.wikimedia.org/cover/
+		if ( $app_file !== false && is_file( $app_file . '/index.php' ) ) {
 			// @phan-suppress-next-line SecurityCheck-PathTraversal
 			require_once $app_file . '/index.php';
 			return true;
@@ -53,7 +70,7 @@ if ( $base !== '' && is_readable( $published_file ) ) {
 		//
 		// Without the REDIRECT_URL assignment, Page::getRequestPath()
 		// would instead interpret it as being on the coverage index.
-		$_SERVER['REDIRECT_URL'] = $_SERVER['REQUEST_URI'];
+		$_SERVER['REDIRECT_URL'] = $srvReqUri;
 		require_once __DIR__ . '/../org/wikimedia/doc/dir.php';
 		return true;
 	}
@@ -68,9 +85,8 @@ if ( $base !== '' && is_readable( $published_file ) ) {
 	}
 }
 
-$app_file = realpath( $_SERVER['DOCUMENT_ROOT'] . $_SERVER['SCRIPT_NAME'] );
-if ( $app_file !== false && is_readable( $app_file ) && is_file( $app_file ) ) {
-	$ext = pathinfo( $app_file, PATHINFO_EXTENSION );
+if ( $app_script !== false && is_file( $app_script ) ) {
+	$ext = pathinfo( $app_script, PATHINFO_EXTENSION );
 	if ( $ext == 'php' ) {
 		// Let built-in server handle script execution.
 		return false;
@@ -83,14 +99,14 @@ if ( $app_file !== false && is_readable( $app_file ) && is_file( $app_file ) ) {
 			'json' => 'application/json',
 			'svg' => 'image/svg+xml',
 		];
-		$mime = $mimes[$ext] ?? mime_content_type( $app_file ) ?: 'text/plain';
-		if ( strpos( $mime, 'text/' ) === 0 ) {
+		$mime = $mimes[$ext] ?? mime_content_type( $app_script ) ?: 'text/plain';
+		if ( str_starts_with( $mime, 'text/' ) ) {
 			$mime .= '; charset=UTF-8';
 		}
-		$content = file_get_contents( $app_file );
+		$content = file_get_contents( $app_script );
 		if ( $content === false ) {
 			http_response_code( 503 );
-			print( 'Failed to get file content' );
+			print "Failed to get file content\n";
 			return true;
 		}
 
@@ -99,7 +115,7 @@ if ( $app_file !== false && is_readable( $app_file ) && is_file( $app_file ) ) {
 			$content = gzencode( $content, 9 );
 			if ( $content === false ) {
 				http_response_code( 503 );
-				print( 'Failed to gzip content' );
+				print "Failed to gzip content\n";
 				return true;
 			}
 			header( 'Content-Encoding: gzip' );
@@ -115,7 +131,7 @@ if ( $app_file !== false && is_readable( $app_file ) && is_file( $app_file ) ) {
 			header( 'Access-Control-Allow-Headers: Cache-Control, X-TEST-ORIGIN' );
 		}
 		// @phan-suppress-next-line SecurityCheck-XSS
-		echo $content;
+		print $content;
 		return true;
 	}
 }
