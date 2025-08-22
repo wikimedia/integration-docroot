@@ -20,6 +20,8 @@
 
 /**
  * Show a dashboard of code coverage results on the main index page
+ *
+ * @internal
  */
 class CoveragePage extends DocPage {
 
@@ -50,8 +52,10 @@ class CoveragePage extends DocPage {
 	 * includes a progress bar
 	 */
 	public function handleCoverageIndex() {
-		// Get a list of directories with clover.xml
+		// Get a list of coverage report directories
 		$cloverFiles = glob( $this->coverageDir . '/*/clover.xml' );
+		$lcovFiles = glob( $this->coverageDir . '/*/lcov.info' );
+
 		$css = file_get_contents( __DIR__ . '/cover.css' );
 		if ( $css ) {
 			$this->embedCSS( $css );
@@ -158,20 +162,44 @@ HTML;
 		$this->addHtmlContent( "<hr>$sortNav" );
 		$this->addHtmlContent( '<ul class="wm-nav cover-list">' );
 		$html = '';
-		$clovers = [];
-		foreach ( $cloverFiles as $cloverFile ) {
-			$clover = file_get_contents( $cloverFile );
-			if ( !$clover ) {
+
+		// Combined list of all coverage file formats
+		// Keyed by sub directory name (which is expected to serve the HTML report)
+		// so that we don't list the same project multiple times,
+		// if it publishes multiple formats.
+		$reports = [];
+
+		foreach ( $cloverFiles as $file ) {
+			$data = @file_get_contents( $file );
+			if ( !$data ) {
 				// Race condition?
 				continue;
 			}
-			$clovers[$cloverFile] = $this->parseClover( $clover ) + [
-				'name' => basename( dirname( $cloverFile ) ),
-				'mtime' => stat( $cloverFile )['mtime'],
+			$subDir = basename( dirname( $file ) );
+			$reports["./$subDir/"] = [
+				'percent' => $this->parseClover( $data ),
+				'name' => $subDir,
+				'mtime' => stat( $file )['mtime'],
+				'file' => "./$subDir/" . basename( $file ),
 			];
 		}
+		foreach ( $lcovFiles as $file ) {
+			$data = @file_get_contents( $file );
+			if ( !$data ) {
+				// Race condition?
+				continue;
+			}
+			$subDir = basename( dirname( $file ) );
+			$reports["./$subDir/"] = [
+				'percent' => $this->parseLcov( $data ),
+				'name' => $subDir,
+				'mtime' => stat( $file )['mtime'],
+				'file' => "./$subDir/" . basename( $file ),
+			];
+		}
+
 		uasort(
-			$clovers,
+			$reports,
 			static function ( $a, $b ) use ( $sortKey, $sortAsc ) {
 				if ( $a[$sortKey] === $b[$sortKey] ) {
 					return 0;
@@ -185,21 +213,24 @@ HTML;
 
 		$lowThreshold = self::COVERAGE_LOW;
 		$highThreshold = self::COVERAGE_HIGH;
-		foreach ( $clovers as $info ) {
-			$dirName = htmlspecialchars( $info['name'] );
+		foreach ( $reports as $subDir => $info ) {
 			$modifiedTime = date( DateTimeInterface::ATOM, $info['mtime'] );
-			$percent = (string)round( $info['percent'] );
 
+			$dirLinkHtml = htmlspecialchars( $subDir );
+			$pcHtml = htmlspecialchars( (string)$info['percent'] );
+			$dirNameHtml = htmlspecialchars( $info['name'] );
+			$fileLinkHtml = htmlspecialchars( $info['file'] );
+			$fileNameHtml = htmlspecialchars( basename( $info['file'] ) );
 			$html .= <<<HTML
 <li>
-	<a class="cover-item" href="./$dirName/">
+	<a class="cover-item" href="$dirLinkHtml">
 		<span class="cover-item-meter">
-			<meter min="0" max="100" low="$lowThreshold" high="$highThreshold" optimum="99" value="$percent">$percent%</meter><span> $percent%</span>
+			<meter min="0" max="100" low="$lowThreshold" high="$highThreshold" optimum="99" value="$pcHtml">$pcHtml%</meter><span> $pcHtml%</span>
 		</span>
-		<span>$dirName</span>
+		<span>$dirNameHtml</span>
 		<span class="cover-mtime">$modifiedTime</span>
 	</a>
-	<span class="cover-extra">(<a href="./$dirName/clover.xml">xml</a>)</span>
+	<span class="cover-extra">(<a href="$fileLinkHtml">$fileNameHtml</a>)</span>
 </li>
 HTML;
 		}
@@ -207,12 +238,12 @@ HTML;
 	}
 
 	/**
-	 * Get data out of the clover.xml file
+	 * Extract data from a clover.xml file
 	 *
-	 * @param string $contents Contents of a clover.xml file
-	 * @return array
+	 * @param string $contents
+	 * @return float Overall line coverage percentage
 	 */
-	protected function parseClover( $contents ) {
+	public function parseClover( string $contents ): float {
 		$types = [ 'methods', 'conditionals', 'statements', 'elements' ];
 		$total = 0;
 		$xml = new SimpleXMLElement( $contents );
@@ -239,10 +270,31 @@ HTML;
 			}
 			$percent = $covered / $total;
 		}
-		// TODO: Figure out how to get a more friendly name
-		return [
-			'percent' => round( $percent * 100, 2 )
-		];
+		return round( $percent * 100 );
+	}
+
+	/**
+	 * Extract data from an lcov.info file
+	 *
+	 * @param string $contents
+	 * @return float Overall line coverage percentage
+	 */
+	public function parseLcov( string $contents ): float {
+		$total = 0;
+		$covered = 0;
+		foreach ( explode( "\n", $contents ) as $line ) {
+			// Check for "LF" (lines found) and "LH" (lines hit)
+			// https://manpages.debian.org/bullseye/lcov/geninfo.1.en.html#FILES
+			if ( str_starts_with( $line, 'LF:' ) ) {
+				$total += (int)substr( $line, 3 );
+			} elseif ( str_starts_with( $line, 'LH:' ) ) {
+				$covered += (int)substr( $line, 3 );
+			}
+		}
+
+		return $total > 0
+			? round( ( $covered / $total ) * 100 )
+			: 0;
 	}
 
 	/**
