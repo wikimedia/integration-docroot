@@ -2,44 +2,64 @@
 	display: flex;
 }
 
-.cover-list li {
-	display: flex;
-	flex: initial;
+.cover-list {
+	margin: 1rem 0;
+	width: 100%;
+	border-collapse: collapse;
 }
-
-/* override `.wm-nav li > a` */
-.wm-nav .cover-item {
-	flex: 1; /* the a.cover-item should grow instead of cover-extra */
-	display: inline-flex;
-	align-items: center;
-	/* override `.wm-nav li > a` styles from wmui-page.css */
-	padding-right: 1rem;
+.cover-list td {
+	border: 1rem solid transparent;
+}
+.cover-item-meter a,
+.cover-item-name a {
+	display: block;
+	white-space: nowrap;
+	padding: 0.5rem 0;
+	color: inherit;
+	text-decoration: none;
+}
+.cover-list tr:has(a:hover) {
+	background: var( --background-color-interactive-subtle );
+}
+.cover-list tr:has(td:not(.cover-item-extra) a:hover) .cover-item-name a {
+	text-decoration: underline;
 }
 
 .cover-item-meter {
-	padding-right: 1rem;
-	border-right: var( --border-base );
-	margin-right: 1rem;
+	width: 10%;
 	font-size: 1.2rem;
 }
-
-.cover-item meter {
+.cover-item-meter meter {
 	width: 100px;
 	margin-right: 1rem;
 }
-
-.cover-item-meter span {
-	/* align edges */
-	min-width: 3rem;
+.cover-item-meter-pc {
 	display: inline-block;
+	text-align: right;
+	min-width: 3rem;
 }
 
-.cover-mtime {
-	flex: 1; /* grow */
+.cover-item-name {
+	width: max-content;
+	min-width: 50%;
+}
+.cover-item-name a::before {
+	display: inline-block;
+	content: "";
+	border-left: var( --border-base );
+	padding-left: 1rem;
+	height: 1em;
+	vertical-align: middle;
+}
+
+.cover-item-mtime {
+	width: 10%;
 	text-align: right;
 	font-size: 1.2rem;
+	white-space: nowrap;
 }
 
-.cover-extra {
-	padding: 1rem 0; /* match `.wm-nav li > a` */
+.cover-item-extra {
+	width: 10%;
+	text-align: right;
 }

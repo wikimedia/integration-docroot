@@ -160,7 +160,7 @@ HTML;
 		}
 
 		$this->addHtmlContent( "<hr>$sortNav" );
-		$this->addHtmlContent( '<ul class="wm-nav cover-list">' );
+		$this->addHtmlContent( '<table class="cover-list">' );
 		$html = '';
 
 		// Combined list of all coverage file formats
@@ -214,7 +214,7 @@ HTML;
 		$lowThreshold = self::COVERAGE_LOW;
 		$highThreshold = self::COVERAGE_HIGH;
 		foreach ( $reports as $subDir => $info ) {
-			$modifiedTime = date( DateTimeInterface::ATOM, $info['mtime'] );
+			$modifiedTime = date( 'Y-m-d H:i \\G\\M\\T', $info['mtime'] );
 
 			$dirLinkHtml = htmlspecialchars( $subDir );
 			$pcHtml = htmlspecialchars( (string)$info['percent'] );
@@ -222,19 +222,18 @@ HTML;
 			$fileLinkHtml = htmlspecialchars( $info['file'] );
 			$fileNameHtml = htmlspecialchars( basename( $info['file'] ) );
 			$html .= <<<HTML
-<li>
-	<a class="cover-item" href="$dirLinkHtml">
-		<span class="cover-item-meter">
-			<meter min="0" max="100" low="$lowThreshold" high="$highThreshold" optimum="99" value="$pcHtml">$pcHtml%</meter><span> $pcHtml%</span>
-		</span>
-		<span>$dirNameHtml</span>
-		<span class="cover-mtime">$modifiedTime</span>
-	</a>
-	<span class="cover-extra">(<a href="$fileLinkHtml">$fileNameHtml</a>)</span>
-</li>
+<tr>
+	<td class="cover-item-meter"><a href="$dirLinkHtml">
+		<meter min="0" max="100" low="$lowThreshold" high="$highThreshold" optimum="99" value="$pcHtml">$pcHtml%</meter>
+		<span class="cover-item-meter-pc">$pcHtml%</span>
+	</a></td>
+	<td class="cover-item-name"><a href="$dirLinkHtml">$dirNameHtml</a></td>
+	<td class="cover-item-mtime">$modifiedTime</td>
+	<td class="cover-item-extra">(<a href="$fileLinkHtml">$fileNameHtml</a>)</td>
+</tr>
 HTML;
 		}
-		$this->addHtmlContent( "$html</ul>" );
+		$this->addHtmlContent( "$html</table>" );
 	}
 
 	/**
