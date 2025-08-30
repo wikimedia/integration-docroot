@@ -20,7 +20,7 @@
 
 require_once __DIR__ . '/../../../../shared/autoload.php';
 
-$p = CoveragePage::newDirIndex( 'MediaWiki skin test coverage' );
+$p = CoveragePage::newDirIndex( 'MediaWiki skins' );
 // Directory under WMF_DOC_PATH
 $p->setCoverageDir( '/cover-skins' );
 $p->handleCoverageIndex();

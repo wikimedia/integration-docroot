@@ -25,6 +25,7 @@
  */
 class CoveragePage extends DocPage {
 
+	protected $site = 'Test coverage';
 	private $coverageDir;
 
 	/**
