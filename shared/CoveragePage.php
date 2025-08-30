@@ -74,33 +74,29 @@ HTML;
 		$this->addHtmlContent( $intro );
 
 		$crumbs = [
-			'Test coverage' => [
+			[
 				'name' => 'Coverage home',
 				'href' => '/cover/',
-				'active' => false,
 			],
-			'MediaWiki extension test coverage' => [
+			[
 				'name' => 'MediaWiki extensions',
 				'href' => '/cover-extensions/',
-				'active' => false,
 			],
-			'MediaWiki skin test coverage' => [
+			[
 				'name' => 'MediaWiki skins',
 				'href' => '/cover-skins/',
-				'active' => false,
 			],
 		];
-
-		$crumbs[$this->pageName]['active'] = true;
-		$crumbs[$this->pageName]['href'] = '#';
 
 		$breadcrumbs = <<<HTML
 <ul class="wm-nav cover-nav">
 HTML;
 		foreach ( $crumbs as $crumb ) {
-
+			$isActive = (
+				basename( $this->coverageDir ) === basename( $crumb['href'] )
+			);
 			$class = '';
-			if ( $crumb['active'] ) {
+			if ( $isActive ) {
 				$class = ' class="wm-nav-item-active"';
 			}
 			$breadcrumbs .= <<<HTML
