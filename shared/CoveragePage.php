@@ -83,10 +83,6 @@ HTML;
 				'name' => 'MediaWiki extensions',
 				'href' => '/cover-extensions/',
 			],
-			[
-				'name' => 'MediaWiki skins',
-				'href' => '/cover-skins/',
-			],
 		];
 
 		$breadcrumbs = <<<HTML
