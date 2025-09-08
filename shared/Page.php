@@ -214,7 +214,6 @@ class Page {
 	}
 
 	/**
-	 *
 	 * To simply list the directories for the current request url:
 	 *
 	 *     $p->handleDirIndex( $p->getDir(), $p->getUrlPath() );
