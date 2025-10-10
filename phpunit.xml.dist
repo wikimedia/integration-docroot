@@ -2,6 +2,12 @@
 <phpunit
 	bootstrap="./shared/autoload.php"
 	colors="true"
+	displayDetailsOnTestsThatTriggerDeprecations="true"
+	displayDetailsOnTestsThatTriggerErrors="true"
+	displayDetailsOnTestsThatTriggerNotices="true"
+	displayDetailsOnTestsThatTriggerWarnings="true"
+	displayDetailsOnPhpunitDeprecations="true"
+	requireCoverageMetadata="true"
 	beStrictAboutOutputDuringTests="true">
 	<testsuites>
 		<testsuite name="Tests">
