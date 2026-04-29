@@ -569,7 +569,7 @@
 				} );
 			},
 
-			/** @return {jQuery.Promise} */
+			/** @return {Promise} */
 			update: function () {
 				options.onUpdateStart();
 
