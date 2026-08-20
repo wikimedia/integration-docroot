@@ -857,6 +857,12 @@ MediaWiki components:
     links:
       Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/MultimediaViewer
       Code documentation: https://doc.wikimedia.org/MultimediaViewer/master/js/
+  PersonalDashboard:
+    tagline: Platform for building user dashboards in MediaWiki
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PersonalDashboard
+    links:
+      Source code: https://gerrit.wikimedia.org/g/mediawiki/extensions/PersonalDashboard
+      Code documentation (PHP): https://doc.wikimedia.org/PersonalDashboard/master/php/
   Popups:
     lang: JS
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Popups
