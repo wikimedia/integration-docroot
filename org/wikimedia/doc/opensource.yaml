@@ -801,6 +801,10 @@ Testing:
       Test coverage: https://doc.wikimedia.org/cover/fresnel/
 
 MediaWiki components:
+  CheckUser:
+    homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CheckUser
+    links:
+      Code documentation (JS): https://doc.wikimedia.org/CheckUser/master/js/
   CirrusSearch:
     tagline: Elasticsearch integration for MediaWiki.
     homepage: https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CirrusSearch
