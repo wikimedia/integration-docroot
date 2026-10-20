@@ -568,7 +568,7 @@ Infrastructure:
     lang: Python
     homepage: https://doc.wikimedia.org/sre/docker-pkg
     links:
-      Source code: https://gerrit.wikimedia.org/g/operations/docker-images/docker-pkg
+      Source code: https://gitlab.wikimedia.org/repos/sre/docker-pkg/
   ecs:
     tagline: WMF Common Logging Schema based on Elastic Common Schema
     links:
