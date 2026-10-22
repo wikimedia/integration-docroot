@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Zuul Status  - Wikimedia Integration</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/lib/codex-design-tokens/theme-wikimedia-ui-1.0.0.css">
+<link rel="stylesheet" href="/lib/wmui-page.css">
+<link rel="stylesheet" href="zuul.css">
+</head>
+<body>
+<header><div class="wm-container">
+	<a role="banner" href="/" title="Navigate to the home page of Integration"><em>Wikimedia</em> Integration</a>
+	</div></header>
+<main role="main"><div class="wm-container">
+<nav class="wm-site-nav"><ul class="wm-nav">
+<li><a href="/">Home</a></li><li><a href="/zuul/">Zuul status</a></li><li><a href="https://integration.wikimedia.org/ci/">Jenkins</a></li><li><a href="https://doc.wikimedia.org/cover/">Test coverage</a></li></ul></nav>
+<article><h1>Zuul Status</h1><p>Real-time status monitor of Zuul, the pipeline manager between Gerrit and Jenkins. <a href="https://www.mediawiki.org/wiki/Continuous_integration/Zuul">more info &raquo;</a></p>
+
+<div id="zuul_container">
+</div>
+
+	<h2>Job Stats</h2>
+	Dashboards:
+	<a class="btn btn-default btn-sm" href="https://grafana.wikimedia.org/d/000000284/continuous-integration">CI</a>
+	<a class="btn btn-default btn-sm" href="https://grafana.wikimedia.org/d/d4bf3e68-9396-4173-a59c-59e398172ba0/zuul-prometheus">Zuul</a>
+	<a class="btn btn-default btn-sm" href="https://grafana.wikimedia.org/d/ad656c66-d8b5-4b09-a54b-61e7df71fb17/zuul-gearman-prometheus">Gearman</a>
+	<br/>
+	<iframe src="https://grafana.wikimedia.org/d-solo/d4bf3e68-9396-4173-a59c-59e398172ba0/zuul-prometheus?orgId=1&from=now-24h&to=now&panelId=43" width="400" height="180" frameborder="0"></iframe>
+	<iframe src="https://grafana.wikimedia.org/d-solo/ad656c66-d8b5-4b09-a54b-61e7df71fb17/zuul-gearman-prometheus?orgId=1&from=now-24h&to=now&panelId=26" width="400" height="180" frameborder="0"></iframe>
+	<br/>
+	<iframe src="https://grafana.wikimedia.org/d-solo/d4bf3e68-9396-4173-a59c-59e398172ba0/zuul-prometheus?orgId=1&from=now-3d&to=now&panelId=45" width="400" height="180" frameborder="0"></iframe>
+	<iframe src="https://grafana.wikimedia.org/d-solo/d4bf3e68-9396-4173-a59c-59e398172ba0/zuul-prometheus?orgId=1&from=now-3d&to=now&panelId=46" width="400" height="180" frameborder="0"></iframe></article>
+</div></main>
+<footer role="contentinfo"><div class="wm-container">
+	<p class="wm-modified">Modified: 2026-10-22T21:54:35+00:00 </p>
+	<nav role="navigation"><ul>
+<li><a href="https://doc.wikimedia.org/">Documentation</a></li><li><a href="https://gerrit.wikimedia.org/r/">Gerrit Code Review</a></li>	</ul></nav>
+	<a class="wm-link--powered" href="https://www.wikimedia.org">A Wikimedia Foundation project</a>
+</div></footer>
+<script defer src="/lib/mustache/mustache.js"></script>
+<script defer src="zuul.js"></script>
+<script defer src="init.js"></script>
+</body>
+</html>

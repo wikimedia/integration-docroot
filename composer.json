@@ -18,6 +18,7 @@
 			"Composer\\Config::disableProcessTimeout",
 			"WMF_DOC_PATH=$PWD/dev/wmf_doc_path php -S localhost:4001 -t org/wikimedia/integration dev/router.php"
 		],
+		"build:integration": "php dev/buildIntegrationStaticPage.php",
 		"test": [
 			"parallel-lint . --exclude vendor",
 			"phpunit",

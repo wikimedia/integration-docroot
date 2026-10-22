@@ -5,7 +5,7 @@ Document root for integration.wikimedia.org and doc.wikimedia.org
 
 Start the server with `composer start:integration` and view <http://localhost:4001>.
 
-The production service for this uses PHP 7.3.
+The production service for this uses PHP 7.4.
 
 See also <https://wikitech.wikimedia.org/wiki/Integration.wikimedia.org>.
 
@@ -15,11 +15,15 @@ The Zuul status page can be tested with sample data sets available in
 * <http://localhost:4001/zuul/?demo=openstack>.
 * <http://localhost:4001/zuul/?demo=tree>.
 
+### Generation
+
+To generate a static version of the page use `composer build:integration`.
+
 ## doc.wikimedia.org
 
 Start the server with `composer start:doc`, and view <http://localhost:4000>.
 
-The production service for this uses PHP 7.3.
+The production service for this uses PHP 8.2.
 
 See also <https://wikitech.wikimedia.org/wiki/Doc.wikimedia.org>.
 
